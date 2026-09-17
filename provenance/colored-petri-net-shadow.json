@@ -1,0 +1,602 @@
+{
+  "compatibility": {
+    "claim": "none",
+    "identity_domain_prefix": "ksdft2effmass.petrinet.colored",
+    "legacy_identity_domains_preserved": true,
+    "production_source": "byte-identical",
+    "wire_format": "not selected"
+  },
+  "destination": {
+    "distribution": "projectkoios-workflow",
+    "import_surface": "projectkoios.workflow.petrinet.colored",
+    "license": "Apache-2.0",
+    "python_target": ">=3.14"
+  },
+  "pilot": "WORKFLOW-CPN-SHADOW-01",
+  "production_files": [
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/__init__.py",
+      "destination_sha256": "ecd8bbc2fc646ace4a72c0cc44c236e7a08295b7016f7b5982dace853d3bfeda",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/__init__.py",
+      "source_sha256": "ecd8bbc2fc646ace4a72c0cc44c236e7a08295b7016f7b5982dace853d3bfeda",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/definitions.py",
+      "destination_sha256": "67b645584b163f03264f827ad85839cb5cb599cd9e90136e5c2d5eb113a1b160",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/definitions.py",
+      "source_sha256": "67b645584b163f03264f827ad85839cb5cb599cd9e90136e5c2d5eb113a1b160",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement.py",
+      "destination_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/expressions.py",
+      "destination_sha256": "0ae1016093e4a65e15b27da06ab2dae84caf38bf34a4fef0dec1382e34695d32",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/expressions.py",
+      "source_sha256": "0ae1016093e4a65e15b27da06ab2dae84caf38bf34a4fef0dec1382e34695d32",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing.py",
+      "destination_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/markings.py",
+      "destination_sha256": "c01338792c3fbf8909f0ac7f6d479c2e78b39c00cf0ff0218baae5bd0b4e70c6",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/markings.py",
+      "source_sha256": "c01338792c3fbf8909f0ac7f6d479c2e78b39c00cf0ff0218baae5bd0b4e70c6",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/selection.py",
+      "destination_sha256": "f236c28e086ea1655e1c012bdd0f5a589cb7fe5c7e6fc93c9340f9cc9ed18fb6",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/selection.py",
+      "source_sha256": "f236c28e086ea1655e1c012bdd0f5a589cb7fe5c7e6fc93c9340f9cc9ed18fb6",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/validation.py",
+      "destination_sha256": "98eff08be2f7c2915bf3eeb50f467b66bf550eadf48f595001e7f8cf15c9486b",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/validation.py",
+      "source_sha256": "98eff08be2f7c2915bf3eeb50f467b66bf550eadf48f595001e7f8cf15c9486b",
+      "transformation": "byte-identical"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/values.py",
+      "destination_sha256": "b6caca30ff13022f1266f2bb17fc5d0ba1a0f339c7d9e9694219599754884613",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/values.py",
+      "source_sha256": "b6caca30ff13022f1266f2bb17fc5d0ba1a0f339c7d9e9694219599754884613",
+      "transformation": "byte-identical"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "branch_observed": "dev",
+    "commit": "be70e856911456402ea2b2562cd2508d0963e4d9",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/eragasa/ksdft2effmass.git"
+  },
+  "status": "non-authoritative shadow conformance",
+  "test_files": [
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/_firing_fixtures.py",
+      "destination_sha256": "b7954cd75dc5566b53d4cc8a6279ae391dd811086eaf3b9d9c65cd33ffa9db93",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_firing_fixtures.py",
+      "source_sha256": "f816c3796047328cc66089529ec7b050c29851e1c9a1ead50eedb5134a8c0bae",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/_selection_fixtures.py",
+      "destination_sha256": "a267f7b942e1ec356c91a02197c40d3126bf449ef6f8c41fa67e638525178309",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_selection_fixtures.py",
+      "source_sha256": "8d120387e995d8b5735080892b45a9b272cd8a445604764fc22fd5dcff5d15a2",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/_validation_fixtures.py",
+      "destination_sha256": "4600661958be5fe7d9ccb33171cc574f8bf10583cc7fdd36072312515c9c95fd",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_validation_fixtures.py",
+      "source_sha256": "882b8569e47c5dd1d818c2bff2cdec3b21c8f42d57a39cd0eaecbc59e3f82d96",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetArcDefinition.py",
+      "destination_sha256": "de475ada6d9fd6ecc07be7087af979062f7cd0682d7425ccd10c1605f9770ff5",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcDefinition.py",
+      "source_sha256": "24ab49be21c441fe9ebc89b583a8e164a514be3b1b0f1f4d1170055cbce0e9a2",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetArcIdentity.py",
+      "destination_sha256": "d278dab200d5765ee810f5cf4c5591960a8592f9c3b141396307dec47d79dc2b",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcIdentity.py",
+      "source_sha256": "73ae2193d0c542cd724af77fe6503f3c76db305b8384724a39a616b4abbbe1a1",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBinding.py",
+      "destination_sha256": "b342fb9913960d296bff3a322c55b500f6602951ead8e489867d82ed76781d5c",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBinding.py",
+      "source_sha256": "0c70951fdaa13913d38473a01450ae026faddb9ba74fc42c9883f4c4a5e9a92c",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingAssignment.py",
+      "destination_sha256": "0a22d738473c0dabb3cfdc0457514e4adaeb8cf6a5bd087338be820365800c81",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingAssignment.py",
+      "source_sha256": "11df606361ed817b7675632fa325979d99e969995c85a3b49d0e278789942ef6",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingSelector.py",
+      "destination_sha256": "259de568ab09cb22a4f6fbbe4e144f841568ab2738c135049f51d1091fa413e2",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelector.py",
+      "source_sha256": "9f295e887d2270c18d74cf6c42233099d3f24955002cdcceb94701d005a721c9",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingSelectorIdentity.py",
+      "destination_sha256": "4ec0dbc30bd5de68c161a1ab094b649a98a522669b089ba49dd8b35c14751077",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelectorIdentity.py",
+      "source_sha256": "3c4fc3fea60702f42efb82600bb59a9cf6f86a2a40a257e22dc03bf7e9ba22dd",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingVariableIdentity.py",
+      "destination_sha256": "3bc37117229947ac3d12589c380375efa33c25d5836dd7063690078a84ec702e",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingVariableIdentity.py",
+      "source_sha256": "d0d5a0a5e6f87426429151959798b6bca1c800519e73edcadf250d22c7947ae0",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
+      "destination_sha256": "591e380fd9f935421d3073c57e93d60c73fbcbb052a8720b544f20ce182c1693",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
+      "source_sha256": "e2652d64a756d523800891e6ae3dc34ede61570e2f7bd4da24f8aa3b0e01eafb",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetColorIdentity.py",
+      "destination_sha256": "4d17a71041d6817974f5b076fc921f2180d665c33fb726d647dd6c03917c7d5a",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorIdentity.py",
+      "source_sha256": "f4904134b23143ca3b047bb3f27d29fb53571f4692e7f4f4ab9ea076638b6e23",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinition.py",
+      "destination_sha256": "6c9fee9a9a60f100c9659093411be2d3c4815084170c22b46f1dd77423d578f8",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinition.py",
+      "source_sha256": "c28337ad297f7bdb850189d22841e93aefc3562f57aa3472c40777ec1090560a",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinitionIdentity.py",
+      "destination_sha256": "73f38c50a255c4dec405b2ad31d60a21f70ba809dd7c7c5043f30a3e2d6c980f",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionIdentity.py",
+      "source_sha256": "16eb4246470ba679c5905818f5e1194538f4fff6515904cc82d42c59e86f88b7",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinitionValidator.py",
+      "destination_sha256": "1e20da2418402d05e0da732da638a424f3e7e181483e4645fc88d29198f7a2f6",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionValidator.py",
+      "source_sha256": "7f9e754e470200fc0fa004cdc765fbc02bfe1cd43a6db9111496b15000a6f547",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailure.py",
+      "destination_sha256": "699dc1ccb45468b51f55fb284b3c51db63cfd25616baa4ce91238683018f2ea2",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailure.py",
+      "source_sha256": "c91a443d1e007f6a6a638539bce860127d914555365d462c635b2fc8906f0afc",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailureCode.py",
+      "destination_sha256": "11f96bd5d190fa214b15441f60829ddc7d3ea5cc042f0751722c4a25ddd32157",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureCode.py",
+      "source_sha256": "0c9cfe790a96fa5e5246ec8cd065d6d0d5538bf0452bbd26ea67172a2f7d5472",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailureIdentity.py",
+      "destination_sha256": "6c92b440f51d84be91c0ed58309aa09ab6e2fca3b27935a03fed09e28107ee18",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureIdentity.py",
+      "source_sha256": "8aae0a44a4aaab72676a1ed327c059266deb4937ac85d7dac969d6867e1d097f",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementResult.py",
+      "destination_sha256": "3f9f0ac33ba01d58bc15f39d8b0676ba57b4753cd730ec186eea5fb0cfa271cd",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResult.py",
+      "source_sha256": "d2a35cd00f9d0d393f5738e7989a962d27567bc34221706af3712ba7a63bb3e4",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementResultIdentity.py",
+      "destination_sha256": "34e44e3b0fbd8373bff398810bdd58e508a6828f122910a82a0ed5fba07cb41c",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResultIdentity.py",
+      "source_sha256": "a3c4de7769115634d72d971258528b34fd5e830782c2a2011c620571babe73bd",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetExpressionEvaluator.py",
+      "destination_sha256": "f31715fac5399d50445032b9b954d78b1c021e8df345c08feb7dfa2d86f482e0",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluator.py",
+      "source_sha256": "b24a067277073fcd4f38152ed10494385482fea74e08c938bae201ee402b94a1",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetExpressionEvaluatorIdentity.py",
+      "destination_sha256": "b24c2ff1c6dce5bd4374feff6846b50c551627ec7ccef22a220f36de83a0cd23",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluatorIdentity.py",
+      "source_sha256": "77ff6d9ca5b22497ad435fd5795a3505e517cdea993293ebe124ce16084b4a8d",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringAudit.py",
+      "destination_sha256": "62f36e5dcd347ba08b3363fde850232c987e636f057e4c480e54d93bc5f28afe",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringAudit.py",
+      "source_sha256": "6917b8d40d11cc17a03edd21e668f05f8ad5fadb947e3de959970ce544781225",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailure.py",
+      "destination_sha256": "5677e3da780c20c28fb03bb8f82eb880bf3c8326d89c28b0880e289df7159d3c",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailure.py",
+      "source_sha256": "a82bade358f0ddc6e5e93ed541554a1d46e8a0d193c46593121480e1fa56097a",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailureCode.py",
+      "destination_sha256": "c33cced58275c11961f847b008701af6e0659c71775bcbbe34807bb6393b367e",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureCode.py",
+      "source_sha256": "2ebf7204125f07f960ebd10e1bba3c828fb5833d40a6007686eb689353efb160",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailureIdentity.py",
+      "destination_sha256": "e95c11144b5fc4eaf0869dc9520bde1485bac3ddc61699010267798fcda0babc",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureIdentity.py",
+      "source_sha256": "fcda27497a9a13ddae6574333cc20a10ad9094fb6dd7c17a95f47eafc30b7c27",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringInput.py",
+      "destination_sha256": "3c8d574ba040e54c96d1b007eaa30f7283cdb7b9935fcbbed5262e1b124369cf",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringInput.py",
+      "source_sha256": "4fa1d681ae23252473cd0a839303266709a3508253f77ccdc4414b12ed794ef1",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringOutcomeKind.py",
+      "destination_sha256": "ea1f63404f2e76ac2652a460e2256597719007fe7b1e2e5157b56a872d9b62bd",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringOutcomeKind.py",
+      "source_sha256": "63250ba0533730a07ee02778554b04d245b1b94f391870c182cca8ccad5ae7e2",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringResult.py",
+      "destination_sha256": "3dcbe752bcfb0cb58c51a7f853afb33802b6eb4a2ddf16207e9f53797abc4403",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResult.py",
+      "source_sha256": "1b45b18dff191ad38638cc7ac8b7331f24b8812966e096a5e85d13f7f41bcef3",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringResultIdentity.py",
+      "destination_sha256": "0b74a617e24f992bfbc2bea75863fb6def9b492201e79bdd36b5225bb48b141e",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResultIdentity.py",
+      "source_sha256": "39a3f0e6cf8681aba32ac0224f7a0e59464c36fc5589fd333ea6586c998edf93",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardEvaluationResult.py",
+      "destination_sha256": "f29dab39a3c24e6de5f51135efd9362999d89a34ddb097b45b646d46efb86101",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardEvaluationResult.py",
+      "source_sha256": "208d9a1bf6d174885619b77f4e14b305e3fa09425248623ead711c3d5c294268",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardExpression.py",
+      "destination_sha256": "fb9141a77eeee90896a2f284a562dbcafc4f05b2ef823769687cd4920ed224b1",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardExpression.py",
+      "source_sha256": "f678ab68f5b0f169e772eefe8952b07ff9e8461ffa110c721c5c0b697b8925e8",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardOperator.py",
+      "destination_sha256": "3c3584680e7d6d2ad8d1d215fe9449fc594c446d85c860babd105329ebde0b7e",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardOperator.py",
+      "source_sha256": "83c5c29a914934299deca81981f977826f8c11d5d1bd70c8737bc29cde93dada",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInhibitorEvaluation.py",
+      "destination_sha256": "00ed3b7b2f464fc1f0d0b1d87e4682c2b2bc41ca9a36072135984dcccd7f6634",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorEvaluation.py",
+      "source_sha256": "9c32ba002adee32789e2942538c5fb79b4fe23a2704eb7013d799ba92306e766",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInhibitorPattern.py",
+      "destination_sha256": "aac793a9a06bbbb4987ad786f9523dba5c4486bf4e9acb96a803478cd57aefc0",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorPattern.py",
+      "source_sha256": "70ea92d3044b0391ae21e28a3a1bd6108d1c0b485557efd6d7e51014cd3e01e9",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInputInscription.py",
+      "destination_sha256": "ab00c711f2ebc1b10dd41e83d939d77f9b076a81242bb27ce9055515ed8e2913",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputInscription.py",
+      "source_sha256": "085d22ca3567e8429835cfc946eb6a182f6d0ffbbe1e4c8a6e26bcfa71b5cc33",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInputMode.py",
+      "destination_sha256": "d65715a2d2f891a5f01387091d0753653405bd390f133f59f9e609ee0e4948d4",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputMode.py",
+      "source_sha256": "27ad106d583b41156e9e3fc3c183921f014e35e4e96de86fb4a59a5dd59cdef3",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarking.py",
+      "destination_sha256": "dd2decb1981d30b13322fb9f4969d05ef82fbcd9a1729c6afc9bb36196c8bdab",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarking.py",
+      "source_sha256": "d26b404502e887a730bcf5b2a8548bc0fce59ac183cde24e633f26e5af669396",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarkingIdentity.py",
+      "destination_sha256": "51ede65c2b9d8e7ef7ea4d168da8d8e8a53c2526dd38b8543127674361dc4f3b",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingIdentity.py",
+      "source_sha256": "b89fe07ec62f5696b122ef1a27c4615d809d91635d0758dfce1332a06ab574f2",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarkingValidator.py",
+      "destination_sha256": "c839f53dbcb562c7d68a43777dd5ece3ca727ce80e5ef18c4b2aa40687686f17",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingValidator.py",
+      "source_sha256": "8df377fcea770ddf1ac541f315a2cd1fdd401916b14ed5f22679ec9d1624e778",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetOrderingPolicyIdentity.py",
+      "destination_sha256": "43a13ebf252ae6b163aa96917588598ed6af0d9377d633f3b450a9d94cc7bd26",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOrderingPolicyIdentity.py",
+      "source_sha256": "70719d3f1dda1b92a08700f4fe7c4e502e0500c96908a035b103780817708ad5",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetOutputInscription.py",
+      "destination_sha256": "9c031dfb44ec8a08daa2806fccfc07e1d57640330f3dcea102bb18dce26c3280",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOutputInscription.py",
+      "source_sha256": "d9aad5be54592ad5e9a2e651c531840f265cbfca93f288804f8280f244692f57",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceDefinition.py",
+      "destination_sha256": "f0514377871b794e646a832144da44d60c79dfd55f8690cea74779ac89298fe0",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceDefinition.py",
+      "source_sha256": "be190d0414a6488ce5516aeda17c1db5ebe2bb77f8f993572ad91c7d4ea40669",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceIdentity.py",
+      "destination_sha256": "c82f899f3c0bd9a565bf6038c792dbfb7de7deaceeb6ecfb28f9616df9246cd1",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceIdentity.py",
+      "source_sha256": "6a90ffca472cb10cede316103dc058d284bd99fd062368efc88b73da2e0a82fd",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceMarking.py",
+      "destination_sha256": "5722b946822bdb5bd3a5d47a3d3aa17643ed8573231e49dda6a7795d339af026",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceMarking.py",
+      "source_sha256": "3bfc92e993a3ab64d2d1014e37cfcd41c12b980ea5e24230baf04ce52da43448",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetProducedToken.py",
+      "destination_sha256": "4867fe5be277151050701e65e5dccf3d61227cbf47e8ef9a9284ec55a104f048",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetProducedToken.py",
+      "source_sha256": "efe38c71fb7c5c8805f261f648e9083bd36bfb42b697ab3088b1043871f4554a",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionDirective.py",
+      "destination_sha256": "c8e17a9617477a8ad5ce959cb94fbaa56d4bb092fa3795d8b17edec1ace4f6bf",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirective.py",
+      "source_sha256": "7ed1afd60c79d09f5d9985bfd4b290832fbebe5ae6801d5663c5e3ac67107b4d",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionDirectiveIdentity.py",
+      "destination_sha256": "3564b541490839ba2e739bda97e9ce71d22166049716fc7b24ad7e76d3cfb298",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirectiveIdentity.py",
+      "source_sha256": "f0a44bacfe8ea5a5ca64c5f087eccb41d7681e6d3a4c6ba9d80c7797c1518a24",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionFailureCode.py",
+      "destination_sha256": "3d6440e4a8f2e53c6dc8eaaa3f52ea69376aa0a3a3e4ea75c44efa877ec1db0c",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionFailureCode.py",
+      "source_sha256": "7f2afec3c44413221a8946c0bd4347bbc2a1af379a42e7c320f2db3e6b893261",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionOutcomeKind.py",
+      "destination_sha256": "71505497d206258123c809d4c56f38082f8ca5d2c86b09b4301cacb1c6541443",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionOutcomeKind.py",
+      "source_sha256": "e8de9c6897e30d0e1a5590fe09f3f98441333cac5f677c867eff9c5756826ad4",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionPolicy.py",
+      "destination_sha256": "55d5784f49949a4b8670a9f40a7cf17786371d9bb28770ddde4c32dbdd544034",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionPolicy.py",
+      "source_sha256": "3df719d165f4674ad051d854081ece96c769a97ec055c49ed067e9695173e5dc",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionResult.py",
+      "destination_sha256": "3879f8a39afef402382b4e467a5fe2b0bfe89478f895416edb35c607521dcf2a",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResult.py",
+      "source_sha256": "aefc9ba6c1feef71567af094ef76af6d137c4b0a1f1da7365a2ef5548099699e",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionResultIdentity.py",
+      "destination_sha256": "fedd3f864ed1a64f2041acf510e672a6c75b2689f5c51bafce6dbb0b0382d865",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResultIdentity.py",
+      "source_sha256": "7b67e578f581b05bf2f98d921bf0b25065f2cb2172d7339256c322a6616b83a6",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetToken.py",
+      "destination_sha256": "cc19b48d248907180c0aacb8d712932eb2ae33f8bfc784e66846c416fd75de80",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetToken.py",
+      "source_sha256": "ae7b4daf8b45d30bf0d711dd89bc89e3c593247005f8a4d22395855219e236c3",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenIdentity.py",
+      "destination_sha256": "5ecffd163d24751b94cc7245d3474911b325677f4960ba6797f744bbebb82a12",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenIdentity.py",
+      "source_sha256": "944fa58de4bd046e6f774b447d62d7bbbb30366ad93792b3649f6a4fa12af851",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenOccurrence.py",
+      "destination_sha256": "0edbb0e502f7ca5f686454a56eda80d5fa1b9929d5ec7e09ad5bcf133263ffb1",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenOccurrence.py",
+      "source_sha256": "7024243baf68bd170d6e834de6e094a0879fc22840cfa0ee2b4b7f03e67199fa",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenPattern.py",
+      "destination_sha256": "3f6ae0a9de8bc35d104a30c5256325a6bdb7a0b39086548eb65b46e0590992ca",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenPattern.py",
+      "source_sha256": "81d3ed0cc0415ee57e5f44e28bf515e8f757ac74273642356fa2393b57b65729",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenTemplate.py",
+      "destination_sha256": "1d163a9a46b1b03329faea1b194eeb5b636c2f20857898dec14f3d3afb1c9851",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenTemplate.py",
+      "source_sha256": "9bc87c9d0909f4c1743ebe5e2d6d0d2562dafd77c33a7198a20394ac13937359",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionDefinition.py",
+      "destination_sha256": "3dc2a9e914b0d78f4733de61e4bd95dddf8033edee60cd0c0d858f30a27abe75",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionDefinition.py",
+      "source_sha256": "cb562de30dc0f5b1a02a64394525d802acc5ca0f4d16ced2ccd5d1339fa979dc",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionEnabler.py",
+      "destination_sha256": "43c38e31013a947734c18922158f9605b418c6e54d97a2407db8c52df560cc9b",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnabler.py",
+      "source_sha256": "4ee054b40c98123e6be5f697e9f38cd2c0f0580f14cd01323c37da0cf9f2a4fd",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionEnablerIdentity.py",
+      "destination_sha256": "0f7951017f4af8fcc65325ced0080edfd3c6fbffe7a9a499d542ab7cb79d4cc8",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnablerIdentity.py",
+      "source_sha256": "39686f81b57f27e49c7be40e5f073ae7bd0963d7d3c1117df7a2712589819569",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",
+      "destination_sha256": "b8be7c517ae017a1a17c06e74e52ce99286358082d0ad0d017b8a7b64efc33ab",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",
+      "source_sha256": "90b7281d5159157bb9c20d74a2b5200c89879a2550f01fb840fe71b8b901b893",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionFirerIdentity.py",
+      "destination_sha256": "109c65b3b901de8bfda750141f2c34b0102cdc4067cb252d276d0cbf98d8e2d5",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirerIdentity.py",
+      "source_sha256": "54941bec352e7c0da04e9c507671ade7543795b2315fe608276df60c96d41071",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionIdentity.py",
+      "destination_sha256": "afd61db8b0f92f004ea913d26b7ed83eb27741c5923d79a84315bf3e36bdbc6b",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionIdentity.py",
+      "source_sha256": "a08a6ea45cf2790356134507c842ca0dd9aa429869f7782a96366f0f2475afd4",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationIssue.py",
+      "destination_sha256": "15f752da0287b5ef457da00fbc8122e6efbf5692440fc071ecd2b3058fbe5837",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssue.py",
+      "source_sha256": "d4bea53ba2f3fa42da62da7f3d22821e00325fd55dca3aca0d0dcaa6679a103a",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationIssueCode.py",
+      "destination_sha256": "d8bfbeca51390f21aafd9c1917fb88e88492f5b00a4bb69f68d67efbd09eb405",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssueCode.py",
+      "source_sha256": "46a70692b3a297db2fd7c93afbc35cbcd9e3af0b5a504007b2f46b25c49655e9",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationResult.py",
+      "destination_sha256": "9dd9970b3f8183f6a260c738814078b11f2c9cb81cfd25eda71c31ccec20be30",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationResult.py",
+      "source_sha256": "4055d0da5849bfcab230ea4f908e5ca442bb92b2339f0e89e780237bc3abd620",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValue.py",
+      "destination_sha256": "7a3b30ce673996dba700d063fdd8bca29457d9f735da24bbc2fcdbdaefe871a9",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValue.py",
+      "source_sha256": "45556a9c0dbb4c33d16a022d21d80b710ee4afd84f6133b0ec26b8f34a995a2d",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueExpression.py",
+      "destination_sha256": "8c0a723976e8fd1c49e9662f038071edfefc057b3adcb2f4a0938fded9dae6d0",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpression.py",
+      "source_sha256": "0220fe4f93e94d753ccfdf4e1344442bb341efd86934e9900e5a713e41157b85",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueExpressionKind.py",
+      "destination_sha256": "e1bd20ee2fe4c044e10996011c0477f5561d18267185455220e75156663f857e",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpressionKind.py",
+      "source_sha256": "5651b23e830156e7faf62259df46bfcbf6f447d4b4260fe7de0e6eda237059d3",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueKind.py",
+      "destination_sha256": "6904782f4ffcbbbe7c872c53d8a51070c6e271af82e7b18457d1a70eb4e03d2a",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueKind.py",
+      "source_sha256": "0b594523510b75374958c42df34ff0e9c1fc10edc04707f6bd02a7347ea58175",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__petrinet_colored_identity_nominality.py",
+      "destination_sha256": "cc94f1aeb927d575e29c1296138951b7edbb97537acc7eed85c53586c6ca3d1f",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_identity_nominality.py",
+      "source_sha256": "ff0f28f998345510f147ede53a51377cc057bc8d94e0e596a78d01840c183489",
+      "transformation": "namespace substitution only"
+    },
+    {
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__petrinet_colored_public_api.py",
+      "destination_sha256": "c36d2b2265d7b98c4cb58b9c40106daa789169e77bc65f0c0b637e5cd2d16550",
+      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_public_api.py",
+      "source_sha256": "5147a1a15e69e412d0c7d8f9d0e0e804be6f80e033d8b563d80b9fcfc40f9591",
+      "transformation": "namespace substitution and Project Koios dependency-boundary adaptation"
+    }
+  ]
+}

@@ -213,7 +213,7 @@ Minimal tool setup:
 ```toml
 [tool.ruff]
 line-length = 88
-target-version = "py311"
+target-version = "py314"
 
 [tool.ruff.lint]
 se[118;1:3ulect = [
