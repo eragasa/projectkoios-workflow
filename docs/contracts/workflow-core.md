@@ -1,5 +1,18 @@
 # Petri-independent workflow core contract
 
+## Contract metadata
+
+| Field | Value |
+|---|---|
+| Contract ID | `projectkoios.workflow.core` |
+| Owner | `projectkoios-workflow` |
+| Status | Proposed |
+| Contract version | Unassigned |
+| Architecture record | [`ADR20260918`](https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260918.workflow-kernel-transfer.md) |
+| Task | [`WORKFLOW-CORE-01`](https://github.com/eragasa/projectkoios-workflow/issues/1) |
+| Supersedes | None |
+| Consumers | Workflow runtime, engine adapters, managed-project adapters |
+
 ## Status
 
 Proposed under
