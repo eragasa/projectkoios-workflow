@@ -5,13 +5,20 @@
 | Field | Value |
 |---|---|
 | Contract ID | `projectkoios.workflow.core` |
-| Owner | `projectkoios-workflow` |
+| Target version | `0.1.0` |
 | Status | Proposed |
-| Contract version | Unassigned |
+| Specification revision | Git commit containing this document |
+| Owner | `projectkoios-workflow` |
+| Acceptance authority | Project Koios operator after workflow-owner and materially affected adapter/consumer review |
 | Architecture record | [`ADR20260918`](https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260918.workflow-kernel-transfer.md) |
 | Task | [`WORKFLOW-CORE-01`](https://github.com/eragasa/projectkoios-workflow/issues/1) |
-| Supersedes | None |
+| Predecessor | None registered |
+| Supersedes | None while proposed |
+| Dependencies | No cross-repository contract dependencies registered |
 | Consumers | Workflow runtime, engine adapters, managed-project adapters |
+| Implementation bindings | The colored-Petri-net shadow is backend evidence, not a core implementation |
+| Compatibility | Unknown until adapter and managed-project boundaries are defined |
+| Effective baseline | None while proposed |
 
 ## Status
 
@@ -31,6 +38,27 @@ executor, or scientific application.
 The existing colored-Petri-net package remains a non-authoritative backend
 shadow. The core is not a renamed copy of `ksdft2effmass.workflows.model`, and
 the shadow kernel is not changed merely to fit this proposal.
+
+## Normative scope and conformance
+
+The **Design principles** through **Serialization boundary** sections are
+normative for `projectkoios.workflow.core`, except text explicitly labeled as
+an example, rationale, assumption, or deferred decision. Purpose, background,
+and deferred decisions are informative.
+
+Conformance subjects are core domain implementations, validators, transition
+processors, replay implementations, serializers or parsers used at a boundary,
+and adapters claiming to consume the core. Every conformance claim MUST
+identify contract ID, target or accepted version, exact specification commit,
+implementation commit, adapter-evidence or fixture identity, and validation
+result.
+
+Existing lowercase requirements in the named normative sections express
+requirements for this proposal. Before acceptance, they MUST be converted to
+the shared capitalized normative vocabulary or mapped explicitly to conformance
+tests. The conceptual record names and any alternative identity, authority, or
+failure semantics MUST be resolved before acceptance when they affect
+observable behavior.
 
 ## Design principles
 
