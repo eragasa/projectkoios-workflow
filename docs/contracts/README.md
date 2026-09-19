@@ -3,9 +3,9 @@
 This directory contains stable contract proposals and accepted contracts owned
 by `projectkoios-workflow`.
 
-| Contract ID | Target version | Authoritative document | Scope |
-|---|---|---|---|
-| `projectkoios.workflow.core` | `0.2.0` | [`workflow-core.md`](workflow-core.md) | Proposed Petri-independent workflow core |
+| Contract ID | Authoritative document | Scope |
+|---|---|---|
+| `projectkoios.workflow.core` | [`workflow-core.md`](workflow-core.md) | Proposed Petri-independent workflow core |
 
 Cross-repository discovery is provided by the
 [Project Koios contract catalog](https://github.com/eragasa/projectkoios/blob/main/docs/contracts/README.md).
