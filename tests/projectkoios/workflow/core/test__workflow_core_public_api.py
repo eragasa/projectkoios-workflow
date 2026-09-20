@@ -54,10 +54,12 @@ def test__workflow_core_public_api__is_explicit() -> None:
         "WorkflowTransitionOutcome",
         "WorkflowTransitionOutcomeIdentity",
         "WorkflowTransitionOutcomeKind",
+        "WorkflowTransitionPreflightInput",
         "WorkflowTransitionProcessor",
         "WorkflowTransitionRequest",
         "WorkflowTransitionRequestIdentity",
         "WorkflowTransitionReplayer",
+        "WorkflowTransitionValidator",
         "WorkflowTypedReference",
         "WorkflowValidationFinding",
         "WorkflowValidationFindingCode",
@@ -154,6 +156,7 @@ def test__workflow_core_actions__expose_one_explicit_execute_method() -> None:
         core.WorkflowRunStarter,
         core.WorkflowTransitionProcessor,
         core.WorkflowTransitionReplayer,
+        core.WorkflowTransitionValidator,
     )
 
     for action in actions:

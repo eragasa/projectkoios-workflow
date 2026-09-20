@@ -37,6 +37,41 @@ from .models import (
 )
 
 
+def _validate_preflight_record_types(
+    definition: object,
+    run: object,
+    prior_state: object,
+    request: object,
+) -> None:
+    expected = (
+        ("definition", definition, WorkflowDefinitionReference),
+        ("run", run, WorkflowRun),
+        ("prior_state", prior_state, WorkflowStateSnapshot),
+        ("request", request, WorkflowTransitionRequest),
+    )
+    for name, value, value_type in expected:
+        if type(value) is not value_type:
+            raise TypeError(f"{name} must be {value_type.__name__}")
+
+
+@dataclass(frozen=True, slots=True)
+class WorkflowTransitionPreflightInput:
+    """Immutable core records needed before any external adapter action."""
+
+    definition: WorkflowDefinitionReference
+    run: WorkflowRun
+    prior_state: WorkflowStateSnapshot
+    request: WorkflowTransitionRequest
+
+    def __post_init__(self) -> None:
+        _validate_preflight_record_types(
+            self.definition,
+            self.run,
+            self.prior_state,
+            self.request,
+        )
+
+
 @dataclass(frozen=True, slots=True)
 class WorkflowTransitionInput:
     """Complete immutable input for one pure transition-processing attempt."""
@@ -49,15 +84,12 @@ class WorkflowTransitionInput:
     infrastructure_failure: WorkflowInfrastructureFailureEvidence | None = None
 
     def __post_init__(self) -> None:
-        expected = (
-            ("definition", self.definition, WorkflowDefinitionReference),
-            ("run", self.run, WorkflowRun),
-            ("prior_state", self.prior_state, WorkflowStateSnapshot),
-            ("request", self.request, WorkflowTransitionRequest),
+        _validate_preflight_record_types(
+            self.definition,
+            self.run,
+            self.prior_state,
+            self.request,
         )
-        for name, value, value_type in expected:
-            if type(value) is not value_type:
-                raise TypeError(f"{name} must be {value_type.__name__}")
         if self.adapter_evidence is not None and (
             type(self.adapter_evidence) is not WorkflowAdapterEvidence
         ):
@@ -126,6 +158,46 @@ class WorkflowTransitionExecution:
             or self.audit_event.evidence_references != tuple(expected_evidence)
         ):
             raise ValueError("audit event is inconsistent with its outcome")
+
+
+class WorkflowTransitionValidator:
+    """Pure structural preflight before an external adapter may act."""
+
+    def execute(
+        self,
+        preflight_input: WorkflowTransitionPreflightInput,
+    ) -> WorkflowValidationResult:
+        """Validate exact core records without adapter execution or I/O.
+
+        Parameters
+        ----------
+        preflight_input
+            Definition, run, prior state, and request to check before dispatch.
+
+        Returns
+        -------
+        WorkflowValidationResult
+            Bounded structural findings. An empty result means only that the
+            records agree; owning policy must still verify authority evidence.
+
+        Raises
+        ------
+        TypeError
+            ``preflight_input`` is not the exact public preflight type.
+
+        Notes
+        -----
+        This action is deterministic and performs no mutation, policy lookup,
+        persistence, dispatch, or external I/O.
+        """
+        if type(preflight_input) is not WorkflowTransitionPreflightInput:
+            raise TypeError(
+                "preflight_input must be WorkflowTransitionPreflightInput"
+            )
+        findings = _bounded_findings(
+            _validate_transition_preflight(preflight_input)
+        )
+        return WorkflowValidationResult.create(findings)
 
 
 class WorkflowTransitionProcessor:
@@ -363,15 +435,13 @@ class WorkflowTransitionReplayer:
         return WorkflowReplayResult.create(expected=expected, replayed=replayed)
 
 
-def _validate_transition_input(
-    transition_input: WorkflowTransitionInput,
+def _validate_transition_preflight(
+    preflight_input: WorkflowTransitionPreflightInput,
 ) -> list[WorkflowValidationFinding]:
-    definition = transition_input.definition
-    run = transition_input.run
-    prior = transition_input.prior_state
-    request = transition_input.request
-    adapter = transition_input.adapter_evidence
-    failure = transition_input.infrastructure_failure
+    definition = preflight_input.definition
+    run = preflight_input.run
+    prior = preflight_input.prior_state
+    request = preflight_input.request
     findings: list[WorkflowValidationFinding] = []
 
     def add(
@@ -490,6 +560,35 @@ def _validate_transition_input(
                 "request decision applies to a different workflow subject",
             )
 
+    return findings
+
+
+def _validate_transition_evidence(
+    transition_input: WorkflowTransitionInput,
+) -> list[WorkflowValidationFinding]:
+    definition = transition_input.definition
+    run = transition_input.run
+    prior = transition_input.prior_state
+    request = transition_input.request
+    adapter = transition_input.adapter_evidence
+    failure = transition_input.infrastructure_failure
+    findings: list[WorkflowValidationFinding] = []
+
+    def add(
+        code: WorkflowValidationFindingCode,
+        path: tuple[str, ...],
+        identities: tuple[str, ...],
+        message: str,
+    ) -> None:
+        findings.append(
+            WorkflowValidationFinding.create(
+                code=code,
+                path=path,
+                related_identities=identities,
+                message=message,
+            )
+        )
+
     if adapter is not None:
         mismatches = (
             adapter.definition_identity != definition.identity,
@@ -573,6 +672,20 @@ def _validate_transition_input(
             "infrastructure failure does not bind the exact request",
         )
     return findings
+
+
+def _validate_transition_input(
+    transition_input: WorkflowTransitionInput,
+) -> list[WorkflowValidationFinding]:
+    preflight_input = WorkflowTransitionPreflightInput(
+        transition_input.definition,
+        transition_input.run,
+        transition_input.prior_state,
+        transition_input.request,
+    )
+    return _validate_transition_preflight(
+        preflight_input
+    ) + _validate_transition_evidence(transition_input)
 
 
 def _successor(

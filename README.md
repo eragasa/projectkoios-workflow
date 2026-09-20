@@ -7,10 +7,10 @@ The repository currently contains a non-authoritative colored-Petri-net shadow-c
 The pilot provides pure definitions, markings, validation, enablement,
 deterministic selection, and firing. A separate unaccepted
 `projectkoios.workflow.core` prototype provides immutable engine-neutral
-references, runs, state snapshots, bounded transition processing, audit
-evidence, and deterministic replay. It does not provide persistence, dispatch,
-external execution, a public wire format, consumer migration, a release, or a
-compatibility promise. See the
+references, runs, state snapshots, structural preflight, bounded transition
+processing, audit evidence, and deterministic replay. It does not provide
+persistence, dispatch, external execution, a public wire format, consumer
+migration, a release, or a compatibility promise. See the
 [workflow-core proposal](docs/contracts/workflow-core.md), the
 [pilot boundary](docs/pilots/colored-petri-net-shadow.md), and the
 [colored-Petri-net reference authority](docs/references/colored-petri-net-authority.md).

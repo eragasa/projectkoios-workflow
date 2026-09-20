@@ -20,6 +20,7 @@ from projectkoios.workflow.core import (
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
     WorkflowInfrastructureFailureEvidence,
+    WorkflowOperationIdentity,
     WorkflowRequestBounds,
     WorkflowRunIdentity,
     WorkflowRunStarter,
@@ -28,12 +29,143 @@ from projectkoios.workflow.core import (
     WorkflowTransitionExecution,
     WorkflowTransitionInput,
     WorkflowTransitionOutcomeKind,
+    WorkflowTransitionPreflightInput,
     WorkflowTransitionProcessor,
     WorkflowTransitionReplayer,
     WorkflowTransitionRequest,
+    WorkflowTransitionValidator,
     WorkflowTypedReference,
     WorkflowValidationFindingCode,
 )
+
+
+def test__transition_validator__preflights_without_adapter_evidence() -> None:
+    """A valid request can be checked before any adapter is invoked."""
+    fixture = core_fixture()
+    transition = transition_input(fixture)
+    preflight = WorkflowTransitionPreflightInput(
+        fixture.definition,
+        fixture.run,
+        fixture.state,
+        transition.request,
+    )
+
+    validation = WorkflowTransitionValidator().execute(preflight)
+
+    assert validation.is_valid
+    assert fixture.run.revision == 0
+    assert fixture.run.current_state_identity == fixture.state.identity
+
+
+def test__transition_validator__matches_processor_base_findings() -> None:
+    """Preflight and final processing share exact structural validation."""
+    fixture = core_fixture()
+    transition = transition_input(fixture, expected_revision=1)
+    preflight = WorkflowTransitionPreflightInput(
+        fixture.definition,
+        fixture.run,
+        fixture.state,
+        transition.request,
+    )
+
+    validation = WorkflowTransitionValidator().execute(preflight)
+    execution = WorkflowTransitionProcessor().execute(transition)
+
+    assert validation == execution.outcome.validation
+    assert {finding.code for finding in validation.findings} == {
+        WorkflowValidationFindingCode.REVISION_CONFLICT
+    }
+
+
+def test__transition_validator__rejects_unknown_operation_before_dispatch() -> (
+    None
+):
+    """An operation absent from the definition fails before adapter work."""
+    fixture = core_fixture()
+    operation = WorkflowOperationIdentity("unknown")
+    authority = WorkflowAuthorityReference.create(
+        authority_kind="test-policy",
+        subject_identity=fixture.subject,
+        operation_identities=(operation,),
+        evidence_identity=WorkflowExternalReferenceIdentity("policy:unknown"),
+        authority_version="1",
+    )
+    request = WorkflowTransitionRequest.create(
+        run_identity=fixture.run.identity,
+        expected_prior_state_identity=fixture.state.identity,
+        expected_revision=fixture.run.revision,
+        operation_identity=operation,
+        input_references=(),
+        artifact_references=(),
+        decision_references=(),
+        actor_identity=WorkflowActorIdentity("operator:test"),
+        authority_reference=authority,
+        idempotency_identity=WorkflowIdempotencyIdentity("request:unknown"),
+    )
+
+    validation = WorkflowTransitionValidator().execute(
+        WorkflowTransitionPreflightInput(
+            fixture.definition,
+            fixture.run,
+            fixture.state,
+            request,
+        )
+    )
+
+    assert {finding.code for finding in validation.findings} == {
+        WorkflowValidationFindingCode.UNKNOWN_OPERATION
+    }
+
+
+def test__transition_validator__checks_structural_authority_binding() -> None:
+    """Preflight checks authority scope without authenticating its evidence."""
+    fixture = core_fixture()
+    other_operation = WorkflowOperationIdentity("other")
+    authority = WorkflowAuthorityReference.create(
+        authority_kind="externally-verified-policy",
+        subject_identity=fixture.subject,
+        operation_identities=(other_operation,),
+        evidence_identity=WorkflowExternalReferenceIdentity(
+            "authority-attestation:test"
+        ),
+        authority_version="1",
+    )
+    request = WorkflowTransitionRequest.create(
+        run_identity=fixture.run.identity,
+        expected_prior_state_identity=fixture.state.identity,
+        expected_revision=fixture.run.revision,
+        operation_identity=fixture.operation,
+        input_references=(),
+        artifact_references=(),
+        decision_references=(),
+        actor_identity=WorkflowActorIdentity("operator:test"),
+        authority_reference=authority,
+        idempotency_identity=WorkflowIdempotencyIdentity(
+            "request:authority-scope"
+        ),
+    )
+
+    validation = WorkflowTransitionValidator().execute(
+        WorkflowTransitionPreflightInput(
+            fixture.definition,
+            fixture.run,
+            fixture.state,
+            request,
+        )
+    )
+
+    assert {finding.code for finding in validation.findings} == {
+        WorkflowValidationFindingCode.AUTHORITY_SCOPE_MISMATCH
+    }
+
+
+def test__transition_validator__requires_exact_preflight_type() -> None:
+    """The public validator fails closed on an accidental final input."""
+    fixture = core_fixture()
+    transition = transition_input(fixture)
+
+    with pytest.raises(TypeError, match="WorkflowTransitionPreflightInput"):
+        WorkflowTransitionValidator().execute(transition)  # type: ignore[arg-type]
 
 
 def test__transition_processor__applies_enabled_successor_immutably() -> None:

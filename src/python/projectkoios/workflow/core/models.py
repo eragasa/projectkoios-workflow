@@ -263,7 +263,12 @@ class WorkflowArtifactReference:
 
 @dataclass(frozen=True, slots=True)
 class WorkflowAuthorityReference:
-    """Reference to externally owned bounded authority evidence."""
+    """Reference to authority evidence verified by its owning policy.
+
+    The core validates nominal subject and operation binding only. Constructing
+    this record does not authenticate, authorize, refresh, or revoke evidence.
+    A runtime must resolve and verify the external evidence before dispatch.
+    """
 
     identity: WorkflowAuthorityReferenceIdentity
     authority_kind: str
@@ -283,7 +288,7 @@ class WorkflowAuthorityReference:
         evidence_identity: WorkflowExternalReferenceIdentity,
         authority_version: str,
     ) -> WorkflowAuthorityReference:
-        """Create one scoped authority reference without granting authority."""
+        """Create a scoped reference without verifying or granting authority."""
         operations = _canonical_operation_identities(
             "authority operations",
             operation_identities,
@@ -785,7 +790,11 @@ class WorkflowRequestBounds:
 
 @dataclass(frozen=True, slots=True)
 class WorkflowTransitionRequest:
-    """Immutable request for one revision-bound workflow state change."""
+    """Immutable request for one revision-bound workflow state change.
+
+    Its authority reference is evidence supplied by an owning policy, not a
+    grant created or authenticated by this request.
+    """
 
     identity: WorkflowTransitionRequestIdentity
     run_identity: WorkflowRunIdentity

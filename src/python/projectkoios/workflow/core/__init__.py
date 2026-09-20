@@ -56,8 +56,10 @@ from .processing import (
     WorkflowReplayResult,
     WorkflowTransitionExecution,
     WorkflowTransitionInput,
+    WorkflowTransitionPreflightInput,
     WorkflowTransitionProcessor,
     WorkflowTransitionReplayer,
+    WorkflowTransitionValidator,
 )
 
 __all__ = [
@@ -100,10 +102,12 @@ __all__ = [
     "WorkflowTransitionOutcome",
     "WorkflowTransitionOutcomeIdentity",
     "WorkflowTransitionOutcomeKind",
+    "WorkflowTransitionPreflightInput",
     "WorkflowTransitionProcessor",
     "WorkflowTransitionRequest",
     "WorkflowTransitionRequestIdentity",
     "WorkflowTransitionReplayer",
+    "WorkflowTransitionValidator",
     "WorkflowTypedReference",
     "WorkflowValidationFinding",
     "WorkflowValidationFindingCode",

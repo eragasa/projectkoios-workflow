@@ -132,9 +132,12 @@ A transition request records a proposed state change with:
 - request bounds and contract version; and
 - no embedded executable code.
 
-A request is not authorization. It is invalid when required authority evidence
-is absent, mismatched, expired under the owning policy, or outside the
-operation's declared scope.
+A request is not authorization. An owning runtime or application policy must
+resolve and verify the referenced authority evidence before external dispatch,
+including authenticity, expiry, revocation, and applicability. The core checks
+only deterministic nominal, subject, and operation-scope binding. Missing,
+mismatched, or out-of-scope evidence is structurally invalid; successful core
+validation does not independently establish authorization.
 
 ### Transition outcome
 
@@ -205,15 +208,20 @@ Public identity domains and migration rules remain deferred to
 
 ## Pure transition boundary
 
-The core may expose pure operations that:
+The core exposes a pure preflight operation that validates a definition
+reference, run, snapshot, and request without requiring adapter evidence or
+performing I/O. A runtime uses that result before external dispatch, but must
+still verify externally owned authority evidence under its owning policy.
 
-1. validate a definition reference, run, snapshot, and request;
-2. verify expected revision and bounded references;
-3. delegate engine-specific enablement and successor-state calculation through
-   a later adapter boundary;
-4. validate the returned adapter evidence;
-5. produce an immutable outcome and audit evidence; and
-6. leave persistence and effects to outer layers.
+Final pure transition processing:
+
+1. repeats the same structural preflight validation;
+2. verifies expected revision and bounded references;
+3. consumes engine-specific enablement and successor-state evidence supplied
+   through a later adapter boundary;
+4. validates the returned adapter evidence;
+5. produces an immutable outcome and audit evidence; and
+6. leaves persistence and effects to outer layers.
 
 The core itself does not:
 
@@ -229,8 +237,10 @@ The core itself does not:
 
 An engine adapter will translate between core references and one engine's
 immutable definition and state evidence. Adapter input and output are explicit,
-bounded, and testable. The adapter cannot grant authority unavailable in the
-core request or owning application policy.
+bounded, and testable. A runtime must complete core structural preflight and
+owning-policy authority verification before invoking an effectful adapter. The
+adapter cannot grant authority unavailable in the externally verified request
+evidence or owning application policy.
 
 The colored-Petri-net adapter is a future task. It must preserve the existing
 kernel's pure definition, validation, enablement, selection, firing, and audit
@@ -256,11 +266,13 @@ At minimum validation covers:
 - expected-revision conflicts;
 - duplicate identities;
 - terminal-run behavior;
-- authority-evidence presence; and
+- authority-evidence presence and structural subject/scope binding; and
 - adapter-output consistency when adapter evidence is supplied.
 
-A structurally valid request may still be unauthorized, disabled by an
-adapter, blocked by a human decision, or rejected by an application policy.
+Core validation does not authenticate authority evidence or evaluate expiry,
+revocation, identity-provider state, or application policy. A structurally
+valid request may still be unauthorized, disabled by an adapter, blocked by a
+human decision, or rejected by an application policy.
 
 ## Replay and determinism
 
