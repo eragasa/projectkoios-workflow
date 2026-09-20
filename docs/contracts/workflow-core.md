@@ -16,7 +16,7 @@
 | Supersedes | None while proposed |
 | Dependencies | No cross-repository contract dependencies registered |
 | Consumers | Workflow runtime, engine adapters, managed-project adapters |
-| Implementation bindings | The colored-Petri-net shadow is backend evidence, not a core implementation |
+| Implementation bindings | Prototype under `projectkoios.workflow.core`; the colored-Petri-net shadow remains backend evidence, not a core implementation |
 | Compatibility | Unknown until adapter and managed-project boundaries are defined |
 | Effective baseline | None while proposed |
 
@@ -24,9 +24,10 @@
 
 Proposed under
 [`WORKFLOW-CORE-01`](https://github.com/eragasa/projectkoios-workflow/issues/1).
-This document is a planning contract. It does not authorize implementation,
-production transfer, consumer migration, release, deprecation, or source
-removal.
+An unaccepted implementation prototype exists under
+`projectkoios.workflow.core`. Its implementation does not accept this
+architecture, authorize production transfer, migrate consumers, release a
+package, deprecate the shadow, or remove source code.
 
 ## Purpose
 
@@ -160,8 +161,10 @@ external artifact domain. The core records identity, kind, provenance link, and
 role in a transition. It does not embed large artifact payloads or reinterpret
 artifact content.
 
-Generated, observed, accepted, and published artifacts remain distinguishable.
-Reference by a workflow does not grant acceptance or publication authority.
+Generated-unreviewed and observed artifacts are distinguished by artifact
+origin. Acceptance and publication remain distinguishable only through
+separate scoped decision references. Reference by a workflow does not grant
+acceptance or publication authority.
 
 ### Decision reference
 
@@ -175,9 +178,13 @@ authorization, lifecycle acceptance, and scientific acceptance into one flag.
 ### Audit event
 
 An audit event records a bounded immutable observation about request,
-validation, transition, artifact, or decision processing. Events have stable
-ordering evidence within a run but do not require the core to choose a database
-or event-log technology.
+validation, transition, artifact, or decision processing. It retains nominal,
+typed subject and evidence references rather than untyped identity strings.
+Within a run, the deterministic core ordering key is the state revision,
+transition-request attempt identity, and event identity. This key distinguishes
+multiple non-applied attempts at one revision without clocks or randomness; a
+future runtime may additionally retain append order. The core does not choose a
+database or event-log technology.
 
 ## Identity and nominality
 
@@ -316,7 +323,7 @@ prototype tests demonstrate:
   decisions;
 - deterministic replay using supplied adapter evidence;
 - dependency-direction enforcement;
-- bounded construction and serialization; and
+- bounded construction and, if introduced, bounded serialization; and
 - full unit, lint, type, build, and isolated-install validation.
 
 Passing these checks does not authorize production transfer or establish
