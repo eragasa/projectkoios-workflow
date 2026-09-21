@@ -12,8 +12,12 @@
 | Acceptance authority | Project Koios operator after required reviews |
 | Architecture record | [`ADR20260920`][workflow-tracks-adr] |
 | Task | [`WORKFLOW-RUNTIME-01`][workflow-runtime-task] |
-| Dependency | Proposed core; merged WF.1 implementation |
-| Implementation binding | None while proposed |
+| Predecessor | None registered |
+| Supersedes | None while proposed |
+| Dependencies | `projectkoios.workflow.core@0.1.0` (Proposed) |
+| Consumers | Deployment-adapter owners; `projectkoios-ingestion`; `projectkoios-api`; `projectkoios-web` |
+| Compatibility | Unknown; no promise while proposed |
+| Implementation bindings | No runtime binding; WF.1 core at [`fd9ca760`][wf1-core-baseline] |
 | Effective baseline | None while proposed |
 
 ## Status
@@ -24,6 +28,37 @@ This document does not authorize a runtime implementation, persistence
 technology, external dispatch, production use, release, consumer migration, or
 CPN promotion. The workflow-core contract remains Proposed while this first
 runtime consumer tests its boundaries.
+
+## Normative scope and conformance
+
+The normative contract begins at **Authority model** and continues through
+**Synthetic conformance vectors**, except for text explicitly marked
+informative. **Acceptance gates** and **Stop conditions** are also normative.
+Purpose, scope summaries, terminology explanations, the consumer-fit assessment,
+deferred decisions, and consequences are informative.
+
+The capitalized words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**,
+**SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and
+**OPTIONAL** have their meanings from the Project Koios contract-governance
+policy. Lowercase uses are informative.
+
+Conformance subjects are:
+
+- the runtime orchestrator, for preflight, authority, reservation, ordering,
+  final processing, and recovery obligations;
+- the authoritative event store, for compare-and-append, predecessor-chain,
+  idempotency-retention, and immutable-history obligations;
+- adapter planners, for deterministic effect-free planning;
+- deployment workers, for attempt-bound execution and evidence reporting;
+- reconcilers, for query-only ambiguity resolution;
+- projection builders, for disposable and rebuildable read models; and
+- replay implementations, for effect-free reconstruction and verification.
+
+A conformance claim identifies this contract ID and target version, the exact
+specification and implementation commits, each claimed subject, the applicable
+synthetic vectors, and their validation result. Passing conformance evidence
+does not accept this contract or grant implementation, deployment, scientific,
+lifecycle, release, publication, migration, or CPN authority.
 
 ## Purpose
 
@@ -100,8 +135,9 @@ credentials, source excerpts, or machine paths.
 ### Execution evidence
 
 Immutable evidence returned by a worker after an effect attempt. It states a
-known outcome or an explicit ambiguity and binds the exact occurrence, plan,
-effect intent, adapter, configuration, and idempotency token.
+known outcome or an explicit ambiguity and binds the exact occurrence, attempt,
+plan, effect intent, dispatch authorization, adapter, configuration, and
+idempotency token.
 
 ### Reconciliation
 
@@ -115,46 +151,62 @@ projection may be rebuilt and may never repair or replace event history.
 
 ## Authority model
 
-Authority is layered and fail-closed:
+Authority MUST be layered and fail-closed:
 
-1. The core preflight action checks deterministic structural binding.
-2. The runtime or owning application policy resolves the referenced authority
-   evidence and verifies authenticity, applicability, expiry, and revocation.
-3. A separately scoped dispatch authorization binds one exact plan and effect
-   intent before a worker may act.
-4. The worker reports evidence; it does not grant acceptance or lifecycle
+1. The core preflight action MUST check deterministic structural binding.
+2. The runtime or owning application policy MUST resolve the referenced
+   authority evidence and verify authenticity, applicability, expiry, and
+   revocation.
+3. A separately scoped dispatch authorization MUST bind one exact plan and
+   effect intent before a worker MAY act.
+4. The worker MUST report evidence and MUST NOT grant acceptance or lifecycle
    authority.
-5. Final core processing checks supplied adapter or infrastructure evidence.
+5. Final core processing MUST check supplied adapter or infrastructure
+   evidence.
 
 A successful preflight, enabled plan, worker success, replay match, or technical
-validation does not establish any protected human or domain decision.
+validation MUST NOT establish any protected human or domain decision.
 
-Authority evidence is referenced by immutable identity and version. It is not
-copied into workflow state. A changed subject, operation, plan, adapter,
-configuration, authority version, or effect intent requires new applicable
-authority.
+Authority evidence MUST be referenced by immutable identity and version. It
+MUST NOT be copied into workflow state. A changed subject, operation, plan,
+adapter, configuration, authority version, or effect intent MUST require new
+applicable authority.
 
 ## Two-stage adapter protocol
 
 ### Stage A: preflight and deterministic planning
 
-Before planning, the runtime:
+Before planning, the runtime MUST:
 
 1. loads the exact definition, run, prior snapshot, and transition request;
 2. calls `WorkflowTransitionValidator`;
 3. rejects all structural findings without calling a planner or worker;
 4. verifies externally owned authority evidence under the owning policy;
 5. resolves the exact adapter and configuration identities; and
-6. retains the request under its idempotency identity.
+6. atomically retains the request and reserves its run revision.
 
-The planner consumes only immutable supplied records and returns exactly one
+`REQUEST_RETAINED` is also the active-occurrence reservation for the tuple of
+run identity and expected revision. Exactly one distinct request MAY own that
+reservation. An identical idempotent retry MUST return the retained
+occurrence. A different request for the reserved revision MUST record
+`REQUEST_CONFLICT_RECORDED`, remain ineligible for planning or execution, and
+return a revision-reserved conflict.
+
+The planner MUST consume only immutable supplied records and return exactly one
 bounded result:
 
 - `PLANNED`, with an immutable plan and zero or more effect intents;
 - `DISABLED`, with bounded reasons and no effect intents; or
 - `PLAN_REJECTED`, with bounded findings and no effect intents.
 
-A plan identity must derive from at least:
+`PLAN_REJECTED` is a terminal pre-dispatch occurrence state. It MUST record the
+rejection, release the reservation because no effect began, and produce no core
+transition. An identical retry MUST return the retained rejection. Changed
+inputs or configuration MUST require a new request identity and reservation.
+`DISABLED` instead MUST produce bounded disabled adapter evidence for final
+core processing.
+
+A plan identity MUST derive from at least:
 
 - workflow definition identity;
 - run and prior-state identities;
@@ -166,27 +218,37 @@ A plan identity must derive from at least:
 - request bounds; and
 - runtime-contract version.
 
-The planner must not read a clock, filesystem, database, network service, random
-source, environment secret, mutable GitHub state, or artifact payload. Facts
-needed for planning arrive as versioned input references.
+The planner MUST NOT read a clock, filesystem, database, network service,
+random source, environment secret, mutable GitHub state, or artifact payload.
+Facts needed for planning MUST arrive as versioned input references.
 
 ### Stage B: authorized effect execution
 
-Planning never authorizes execution. Before dispatch, the runtime records an
-immutable dispatch-authorization reference that binds:
+Planning MUST NOT authorize execution. Immediately before every effect attempt,
+the runtime MUST revalidate authenticity, applicability, expiry, and revocation
+under the owning policy. It then records a fresh immutable
+dispatch-authorization reference that binds:
 
-- one occurrence identity;
+- one occurrence and attempt identity;
 - one plan identity;
 - one effect-intent identity;
 - one worker or worker-class identity;
 - one external idempotency token;
 - one authority-evidence identity and version;
+- one authority-verification decision and observation identity;
+- a bounded validity condition or expiry observation;
 - exact scope and limits; and
 - an owning-policy decision identity.
 
+The dispatch authorization applies to exactly one attempt and MUST be current
+at worker handoff. It MUST NOT be reused by another attempt or after expiry,
+revocation, policy-version change, or other loss of applicability. Failed
+revalidation MUST record `AUTHORITY_REJECTED` or new reauthorization evidence
+and prevent worker execution.
+
 The worker receives a deployment-owned request resolved outside workflow state.
-The runtime supplies only compact references and authorization evidence. The
-worker returns one of:
+The runtime MUST supply only compact references and authorization evidence. The
+worker MUST return one of:
 
 - `SUCCEEDED`, with bounded produced-evidence references;
 - `KNOWN_NOT_APPLIED`, with bounded failure evidence and retry classification;
@@ -195,26 +257,26 @@ worker returns one of:
 - `REJECTED_BEFORE_EFFECT`, proving no external effect began.
 
 An exception, timeout, lost connection, expired lease, or worker disappearance
-is not proof that no effect occurred. Such an occurrence enters reconciliation
-unless retained evidence proves `KNOWN_NOT_APPLIED` or
+is not proof that no effect occurred. Such an occurrence MUST enter
+reconciliation unless retained evidence proves `KNOWN_NOT_APPLIED` or
 `REJECTED_BEFORE_EFFECT`.
 
 ### Final core processing
 
 After all required effect intents have non-ambiguous evidence, the adapter
-constructs bounded `WorkflowAdapterEvidence` or
-`WorkflowInfrastructureFailureEvidence`. The runtime then calls
+MUST construct bounded `WorkflowAdapterEvidence` or
+`WorkflowInfrastructureFailureEvidence`. The runtime MUST then call
 `WorkflowTransitionProcessor` with the exact preflight records and supplied
 evidence.
 
-The runtime appends the resulting immutable core outcome and audit reference
-before advancing its current pointer. Invalid final evidence cannot be repaired
-by mutating the plan, worker report, prior event, or core outcome.
+The runtime MUST append the resulting immutable core outcome and audit
+reference before advancing its current pointer. Invalid final evidence MUST NOT
+be repaired by mutating the plan, worker report, prior event, or core outcome.
 
 ## Conceptual records
 
-The exact Python and serialized representations are deferred. Any implementation
-must preserve nominal identity domains for at least:
+The exact Python and serialized representations are deferred. Any
+implementation MUST preserve nominal identity domains for at least:
 
 - runtime event;
 - occurrence;
@@ -230,11 +292,11 @@ must preserve nominal identity domains for at least:
 - event-log head; and
 - projection generation.
 
-Every immutable record includes a contract version, exact upstream identities,
-and bounded references. Content-derived identities establish integrity, not
-truth, actor authenticity, authority, or domain acceptance.
+Every immutable record MUST include a contract version, exact upstream
+identities, and bounded references. Content-derived identities establish
+integrity, not truth, actor authenticity, authority, or domain acceptance.
 
-Identity construction must remain acyclic:
+Identity construction MUST remain acyclic:
 
 - an occurrence identity derives from the run, prior state, expected revision,
   request, request idempotency identity, and runtime-contract version;
@@ -247,14 +309,14 @@ Identity construction must remain acyclic:
 - execution and reconciliation identities derive from the exact plan, intent,
   attempt, and supplied evidence.
 
-No identity may directly or indirectly include itself. Stable logical
-identities remain distinct from immutable evidence identities.
+An identity MUST NOT directly or indirectly include itself. Stable logical
+identities MUST remain distinct from immutable evidence identities.
 
 ## Append-only history
 
 ### Event envelope
 
-A runtime event records at least:
+A runtime event MUST record at least:
 
 - event identity and event kind;
 - run identity;
@@ -266,19 +328,21 @@ A runtime event records at least:
 - producer implementation and contract versions; and
 - integrity identity over all semantic fields.
 
-Wall-clock values may be retained as observations for operations, but they do
-not determine event identity, replay order, or transition precedence.
+Wall-clock values MAY be retained as observations for operations, but they
+MUST NOT determine event identity, replay order, or transition precedence.
 
 ### Event kinds
 
-The initial semantic event set is:
+The initial semantic event set MUST include:
 
 - `RUN_START_RECORDED`;
 - `REQUEST_RETAINED`;
+- `REQUEST_CONFLICT_RECORDED`;
 - `PREFLIGHT_REJECTED`;
 - `AUTHORITY_REJECTED`;
 - `PLAN_RECORDED`;
 - `PLAN_DISABLED`;
+- `PLAN_REJECTED`;
 - `DISPATCH_AUTHORIZED`;
 - `CLAIM_RECORDED`;
 - `EXECUTION_REPORTED`;
@@ -289,31 +353,52 @@ The initial semantic event set is:
 - `TERMINAL_FAILURE_RECORDED`; and
 - `PROJECTION_CHECKPOINT_RECORDED`.
 
-An implementation may use more specific internal records, but it must map them
+An implementation MAY use more specific internal records, but it MUST map them
 to these semantics without deleting or rewriting prior evidence.
 
 ### Atomic append
 
-Appending events for one run uses compare-and-append against the exact retained
-head identity and expected event ordinal. A mismatch fails with a conflict and
-appends nothing.
+Appending events for one run MUST use compare-and-append against the exact
+retained head identity and expected event ordinal. A mismatch MUST fail with a
+conflict and append nothing.
 
-Request retention and its first event commit before planning or dispatch. A
-plan commits before dispatch authorization. Dispatch authorization commits
-before the worker call. Execution or ambiguity evidence commits before final
-core processing. The final core outcome commits before a mutable current pointer
-or read projection advances.
+Request retention and its first event MUST commit before planning or dispatch.
+A plan MUST commit before dispatch authorization. Attempt-bound dispatch
+authorization MUST commit before the worker call. Execution or ambiguity
+evidence MUST commit before final core processing. The final core outcome MUST
+commit before a mutable current pointer or read projection advances.
 
-An external effect and the event store cannot share an assumed transaction.
-Recovery therefore relies on external idempotency and reconciliation rather
-than pretending that a database transaction covers both.
+The runtime MUST NOT assume that an external effect and the event store share a
+transaction. Recovery therefore relies on external idempotency and
+reconciliation rather than pretending that a database transaction covers both.
+
+### Active occurrence reservation
+
+For each tuple of run identity and core revision, at most one occurrence MAY be
+active and effect-eligible. The compare-and-append that records
+`REQUEST_RETAINED` MUST atomically acquire this reservation.
+
+An identical idempotent retry MUST resolve to the reservation owner. A distinct
+same-revision request MUST record `REQUEST_CONFLICT_RECORDED`, MUST NOT plan,
+claim, authorize, or dispatch, and MUST return a revision-reserved conflict.
+
+The reservation MAY release only after:
+
+- a terminal pre-dispatch rejection of the reservation owner proves no effect
+  began;
+- final core processing and `TRANSITION_RECORDED` complete; or
+- reconciliation and owning policy establish a terminal resolution.
+
+Ambiguity, lease expiry, worker disappearance, partial application, and known
+application with failure MUST retain the reservation. They MUST NOT make a
+second occurrence effect-eligible.
 
 ## Deterministic ordering
 
-Per-run event ordinal and predecessor identity define authoritative event order.
-No total order is asserted across independent runs.
+Per-run event ordinal and predecessor identity MUST define authoritative event
+order. No total order is asserted across independent runs.
 
-Occurrence precedence is determined by:
+Occurrence precedence MUST be determined by:
 
 1. expected core revision;
 2. the successful `REQUEST_RETAINED` event ordinal;
@@ -324,54 +409,66 @@ Occurrence precedence is determined by:
 The compare-and-append winner records precedence for concurrent arrivals. The
 runtime does not claim deterministic selection across requests that were never
 retained; it deterministically replays the recorded winner. A losing append
-reloads authoritative history and normally encounters a revision conflict.
+MUST reload authoritative history. An identical request resolves to the winner;
+a distinct same-revision request receives a revision-reserved conflict and
+remains ineligible for effects.
 
-A lease, queue order, process identifier, or wall clock may affect which worker
-observes work first, but cannot change retained occurrence precedence or replay
-semantics.
+A lease, queue order, process identifier, or wall clock MAY affect which worker
+observes work first, but MUST NOT change retained occurrence precedence or
+replay semantics.
 
 ## Idempotency
 
 The runtime retains the first exact request identity and semantic digest for
-each idempotency identity within its declared scope.
+each idempotency identity within its declared scope. The retention key MUST be
+the tuple of explicit scope identity and idempotency identity; reuse comparisons
+MUST NOT cross scope boundaries. The allowed scope domains and exact semantic
+digest field composition remain deferred acceptance gates, so implementation
+conformance cannot yet be claimed.
 
-- Identical reuse returns the retained occurrence or terminal evidence.
-- Changed reuse fails closed and never plans or dispatches.
-- An identical retry after a terminal core outcome returns that outcome.
-- An identical retry during active execution returns current occurrence state.
-- An identical retry during ambiguity returns reconciliation-required state.
+- Identical reuse MUST return the retained occurrence or terminal evidence.
+- Changed reuse MUST fail closed and MUST NOT plan or dispatch.
+- An identical retry after a terminal core outcome MUST return that outcome.
+- An identical retry during active execution MUST return current occurrence
+  state.
+- An identical retry during ambiguity MUST return reconciliation-required
+  state.
 
-Each effect intent also has an external idempotency token derived from immutable
-occurrence and intent identities. A deployment adapter must declare whether the
-external system supports token lookup, idempotent execution, both, or neither.
-An effect with neither capability cannot be automatically retried after an
+Each effect intent MUST have an external idempotency token derived from
+immutable occurrence and intent identities. A deployment adapter MUST declare
+whether the external system supports token lookup, idempotent execution, both,
+or neither.
+An effect with neither capability MUST NOT be automatically retried after an
 ambiguous boundary.
 
 ## Claims and leases
 
 A claim grants temporary permission to work on one retained occurrence. It does
-not grant operation authority or ownership of the run.
+not grant operation authority or ownership of the run. Only the active
+reservation owner MAY receive a claim.
 
-A lease binds a claim, worker identity, occurrence, attempt ordinal,
+A lease MUST bind a claim, worker identity, occurrence, attempt ordinal,
 lease-policy version, and observed expiry evidence. Lease duration and clock
-source are runtime policy inputs and are not identity or replay order.
+source MUST be runtime policy inputs and MUST NOT define identity or replay
+order.
 
 Expiry permits another worker to reconcile the occurrence. It does not prove
-that the prior worker performed no effect and does not by itself permit repeated
-execution.
+that the prior worker performed no effect and MUST NOT by itself permit repeated
+execution. Every later effect attempt MUST use a new claim and fresh
+attempt-bound dispatch authorization.
 
-At most one active claim may be recorded for an occurrence under one retained
-head. Conflicting claims fail through compare-and-append.
+At most one active claim MAY be recorded for an occurrence under one retained
+head. Conflicting claims MUST fail through compare-and-append.
 
 ## Failure and retry model
 
-Failures are classified by evidence, not exception type alone:
+Failures MUST be classified by evidence, not exception type alone:
 
 | Class | Effect status | Automatic retry |
 |---|---|---|
 | Structural rejection | Not dispatched | No; submit a corrected request |
 | Authority rejection | Not dispatched | No; obtain new policy evidence |
-| Planning rejection | Not dispatched | Only after inputs or configuration change |
+| Planning rejection | Not dispatched | After changed inputs or configuration |
 | Rejected before effect | Proven not applied | Allowed by bounded policy |
 | Known not applied | Proven not applied | Allowed by bounded policy |
 | Known applied failure | Applied or partial | Policy or compensation only |
@@ -379,17 +476,19 @@ Failures are classified by evidence, not exception type alone:
 | Reconciliation unresolved | Unknown | Manual or policy-owned resolution |
 | Terminal runtime failure | Any retained status | No automatic retry |
 
-Retry policy is versioned and bounded by maximum attempts. Exhaustion records a
-terminal failure without deleting earlier attempts. Compensation, when a domain
-supports it, is a new authorized operation rather than history reversal.
+Retry policy MUST be versioned and bounded by maximum attempts. Exhaustion MUST
+record a terminal failure without deleting earlier attempts. Compensation, when
+a domain supports it, is a new authorized operation rather than history
+reversal.
 
 ## Reconciliation
 
-Reconciliation accepts the exact occurrence, plan, intent, external idempotency
-token, and all retained worker/infrastructure evidence. It may query an external
-idempotency or receipt interface, but it must not invoke the original effect.
+Reconciliation MUST accept the exact occurrence, plan, intent, external
+idempotency token, and all retained worker/infrastructure evidence. It MAY query
+an external idempotency or receipt interface, but it MUST NOT invoke the original
+effect.
 
-A reconciliation result is one of:
+A reconciliation result MUST be one of:
 
 - `CONFIRMED_APPLIED`;
 - `CONFIRMED_NOT_APPLIED`;
@@ -397,9 +496,10 @@ A reconciliation result is one of:
 - `STILL_AMBIGUOUS`; or
 - `EVIDENCE_INVALID`.
 
-`CONFIRMED_NOT_APPLIED` may permit a new bounded attempt. `CONFIRMED_APPLIED`
-continues with retained result evidence. Partial or unresolved outcomes require
-application policy or explicit human action.
+`CONFIRMED_NOT_APPLIED` MAY permit a new bounded attempt after fresh authority
+verification. `CONFIRMED_APPLIED` continues with retained result evidence.
+Partial or unresolved outcomes MUST require application policy or explicit
+human action.
 
 ## Recovery matrix
 
@@ -414,58 +514,61 @@ application policy or explicit human action.
 | Current pointer, stale projection | Rebuild projection | Never repeat effect |
 | Expired lease while uncertain | Reconcile | Never infer non-execution |
 
-Recovery reads authoritative events, verifies their identities and predecessor
-chain, reconstructs occurrence state, and resumes only at an allowed boundary.
-A corrupt or missing event chain fails closed; a projection cannot fill the gap.
+Recovery MUST read authoritative events, verify their identities and
+predecessor chain, reconstruct occurrence state, and resume only at an allowed
+boundary. A corrupt or missing event chain MUST fail closed; a projection MUST
+NOT fill the gap.
 
 ## Snapshots and projections
 
-Immutable runtime snapshots accelerate recovery but are derived from an exact
-event-log head. A snapshot records its source head, source ordinal, core run and
-state identities, active occurrences, and contract version.
+Immutable runtime snapshots MAY accelerate recovery but MUST derive from an
+exact event-log head. A snapshot MUST record its source head, source ordinal,
+core run and state identities, active occurrences, and contract version.
 
-A mutable current pointer may identify the latest verified snapshot. Losing or
-corrupting the pointer cannot destroy history; it is rebuilt from events.
+A mutable current pointer MAY identify the latest verified snapshot. Losing or
+corrupting the pointer MUST NOT destroy history; it is rebuilt from events.
 
-SQLite is limited to disposable local read projections under the accepted
-architecture. It is not the historical event authority. This proposal does not
-select the authoritative event-store implementation. Every SQLite projection
-must be rebuildable from verified events and snapshots.
+SQLite MUST be limited to disposable local read projections under the accepted
+architecture and MUST NOT be the historical event authority. This proposal does
+not select the authoritative event-store implementation. Every SQLite
+projection MUST be rebuildable from verified events and snapshots.
 
 ## Artifact-reference verification
 
-The runtime may ask an owning artifact store to verify identity, digest,
-availability, and declared media or schema metadata. Verification returns a
-bounded evidence reference. The runtime never stores source bytes, transcript
+The runtime MAY ask an owning artifact store to verify identity, digest,
+availability, and declared media or schema metadata. Verification MUST return a
+bounded evidence reference. The runtime MUST NOT store source bytes, transcript
 text, full chapter maps, credentials, private paths, or protected excerpts.
 
-Artifact existence does not establish extraction quality, review acceptance,
+Artifact existence MUST NOT establish extraction quality, review acceptance,
 scientific validity, rights clearance, lifecycle activation, or publication
 authority.
 
 ## Baseline deterministic adapter
 
-WF.2 retains an engine-neutral baseline planner and adapter path. It consumes
-only supplied references, produces bounded plans and core adapter evidence, and
-requires no CPN types or kernel.
+WF.2 MUST retain an engine-neutral baseline planner and adapter path. It MUST
+consume only supplied references, produce bounded plans and core adapter
+evidence, and require no CPN types or kernel.
 
 The baseline path is the authoritative comparison path during future CPN shadow
-replay. CPN enablement, equality, or promotion cannot weaken baseline checks or
-remove baseline rollback.
+replay. CPN enablement, equality, or promotion MUST NOT weaken baseline checks
+or remove baseline rollback.
 
 ## Dry run
 
-A dry run executes structural preflight, owning-policy authority inspection in
-non-granting mode, and deterministic planning. It performs no claim, dispatch,
-external effect, final transition, current-pointer update, or lifecycle action.
+A dry run MUST execute structural preflight, owning-policy authority inspection
+in non-granting mode, and deterministic planning. It MUST NOT perform any claim,
+dispatch, external effect, final transition, current-pointer update, or
+lifecycle action.
 
 Dry-run output is a bounded proposal bound to exact inputs and configuration. It
-is not execution evidence and cannot be supplied as a successful worker result.
+is not execution evidence and MUST NOT be supplied as a successful worker
+result.
 
 ## Privacy and logging
 
-Events, logs, exceptions, projections, and public task records contain compact
-typed references only. They exclude:
+Events, logs, exceptions, projections, and public task records MUST contain
+compact typed references only. They MUST exclude:
 
 - artifact payloads and source excerpts;
 - PDF or transcript content;
@@ -475,8 +578,8 @@ typed references only. They exclude:
 - private workflow payload bodies; and
 - mutable GitHub state copied as runtime authority.
 
-Operational diagnostics use bounded reason codes and sanitized messages. Exact
-protected evidence remains in its owning store.
+Operational diagnostics MUST use bounded reason codes and sanitized messages.
+Exact protected evidence MUST remain in its owning store.
 
 ## Replay
 
@@ -489,14 +592,14 @@ Semantic replay verifies the event predecessor chain and recomputes:
 - immutable snapshots; and
 - disposable read projections.
 
-Replay never calls workers, external systems, clocks, random sources, artifact
-payload readers, or CPN execution. External results are supplied as retained
-evidence. Byte-identical serialization remains deferred to a future accepted
-wire contract.
+Replay MUST NOT call workers, external systems, clocks, random sources,
+artifact payload readers, or CPN execution. External results MUST be supplied as
+retained evidence. Byte-identical serialization remains deferred to a future
+accepted wire contract.
 
 ## Synthetic conformance vectors
 
-Before runtime implementation, synthetic fixtures must define expected retained
+Before runtime implementation, synthetic fixtures MUST define expected retained
 events and prohibited calls for at least:
 
 1. valid preflight and deterministic plan;
@@ -505,25 +608,33 @@ events and prohibited calls for at least:
 4. terminal run rejected before planning;
 5. structurally mismatched authority rejected before planning;
 6. externally invalid, expired, or revoked authority rejected before dispatch;
-7. identical request retry returning retained state;
-8. changed idempotency reuse failing closed;
-9. conflicting concurrent append;
-10. duplicate worker claim;
-11. lease expiry followed by reconciliation, not execution;
-12. crash at each recovery-matrix boundary;
-13. known-not-applied bounded retry;
-14. ambiguous timeout blocking retry;
-15. reconciliation confirming applied and confirming not applied;
-16. final evidence mismatch rejected by the core;
-17. retained outcome with stale pointer;
-18. full projection rebuild;
-19. corrupt event-chain detection;
-20. aggregate core bounds exceeded;
-21. privacy-safe diagnostic output; and
-22. baseline operation with no CPN package involvement.
+7. planning rejection recording `PLAN_REJECTED` and no core transition;
+8. disabled planning producing distinct adapter evidence;
+9. two distinct same-revision requests permitting only the reservation winner
+   to plan, claim, authorize, or dispatch;
+10. identical request retry returning retained state;
+11. changed idempotency reuse failing closed within one declared scope;
+12. identical and changed idempotency reuse across distinct scopes;
+13. conflicting concurrent append;
+14. duplicate worker claim;
+15. lease expiry followed by reconciliation, not execution;
+16. a retry receiving a new attempt-bound authorization after revalidation;
+17. expired or revoked authority blocking a later attempt;
+18. crash at each recovery-matrix boundary;
+19. known-not-applied bounded retry;
+20. ambiguous timeout blocking retry;
+21. reconciliation confirming applied and confirming not applied;
+22. final evidence mismatch rejected by the core;
+23. retained outcome with stale pointer;
+24. full projection rebuild;
+25. corrupt event-chain detection;
+26. aggregate core bounds exceeded;
+27. privacy-safe diagnostic output; and
+28. baseline operation with no CPN package involvement.
 
-Fixtures use synthetic identities and payload-free references. Private documents
-may supplement later operational validation but never enter Git or public logs.
+Fixtures MUST use synthetic identities and payload-free references. Private
+documents MAY supplement later operational validation but MUST NOT enter Git or
+public logs.
 
 ## Workflow-core consumer-fit assessment
 
@@ -557,6 +668,7 @@ implementation where applicable:
 - concrete event-store and snapshot storage technology;
 - configured data-root resolution and filesystem hardening;
 - clock source, lease duration, and operational scheduling;
+- idempotency scope and semantic-digest field composition;
 - deployment-adapter code ownership;
 - retention, archival, and backup policy;
 - public wire compatibility;
@@ -570,6 +682,8 @@ Runtime implementation remains blocked until:
 - this contract is reviewed and accepted for an implementation slice;
 - workflow-core consumer fit has no unresolved blocking finding;
 - exact runtime identity domains and bounds are specified;
+- idempotency scope, semantic-digest composition, and cross-scope behavior are
+  specified;
 - synthetic conformance and crash fixtures are reviewed;
 - the first deployment adapter declares idempotency and reconciliation
   capability;
@@ -605,5 +719,7 @@ Stop before implementation if:
 
 [workflow-tracks-adr]:
   https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260920.workflow-and-cpn-development-tracks.md
+[wf1-core-baseline]:
+  https://github.com/eragasa/projectkoios-workflow/commit/fd9ca760c7ed8467062a17411c1df33981d2836e
 [workflow-runtime-task]:
   https://github.com/eragasa/projectkoios-workflow/issues/3
