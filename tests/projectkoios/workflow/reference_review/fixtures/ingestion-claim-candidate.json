@@ -1,0 +1,19 @@
+{
+  "candidate_identity": "reference-claim-candidate:sha256:fd86bb918a76960c2a3106a5268dde230647ba62e1dc1e6001c5fdff927c0bdd",
+  "claim_identity": "research-claim:sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "fixture_schema": "projectkoios.workflow.ingestion-claim-candidate-fixture:1",
+  "locator_result_identity": "reference-page-locator-result:sha256:b2fac7eb7a48e3682ea9b16107ab9b44399c048f0df881c94a070ac6cffd0cec",
+  "matched_topic_anchor_identities": [
+    "reference-topic-anchor:sha256:626985ab356d38becb1ea3e09440ab1aae4dd2a82cba90ff4cb849de80c42d61"
+  ],
+  "page_identity": "clean-transcript-page:sha256:c90eb04a19cb037bca2d01e9de491537670293a23551d38512ab56f303bc57b5",
+  "page_index": 0,
+  "page_text_sha256": "e6e651c3ded677a8d6a210bfcf6b7f0368ee16b7fba504d311b8e21b54be8a7e",
+  "page_text_utf8_byte_length": 43,
+  "producer_contract_id": "projectkoios.ingestion.reference-claim-candidate",
+  "producer_contract_version": "0.1.0",
+  "reference_evidence_record_identity": "reference-evidence-record:sha256:02c3b7580c7644b35944d1cc34a1b2a00b0589339936b6e9fc17b8a600f2fcc7",
+  "source_blob_identity": "blob:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "transcript_identity": "clean-transcript-artifact:sha256:8136bc61d3e00a580c32a195d822203231b6b528e1b4991007bec2257258c47b"
+}

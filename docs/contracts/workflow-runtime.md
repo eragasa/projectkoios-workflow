@@ -626,16 +626,56 @@ record:
 Construction validates these bounded identities again but does not replace the
 ingester's canonical-byte parser or `verify_reference_evidence` check.
 
-The candidate definition admits only:
+Version `0.2.0` also consumes an already verified
+`projectkoios.ingestion.reference-claim-candidate@0.1.0` reference. The new
+definition identity does not relabel version `0.1.0` history: existing runs
+remain immutable and require an explicitly designed migration or a new `0.2.0`
+run. The exact
+adapter mapping is:
+
+| Workflow candidate field | Ingestion candidate field |
+|---|---|
+| `candidate_identity` | `candidate_id` |
+| `claim_identity` | `claim_identity` |
+| `reference_evidence_record_identity` | `reference_evidence_record_id` |
+| `locator_result_identity` | `locator_result_id` |
+| `source_blob_identity` | `source_blob_id` |
+| `source_sha256` | `source_content_sha256` |
+| `transcript_identity` | `transcript_artifact_id` |
+| `page_identity` | `page_id` |
+| `page_index` | `page_index` |
+| `page_text_sha256` | `page_text_sha256` |
+| `page_text_utf8_byte_length` | `page_text_utf8_byte_length` |
+| `matched_topic_anchor_identities` | `matched_topic_anchor_identities` |
+
+The candidate contains no claim text, page text, quotation, authority, or
+review outcome. Its exact record and source identities MUST agree with the
+reference-evidence input before a transition can be constructed.
+
+The definition admits only:
 
 ```text
 reference_evidence_observed -> manual_claim_review_required
+manual_claim_review_required -> reviewed_retained
+manual_claim_review_required -> reviewed_excluded
 ```
 
-The ingestion evidence is typed input; a separate authority reference remains
-required by core preflight. Reviewed-retained, reviewed-excluded, claim-support,
-and publication operations are absent from this definition version. Later
-review decisions require separately accepted evidence and definition versions.
+The first transition requires separately scoped core authority and does not
+make a review decision. Each terminal transition requires both:
+
+1. a separate `WorkflowDecisionReference` with
+   `decision_kind=manual-reference-claim-review`, exact candidate scope,
+   exact run subject, decision version `1`, and an outcome matching the target
+   stage; and
+2. a separate core authority reference granting only the selected retain or
+   exclude operation.
+
+The supplied decision and workflow authority remain distinct records. A
+terminal transition completes this local review run operationally. Neither
+`reviewed_retained` nor `reviewed_excluded` establishes claim support,
+scientific acceptance, extraction accuracy, rights clearance, publication
+suitability, or publication authority. Claim-support, acceptance, and
+publication operations remain absent and fail core preflight.
 
 ## Baseline deterministic adapter
 
