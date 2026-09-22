@@ -72,9 +72,13 @@ jobs:
           /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
           from projectkoios.workflow.course_review import CourseReviewWorkflow
           from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-          from projectkoios.workflow.reference_review import ReferenceReviewWorkflow
+          from projectkoios.workflow.reference_review import (
+              IngestionClaimCandidateReference,
+              ReferenceReviewWorkflow,
+          )
           from projectkoios.workflow.runtime import LocalWorkflowRuntime
           assert CourseReviewWorkflow is not None
+          assert IngestionClaimCandidateReference is not None
           assert ReferenceReviewWorkflow is not None
           assert SQLiteAtomicRevisionStore is not None
           assert LocalWorkflowRuntime is not None
