@@ -594,6 +594,49 @@ require a new reviewed definition version, evidence contracts, and adapters. A
 review-retained outcome MUST NOT imply public-material clearance or publication
 approval.
 
+### Ingestion reference-evidence review
+
+The ingestion integration begins only after `projectkoios-ingestion` has
+produced and verified a complete
+`projectkoios.ingestion.reference-evidence@0.1.0` record. PDF parsing,
+extraction, OCR, transcript projection, derivation audit, payload retention,
+and source access remain owned by the ingester. The workflow engine neither
+reimplements nor dispatches those operations in Slice A.
+
+`IngestionReferenceEvidenceReference` retains only the record identity, exact
+source blob/hash/length/media type, and extraction, transcript, and audit
+artifact digests. It requires `completeness=complete` while preserving
+`transcript_status=automated_unreviewed`. It contains no source path, extracted
+text, quotation, credentials, authority grant, or acceptance.
+
+The boundary adapter maps only exact fields from an already verified ingestion
+record:
+
+| Workflow reference field | Ingestion record field |
+|---|---|
+| `record_identity` | `record_id` |
+| `source_blob_identity` | `source.blob_id` |
+| `source_sha256` | `source.content_sha256` |
+| `source_byte_length` | `source.byte_length` |
+| `source_media_type` | `source.media_type` |
+| `extraction_artifact_sha256` | `extraction.artifact.sha256` |
+| `transcript_artifact_sha256` | `transcript.artifact.sha256` |
+| `audit_artifact_sha256` | `derivation_audit.artifact.sha256` |
+
+Construction validates these bounded identities again but does not replace the
+ingester's canonical-byte parser or `verify_reference_evidence` check.
+
+The candidate definition admits only:
+
+```text
+reference_evidence_observed -> manual_claim_review_required
+```
+
+The ingestion evidence is typed input; a separate authority reference remains
+required by core preflight. Reviewed-retained, reviewed-excluded, claim-support,
+and publication operations are absent from this definition version. Later
+review decisions require separately accepted evidence and definition versions.
+
 ## Baseline deterministic adapter
 
 WF.2 MUST retain an engine-neutral baseline planner and adapter path. It MUST

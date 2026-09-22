@@ -15,8 +15,12 @@ compare-and-append persistence, private canonical event records, hardened
 single-operator SQLite history, run-scoped request idempotency, reservation,
 and effect-free identity-chain replay. Its first pure consumer accepts typed metadata-only
 organizer teaching proposals for the non-authorizing
-`proposal_observed → course_identity_candidate` transition. It does not provide
-a scheduler, queue, worker, claim, lease, external dispatch, background daemon,
+`proposal_observed → course_identity_candidate` transition. It also accepts
+complete ingestion-owned reference-evidence metadata for the non-authorizing
+`reference_evidence_observed → manual_claim_review_required` transition. PDF
+parsing, extraction, OCR, transcript content, and derivation audit remain in
+`projectkoios-ingestion`. It does not provide a scheduler, queue, worker, claim,
+lease, external dispatch, background daemon,
 public wire format, API binding, consumer migration, release, or compatibility
 promise. See the
 [workflow-core proposal](docs/contracts/workflow-core.md), the
