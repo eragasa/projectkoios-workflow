@@ -6,28 +6,32 @@
 |---|---|
 | Contract ID | `projectkoios.workflow.runtime` |
 | Target version | `0.1.0` |
-| Status | Proposed |
+| Status | Candidate with bounded local Slice A implementation |
 | Specification revision | Git commit containing this document |
 | Owner | `projectkoios-workflow` |
 | Acceptance authority | Project Koios operator after required reviews |
 | Architecture record | [`ADR20260920`][workflow-tracks-adr] |
 | Task | [`WORKFLOW-RUNTIME-01`][workflow-runtime-task] |
 | Predecessor | None registered |
-| Supersedes | None while proposed |
+| Supersedes | None while candidate |
 | Dependencies | `projectkoios.workflow.core@0.1.0` (Proposed) |
-| Consumers | Deployment-adapter owners; `projectkoios-ingestion`; `projectkoios-api`; `projectkoios-web` |
-| Compatibility | Unknown; no promise while proposed |
-| Implementation bindings | No runtime binding; WF.1 core at [`fd9ca760`][wf1-core-baseline] |
-| Effective baseline | None while proposed |
+| Consumers | Local private Project Koios control-plane adapters |
+| Compatibility | Unknown; no promise while candidate |
+| Implementation bindings | `projectkoios.workflow.persistence`; `projectkoios.workflow.runtime`; WF.1 core at [`fd9ca760`][wf1-core-baseline] |
+| Effective baseline | None while candidate |
 
 ## Status
 
-Proposed for design and consumer-fit review only.
+Candidate for implementation review. The separately authorized Slice A
+reference implementation is bounded to local, private, append-only run start,
+request preflight/reservation, pure transition processing, identity-chain
+replay, and history verification.
 
-This document does not authorize a runtime implementation, persistence
-technology, external dispatch, production use, release, consumer migration, or
-CPN promotion. The workflow-core contract remains Proposed while this first
-runtime consumer tests its boundaries.
+This document does not authorize external dispatch, scheduling, claims, leases,
+background execution, production use, release, consumer migration, public API
+binding, lifecycle action, publication, or CPN promotion. The workflow-core
+contract remains Proposed while this first runtime consumer tests its
+boundaries.
 
 ## Normative scope and conformance
 
@@ -73,24 +77,20 @@ workflow history.
 
 ## Scope
 
-The proposed runtime owns:
+Slice A owns:
 
-- append-only run-event history;
-- immutable runtime snapshots and mutable current pointers;
-- expected-head and expected-revision conflict checks;
-- idempotency retention and identical-retry lookup;
-- deterministic adapter planning;
-- externally verified dispatch authority;
-- bounded claims and leases;
-- execution-result and infrastructure-failure evidence;
-- reconciliation of ambiguous external outcomes;
-- final core transition processing;
-- recovery and semantic replay; and
-- disposable read projections.
+- append-only per-run event history in one explicit private local store;
+- exact expected-head and expected-revision conflict checks;
+- run-scoped request-idempotency retention and identical-retry lookup;
+- active-occurrence reservation;
+- pure core preflight and final transition processing;
+- deterministic, effect-free history reconstruction; and
+- closed corrupt, incompatible, conflict, error, and indeterminate outcomes.
 
-The runtime coordinates protocols. Application or deployment adapters still own
-application operations, artifact-store access, domain policy, and external
-effects.
+Later slices may add planning, dispatch authorization, claims, leases,
+reconciliation, snapshots, and disposable projections only after their own
+acceptance gates. Application or deployment adapters retain application
+operations, artifact-store access, domain policy, and all external effects.
 
 ## Non-goals
 
@@ -98,14 +98,16 @@ This contract does not:
 
 - add persistence, dispatch, or policy imports to
   `projectkoios.workflow.core`;
-- choose a public wire format or canonical serializer;
-- choose SQLite or another database as historical authority;
+- define a public wire format; Slice A serialization is private and versioned;
+- select storage for remote, multi-operator, or production deployment;
 - define HTTP, browser, or operator-interface contracts;
 - define ingestion or scientific artifact formats;
 - authorize human, architecture, scientific, lifecycle, publication, release,
   deployment, or migration decisions;
 - require the colored-Petri-net backend; or
-- accept the separate workflow-kernel ownership transfer.
+- accept the separate workflow-kernel ownership transfer; or
+- make GitHub, browser projections, organizer proposals, or API state
+  authoritative.
 
 ## Terminology
 
@@ -163,6 +165,12 @@ Authority MUST be layered and fail-closed:
    authority.
 5. Final core processing MUST check supplied adapter or infrastructure
    evidence.
+
+Slice A performs only structural preflight. It retains the supplied immutable
+authority-reference identity but does not claim to verify authenticity, expiry,
+revocation, or policy applicability. Because Slice A cannot dispatch an effect,
+advance publication state, or grant a lifecycle decision, this deferred policy
+verification does not create execution authority.
 
 A successful preflight, enabled plan, worker success, replay match, or technical
 validation MUST NOT establish any protected human or domain decision.
@@ -275,8 +283,10 @@ be repaired by mutating the plan, worker report, prior event, or core outcome.
 
 ## Conceptual records
 
-The exact Python and serialized representations are deferred. Any
-implementation MUST preserve nominal identity domains for at least:
+Slice A binds its exact private representation in
+`projectkoios.workflow.runtime` and its opaque persistence contract in
+`projectkoios.workflow.persistence`. Later slices MUST preserve nominal
+identity domains for at least:
 
 - runtime event;
 - occurrence;
@@ -292,9 +302,11 @@ implementation MUST preserve nominal identity domains for at least:
 - event-log head; and
 - projection generation.
 
-Every immutable record MUST include a contract version, exact upstream
-identities, and bounded references. Content-derived identities establish
-integrity, not truth, actor authenticity, authority, or domain acceptance.
+Every immutable runtime record MUST include a contract version, exact upstream
+identities, and bounded references. The opaque persistence envelope separately
+binds stream, revision, predecessor, schema, content, payload, and idempotency
+identities. Content-derived identities establish integrity, not truth, actor
+authenticity, authority, or domain acceptance.
 
 Identity construction MUST remain acyclic:
 
@@ -333,34 +345,27 @@ MUST NOT determine event identity, replay order, or transition precedence.
 
 ### Event kinds
 
-The initial semantic event set MUST include:
+Slice A has the following closed event vocabulary:
 
-- `RUN_START_RECORDED`;
-- `REQUEST_RETAINED`;
-- `REQUEST_CONFLICT_RECORDED`;
-- `PREFLIGHT_REJECTED`;
-- `AUTHORITY_REJECTED`;
-- `PLAN_RECORDED`;
-- `PLAN_DISABLED`;
-- `PLAN_REJECTED`;
-- `DISPATCH_AUTHORIZED`;
-- `CLAIM_RECORDED`;
-- `EXECUTION_REPORTED`;
-- `RECONCILIATION_REQUIRED`;
-- `RECONCILIATION_RECORDED`;
-- `TRANSITION_RECORDED`;
-- `RETRY_ALLOWED`;
-- `TERMINAL_FAILURE_RECORDED`; and
-- `PROJECTION_CHECKPOINT_RECORDED`.
+- `run_started`;
+- `request_retained`;
+- `request_conflict_recorded`;
+- `preflight_rejected`;
+- `transition_recorded`.
 
-An implementation MAY use more specific internal records, but it MUST map them
-to these semantics without deleting or rewriting prior evidence.
+The private type also reserves `plan_recorded`, `plan_disabled`,
+`plan_rejected`, and `terminal_failure_recorded`, but Slice A does not produce
+them. A later slice MUST add its event semantics and conformance vectors before
+use. An implementation MAY use more specific internal records, but it MUST map
+them to accepted semantics without deleting or rewriting prior evidence.
 
 ### Atomic append
 
 Appending events for one run MUST use compare-and-append against the exact
 retained head identity and expected event ordinal. A mismatch MUST fail with a
-conflict and append nothing.
+conflict and append nothing. Store commits distinguish `committed`, exact
+`idempotent` replay, `conflict`, `indeterminate`, and `error`; an indeterminate
+result MUST be resolved by readback before any changed append.
 
 Request retention and its first event MUST commit before planning or dispatch.
 A plan MUST commit before dispatch authorization. Attempt-bound dispatch
@@ -419,12 +424,18 @@ replay semantics.
 
 ## Idempotency
 
-The runtime retains the first exact request identity and semantic digest for
-each idempotency identity within its declared scope. The retention key MUST be
-the tuple of explicit scope identity and idempotency identity; reuse comparisons
-MUST NOT cross scope boundaries. The allowed scope domains and exact semantic
-digest field composition remain deferred acceptance gates, so implementation
-conformance cannot yet be claimed.
+Slice A defines request-idempotency scope as one workflow-run identity. The
+runtime retains the first exact transition-request identity for each core
+`WorkflowIdempotencyIdentity` in that run's event chain. The request identity is
+the semantic digest because the core derives it from every request semantic
+field, including run, prior state, revision, operation, ordered references,
+actor, authority, bounds, and idempotency identity. Comparisons MUST NOT cross
+run streams.
+
+The lower opaque revision store uses a store-global idempotency identity that
+binds one exact candidate envelope. The runtime repository derives distinct
+purpose-prefixed store keys from content-identified events; these keys are not
+core request-idempotency identities.
 
 - Identical reuse MUST return the retained occurrence or terminal evidence.
 - Changed reuse MUST fail closed and MUST NOT plan or dispatch.
@@ -528,10 +539,18 @@ core run and state identities, active occurrences, and contract version.
 A mutable current pointer MAY identify the latest verified snapshot. Losing or
 corrupting the pointer MUST NOT destroy history; it is rebuilt from events.
 
-SQLite MUST be limited to disposable local read projections under the accepted
-architecture and MUST NOT be the historical event authority. This proposal does
-not select the authoritative event-store implementation. Every SQLite
-projection MUST be rebuildable from verified events and snapshots.
+For private single-operator Slice A, the hardened
+`SQLiteAtomicRevisionStore` MAY be the authoritative local event history. It
+MUST use one explicit absolute path, reject symlink/non-regular database paths,
+require an operator-owned private parent, use `0600` database and `0700` parent
+permissions, enable foreign keys and full synchronization, use non-WAL
+journaling, verify an exact format/schema, and verify every retained envelope.
+
+This exception does not approve SQLite as remote, shared, multi-operator, or
+production authority. API responses, browser state, organizer databases,
+GitHub state, and materialized views remain disposable projections and MUST NOT
+repair or replace the private event chain. Backup, archival, and restore policy
+remain outside Slice A.
 
 ## Artifact-reference verification
 
@@ -543,6 +562,37 @@ text, full chapter maps, credentials, private paths, or protected excerpts.
 Artifact existence MUST NOT establish extraction quality, review acceptance,
 scientific validity, rights clearance, lifecycle activation, or publication
 authority.
+
+## Initial course-review consumer
+
+Slice A's first consumer is the metadata-only local course-review workflow. Its
+closed stages are:
+
+1. `proposal_observed`;
+2. `course_identity_candidate`;
+3. `sanitization_evidence_required`;
+4. `manual_review_required`; and
+5. either `reviewed_retained` or `reviewed_excluded`.
+
+`published` is deliberately not a stage or operation. Publication remains a
+separately authorized catalog mutation outside this workflow.
+
+An `OrganizerTeachingProposalReference` is a typed input containing only
+bounded proposal, proposal-set, model, catalog-revision, course, source-metadata
+digest, and fixed `life_domain=teaching` identities. It MUST NOT contain a
+source path, payload, student information, authority grant, or approval. The
+organizer adapter MAY construct deterministic candidate-transition evidence,
+but the transition request MUST carry a separately supplied core authority
+reference. The adapter performs no payload read, move, rename, deletion,
+upload, approval, publication, or external dispatch.
+
+The candidate definition admits only the
+`proposal_observed` to `course_identity_candidate` operation. It does not merely
+omit adapters for later transitions: those operation identities are absent and
+therefore fail core preflight. Later sanitization and manual-review transitions
+require a new reviewed definition version, evidence contracts, and adapters. A
+review-retained outcome MUST NOT imply public-material clearance or publication
+approval.
 
 ## Baseline deterministic adapter
 
@@ -583,24 +633,41 @@ Exact protected evidence MUST remain in its owning store.
 
 ## Replay
 
-Semantic replay verifies the event predecessor chain and recomputes:
+Slice A identity-chain replay verifies:
 
-- idempotency decisions;
-- occurrence state;
-- deterministic plan identities from retained planning inputs;
-- core transition outcomes from retained final inputs;
-- immutable snapshots; and
-- disposable read projections.
+- every persistence-envelope digest;
+- canonical event bytes and content identity;
+- one acyclic, contiguous predecessor/ordinal chain;
+- one run identity across the chain;
+- retained request-idempotency and reservation decisions; and
+- observed core revision and state identities.
+
+Slice A does not serialize complete `WorkflowRun`, `WorkflowStateSnapshot`,
+transition input, or transition outcome records. A later action must resupply
+those immutable core records, and the runtime checks their content-derived
+identities against the retained head before processing. Slice A therefore MUST
+NOT claim full core semantic recomputation from the event store alone. Such a
+claim requires a later accepted canonical core-record retention contract and
+replay vectors.
 
 Replay MUST NOT call workers, external systems, clocks, random sources,
 artifact payload readers, or CPN execution. External results MUST be supplied as
-retained evidence. Byte-identical serialization remains deferred to a future
-accepted wire contract.
+retained evidence. Slice A runtime events use canonical UTF-8 JSON under
+private schema identity `projectkoios.workflow.runtime-event:1`; decoding MUST
+reject duplicate keys, unknown or missing fields, noncanonical bytes,
+unsupported versions, and content-identity mismatch. This is not a public wire
+compatibility promise.
 
 ## Synthetic conformance vectors
 
-Before runtime implementation, synthetic fixtures MUST define expected retained
-events and prohibited calls for at least:
+Slice A fixtures MUST define expected retained events and prohibited calls for
+vectors 2--5, 9--13, 22, 25, 27, and 28 below, plus exact start/reopen,
+canonical serialization, payload-bound, store-format, file-safety, and
+envelope-integrity cases. Vectors involving plans, workers, attempts, leases,
+external effects, reconciliation, pointers, or projections are mandatory gates
+for the later slice that introduces those capabilities.
+
+The complete runtime vector inventory is:
 
 1. valid preflight and deterministic plan;
 2. stale revision rejected before planning;
@@ -661,34 +728,40 @@ moving runtime or application concerns into the core.
 
 ## Deferred decisions
 
-The following decisions remain outside this proposal and must be accepted before
-implementation where applicable:
+The following decisions remain outside Slice A and must be accepted before the
+slice that needs them:
 
-- authoritative event serialization and schema migration;
-- concrete event-store and snapshot storage technology;
-- configured data-root resolution and filesystem hardening;
-- clock source, lease duration, and operational scheduling;
-- idempotency scope and semantic-digest field composition;
-- deployment-adapter code ownership;
-- retention, archival, and backup policy;
+- schema migration beyond fail-closed version incompatibility;
+- configured application data-root resolution;
+- clocks, leases, claims, scheduling, and background execution;
+- planning and deployment-adapter code ownership;
+- effect idempotency, dispatch, reconciliation, and retry policy;
+- snapshot and projection storage;
+- retention, archival, backup, and restore policy;
 - public wire compatibility;
 - API and browser contracts; and
-- release and migration policy.
+- release and consumer-migration policy.
 
 ## Acceptance gates
 
-Runtime implementation remains blocked until:
+Slice A implementation review requires:
 
-- this contract is reviewed and accepted for an implementation slice;
-- workflow-core consumer fit has no unresolved blocking finding;
-- exact runtime identity domains and bounds are specified;
-- idempotency scope, semantic-digest composition, and cross-scope behavior are
-  specified;
-- synthetic conformance and crash fixtures are reviewed;
+- workflow-core consumer fit with no unresolved blocking finding;
+- exact runtime identities, collection bounds, and canonical private bytes;
+- run-scoped request-idempotency and store-global envelope-idempotency tests;
+- compare-and-append, reopen, corruption, format, and file-safety tests;
+- privacy review confirming metadata-only, payload-free runtime events;
+- effect-free dependency review; and
+- separate operator acceptance before merge or consumer integration.
+
+Planning or external-effect implementation remains blocked until:
+
+- its contract extension and synthetic vectors are reviewed and accepted;
 - the first deployment adapter declares idempotency and reconciliation
   capability;
-- persistence authority and recovery behavior are accepted;
-- privacy review confirms payload-free runtime state; and
+- authenticity, applicability, expiry, and revocation checks are designed;
+- attempt, claim, lease, dispatch, ambiguity, and recovery semantics are
+  accepted; and
 - implementation is separately authorized.
 
 ## Stop conditions
@@ -703,19 +776,20 @@ Stop before implementation if:
   CPN dependencies;
 - event history could be overwritten or repaired from a projection;
 - protected payloads or private paths would enter runtime state; or
-- implementation, release, migration, or CPN promotion would begin without
-  separate authorization.
+- external-effect implementation, merge, release, migration, deployment, or
+  CPN promotion would begin without separate authorization.
 
 ## Consequences
 
-- WF.2 can be reviewed as a consumer before runtime code exists.
+- Slice A can be reviewed against an isolated reference implementation.
 - External effects remain outside pure core processing and deterministic
   planning.
 - Ambiguous failures become explicit reconciliation states rather than retries.
 - Append-only history remains recoverable independently of disposable views.
 - The runtime carries additional records for plans, occurrences, claims,
   execution, and reconciliation.
-- Exact serialization and persistence choices remain intentionally deferred.
+- Slice A makes a private canonical-JSON and hardened-SQLite choice without
+  making a public or production compatibility promise.
 
 [workflow-tracks-adr]:
   https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260920.workflow-and-cpn-development-tracks.md
