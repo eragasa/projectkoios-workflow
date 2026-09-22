@@ -8,10 +8,19 @@ The pilot provides pure definitions, markings, validation, enablement,
 deterministic selection, and firing. A separate unaccepted
 `projectkoios.workflow.core` prototype provides immutable engine-neutral
 references, runs, state snapshots, structural preflight, bounded transition
-processing, audit evidence, and deterministic replay. It does not provide
-persistence, dispatch, external execution, a public wire format, consumer
-migration, a release, or a compatibility promise. See the
+processing, audit evidence, and deterministic replay.
+
+A bounded candidate local runtime slice now composes that core with opaque
+compare-and-append persistence, private canonical event records, hardened
+single-operator SQLite history, run-scoped request idempotency, reservation,
+and effect-free identity-chain replay. Its first pure consumer accepts typed metadata-only
+organizer teaching proposals for the non-authorizing
+`proposal_observed → course_identity_candidate` transition. It does not provide
+a scheduler, queue, worker, claim, lease, external dispatch, background daemon,
+public wire format, API binding, consumer migration, release, or compatibility
+promise. See the
 [workflow-core proposal](docs/contracts/workflow-core.md), the
+[local-runtime candidate contract](docs/contracts/workflow-runtime.md), the
 [pilot boundary](docs/pilots/colored-petri-net-shadow.md), and the
 [colored-Petri-net reference authority](docs/references/colored-petri-net-authority.md).
 

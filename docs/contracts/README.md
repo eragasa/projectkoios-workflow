@@ -6,7 +6,7 @@ by `projectkoios-workflow`.
 | Contract ID | Authoritative document | Scope |
 |---|---|---|
 | `projectkoios.workflow.core` | [`workflow-core.md`](workflow-core.md) | Proposed Petri-independent workflow core |
-| `projectkoios.workflow.runtime` | [`workflow-runtime.md`](workflow-runtime.md) | Proposed append-only local runtime |
+| `projectkoios.workflow.runtime` | [`workflow-runtime.md`](workflow-runtime.md) | Candidate bounded append-only local runtime Slice A |
 
 Cross-repository discovery is provided by the
 [Project Koios contract catalog](https://github.com/eragasa/projectkoios/blob/main/docs/contracts/README.md).
