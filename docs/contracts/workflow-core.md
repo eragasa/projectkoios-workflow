@@ -10,7 +10,7 @@
 | Specification revision | Git commit containing this document |
 | Owner | `projectkoios-workflow` |
 | Acceptance authority | Project Koios operator after workflow-owner and materially affected adapter/consumer review |
-| Architecture record | [`ADR20260918`](https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260918.workflow-kernel-transfer.md) |
+| Living architecture and policy | [Project Koios architecture](https://github.com/eragasa/projectkoios/blob/main/docs/architecture/README.md); [contract governance policy](https://github.com/eragasa/projectkoios/blob/main/docs/policies/contracts.md) |
 | Task | [`WORKFLOW-CORE-01`](https://github.com/eragasa/projectkoios-workflow/issues/1) |
 | Predecessor | None registered |
 | Supersedes | None while proposed |

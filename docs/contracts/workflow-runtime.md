@@ -10,7 +10,7 @@
 | Specification revision | Git commit containing this document |
 | Owner | `projectkoios-workflow` |
 | Acceptance authority | Project Koios operator after required reviews |
-| Architecture record | [`ADR20260920`][workflow-tracks-adr] |
+| Living architecture and policy | [Project Koios architecture](https://github.com/eragasa/projectkoios/blob/main/docs/architecture/README.md); [contract governance policy](https://github.com/eragasa/projectkoios/blob/main/docs/policies/contracts.md) |
 | Task | [`WORKFLOW-RUNTIME-01`][workflow-runtime-task] |
 | Predecessor | None registered |
 | Supersedes | None while candidate |
@@ -874,8 +874,6 @@ Stop before implementation if:
 - Slice A makes a private canonical-JSON and hardened-SQLite choice without
   making a public or production compatibility promise.
 
-[workflow-tracks-adr]:
-  https://github.com/eragasa/projectkoios/blob/main/docs/adr.20260920.workflow-and-cpn-development-tracks.md
 [wf1-core-baseline]:
   https://github.com/eragasa/projectkoios-workflow/commit/fd9ca760c7ed8467062a17411c1df33981d2836e
 [workflow-runtime-task]:

@@ -147,10 +147,10 @@ Add to baseline/debt register:
 - [ ] yes
 - [ ] no
 
-Create ADR:
+Update living architecture/policy documentation:
 
-- [ ] no
-- [ ] proposed only
-- [ ] yes, after human decision
+- [ ] no update needed
+- [ ] update proposed
+- [ ] updated
 
 Next review slice:
