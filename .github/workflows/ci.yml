@@ -44,14 +44,16 @@ jobs:
           src/python/projectkoios/workflow/core
           src/python/projectkoios/workflow/course_review
           src/python/projectkoios/workflow/persistence
+          src/python/projectkoios/workflow/petrinet/colored
           src/python/projectkoios/workflow/reference_review
           src/python/projectkoios/workflow/runtime
           tests/projectkoios/workflow/core
           tests/projectkoios/workflow/course_review
           tests/projectkoios/workflow/persistence
+          tests/projectkoios/workflow/petrinet/colored
           tests/projectkoios/workflow/reference_review
           tests/projectkoios/workflow/runtime
-          tests/test__ColoredPetriNetShadowProvenance.py
+          tests/test__CpnShadowProvenance.py
 
       - name: Lint all Python
         run: .venv/bin/python -m ruff check src/python tests
@@ -72,12 +74,20 @@ jobs:
           /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
           from projectkoios.workflow.course_review import CourseReviewWorkflow
           from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
+          from projectkoios.workflow.petrinet.colored.canonical.firings import (
+              CpnCanonicalFiringResultCodec,
+          )
+          from projectkoios.workflow.petrinet.colored.deployments.bindings import (
+              WorkflowExecutionBindings,
+          )
           from projectkoios.workflow.reference_review import (
               IngestionClaimCandidateReference,
               ReferenceReviewWorkflow,
           )
           from projectkoios.workflow.runtime import LocalWorkflowRuntime
           assert CourseReviewWorkflow is not None
+          assert CpnCanonicalFiringResultCodec is not None
+          assert WorkflowExecutionBindings is not None
           assert IngestionClaimCandidateReference is not None
           assert ReferenceReviewWorkflow is not None
           assert SQLiteAtomicRevisionStore is not None
