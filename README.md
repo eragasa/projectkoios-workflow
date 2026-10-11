@@ -2,9 +2,18 @@
 
 Reusable workflow execution and process/state orchestration for Project Koios.
 
-The repository currently contains a non-authoritative colored-Petri-net shadow-conformance pilot under `projectkoios.workflow.petrinet.colored`. Its production source is byte-identical to the generic kernel in `ksdft2effmass` at revision `be70e856911456402ea2b2562cd2508d0963e4d9`; source and transformation evidence is recorded in [`provenance/colored-petri-net-shadow.json`](provenance/colored-petri-net-shadow.json).
+The repository currently contains a non-authoritative Workflow-owned
+colored-Petri-net candidate under `projectkoios.workflow.petrinet.colored`.
+It began from the pinned `ksdft2effmass` shadow at revision
+`be70e856911456402ea2b2562cd2508d0963e4d9` and now includes owner-authored
+canonical transport, control-record, execution-profile, child-plan/export,
+deployment-linking, and replay extensions. Exact inherited and owner-authored
+file evidence is recorded in
+[`provenance/colored-petri-net-shadow.json`](provenance/colored-petri-net-shadow.json).
+The candidate remains non-authoritative and does not authorize consumer imports,
+migration, provider execution, or scientific acceptance.
 
-The pilot provides pure definitions, markings, validation, enablement,
+The candidate provides pure definitions, markings, validation, enablement,
 deterministic selection, and firing. A separate unaccepted
 `projectkoios.workflow.core` prototype provides immutable engine-neutral
 references, runs, state snapshots, structural preflight, bounded transition

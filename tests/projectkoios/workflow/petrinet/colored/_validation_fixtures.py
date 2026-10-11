@@ -1,88 +1,88 @@
 """Private synthetic constructors shared by class-owned validator tests."""
 
-from projectkoios.workflow.petrinet.colored import (
-    ColoredPetriNetArcDefinition,
-    ColoredPetriNetArcIdentity,
-    ColoredPetriNetBindingVariableIdentity,
-    ColoredPetriNetColorDefinition,
-    ColoredPetriNetColorIdentity,
-    ColoredPetriNetDefinition,
-    ColoredPetriNetDefinitionIdentity,
-    ColoredPetriNetGuardExpression,
-    ColoredPetriNetGuardOperator,
-    ColoredPetriNetInputInscription,
-    ColoredPetriNetInputMode,
-    ColoredPetriNetOutputInscription,
-    ColoredPetriNetPlaceDefinition,
-    ColoredPetriNetPlaceIdentity,
-    ColoredPetriNetTokenPattern,
-    ColoredPetriNetTokenTemplate,
-    ColoredPetriNetTransitionDefinition,
-    ColoredPetriNetTransitionIdentity,
-    ColoredPetriNetValue,
-    ColoredPetriNetValueExpression,
-    ColoredPetriNetValueExpressionKind,
-    ColoredPetriNetValueKind,
+from projectkoios.workflow.petrinet.colored.definitions import (
+    CpnArcDefinition,
+    CpnArcIdentity,
+    CpnColorDefinition,
+    CpnDefinition,
+    CpnDefinitionIdentity,
+    CpnPlaceDefinition,
+    CpnPlaceIdentity,
+    CpnTransitionDefinition,
+    CpnTransitionIdentity,
+)
+from projectkoios.workflow.petrinet.colored.expressions.grammar import (
+    CpnBindingVariableIdentity,
+    CpnGuardExpression,
+    CpnGuardOperator,
+    CpnInputInscription,
+    CpnInputMode,
+    CpnOutputInscription,
+    CpnTokenPattern,
+    CpnTokenTemplate,
+    CpnValueExpression,
+    CpnValueExpressionKind,
+)
+from projectkoios.workflow.petrinet.colored.values import (
+    CpnColorIdentity,
+    CpnValue,
+    CpnValueKind,
 )
 
 
-def literal(
-    kind: ColoredPetriNetValueKind, value: object
-) -> ColoredPetriNetValueExpression:
+def literal(kind: CpnValueKind, value: object) -> CpnValueExpression:
     """Return one explicit generic literal expression."""
-    return ColoredPetriNetValueExpression(
-        ColoredPetriNetValueExpressionKind.LITERAL,
-        ColoredPetriNetValue(kind, value),  # type: ignore[arg-type]
+    return CpnValueExpression(
+        CpnValueExpressionKind.LITERAL,
+        CpnValue(kind, value),  # type: ignore[arg-type]
     )
 
 
-def variable(name: str) -> ColoredPetriNetValueExpression:
+def variable(name: str) -> CpnValueExpression:
     """Return one nominal variable expression."""
-    return ColoredPetriNetValueExpression(
-        ColoredPetriNetValueExpressionKind.VARIABLE,
-        variable_identity=ColoredPetriNetBindingVariableIdentity(name),
+    return CpnValueExpression(
+        CpnValueExpressionKind.VARIABLE,
+        variable_identity=CpnBindingVariableIdentity(name),
     )
 
 
-def valid_definition() -> ColoredPetriNetDefinition:
+def valid_definition() -> CpnDefinition:
     """Return a complete definition with separated input/external variables."""
-    color = ColoredPetriNetColorDefinition(
-        ColoredPetriNetColorIdentity("number"),
-        (ColoredPetriNetValueKind.INTEGER,),
+    color = CpnColorDefinition(
+        CpnColorIdentity("number"),
+        (CpnValueKind.INTEGER,),
     )
-    place = ColoredPetriNetPlaceDefinition(
-        ColoredPetriNetPlaceIdentity("place"), (color.identity,)
+    place = CpnPlaceDefinition(CpnPlaceIdentity("place"), (color.identity,))
+    transition = CpnTransitionDefinition(
+        CpnTransitionIdentity("transition"),
+        (CpnBindingVariableIdentity("input"),),
+        (CpnBindingVariableIdentity("output"),),
+        CpnGuardExpression(CpnGuardOperator.TRUE),
     )
-    transition = ColoredPetriNetTransitionDefinition(
-        ColoredPetriNetTransitionIdentity("transition"),
-        (ColoredPetriNetBindingVariableIdentity("input"),),
-        (ColoredPetriNetBindingVariableIdentity("output"),),
-        ColoredPetriNetGuardExpression(ColoredPetriNetGuardOperator.TRUE),
-    )
-    input_arc = ColoredPetriNetArcDefinition(
-        ColoredPetriNetArcIdentity("input"),
+    input_arc = CpnArcDefinition(
+        CpnArcIdentity("input"),
         place.identity,
         transition.identity,
-        ColoredPetriNetInputInscription(
-            ColoredPetriNetInputMode.CONSUME,
+        CpnInputInscription(
+            CpnInputMode.CONSUME,
             (
-                ColoredPetriNetTokenPattern(
-                    ColoredPetriNetBindingVariableIdentity("input"),
+                CpnTokenPattern(
+                    CpnBindingVariableIdentity("input"),
                     (color.identity,),
                 ),
             ),
         ),
     )
-    output_arc = ColoredPetriNetArcDefinition(
-        ColoredPetriNetArcIdentity("output"),
+    output_arc = CpnArcDefinition(
+        CpnArcIdentity("output"),
         place.identity,
         transition.identity,
-        output_inscription=ColoredPetriNetOutputInscription(
-            (ColoredPetriNetTokenTemplate(color.identity, variable("output")),)
+        output_inscription=CpnOutputInscription(
+            (CpnTokenTemplate(color.identity, variable("output")),)
         ),
     )
-    return ColoredPetriNetDefinition(
-        ColoredPetriNetDefinitionIdentity("definition"),
+    return CpnDefinition(
+        CpnDefinitionIdentity("definition"),
         (color,),
         (place,),
         (transition,),

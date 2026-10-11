@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-from typing import Any
 
 from projectkoios.workflow.core import (
     WorkflowOperationIdentity,
@@ -108,8 +107,8 @@ class WorkflowRuntimeEventSerializer:
         if payload.startswith(b"\xef\xbb\xbf"):
             raise ValueError("payload must not contain a UTF-8 BOM")
 
-        def pairs(values: list[tuple[str, Any]]) -> dict[str, Any]:
-            result: dict[str, Any] = {}
+        def pairs(values: list[tuple[str, object]]) -> dict[str, object]:
+            result: dict[str, object] = {}
             for key, value in values:
                 if key in result:
                     raise ValueError(f"duplicate JSON key {key}")

@@ -17,9 +17,9 @@ It is a baseline for future reviews.
 | core/schema | — | Not implemented; the current Petri-net pilot is not Project Koios core schema. |
 | runtime | — | Workflow-run runtime, persistence, and dispatch are not implemented. |
 | UI | — | Not implemented or owned here. |
-| Petri-net/backend | `src/python/projectkoios/workflow/petrinet/colored/` | Non-authoritative, pure shadow kernel bound to an exact `ksdft2effmass` source revision. |
+| Petri-net/backend | `src/python/projectkoios/workflow/petrinet/colored/` | Non-authoritative Workflow-owned candidate derived from a pinned shadow baseline, with owner canonical transport, profiles, plans, child exports, deployment linking, and replay. |
 | adapters | — | Core-to-Petri and managed-project adapters are not implemented. |
-| tests | `tests/projectkoios/workflow/petrinet/colored/`, `tests/test__ColoredPetriNetShadowProvenance.py` | Inherited behavioral verification, adapted dependency direction, and exact provenance checks. |
+| tests | `tests/projectkoios/workflow/petrinet/colored/`, `tests/test__CpnShadowProvenance.py` | Inherited and owner-authored behavioral verification, architecture gates, and exact provenance checks. |
 
 ## Observed dependency edges
 
@@ -33,7 +33,7 @@ It is a baseline for future reviews.
 
 | id | area | issue | status | next action |
 |---|---|---|---|---|
-| D-001 | identity | Byte-identical shadow code retains `ksdft2effmass.petrinet.colored.*` identity-domain strings. | intentional shadow limitation | Decide compatibility and version migration before production transfer. |
+| D-001 | identity | The candidate uses versioned Project Koios identity domains and intentionally makes no legacy-domain compatibility promise. | candidate policy | Obtain independent review and an accepted import gate before production transfer. |
 | D-002 | core boundary | No Petri-independent Project Koios core schema exists. | open | Define and accept the core contract before adding an adapter. |
 | D-003 | consumer migration | No managed research project consumes the shadow package. | open | Build a separately reviewed adapter and shadow replay before transfer. |
 

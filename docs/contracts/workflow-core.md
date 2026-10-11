@@ -16,7 +16,7 @@
 | Supersedes | None while proposed |
 | Dependencies | No cross-repository contract dependencies registered |
 | Consumers | Workflow runtime, engine adapters, managed-project adapters |
-| Implementation bindings | Prototype under `projectkoios.workflow.core`; the colored-Petri-net shadow remains backend evidence, not a core implementation |
+| Implementation bindings | Prototype under `projectkoios.workflow.core`; the non-authoritative Workflow-owned colored-Petri-net candidate remains backend evidence, not a core implementation |
 | Compatibility | Unknown until adapter and managed-project boundaries are defined |
 | Effective baseline | None while proposed |
 
@@ -27,7 +27,7 @@ Proposed under
 An unaccepted implementation prototype exists under
 `projectkoios.workflow.core`. Its implementation does not accept this
 architecture, authorize production transfer, migrate consumers, release a
-package, deprecate the shadow, or remove source code.
+package, deprecate the colored-Petri-net candidate, or remove source code.
 
 ## Purpose
 
@@ -36,9 +36,10 @@ and audit workflow state changes without depending on a colored-Petri-net
 representation, scheduler, persistence engine, user interface, external
 executor, or scientific application.
 
-The existing colored-Petri-net package remains a non-authoritative backend
-shadow. The core is not a renamed copy of `ksdft2effmass.workflows.model`, and
-the shadow kernel is not changed merely to fit this proposal.
+The existing colored-Petri-net package remains a non-authoritative
+Workflow-owned backend candidate. The core is not a renamed copy of
+`ksdft2effmass.workflows.model`, and this proposal neither authorizes nor
+constrains adoption of that CPN candidate.
 
 ## Normative scope and conformance
 
@@ -199,9 +200,10 @@ Stable identity binds semantic content and contract version. It excludes
 process-local addresses, mutable timestamps used only for display, filesystem
 paths, and storage-assigned row numbers.
 
-The shadow's retained `ksdft2effmass.petrinet.colored.*` identity-domain strings
-are backend conformance evidence. They are not core identities or an accepted
-wire contract.
+The Workflow-owned CPN candidate uses separately versioned Project Koios
+identity domains. Legacy `ksdft2effmass.petrinet.colored.*` domains are retained
+only as historical import provenance; neither the candidate nor those historical
+domains define core identities or an accepted wire contract.
 
 Public identity domains and migration rules remain deferred to
 `WORKFLOW-IDENTITY-WIRE-01`.

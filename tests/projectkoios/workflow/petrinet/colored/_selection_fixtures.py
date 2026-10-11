@@ -2,28 +2,33 @@
 
 from _validation_fixtures import valid_definition
 
-from projectkoios.workflow.petrinet.colored import (
-    ColoredPetriNetDefinition,
-    ColoredPetriNetEnablementResult,
-    ColoredPetriNetMarking,
-    ColoredPetriNetMarkingIdentity,
-    ColoredPetriNetPlaceMarking,
-    ColoredPetriNetSelectionPolicy,
-    ColoredPetriNetToken,
-    ColoredPetriNetTransitionEnabler,
-    ColoredPetriNetValue,
-    ColoredPetriNetValueKind,
+from projectkoios.workflow.petrinet.colored.definitions import (
+    CpnDefinition,
+    CpnSelectionPolicy,
+)
+from projectkoios.workflow.petrinet.colored.enablement import (
+    CpnEnablementResult,
+    CpnTransitionEnablementRequest,
+    CpnTransitionEnabler,
+)
+from projectkoios.workflow.petrinet.colored.markings import (
+    CpnMarking,
+    CpnMarkingIdentity,
+    CpnPlaceMarking,
+)
+from projectkoios.workflow.petrinet.colored.values import (
+    CpnToken,
+    CpnValue,
+    CpnValueKind,
 )
 
 
 def selection_definition(
-    policy: ColoredPetriNetSelectionPolicy = (
-        ColoredPetriNetSelectionPolicy.DETERMINISTIC_ONLY
-    ),
-) -> ColoredPetriNetDefinition:
+    policy: CpnSelectionPolicy = (CpnSelectionPolicy.DETERMINISTIC_ONLY),
+) -> CpnDefinition:
     """Return one structurally valid definition with the requested policy."""
     base = valid_definition()
-    return ColoredPetriNetDefinition(
+    return CpnDefinition(
         base.identity,
         base.colors,
         base.places,
@@ -35,23 +40,23 @@ def selection_definition(
 
 
 def selection_enablement(
-    policy: ColoredPetriNetSelectionPolicy = (
-        ColoredPetriNetSelectionPolicy.DETERMINISTIC_ONLY
-    ),
+    policy: CpnSelectionPolicy = (CpnSelectionPolicy.DETERMINISTIC_ONLY),
     values: tuple[int, ...] = (2, 1),
-) -> tuple[ColoredPetriNetDefinition, ColoredPetriNetEnablementResult]:
+) -> tuple[CpnDefinition, CpnEnablementResult]:
     """Return one definition and successful complete enablement result."""
     definition = selection_definition(policy)
     tokens = tuple(
-        ColoredPetriNetToken(
+        CpnToken(
             definition.colors[0].identity,
-            ColoredPetriNetValue(ColoredPetriNetValueKind.INTEGER, value),
+            CpnValue(CpnValueKind.INTEGER, value),
         )
         for value in values
     )
-    marking = ColoredPetriNetMarking(
-        ColoredPetriNetMarkingIdentity("marking"),
+    marking = CpnMarking(
+        CpnMarkingIdentity("marking"),
         definition.identity,
-        (ColoredPetriNetPlaceMarking(definition.places[0].identity, tokens),),
+        (CpnPlaceMarking(definition.places[0].identity, tokens),),
     )
-    return definition, ColoredPetriNetTransitionEnabler().execute(definition, marking)
+    return definition, CpnTransitionEnabler().execute(
+        CpnTransitionEnablementRequest(definition, marking)
+    )

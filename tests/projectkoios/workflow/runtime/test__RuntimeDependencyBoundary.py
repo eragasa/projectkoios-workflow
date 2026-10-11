@@ -5,14 +5,8 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-_RUNTIME_ROOT = (
-    Path(__file__).parents[4]
-    / "src"
-    / "python"
-    / "projectkoios"
-    / "workflow"
-    / "runtime"
-)
+import pytest
+
 _FORBIDDEN = {
     "fastapi",
     "httpx",
@@ -38,10 +32,15 @@ def imported_modules(path: Path) -> set[str]:
     return imported
 
 
-def test__local_runtime__has_no_effect_or_cpn_dependencies() -> None:
+def test__local_runtime__has_no_effect_or_cpn_dependencies(
+    pytestconfig: pytest.Config,
+) -> None:
+    runtime_root = (
+        pytestconfig.rootpath / "src/python/projectkoios/workflow/runtime"
+    )
     modules = {
         module
-        for path in _RUNTIME_ROOT.glob("*.py")
+        for path in runtime_root.glob("*.py")
         for module in imported_modules(path)
     }
 
