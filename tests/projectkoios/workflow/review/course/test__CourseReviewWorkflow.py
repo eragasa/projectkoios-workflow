@@ -14,14 +14,16 @@ from projectkoios.workflow.core import (
     WorkflowTransitionOutcomeKind,
     WorkflowTransitionPreflightInput,
 )
-from projectkoios.workflow.course_review import (
-    COURSE_IDENTITY_CANDIDATE_OPERATION,
+from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
+from projectkoios.workflow.review.course.models import (
     CourseReviewStage,
-    CourseReviewWorkflow,
-    OrganizerCourseCandidateAdapter,
     OrganizerTeachingProposalReference,
 )
-from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
+from projectkoios.workflow.review.course.workflow import (
+    COURSE_IDENTITY_CANDIDATE_OPERATION,
+    CourseReviewWorkflow,
+    OrganizerCourseCandidateAdapter,
+)
 from projectkoios.workflow.runtime import (
     LocalWorkflowRuntime,
     WorkflowRuntimeActionStatus,

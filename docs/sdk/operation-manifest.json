@@ -1,0 +1,4380 @@
+{
+  "contract_namespace": "projectkoios/workflow/v0.1",
+  "operations": [
+    {
+      "action": "CpnCanonicalBindingCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-binding-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBinding",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingEncodingInput) -> projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBinding"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingDecodingInput) -> projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBindingDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalDefinitionCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-definition-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "CpnCanonicalDefinitionEncodingInput"
+          ],
+          "response_type": "CpnCanonicalDefinition",
+          "signature": "(self, encoding_input: 'CpnCanonicalDefinitionEncodingInput') -> 'CpnCanonicalDefinition'"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "CpnCanonicalDefinitionDecodingInput"
+          ],
+          "response_type": "CpnCanonicalDefinitionDecodingResult",
+          "signature": "(self, decoding_input: 'CpnCanonicalDefinitionDecodingInput') -> 'CpnCanonicalDefinitionDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalSelectionDirectiveCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-selection-directive-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirective",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveEncodingInput) -> projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirective"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveDecodingInput) -> projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirectiveDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalEnablementResultCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-enablement-result-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResult",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultEncodingInput) -> projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResult"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultDecodingInput) -> projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResultDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnGuardCanonicalDecoder",
+      "identity": "projectkoios.workflow.cpn.guard-decoder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnGuardCanonicalDecodingInput"
+          ],
+          "response_type": "CpnGuardCanonicalDecodingResult",
+          "signature": "(self, decoding_input: 'CpnGuardCanonicalDecodingInput') -> 'CpnGuardCanonicalDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnGuardCanonicalizer",
+      "identity": "projectkoios.workflow.cpn.guard-canonicalizer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnGuardCanonicalizationInput"
+          ],
+          "response_type": "CpnGuardCanonicalizationResult",
+          "signature": "(self, canonicalization_input: 'CpnGuardCanonicalizationInput') -> 'CpnGuardCanonicalizationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnValueExpressionCanonicalDecoder",
+      "identity": "projectkoios.workflow.cpn.value-expression-decoder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnValueExpressionCanonicalDecodingInput"
+          ],
+          "response_type": "CpnValueExpressionCanonicalDecodingResult",
+          "signature": "(self, decoding_input: 'CpnValueExpressionCanonicalDecodingInput') -> 'CpnValueExpressionCanonicalDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnValueExpressionCanonicalizer",
+      "identity": "projectkoios.workflow.cpn.value-expression-canonicalizer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnValueExpressionCanonicalizationInput"
+          ],
+          "response_type": "CpnValueExpressionCanonicalizationResult",
+          "signature": "(self, canonicalization_input: 'CpnValueExpressionCanonicalizationInput') -> 'CpnValueExpressionCanonicalizationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalFiringResultCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-firing-result-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "CpnCanonicalFiringResultEncodingInput"
+          ],
+          "response_type": "CpnCanonicalFiringResult",
+          "signature": "(self, encoding_input: 'CpnCanonicalFiringResultEncodingInput') -> 'CpnCanonicalFiringResult'"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "CpnCanonicalFiringResultDecodingInput"
+          ],
+          "response_type": "CpnCanonicalFiringResultDecodingResult",
+          "signature": "(self, decoding_input: 'CpnCanonicalFiringResultDecodingInput') -> 'CpnCanonicalFiringResultDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.codec",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalJsonParser",
+      "identity": "projectkoios.workflow.cpn.canonical-json-parser:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.json.CpnCanonicalJsonParsingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.json.CpnCanonicalJsonParsingResult",
+          "signature": "(self, parsing_input: projectkoios.workflow.petrinet.colored.canonical.json.CpnCanonicalJsonParsingInput) -> projectkoios.workflow.petrinet.colored.canonical.json.CpnCanonicalJsonParsingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalMarkingCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-marking-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "CpnCanonicalMarkingEncodingInput"
+          ],
+          "response_type": "CpnCanonicalMarking",
+          "signature": "(self, encoding_input: 'CpnCanonicalMarkingEncodingInput') -> 'CpnCanonicalMarking'"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "CpnCanonicalMarkingDecodingInput"
+          ],
+          "response_type": "CpnCanonicalMarkingDecodingResult",
+          "signature": "(self, decoding_input: 'CpnCanonicalMarkingDecodingInput') -> 'CpnCanonicalMarkingDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnCanonicalSelectionResultCodec",
+      "identity": "projectkoios.workflow.cpn.canonical-selection-result-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResult",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultEncodingInput) -> projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResult"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultDecodingInput) -> projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResultDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowChildDefinitionExportIdentityDeriver",
+      "identity": "projectkoios.workflow.cpn.child-export-identity-deriver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.children.exports.canonical.WorkflowChildDefinitionExportIdentityDerivationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportIdentity",
+          "signature": "(self, derivation_input: projectkoios.workflow.petrinet.colored.children.exports.canonical.WorkflowChildDefinitionExportIdentityDerivationInput) -> projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportIdentity"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowChildDefinitionExporter",
+      "identity": "projectkoios.workflow.cpn.child-definition-exporter:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.children.exports.canonical.WorkflowChildDefinitionExportInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExport",
+          "signature": "(self, export_input: projectkoios.workflow.petrinet.colored.children.exports.canonical.WorkflowChildDefinitionExportInput) -> projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExport"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowCpnClosureCorrelationValidator",
+      "identity": "projectkoios.workflow.cpn.closure-correlation-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationResult",
+          "signature": "(self, correlation_input: projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationInput) -> projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnControlRecordCanonicalCodec",
+      "identity": "projectkoios.workflow.cpn.control-record-canonical-codec:0.1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.control.records.canonical.CpnCanonicalControlRecord",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalEncodingInput) -> projectkoios.workflow.petrinet.colored.control.records.canonical.CpnCanonicalControlRecord"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalDecodingInput) -> projectkoios.workflow.petrinet.colored.control.records.canonical.CpnControlRecordCanonicalDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnValueOrderingPolicy",
+      "identity": "projectkoios.workflow.cpn.value-ordering-policy:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnValueOrderingInput"
+          ],
+          "response_type": "CpnValueOrderingResult",
+          "signature": "(self, ordering_input: 'CpnValueOrderingInput') -> 'CpnValueOrderingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.ordering",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnControlRecordSchemaValidator",
+      "identity": "projectkoios.workflow.cpn.control-record-schema-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnControlRecordSchemaValidationInput"
+          ],
+          "response_type": "CpnControlRecordValidationResult",
+          "signature": "(self, validation_input: 'CpnControlRecordSchemaValidationInput') -> 'CpnControlRecordValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.schema",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnControlRecordTypeGraphValidator",
+      "identity": "projectkoios.workflow.cpn.control-record-type-graph-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnControlRecordTypeGraphValidationInput"
+          ],
+          "response_type": "CpnControlRecordValidationResult",
+          "signature": "(self, validation_input: 'CpnControlRecordTypeGraphValidationInput') -> 'CpnControlRecordValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.type_graph",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnValueCanonicalDecoder",
+      "identity": "projectkoios.workflow.cpn.value-canonical-decoder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnValueCanonicalDecodingInput"
+          ],
+          "response_type": "CpnValueCanonicalDecodingResult",
+          "signature": "(self, decoding_input: 'CpnValueCanonicalDecodingInput') -> 'CpnValueCanonicalDecodingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnValueCanonicalizer",
+      "identity": "projectkoios.workflow.cpn.value-canonicalizer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnValueCanonicalizationInput"
+          ],
+          "response_type": "CpnValueCanonicalizationResult",
+          "signature": "(self, canonicalization_input: 'CpnValueCanonicalizationInput') -> 'CpnValueCanonicalizationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowChildPlanExportCorrelator",
+      "identity": "projectkoios.workflow.child-plan-export-correlator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanExportCorrelationRequest"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanExportCorrelationResult",
+          "signature": "(self, request: projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanExportCorrelationRequest) -> projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanExportCorrelationResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowChildPlanGraphValidator",
+      "identity": "projectkoios.workflow.child-plan-graph-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationResult",
+          "signature": "(self, validation_input: projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationInput) -> projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnEnablementFailureBuilder",
+      "identity": "projectkoios.workflow.cpn.enablement-failure-builder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnEnablementFailureBuildingInput"
+          ],
+          "response_type": "CpnEnablementResult",
+          "signature": "(self, building_input: 'CpnEnablementFailureBuildingInput') -> 'CpnEnablementResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.enablement.failure_building",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnEnablementResultIdentityDeriver",
+      "identity": "projectkoios.workflow.cpn.enablement-result-identity-deriver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnEnablementResultIdentityDerivationInput"
+          ],
+          "response_type": "CpnEnablementResultIdentity",
+          "signature": "(self, derivation_input: 'CpnEnablementResultIdentityDerivationInput') -> 'CpnEnablementResultIdentity'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.enablement.identity_derivation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnEnabledBindingOrderingPolicy",
+      "identity": "colored-petri-net-enablement-order-v1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnEnabledBindingOrderingInput"
+          ],
+          "response_type": "CpnEnabledBindingOrderingResult",
+          "signature": "(self, ordering_input: 'CpnEnabledBindingOrderingInput') -> 'CpnEnabledBindingOrderingResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.enablement.ordering",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnTransitionEnabler",
+      "identity": "colored-petri-net-transition-enabler-v1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnTransitionEnablementRequest"
+          ],
+          "response_type": "CpnEnablementResult",
+          "signature": "(self, request: 'CpnTransitionEnablementRequest') -> 'CpnEnablementResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.enablement.transitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnExpressionVariableCollector",
+      "identity": "projectkoios.workflow.cpn.expression-variable-collector:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnExpressionVariableCollectionInput"
+          ],
+          "response_type": "CpnExpressionVariableCollectionResult",
+          "signature": "(self, collection_input: 'CpnExpressionVariableCollectionInput') -> 'CpnExpressionVariableCollectionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnGuardExpressionCollector",
+      "identity": "projectkoios.workflow.cpn.guard-expression-collector:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnGuardExpressionCollectionInput"
+          ],
+          "response_type": "CpnGuardExpressionCollectionResult",
+          "signature": "(self, collection_input: 'CpnGuardExpressionCollectionInput') -> 'CpnGuardExpressionCollectionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnGuardVariableCollector",
+      "identity": "projectkoios.workflow.cpn.guard-variable-collector:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnGuardVariableCollectionInput"
+          ],
+          "response_type": "CpnGuardVariableCollectionResult",
+          "signature": "(self, collection_input: 'CpnGuardVariableCollectionInput') -> 'CpnGuardVariableCollectionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnControlRecordConstructor",
+      "identity": "projectkoios.workflow.cpn.control-record-constructor:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnControlRecordConstructionInput"
+          ],
+          "response_type": "CpnControlRecordConstructionResult",
+          "signature": "(self, construction_input: 'CpnControlRecordConstructionInput') -> 'CpnControlRecordConstructionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.construction",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnExpressionEvaluator",
+      "identity": "projectkoios.workflow.cpn.expression-evaluator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnExpressionEvaluationInput"
+          ],
+          "response_type": "CpnExpressionEvaluationResult",
+          "signature": "(self, evaluation_input: 'CpnExpressionEvaluationInput') -> 'CpnExpressionEvaluationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnGuardEvaluator",
+      "identity": "projectkoios.workflow.cpn.guard-evaluator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnGuardEvaluationInput"
+          ],
+          "response_type": "CpnGuardEvaluationResult",
+          "signature": "(self, evaluation_input: 'CpnGuardEvaluationInput') -> 'CpnGuardEvaluationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnFieldProjector",
+      "identity": "projectkoios.workflow.cpn.field-projector:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnFieldProjectionInput"
+          ],
+          "response_type": "CpnFieldProjectionResult",
+          "signature": "(self, projection_input: 'CpnFieldProjectionInput') -> 'CpnFieldProjectionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.projection",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnExpressionBoundsValidator",
+      "identity": "projectkoios.workflow.cpn.expression-bounds-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnExpressionBoundsValidationInput"
+          ],
+          "response_type": "CpnExpressionBoundsValidationResult",
+          "signature": "(self, validation_input: 'CpnExpressionBoundsValidationInput') -> 'CpnExpressionBoundsValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnExpressionStructureValidator",
+      "identity": "projectkoios.workflow.cpn.expression-structure-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnExpressionStructureValidationInput"
+          ],
+          "response_type": "CpnExpressionStructureValidationResult",
+          "signature": "(self, validation_input: 'CpnExpressionStructureValidationInput') -> 'CpnExpressionStructureValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnExternalOutputValidator",
+      "identity": "projectkoios.workflow.cpn.external-output-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnExternalOutputValidationInput"
+          ],
+          "response_type": "CpnExternalOutputValidationResult",
+          "signature": "(self, validation_input: 'CpnExternalOutputValidationInput') -> 'CpnExternalOutputValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnFiringFailureBuilder",
+      "identity": "projectkoios.workflow.cpn.firing-failure-builder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnFiringFailureBuildingRequest"
+          ],
+          "response_type": "CpnFiringResult",
+          "signature": "(self, request: 'CpnFiringFailureBuildingRequest') -> 'CpnFiringResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.failure_building",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnFiringResultIdentityDeriver",
+      "identity": "projectkoios.workflow.cpn.firing-result-identity-deriver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnFiringResultIdentityDerivationRequest"
+          ],
+          "response_type": "CpnFiringResultIdentity",
+          "signature": "(self, request: 'CpnFiringResultIdentityDerivationRequest') -> 'CpnFiringResultIdentity'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.identity_derivation",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnTokenOccurrenceReconstructor",
+      "identity": "projectkoios.workflow.cpn.occurrence-reconstructor:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnTokenOccurrenceReconstructionRequest"
+          ],
+          "response_type": "CpnTokenOccurrenceReconstructionResponse",
+          "signature": "(self, request: 'CpnTokenOccurrenceReconstructionRequest') -> 'CpnTokenOccurrenceReconstructionResponse'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnSuccessorMarkingBuilder",
+      "identity": "projectkoios.workflow.cpn.successor-marking-builder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnSuccessorMarkingBuildingRequest"
+          ],
+          "response_type": "CpnMarking",
+          "signature": "(self, request: 'CpnSuccessorMarkingBuildingRequest') -> 'CpnMarking'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.successor_marking",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnTransitionFirer",
+      "identity": "projectkoios.workflow.cpn.transition-firer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnFiringInput"
+          ],
+          "response_type": "CpnFiringResult",
+          "signature": "(self, firing_input: 'CpnFiringInput') -> 'CpnFiringResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.transitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnTokenOrderingPolicy",
+      "identity": "projectkoios.workflow.cpn.token-ordering-policy:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.markings.CpnTokenOrderingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.markings.CpnTokenOrderingResult",
+          "signature": "(self, ordering_input: projectkoios.workflow.petrinet.colored.markings.CpnTokenOrderingInput) -> projectkoios.workflow.petrinet.colored.markings.CpnTokenOrderingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowDomainPayloadReferenceAssembler",
+      "identity": "projectkoios.workflow.payload-reference-assembler:1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyRequest"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyResult",
+          "signature": "(self, request: projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyRequest) -> projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowDomainPayloadReferenceCodec",
+      "identity": "projectkoios.workflow.payload-reference-codec:1",
+      "methods": [
+        {
+          "method": "encode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceEncodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowCanonicalDomainPayloadReference",
+          "signature": "(self, encoding_input: projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceEncodingInput) -> projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowCanonicalDomainPayloadReference"
+        },
+        {
+          "method": "decode",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceDecodingInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceDecodingResult",
+          "signature": "(self, decoding_input: projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceDecodingInput) -> projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowDomainPayloadReferenceDecodingResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowDomainPayloadReferenceVerifier",
+      "identity": "projectkoios.workflow.payload-reference-verifier:1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationRequest"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationResult",
+          "signature": "(self, request: projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationRequest) -> projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowExecutionPlanCompiler",
+      "identity": "projectkoios.workflow.cpn.execution-plan-compiler:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanCompilationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlan",
+          "signature": "(self, compilation_input: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanCompilationInput) -> projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlan"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowExecutionPlanIdentityDeriver",
+      "identity": "projectkoios.workflow.cpn.execution-plan-identity-deriver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanIdentityDerivationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity",
+          "signature": "(self, derivation_input: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanIdentityDerivationInput) -> projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowCpnExecutionProfileBuilder",
+      "identity": "projectkoios.workflow.cpn.execution-profile-builder:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.profiles.defaults.WorkflowCpnExecutionProfileBuildingRequest"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile",
+          "signature": "(self, request: projectkoios.workflow.petrinet.colored.profiles.defaults.WorkflowCpnExecutionProfileBuildingRequest) -> projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowCpnExecutionProfileResolver",
+      "identity": "projectkoios.workflow.cpn.execution-profile-resolver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.profiles.defaults.WorkflowCpnExecutionProfileResolutionRequest"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileResolutionResult",
+          "signature": "(self, request: projectkoios.workflow.petrinet.colored.profiles.defaults.WorkflowCpnExecutionProfileResolutionRequest) -> projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileResolutionResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "WorkflowCpnExecutionProfileIdentityDeriver",
+      "identity": "projectkoios.workflow.cpn.profile-identity-deriver:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentityDerivationInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity",
+          "signature": "(self, derivation_input: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentityDerivationInput) -> projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnBindingSelector",
+      "identity": "colored-petri-net-binding-selector-v1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnBindingSelectionRequest"
+          ],
+          "response_type": "CpnSelectionResult",
+          "signature": "(self, request: 'CpnBindingSelectionRequest') -> 'CpnSelectionResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnShadowFirer",
+      "identity": "projectkoios.workflow.cpn.shadow-firer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringResult",
+          "signature": "(self, firing_input: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringInput) -> projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.shadow.firing",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnShadowFiringReplayer",
+      "identity": "projectkoios.workflow.cpn.shadow-firing-replayer:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "projectkoios.workflow.petrinet.colored.shadow.replay_contracts.CpnShadowFiringReplayInput"
+          ],
+          "response_type": "projectkoios.workflow.petrinet.colored.shadow.replay_contracts.CpnShadowFiringReplayResult",
+          "signature": "(self, replay_input: projectkoios.workflow.petrinet.colored.shadow.replay_contracts.CpnShadowFiringReplayInput) -> projectkoios.workflow.petrinet.colored.shadow.replay_contracts.CpnShadowFiringReplayResult"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.shadow.replay",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnDefinitionValidator",
+      "identity": "projectkoios.workflow.cpn.definition-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnDefinitionValidationRequest"
+          ],
+          "response_type": "CpnValidationResult",
+          "signature": "(self, request: 'CpnDefinitionValidationRequest') -> 'CpnValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnInputArcValidator",
+      "identity": "projectkoios.workflow.cpn.input-arc-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnInputArcValidationRequest"
+          ],
+          "response_type": "CpnInputArcValidationResponse",
+          "signature": "(self, request: 'CpnInputArcValidationRequest') -> 'CpnInputArcValidationResponse'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnOutputArcValidator",
+      "identity": "projectkoios.workflow.cpn.output-arc-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnOutputArcValidationRequest"
+          ],
+          "response_type": "CpnOutputArcValidationResponse",
+          "signature": "(self, request: 'CpnOutputArcValidationRequest') -> 'CpnOutputArcValidationResponse'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "stability": "release-candidate"
+    },
+    {
+      "action": "CpnMarkingValidator",
+      "identity": "projectkoios.workflow.cpn.marking-validator:0.1",
+      "methods": [
+        {
+          "method": "execute",
+          "request_types": [
+            "CpnMarkingValidationInput"
+          ],
+          "response_type": "CpnValidationResult",
+          "signature": "(self, validation_input: 'CpnMarkingValidationInput') -> 'CpnValidationResult'"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.validation.markings",
+      "stability": "release-candidate"
+    }
+  ],
+  "package": "projectkoios-workflow",
+  "public_types": [
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.bindings",
+      "name": "CpnBinding",
+      "signature": "(transition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnTransitionIdentity, assignments: tuple[projectkoios.workflow.petrinet.colored.bindings.CpnBindingAssignment, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.bindings",
+      "name": "CpnBindingAssignment",
+      "signature": "(variable_identity: projectkoios.workflow.petrinet.colored.expressions.grammar.CpnBindingVariableIdentity, value: projectkoios.workflow.petrinet.colored.values.CpnValue) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBinding",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-binding-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingDecodingInput",
+      "signature": "(canonical_binding: projectkoios.workflow.petrinet.colored.canonical.bindings.CpnCanonicalBinding, control_record_types: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...] = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingDecodingResult",
+      "signature": "(binding: projectkoios.workflow.petrinet.colored.bindings.CpnBinding) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingEncodingInput",
+      "signature": "(binding: projectkoios.workflow.petrinet.colored.bindings.CpnBinding) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.bindings",
+      "name": "CpnCanonicalBindingIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinition",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "type",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionCodecError",
+      "signature": "(code: 'CpnCanonicalDefinitionCodecErrorCode', path: 'tuple[str, ...]', message: 'str') -> 'None'",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_ARGUMENT",
+          "value": "invalid_argument"
+        },
+        {
+          "name": "INVALID_DEFINITION",
+          "value": "invalid_definition"
+        },
+        {
+          "name": "INVALID_DOCUMENT",
+          "value": "invalid_document"
+        },
+        {
+          "name": "UNSUPPORTED_PROFILE",
+          "value": "unsupported_profile"
+        },
+        {
+          "name": "IDENTITY_MISMATCH",
+          "value": "identity_mismatch"
+        },
+        {
+          "name": "DIGEST_MISMATCH",
+          "value": "digest_mismatch"
+        },
+        {
+          "name": "NONCANONICAL_RECONSTRUCTION",
+          "value": "noncanonical_reconstruction"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionCodecErrorCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionCodecIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.canonical-definition-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionDecodingInput",
+      "signature": "(document: 'CpnCanonicalDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionDecodingResult",
+      "signature": "(definition: 'CpnDefinition', document: 'CpnCanonicalDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionEncodingInput",
+      "signature": "(definition: 'CpnDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.definitions",
+      "name": "CpnCanonicalDefinitionIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirective",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-selection-directive-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveDecodingInput",
+      "signature": "(canonical_directive: projectkoios.workflow.petrinet.colored.canonical.directives.CpnCanonicalSelectionDirective, control_record_types: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...] = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveDecodingResult",
+      "signature": "(directive: projectkoios.workflow.petrinet.colored.selection.CpnSelectionDirective) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveEncodingInput",
+      "signature": "(directive: projectkoios.workflow.petrinet.colored.selection.CpnSelectionDirective) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.directives",
+      "name": "CpnCanonicalSelectionDirectiveIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResult",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-enablement-result-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultDecodingInput",
+      "signature": "(canonical_result: projectkoios.workflow.petrinet.colored.canonical.enablement.CpnCanonicalEnablementResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultDecodingResult",
+      "signature": "(result: projectkoios.workflow.petrinet.colored.enablement.results.CpnEnablementResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultEncodingInput",
+      "signature": "(result: projectkoios.workflow.petrinet.colored.enablement.results.CpnEnablementResult, definition: projectkoios.workflow.petrinet.colored.definitions.CpnDefinition, marking: projectkoios.workflow.petrinet.colored.markings.CpnMarking) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.enablement",
+      "name": "CpnCanonicalEnablementResultIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "type",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.errors",
+      "name": "CpnExpressionCanonicalCodecError",
+      "signature": "(code: 'CpnExpressionCanonicalCodecErrorCode', path: 'tuple[str, ...]', message: 'str') -> 'None'",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_ARGUMENT",
+          "value": "invalid_argument"
+        },
+        {
+          "name": "INVALID_SHAPE",
+          "value": "invalid_shape"
+        },
+        {
+          "name": "INVALID_EXPRESSION",
+          "value": "invalid_expression"
+        },
+        {
+          "name": "BOUND_EXCEEDED",
+          "value": "bound_exceeded"
+        },
+        {
+          "name": "INVALID_VALUE",
+          "value": "invalid_value"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.errors",
+      "name": "CpnExpressionCanonicalCodecErrorCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalDecoder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalDecoderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.guard-decoder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalDecodingInput",
+      "signature": "(canonical_bytes: 'bytes', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalDecodingResult",
+      "signature": "(guard: 'CpnGuardExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalizationInput",
+      "signature": "(guard: 'CpnGuardExpression', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalizationResult",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalizer",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.guards",
+      "name": "CpnGuardCanonicalizerIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.guard-canonicalizer:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalDecoder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalDecoderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-expression-decoder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalDecodingInput",
+      "signature": "(canonical_bytes: 'bytes', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalDecodingResult",
+      "signature": "(expression: 'CpnValueExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalizationInput",
+      "signature": "(expression: 'CpnValueExpression', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalizationResult",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalizer",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.expressions.values",
+      "name": "CpnValueExpressionCanonicalizerIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-expression-canonicalizer:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.codec",
+      "name": "CpnCanonicalFiringResultCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.documents",
+      "name": "CpnCanonicalFiringResult",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.documents",
+      "name": "CpnCanonicalFiringResultDecodingInput",
+      "signature": "(canonical_result: 'CpnCanonicalFiringResult', execution_profile: 'WorkflowCpnExecutionProfile') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.documents",
+      "name": "CpnCanonicalFiringResultDecodingResult",
+      "signature": "(result: 'CpnFiringResult') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.documents",
+      "name": "CpnCanonicalFiringResultEncodingInput",
+      "signature": "(result: 'CpnFiringResult', execution_profile: 'WorkflowCpnExecutionProfile') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.documents",
+      "name": "CpnCanonicalFiringResultIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.firing_results.identity",
+      "name": "CpnCanonicalFiringResultCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-firing-result-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "type",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalCodecError",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.canonical.json.CpnCanonicalCodecErrorCode, path: tuple[str, ...], diagnostic: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_ARGUMENT",
+          "value": "invalid_argument"
+        },
+        {
+          "name": "DOCUMENT_TOO_LARGE",
+          "value": "document_too_large"
+        },
+        {
+          "name": "INVALID_UTF8",
+          "value": "invalid_utf8"
+        },
+        {
+          "name": "INVALID_JSON",
+          "value": "invalid_json"
+        },
+        {
+          "name": "DUPLICATE_KEY",
+          "value": "duplicate_key"
+        },
+        {
+          "name": "NONCANONICAL_BYTES",
+          "value": "noncanonical_bytes"
+        },
+        {
+          "name": "UNSUPPORTED_PROFILE",
+          "value": "unsupported_profile"
+        },
+        {
+          "name": "INVALID_SHAPE",
+          "value": "invalid_shape"
+        },
+        {
+          "name": "INVALID_FIELD",
+          "value": "invalid_field"
+        },
+        {
+          "name": "BOUND_EXCEEDED",
+          "value": "bound_exceeded"
+        },
+        {
+          "name": "SCHEMA_VIOLATION",
+          "value": "schema_violation"
+        },
+        {
+          "name": "IDENTITY_MISMATCH",
+          "value": "identity_mismatch"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalCodecErrorCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalJsonParser",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalJsonParserIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-json-parser:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalJsonParsingInput",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.json",
+      "name": "CpnCanonicalJsonParsingResult",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarking",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingCodecIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.canonical-marking-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingDecodingInput",
+      "signature": "(document: 'CpnCanonicalMarking', definition: 'CpnDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingDecodingResult",
+      "signature": "(marking: 'CpnMarking', document: 'CpnCanonicalMarking') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingEncodingInput",
+      "signature": "(marking: 'CpnMarking') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.markings",
+      "name": "CpnCanonicalMarkingIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResult",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.canonical-selection-result-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultDecodingInput",
+      "signature": "(canonical_result: projectkoios.workflow.petrinet.colored.canonical.selections.CpnCanonicalSelectionResult, control_record_types: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...] = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultDecodingResult",
+      "signature": "(result: projectkoios.workflow.petrinet.colored.selection.CpnSelectionResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultEncodingInput",
+      "signature": "(result: projectkoios.workflow.petrinet.colored.selection.CpnSelectionResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.canonical.selections",
+      "name": "CpnCanonicalSelectionResultIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.bindings",
+      "name": "WorkflowHierarchicalChildBinding",
+      "signature": "(parent_definition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, transition_route: projectkoios.workflow.petrinet.colored.routes.transitions.WorkflowTransitionRoute, child_export_identity: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportIdentity, child_execution_plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, input_mapping: projectkoios.workflow.petrinet.colored.children.bindings.WorkflowHierarchicalChildInputMapping, terminal_mappings: tuple[projectkoios.workflow.petrinet.colored.children.bindings.WorkflowHierarchicalChildTerminalMapping, ...], child_instance_cardinality: int, child_ordinal: int, cancellation_propagation_policy_identity: str, quiescence_required: bool, maximum_correlation_field_count: int, maximum_external_output_reference_count: int, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.bindings",
+      "name": "WorkflowHierarchicalChildInputMapping",
+      "signature": "(parent_place_identity: projectkoios.workflow.petrinet.colored.definitions.CpnPlaceIdentity, parent_color_identity: projectkoios.workflow.petrinet.colored.values.CpnColorIdentity, child_input_port_identity: str, mapping_descriptor: projectkoios.workflow.petrinet.colored.mappings.values.WorkflowValueMappingDescriptor, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.bindings",
+      "name": "WorkflowHierarchicalChildTerminalMapping",
+      "signature": "(terminal_delivery_requirement: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowTerminalDeliveryRequirement, parent_external_output_mapping_descriptor: projectkoios.workflow.petrinet.colored.mappings.values.WorkflowValueMappingDescriptor, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExportIdentityDerivationInput",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportClosure) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExportIdentityDeriver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExportIdentityDeriverIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.child-export-identity-deriver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExportInput",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportClosure) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExporter",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.canonical",
+      "name": "WorkflowChildDefinitionExporterIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.child-definition-exporter:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.definition",
+      "name": "WorkflowChildDefinitionExport",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportClosure, identity: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportIdentity) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.definition",
+      "name": "WorkflowChildDefinitionExportClosure",
+      "signature": "(owner_identity: str, workflow_family_identity: str, source_definition_identity: str, source_definition_contract_version: int, execution_plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, execution_plan_sha256: str, nominal_definition_identity: str, canonical_definition_identity: str, canonical_definition_representation_profile_identity: str, canonical_definition_sha256: str, cpn_execution_profile_identity: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity, initial_marking_constructor_identity: str, interface: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildInterface, compiler_implementation_identity: str, compiler_version_identity: str, exporter_implementation_identity: str, exporter_version_identity: str, source_revision_identity: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.definition",
+      "name": "WorkflowChildDefinitionExportIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.evidence",
+      "name": "WorkflowChildExportConformanceEvidenceReference",
+      "signature": "(role_identity: str, artifact_identity: str, representation_profile_identity: str, media_type_identity: str, artifact_sha256: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.evidence",
+      "name": "WorkflowChildExportEvidenceBinding",
+      "signature": "(child_export: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExport, evidence_references: tuple[projectkoios.workflow.petrinet.colored.children.exports.evidence.WorkflowChildExportConformanceEvidenceReference, ...], contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.exports.evidence",
+      "name": "WorkflowChildExportEvidenceBindingIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowChildCancellationCapability",
+      "signature": "(identity: str, in_net_cancellation_supported: bool, cancellation_port_identities: tuple[str, ...], cancellation_terminal_classification_identities: tuple[str, ...], propagation_policy_identity: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowChildInterface",
+      "signature": "(input_ports: tuple[projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildPortDefinition, ...], terminal_output_ports: tuple[projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildPortDefinition, ...], admitted_terminal_classification_identities: tuple[str, ...], terminal_delivery_requirements: tuple[projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowTerminalDeliveryRequirement, ...], cancellation_capability: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildCancellationCapability, reconciliation_capability_identity: str, execution_protocol_requirement_identity: str, protected_effect_capability_identities: tuple[str, ...], contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowChildPortDefinition",
+      "signature": "(identity: str, direction: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildPortDirection, place_identity: str, color_identity: str, payload_schema_identity: str | None, payload_codec_identity: str | None, scalar_value_kind: str | None, minimum_token_count: int, maximum_token_count: int, correlation_descriptor_identities: tuple[str, ...], traffic_kind: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildPortTrafficKind, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INPUT",
+          "value": "input"
+        },
+        {
+          "name": "OUTPUT",
+          "value": "output"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowChildPortDirection",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INITIAL",
+          "value": "initial"
+        },
+        {
+          "name": "EXTERNAL_EVENT",
+          "value": "external_event"
+        },
+        {
+          "name": "TERMINAL",
+          "value": "terminal"
+        },
+        {
+          "name": "CANCELLATION",
+          "value": "cancellation"
+        },
+        {
+          "name": "RECONCILIATION",
+          "value": "reconciliation"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowChildPortTrafficKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PRE_TERMINAL_RETAINED",
+          "value": "pre_terminal_retained"
+        },
+        {
+          "name": "POST_TERMINAL_PRE_DELIVERY_RETAINED",
+          "value": "post_terminal_pre_delivery_retained"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowCompanionProductionPhase",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowTerminalCompanionEvidenceRequirement",
+      "signature": "(ordinal: int, evidence_role_identity: str, owner_identity: str, payload_schema_identity: str, codec_identity: str, media_type_identity: str, maximum_payload_bytes: int, minimum_reference_count: int, maximum_reference_count: int, production_phase: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowCompanionProductionPhase, correlation_predicate_descriptor_identity: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.children.interfaces",
+      "name": "WorkflowTerminalDeliveryRequirement",
+      "signature": "(terminal_classification_identity: str, primary_terminal_port_identity: str, primary_payload_schema_identity: str, primary_payload_codec_identity: str, companion_requirements: tuple[projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowTerminalCompanionEvidenceRequirement, ...], maximum_total_companion_reference_count: int, mapper_input_ordering_profile_identity: str, correlation_validation_descriptor_identity: str, output_mapper_descriptor_identity: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationInput",
+      "signature": "(profile: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile, profile_identity: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity, plan: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanClosure, plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, export: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportClosure) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationIssue",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationIssueCode, path: tuple[str, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PLAN_PROFILE_MISMATCH",
+          "value": "plan_profile_mismatch"
+        },
+        {
+          "name": "EXPORT_PROFILE_MISMATCH",
+          "value": "export_profile_mismatch"
+        },
+        {
+          "name": "EXPORT_PLAN_MISMATCH",
+          "value": "export_plan_mismatch"
+        },
+        {
+          "name": "EXPORT_DEFINITION_MISMATCH",
+          "value": "export_definition_mismatch"
+        },
+        {
+          "name": "EXPORT_INTERFACE_MISMATCH",
+          "value": "export_interface_mismatch"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationResult",
+      "signature": "(issues: tuple[projectkoios.workflow.petrinet.colored.closure_validation.WorkflowCpnClosureCorrelationIssue, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.closure_validation",
+      "name": "WorkflowCpnClosureCorrelationValidatorIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.closure-correlation-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnCanonicalControlRecord",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnCanonicalControlRecordIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnControlRecordCanonicalCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnControlRecordCanonicalCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.control-record-canonical-codec:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnControlRecordCanonicalDecodingInput",
+      "signature": "(document: projectkoios.workflow.petrinet.colored.control.records.canonical.CpnCanonicalControlRecord, type_definitions: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...], expected_identity: projectkoios.workflow.petrinet.colored.control.records.canonical.CpnCanonicalControlRecordIdentity | None = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnControlRecordCanonicalDecodingResult",
+      "signature": "(record: projectkoios.workflow.petrinet.colored.values.CpnControlRecord) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.canonical",
+      "name": "CpnControlRecordCanonicalEncodingInput",
+      "signature": "(record: projectkoios.workflow.petrinet.colored.values.CpnControlRecord, type_definitions: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.findings",
+      "name": "CpnControlRecordValidationIssue",
+      "signature": "(code: 'CpnControlRecordValidationIssueCode', path: 'tuple[str, ...]', message: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "TOO_MANY_TYPE_DEFINITIONS",
+          "value": "too_many_type_definitions"
+        },
+        {
+          "name": "DUPLICATE_TYPE_IDENTITY",
+          "value": "duplicate_type_identity"
+        },
+        {
+          "name": "INVALID_FIELD_COUNT",
+          "value": "invalid_field_count"
+        },
+        {
+          "name": "DUPLICATE_FIELD_IDENTITY",
+          "value": "duplicate_field_identity"
+        },
+        {
+          "name": "NONCANONICAL_FIELD_ORDER",
+          "value": "noncanonical_field_order"
+        },
+        {
+          "name": "UNKNOWN_RECORD_TYPE",
+          "value": "unknown_record_type"
+        },
+        {
+          "name": "CYCLIC_TYPE_GRAPH",
+          "value": "cyclic_type_graph"
+        },
+        {
+          "name": "TYPE_GRAPH_TOO_DEEP",
+          "value": "type_graph_too_deep"
+        },
+        {
+          "name": "RECORD_TOO_DEEP",
+          "value": "record_too_deep"
+        },
+        {
+          "name": "RECORD_TOO_MANY_NODES",
+          "value": "record_too_many_nodes"
+        },
+        {
+          "name": "CYCLIC_RECORD_VALUE",
+          "value": "cyclic_record_value"
+        },
+        {
+          "name": "FIELD_SET_MISMATCH",
+          "value": "field_set_mismatch"
+        },
+        {
+          "name": "FIELD_VALUE_KIND_MISMATCH",
+          "value": "field_value_kind_mismatch"
+        },
+        {
+          "name": "NESTED_RECORD_TYPE_MISMATCH",
+          "value": "nested_record_type_mismatch"
+        },
+        {
+          "name": "STRING_TOO_LARGE",
+          "value": "string_too_large"
+        },
+        {
+          "name": "INVALID_UTF8_STRING",
+          "value": "invalid_utf8_string"
+        },
+        {
+          "name": "STRING_SEQUENCE_TOO_LARGE",
+          "value": "string_sequence_too_large"
+        },
+        {
+          "name": "INVALID_REFERENCE_IDENTITY",
+          "value": "invalid_reference_identity"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.control.records.findings",
+      "name": "CpnControlRecordValidationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.findings",
+      "name": "CpnControlRecordValidationResult",
+      "signature": "(issues: 'tuple[CpnControlRecordValidationIssue, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.ordering",
+      "name": "CpnValueOrderingInput",
+      "signature": "(value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.ordering",
+      "name": "CpnValueOrderingPolicy",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.ordering",
+      "name": "CpnValueOrderingPolicyIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-ordering-policy:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.ordering",
+      "name": "CpnValueOrderingResult",
+      "signature": "(key: 'tuple[object, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.schema",
+      "name": "CpnControlRecordSchemaValidationInput",
+      "signature": "(record: 'CpnControlRecord', definitions: 'tuple[CpnControlRecordTypeDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.schema",
+      "name": "CpnControlRecordSchemaValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.schema",
+      "name": "CpnControlRecordSchemaValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.control-record-schema-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.type_graph",
+      "name": "CpnControlRecordTypeGraphValidationInput",
+      "signature": "(definitions: 'tuple[CpnControlRecordTypeDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.type_graph",
+      "name": "CpnControlRecordTypeGraphValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.type_graph",
+      "name": "CpnControlRecordTypeGraphValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.control-record-type-graph-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalDecoder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalDecoderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-canonical-decoder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalDecodingInput",
+      "signature": "(kind: 'str', canonical_bytes: 'bytes', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalDecodingResult",
+      "signature": "(value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalizationInput",
+      "signature": "(value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalizationResult",
+      "signature": "(canonical_bytes: 'bytes') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalizer",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.control.records.value_canonical",
+      "name": "CpnValueCanonicalizerIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-canonicalizer:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnArcDefinition",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.definitions.CpnArcIdentity, place_identity: projectkoios.workflow.petrinet.colored.definitions.CpnPlaceIdentity, transition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnTransitionIdentity, input_inscription: projectkoios.workflow.petrinet.colored.expressions.grammar.CpnInputInscription | None = None, output_inscription: projectkoios.workflow.petrinet.colored.expressions.grammar.CpnOutputInscription | None = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnArcIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnColorDefinition",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.values.CpnColorIdentity, allowed_value_kinds: tuple[projectkoios.workflow.petrinet.colored.values.CpnValueKind, ...], allowed_control_record_type_identities: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeIdentity, ...] = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnDefinition",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, colors: tuple[projectkoios.workflow.petrinet.colored.definitions.CpnColorDefinition, ...], places: tuple[projectkoios.workflow.petrinet.colored.definitions.CpnPlaceDefinition, ...], transitions: tuple[projectkoios.workflow.petrinet.colored.definitions.CpnTransitionDefinition, ...], arcs: tuple[projectkoios.workflow.petrinet.colored.definitions.CpnArcDefinition, ...], transition_priority: tuple[projectkoios.workflow.petrinet.colored.definitions.CpnTransitionIdentity, ...], selection_policy: projectkoios.workflow.petrinet.colored.definitions.CpnSelectionPolicy = <CpnSelectionPolicy.DETERMINISTIC_ONLY: 'deterministic_only'>, control_record_types: tuple[projectkoios.workflow.petrinet.colored.values.CpnControlRecordTypeDefinition, ...] = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnDefinitionIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnPlaceDefinition",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.definitions.CpnPlaceIdentity, allowed_color_identities: tuple[projectkoios.workflow.petrinet.colored.values.CpnColorIdentity, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnPlaceIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "DETERMINISTIC_ONLY",
+          "value": "deterministic_only"
+        },
+        {
+          "name": "DIRECTED_ALLOWED",
+          "value": "directed_allowed"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnSelectionPolicy",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnTransitionDefinition",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.definitions.CpnTransitionIdentity, input_variable_identities: tuple[projectkoios.workflow.petrinet.colored.expressions.grammar.CpnBindingVariableIdentity, ...], external_output_variable_identities: tuple[projectkoios.workflow.petrinet.colored.expressions.grammar.CpnBindingVariableIdentity, ...], guard: projectkoios.workflow.petrinet.colored.expressions.grammar.CpnGuardExpression) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.definitions",
+      "name": "CpnTransitionIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowCompanionCapability",
+      "signature": "(evidence_role_identity: str, production_phase: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowCompanionProductionPhase, maximum_payload_bytes: int, maximum_reference_count: int, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowDeploymentBindingDescriptor",
+      "signature": "(kind: projectkoios.workflow.petrinet.colored.deployments.bindings.WorkflowDeploymentBindingKind, owner_identity: str, implementation_identity: str, version_identity: str, capability: projectkoios.workflow.petrinet.colored.deployments.bindings.WorkflowProviderCapability, protocol_identity: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PROVIDER",
+          "value": "provider"
+        },
+        {
+          "name": "WORKER",
+          "value": "worker"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "environment"
+        },
+        {
+          "name": "RESOLVER",
+          "value": "resolver"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowDeploymentBindingKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PROVISION",
+          "value": "provision"
+        },
+        {
+          "name": "EXECUTE",
+          "value": "execute"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "environment"
+        },
+        {
+          "name": "RESOLVE_AND_RECONCILE",
+          "value": "resolve_and_reconcile"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowDeploymentCapabilityPhase",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowExecutionBindings",
+      "signature": "(execution_plan: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlan, descriptors: tuple[projectkoios.workflow.petrinet.colored.deployments.bindings.WorkflowDeploymentBindingDescriptor, ...], child_plan_references: tuple[projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanReference, ...], child_execution_plans: tuple[projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlan, ...], child_export_evidence_bindings: tuple[projectkoios.workflow.petrinet.colored.children.exports.evidence.WorkflowChildExportEvidenceBinding, ...], contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowExecutionBindingsIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.bindings",
+      "name": "WorkflowProviderCapability",
+      "signature": "(capability_name: str, phase: projectkoios.workflow.petrinet.colored.deployments.bindings.WorkflowDeploymentCapabilityPhase, maximum_total_companion_reference_count: int, companion_capabilities: tuple[projectkoios.workflow.petrinet.colored.deployments.bindings.WorkflowCompanionCapability, ...], protected_effect_capability_identities: tuple[str, ...], reconciliation_capability_identities: tuple[str, ...], protocol_requirement_identities: tuple[str, ...], contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanExportCorrelationRequest",
+      "signature": "(child_execution_plan: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlan, child_export: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExport) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanExportCorrelationResult",
+      "signature": "(mismatched_field_names: tuple[str, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanExportCorrelator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanExportCorrelatorIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.child-plan-export-correlator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidationInput",
+      "signature": "(root_execution_plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, references: tuple[projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanReference, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidationIssue",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationIssueCode, plan_identity_values: tuple[str, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "SELF_REFERENCE",
+          "value": "self_reference"
+        },
+        {
+          "name": "CYCLE",
+          "value": "cycle"
+        },
+        {
+          "name": "UNREACHABLE_REFERENCE",
+          "value": "unreachable_reference"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidationResult",
+      "signature": "(issues: tuple[projectkoios.workflow.petrinet.colored.deployments.linking.WorkflowChildPlanGraphValidationIssue, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanGraphValidatorIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.child-plan-graph-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.deployments.linking",
+      "name": "WorkflowChildPlanReference",
+      "signature": "(parent_execution_plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, child_execution_plan_identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, child_export_identity: projectkoios.workflow.petrinet.colored.children.exports.definition.WorkflowChildDefinitionExportIdentity, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.failure_building",
+      "name": "CpnEnablementFailureBuilder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.failure_building",
+      "name": "CpnEnablementFailureBuilderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.enablement-failure-builder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.failure_building",
+      "name": "CpnEnablementFailureBuildingInput",
+      "signature": "(definition: 'CpnDefinition', marking: 'CpnMarking', expression_identity: 'CpnExpressionEvaluatorIdentity', ordering_identity: 'CpnOrderingPolicyIdentity', enabler_identity: 'CpnTransitionEnablerIdentity', failure_state: 'CpnEnablementFailureState') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.identity_derivation",
+      "name": "CpnEnablementFailureState",
+      "signature": "(code: 'CpnEnablementFailureCode', operation_phase: 'str', expected_condition: 'str', observed_condition: 'str', diagnostic: 'str', validation_issues: 'tuple[CpnValidationIssue, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.identity_derivation",
+      "name": "CpnEnablementResultIdentityDerivationInput",
+      "signature": "(definition: 'CpnDefinition', marking: 'CpnMarking', expression_identity: 'CpnExpressionEvaluatorIdentity', ordering_identity: 'CpnOrderingPolicyIdentity', enabler_identity: 'CpnTransitionEnablerIdentity', bindings: 'tuple[CpnBinding, ...] | None', failure: 'CpnEnablementFailureState | None') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.identity_derivation",
+      "name": "CpnEnablementResultIdentityDeriver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.identity_derivation",
+      "name": "CpnEnablementResultIdentityDeriverIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.enablement-result-identity-deriver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.ordering",
+      "name": "CpnEnabledBindingOrderingInput",
+      "signature": "(definition: 'CpnDefinition', bindings: 'frozenset[CpnBinding]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.ordering",
+      "name": "CpnEnabledBindingOrderingPolicy",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.ordering",
+      "name": "CpnEnabledBindingOrderingResult",
+      "signature": "(bindings: 'tuple[CpnBinding, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnEnablementFailure",
+      "signature": "(identity: 'CpnEnablementFailureIdentity', code: 'CpnEnablementFailureCode', operation_phase: 'str', expected_condition: 'str', observed_condition: 'str', diagnostic: 'str', validation_issues: 'tuple[CpnValidationIssue, ...]' = (), claim_boundary: 'tuple[str, ...]' = ('software enablement only', 'no firing or external effect', 'no scientific acceptance')) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_DEFINITION",
+          "value": "invalid_definition"
+        },
+        {
+          "name": "INVALID_MARKING",
+          "value": "invalid_marking"
+        },
+        {
+          "name": "UNSUPPORTED_EXPRESSION_EVALUATOR",
+          "value": "unsupported_expression_evaluator"
+        },
+        {
+          "name": "UNSUPPORTED_ORDERING_POLICY",
+          "value": "unsupported_ordering_policy"
+        },
+        {
+          "name": "GUARD_EVALUATION_FAILED",
+          "value": "guard_evaluation_failed"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnEnablementFailureCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnEnablementFailureIdentity",
+      "signature": "(result_identity: 'CpnEnablementResultIdentity') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnEnablementResult",
+      "signature": "(identity: 'CpnEnablementResultIdentity', definition_identity: 'CpnDefinitionIdentity', selection_policy: 'CpnSelectionPolicy', marking_identity: 'CpnMarkingIdentity', expression_evaluator_identity: 'CpnExpressionEvaluatorIdentity', ordering_policy_identity: 'CpnOrderingPolicyIdentity', transition_enabler_identity: 'CpnTransitionEnablerIdentity', enabled_bindings: 'tuple[CpnBinding, ...] | None' = None, failure: 'CpnEnablementFailure | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnEnablementResultIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnOrderingPolicyIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.results",
+      "name": "CpnTransitionEnablerIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.transitions",
+      "name": "CpnTransitionEnablementRequest",
+      "signature": "(definition: 'CpnDefinition', marking: 'CpnMarking', expression_evaluator_identity: 'CpnExpressionEvaluatorIdentity' = CpnExpressionEvaluatorIdentity(value='projectkoios.workflow.cpn.expression-evaluator:0.1'), ordering_policy_identity: 'CpnOrderingPolicyIdentity' = CpnOrderingPolicyIdentity(value='colored-petri-net-enablement-order-v1')) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.enablement.transitions",
+      "name": "CpnTransitionEnabler",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnExpressionVariableCollectionInput",
+      "signature": "(expression: 'CpnValueExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnExpressionVariableCollectionResult",
+      "signature": "(variable_identities: 'tuple[CpnBindingVariableIdentity, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnExpressionVariableCollector",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnExpressionVariableCollectorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.expression-variable-collector:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardExpressionCollectionInput",
+      "signature": "(guard: 'CpnGuardExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardExpressionCollectionResult",
+      "signature": "(expressions: 'tuple[CpnValueExpression, ...]', guard_node_count: 'int', maximum_guard_depth: 'int') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardExpressionCollector",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardExpressionCollectorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.guard-expression-collector:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardVariableCollectionInput",
+      "signature": "(guard: 'CpnGuardExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardVariableCollectionResult",
+      "signature": "(variable_identities: 'tuple[CpnBindingVariableIdentity, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardVariableCollector",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.collection",
+      "name": "CpnGuardVariableCollectorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.guard-variable-collector:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.construction",
+      "name": "CpnControlRecordConstructionInput",
+      "signature": "(type_identity: 'CpnControlRecordTypeIdentity', fields: 'tuple[CpnControlRecordField, ...]', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.construction",
+      "name": "CpnControlRecordConstructionResult",
+      "signature": "(record: 'CpnControlRecord') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.construction",
+      "name": "CpnControlRecordConstructor",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.construction",
+      "name": "CpnControlRecordConstructorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.control-record-constructor:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "type",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.errors",
+      "name": "CpnExpressionOperationError",
+      "signature": "(code: 'CpnExpressionOperationErrorCode', path: 'tuple[str, ...]', diagnostic: 'str') -> 'None'",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_ARGUMENT",
+          "value": "invalid_argument"
+        },
+        {
+          "name": "EXPRESSION_TOO_DEEP",
+          "value": "expression_too_deep"
+        },
+        {
+          "name": "EXPRESSION_TOO_MANY_NODES",
+          "value": "expression_too_many_nodes"
+        },
+        {
+          "name": "CYCLIC_EXPRESSION",
+          "value": "cyclic_expression"
+        },
+        {
+          "name": "UNBOUND_VARIABLE",
+          "value": "unbound_variable"
+        },
+        {
+          "name": "PROJECTION_REQUIRES_RECORD",
+          "value": "projection_requires_record"
+        },
+        {
+          "name": "UNKNOWN_PROJECTED_FIELD",
+          "value": "unknown_projected_field"
+        },
+        {
+          "name": "UNKNOWN_RECORD_TYPE",
+          "value": "unknown_record_type"
+        },
+        {
+          "name": "CONSTRUCTOR_FIELD_MISMATCH",
+          "value": "constructor_field_mismatch"
+        },
+        {
+          "name": "RECORD_SCHEMA_VIOLATION",
+          "value": "record_schema_violation"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.errors",
+      "name": "CpnExpressionOperationErrorCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnExpressionEvaluationInput",
+      "signature": "(expression: 'CpnValueExpression', binding: 'CpnBinding', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnExpressionEvaluationResult",
+      "signature": "(value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnExpressionEvaluator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnExpressionEvaluatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.expression-evaluator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnGuardEvaluationInput",
+      "signature": "(guard: 'CpnGuardExpression', binding: 'CpnBinding', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnGuardEvaluator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.evaluation",
+      "name": "CpnGuardEvaluatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.guard-evaluator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnBindingVariableIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnControlRecordConstructorField",
+      "signature": "(identity: 'CpnControlRecordFieldIdentity', expression: 'CpnValueExpression') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnExpressionGrammarIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.expression-grammar:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnGuardEvaluationResult",
+      "signature": "(value: 'bool') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnGuardExpression",
+      "signature": "(operator: 'CpnGuardOperator', operands: 'tuple[CpnGuardExpression, ...]' = (), left: 'CpnValueExpression | None' = None, right: 'CpnValueExpression | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "TRUE",
+          "value": "true"
+        },
+        {
+          "name": "FALSE",
+          "value": "false"
+        },
+        {
+          "name": "ALL",
+          "value": "all"
+        },
+        {
+          "name": "ANY",
+          "value": "any"
+        },
+        {
+          "name": "NOT",
+          "value": "not"
+        },
+        {
+          "name": "EQUAL",
+          "value": "equal"
+        },
+        {
+          "name": "NOT_EQUAL",
+          "value": "not_equal"
+        },
+        {
+          "name": "LESS_THAN",
+          "value": "less_than"
+        },
+        {
+          "name": "LESS_THAN_OR_EQUAL",
+          "value": "less_than_or_equal"
+        },
+        {
+          "name": "GREATER_THAN",
+          "value": "greater_than"
+        },
+        {
+          "name": "GREATER_THAN_OR_EQUAL",
+          "value": "greater_than_or_equal"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnGuardOperator",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnInhibitorPattern",
+      "signature": "(allowed_color_identities: 'tuple[CpnColorIdentity, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnInputInscription",
+      "signature": "(mode: 'CpnInputMode', patterns: 'tuple[CpnTokenPattern | CpnInhibitorPattern, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "CONSUME",
+          "value": "consume"
+        },
+        {
+          "name": "READ",
+          "value": "read"
+        },
+        {
+          "name": "INHIBIT",
+          "value": "inhibit"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnInputMode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnOutputInscription",
+      "signature": "(templates: 'tuple[CpnTokenTemplate, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnTokenPattern",
+      "signature": "(variable_identity: 'CpnBindingVariableIdentity', allowed_color_identities: 'tuple[CpnColorIdentity, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnTokenTemplate",
+      "signature": "(color_identity: 'CpnColorIdentity', value_expression: 'CpnValueExpression', token_identity_expression: 'CpnValueExpression | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnValueExpression",
+      "signature": "(kind: 'CpnValueExpressionKind', literal: 'CpnValue | None' = None, variable_identity: 'CpnBindingVariableIdentity | None' = None, base_expression: 'CpnValueExpression | None' = None, field_path: 'tuple[CpnControlRecordFieldIdentity, ...]' = (), record_type_identity: 'CpnControlRecordTypeIdentity | None' = None, constructor_fields: 'tuple[CpnControlRecordConstructorField, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "LITERAL",
+          "value": "literal"
+        },
+        {
+          "name": "VARIABLE",
+          "value": "variable"
+        },
+        {
+          "name": "FIELD_PROJECTION",
+          "value": "field_projection"
+        },
+        {
+          "name": "CONTROL_RECORD_CONSTRUCTOR",
+          "value": "control_record_constructor"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.expressions.grammar",
+      "name": "CpnValueExpressionKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.projection",
+      "name": "CpnFieldProjectionInput",
+      "signature": "(value: 'CpnValue', field_path: 'tuple[CpnControlRecordFieldIdentity, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.projection",
+      "name": "CpnFieldProjectionResult",
+      "signature": "(value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.projection",
+      "name": "CpnFieldProjector",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.projection",
+      "name": "CpnFieldProjectorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.field-projector:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionBoundsValidationInput",
+      "signature": "(guard: 'CpnGuardExpression', output_expressions: 'tuple[CpnValueExpression, ...]', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionBoundsValidationResult",
+      "signature": "(total_node_count: 'int', maximum_depth: 'int', issues: 'tuple[CpnExpressionOperationError, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionBoundsValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionBoundsValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.expression-bounds-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionStructureValidationInput",
+      "signature": "(expression: 'CpnValueExpression', type_definitions: 'tuple[CpnControlRecordTypeDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionStructureValidationResult",
+      "signature": "(depth: 'int', node_count: 'int', issues: 'tuple[CpnExpressionOperationError, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionStructureValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.expressions.validation",
+      "name": "CpnExpressionStructureValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.expression-structure-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidationInput",
+      "signature": "(definition: 'CpnDefinition', transition_identity: 'CpnTransitionIdentity', binding: 'CpnBinding') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidationIssue",
+      "signature": "(code: 'CpnExternalOutputValidationIssueCode', path: 'tuple[str, ...]', message: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "UNKNOWN_TRANSITION",
+          "value": "unknown_transition"
+        },
+        {
+          "name": "TRANSITION_MISMATCH",
+          "value": "transition_mismatch"
+        },
+        {
+          "name": "VARIABLE_SET_MISMATCH",
+          "value": "variable_set_mismatch"
+        },
+        {
+          "name": "DUPLICATE_VARIABLE",
+          "value": "duplicate_variable"
+        },
+        {
+          "name": "INVALID_CONTROL_RECORD",
+          "value": "invalid_control_record"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidationResult",
+      "signature": "(issues: 'tuple[CpnExternalOutputValidationIssue, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.external_outputs",
+      "name": "CpnExternalOutputValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.external-output-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.audits",
+      "name": "CpnFiringAudit",
+      "signature": "(consumed_occurrences: 'tuple[CpnTokenOccurrence, ...]', read_occurrences: 'tuple[CpnTokenOccurrence, ...]', inhibitor_evaluations: 'tuple[CpnInhibitorEvaluation, ...]', produced_tokens: 'tuple[CpnProducedToken, ...]', firer_identity: 'CpnTransitionFirerIdentity') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.audits",
+      "name": "CpnInhibitorEvaluation",
+      "signature": "(arc_identity: 'CpnArcIdentity', place_identity: 'CpnPlaceIdentity', pattern_index: 'int', matching_count: 'int') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.audits",
+      "name": "CpnProducedToken",
+      "signature": "(arc_identity: 'CpnArcIdentity', place_identity: 'CpnPlaceIdentity', template_index: 'int', token: 'CpnToken') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.audits",
+      "name": "CpnTokenOccurrence",
+      "signature": "(arc_identity: 'CpnArcIdentity', place_identity: 'CpnPlaceIdentity', pattern_index: 'int', occurrence_ordinal: 'int', token: 'CpnToken') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.audits",
+      "name": "CpnTransitionFirerIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.firing.failure_building",
+      "name": "CpnFiringFailureBuilder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.failure_building",
+      "name": "CpnFiringFailureBuilderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.firing-failure-builder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.failure_building",
+      "name": "CpnFiringFailureBuildingRequest",
+      "signature": "(firing_input: 'CpnFiringInput', failure: 'CpnFiringFailureState') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.identity_derivation",
+      "name": "CpnFiringFailureState",
+      "signature": "(code: 'CpnFiringFailureCode', phase: 'str', expected: 'str', observed: 'str', issues: 'tuple[CpnValidationIssue, ...]' = ()) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.identity_derivation",
+      "name": "CpnFiringResultIdentityDerivationRequest",
+      "signature": "(firing_input: 'CpnFiringInput', successor: 'CpnMarking | None' = None, audit: 'CpnFiringAudit | None' = None, failure: 'CpnFiringFailureState | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.firing.identity_derivation",
+      "name": "CpnFiringResultIdentityDeriver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.identity_derivation",
+      "name": "CpnFiringResultIdentityDeriverIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.firing-result-identity-deriver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.inputs",
+      "name": "CpnFiringInput",
+      "signature": "(definition: 'CpnDefinition', transition_identity: 'CpnTransitionIdentity', predecessor_marking: 'CpnMarking', enablement_result: 'CpnEnablementResult', selection_result: 'CpnSelectionResult', selected_binding: 'CpnBinding', directive_identity: 'CpnSelectionDirectiveIdentity | None', external_output_binding: 'CpnBinding') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructionFailure",
+      "signature": "(reason: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructionRequest",
+      "signature": "(definition: 'CpnDefinition', marking: 'CpnMarking', binding: 'CpnBinding') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructionResponse",
+      "signature": "(success: 'CpnTokenOccurrenceReconstructionSuccess | None' = None, failure: 'CpnTokenOccurrenceReconstructionFailure | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructionSuccess",
+      "signature": "(consumed: 'tuple[CpnTokenOccurrence, ...]', read: 'tuple[CpnTokenOccurrence, ...]', inhibitors: 'tuple[CpnInhibitorEvaluation, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructor",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction",
+      "name": "CpnTokenOccurrenceReconstructorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.occurrence-reconstructor:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringFailure",
+      "signature": "(identity: 'CpnFiringFailureIdentity', code: 'CpnFiringFailureCode', operation_phase: 'str', expected_condition: 'str', observed_condition: 'str', diagnostic: 'str', validation_issues: 'tuple[CpnValidationIssue, ...]' = (), claim_boundary: 'tuple[str, ...]' = ('pure generic firing only', 'no external effect or authority', 'no scientific acceptance')) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_DEFINITION",
+          "value": "invalid_definition"
+        },
+        {
+          "name": "INVALID_PREDECESSOR_MARKING",
+          "value": "invalid_predecessor_marking"
+        },
+        {
+          "name": "ENABLEMENT_MISMATCH",
+          "value": "enablement_mismatch"
+        },
+        {
+          "name": "SELECTION_MISMATCH",
+          "value": "selection_mismatch"
+        },
+        {
+          "name": "DIRECTIVE_MISMATCH",
+          "value": "directive_mismatch"
+        },
+        {
+          "name": "TRANSITION_OR_BINDING_MISMATCH",
+          "value": "transition_or_binding_mismatch"
+        },
+        {
+          "name": "EXTERNAL_OUTPUT_BINDING_MISMATCH",
+          "value": "external_output_binding_mismatch"
+        },
+        {
+          "name": "INPUT_OCCURRENCE_RECONSTRUCTION_FAILED",
+          "value": "input_occurrence_reconstruction_failed"
+        },
+        {
+          "name": "OUTPUT_EVALUATION_FAILED",
+          "value": "output_evaluation_failed"
+        },
+        {
+          "name": "PRODUCED_TOKEN_INVALID",
+          "value": "produced_token_invalid"
+        },
+        {
+          "name": "TOKEN_IDENTITY_COLLISION",
+          "value": "token_identity_collision"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringFailureCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringFailureIdentity",
+      "signature": "(result_identity: 'CpnFiringResultIdentity') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "SUCCESS",
+          "value": "success"
+        },
+        {
+          "name": "FAILURE",
+          "value": "failure"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringOutcomeKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringResult",
+      "signature": "(identity: 'CpnFiringResultIdentity', firing_input: 'CpnFiringInput', outcome: 'CpnFiringOutcomeKind', successor_marking: 'CpnMarking | None' = None, audit: 'CpnFiringAudit | None' = None, failure: 'CpnFiringFailure | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.results",
+      "name": "CpnFiringResultIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.firing.successor_marking",
+      "name": "CpnSuccessorMarkingBuilder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.successor_marking",
+      "name": "CpnSuccessorMarkingBuilderIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.successor-marking-builder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.firing.successor_marking",
+      "name": "CpnSuccessorMarkingBuildingRequest",
+      "signature": "(firing_input: 'CpnFiringInput', audit: 'CpnFiringAudit') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.firing.transitions",
+      "name": "CpnTransitionFirer",
+      "signature": "() -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.mappings.values",
+      "name": "WorkflowValueMappingDescriptor",
+      "signature": "(owner_identity: str, adapter_identity: str, adapter_version_identity: str, input_record_type_identity: str, output_record_type_identity: str, input_payload_schema_identity: str, input_payload_codec_identity: str, output_payload_schema_identity: str, output_payload_codec_identity: str, correlation_descriptor_identities: tuple[str, ...], maximum_input_bytes: int, maximum_output_bytes: int, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnMarking",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.markings.CpnMarkingIdentity, definition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, places: tuple[projectkoios.workflow.petrinet.colored.markings.CpnPlaceMarking, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnMarkingIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnPlaceMarking",
+      "signature": "(place_identity: projectkoios.workflow.petrinet.colored.definitions.CpnPlaceIdentity, tokens: tuple[projectkoios.workflow.petrinet.colored.values.CpnToken, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnTokenOrderingInput",
+      "signature": "(tokens: tuple[projectkoios.workflow.petrinet.colored.values.CpnToken, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnTokenOrderingPolicy",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnTokenOrderingPolicyIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.token-ordering-policy:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.markings",
+      "name": "CpnTokenOrderingResult",
+      "signature": "(tokens: tuple[projectkoios.workflow.petrinet.colored.values.CpnToken, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.bindings",
+      "name": "WorkflowPayloadColorBinding",
+      "signature": "(definition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, color_identity: projectkoios.workflow.petrinet.colored.values.CpnColorIdentity, allowed_value_kind: projectkoios.workflow.petrinet.colored.values.CpnValueKind, owner_identity: str, payload_schema_identity: str, codec_identity: str, media_type_identity: str, maximum_payload_bytes: int, maximum_reference_tokens_per_complete_marking: int, individual_token_identity_required: bool, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssembler",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssemblerIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.payload-reference-assembler:1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssemblyFailure",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyFailureCode, path: tuple[str, ...], diagnostic: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "EMPTY_PAYLOAD",
+          "value": "empty_payload"
+        },
+        {
+          "name": "PAYLOAD_TOO_LARGE",
+          "value": "payload_too_large"
+        },
+        {
+          "name": "SCHEMA_MISMATCH",
+          "value": "schema_mismatch"
+        },
+        {
+          "name": "MEDIA_TYPE_MISMATCH",
+          "value": "media_type_mismatch"
+        },
+        {
+          "name": "INVALID_ARTIFACT_IDENTITY",
+          "value": "invalid_artifact_identity"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssemblyFailureCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssemblyRequest",
+      "signature": "(payload_bytes: bytes, encoding_metadata: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadEncodingMetadata, artifact_identity: str, color_binding: projectkoios.workflow.petrinet.colored.payloads.bindings.WorkflowPayloadColorBinding) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.assembly",
+      "name": "WorkflowDomainPayloadReferenceAssemblyResult",
+      "signature": "(reference: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadReference | None = None, failure: projectkoios.workflow.petrinet.colored.payloads.references.assembly.WorkflowDomainPayloadReferenceAssemblyFailure | None = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowCanonicalDomainPayloadReference",
+      "signature": "(canonical_bytes: bytes) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "codec",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowDomainPayloadReferenceCodec",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowDomainPayloadReferenceCodecIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.payload-reference-codec:1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowDomainPayloadReferenceDecodingInput",
+      "signature": "(canonical_reference: projectkoios.workflow.petrinet.colored.payloads.references.canonical.WorkflowCanonicalDomainPayloadReference, claimed_identity: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadReferenceIdentity) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowDomainPayloadReferenceDecodingResult",
+      "signature": "(reference: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadReference) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.canonical",
+      "name": "WorkflowDomainPayloadReferenceEncodingInput",
+      "signature": "(reference: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadReference) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.definition",
+      "name": "WorkflowDomainPayloadEncodingMetadata",
+      "signature": "(payload_identity: str, schema_identity: str, media_type: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.definition",
+      "name": "WorkflowDomainPayloadReference",
+      "signature": "(payload_identity: str, schema_identity: str, media_type: str, sha256: str, byte_size: int, artifact_identity: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.definition",
+      "name": "WorkflowDomainPayloadReferenceIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerificationIssue",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationIssueCode, path: tuple[str, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PAYLOAD_TOO_LARGE",
+          "value": "payload_too_large"
+        },
+        {
+          "name": "BYTE_SIZE_MISMATCH",
+          "value": "byte_size_mismatch"
+        },
+        {
+          "name": "SHA256_MISMATCH",
+          "value": "sha256_mismatch"
+        },
+        {
+          "name": "SCHEMA_MISMATCH",
+          "value": "schema_mismatch"
+        },
+        {
+          "name": "MEDIA_TYPE_MISMATCH",
+          "value": "media_type_mismatch"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerificationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerificationRequest",
+      "signature": "(reference: projectkoios.workflow.petrinet.colored.payloads.references.definition.WorkflowDomainPayloadReference, payload_bytes: bytes, color_binding: projectkoios.workflow.petrinet.colored.payloads.bindings.WorkflowPayloadColorBinding) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerificationResult",
+      "signature": "(issues: tuple[projectkoios.workflow.petrinet.colored.payloads.references.verification.WorkflowDomainPayloadReferenceVerificationIssue, ...]) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerifier",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.payloads.references.verification",
+      "name": "WorkflowDomainPayloadReferenceVerifierIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.payload-reference-verifier:1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlan",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanClosure, identity: projectkoios.workflow.petrinet.colored.plans.identities.WorkflowExecutionPlanIdentity, canonical_sha256: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanClosure",
+      "signature": "(nominal_definition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, canonical_definition: projectkoios.workflow.petrinet.colored.canonical.definitions.CpnCanonicalDefinition, cpn_execution_profile_identity: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity, initial_marking_contract_identity: str, payload_color_bindings: tuple[projectkoios.workflow.petrinet.colored.payloads.bindings.WorkflowPayloadColorBinding, ...], transition_routes: tuple[projectkoios.workflow.petrinet.colored.routes.transitions.WorkflowTransitionRoute, ...], child_bindings: tuple[projectkoios.workflow.petrinet.colored.children.bindings.WorkflowHierarchicalChildBinding, ...], child_interface: projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowChildInterface | None, terminal_delivery_requirements: tuple[projectkoios.workflow.petrinet.colored.children.interfaces.WorkflowTerminalDeliveryRequirement, ...], owner_mapping_descriptors: tuple[projectkoios.workflow.petrinet.colored.mappings.values.WorkflowValueMappingDescriptor, ...], compiler_identity: str, compiler_version: str, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanCompilationInput",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanClosure) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanCompiler",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanCompilerIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.execution-plan-compiler:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanIdentityDerivationInput",
+      "signature": "(closure: projectkoios.workflow.petrinet.colored.plans.definition.WorkflowExecutionPlanClosure) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanIdentityDeriver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.definition",
+      "name": "WorkflowExecutionPlanIdentityDeriverIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.execution-plan-identity-deriver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.plans.identities",
+      "name": "WorkflowExecutionPlanIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileBuilder",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileBuilderIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.execution-profile-builder:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileBuildingRequest",
+      "signature": "() -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileResolutionRequest",
+      "signature": "(profile: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileResolver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.defaults",
+      "name": "WorkflowCpnExecutionProfileResolverIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.execution-profile-resolver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfile",
+      "signature": "(value_model_identity: str, expression_grammar_identity: str, canonical_json_parser_identity: str, canonical_definition_codec_identity: str, canonical_control_record_codec_identity: str, canonical_marking_representation_identity: str, canonical_binding_representation_identity: str, canonical_directive_representation_identity: str, canonical_enablement_result_representation_identity: str, canonical_selection_result_representation_identity: str, canonical_firing_result_representation_identity: str, definition_validator_identity: str, marking_validator_identity: str, control_record_type_graph_validator_identity: str, control_record_schema_validator_identity: str, expression_structure_validator_identity: str, expression_bounds_validator_identity: str, field_projector_identity: str, control_record_constructor_identity: str, expression_evaluator_identity: str, guard_evaluator_identity: str, value_canonicalizer_identity: str, value_canonical_decoder_identity: str, value_expression_canonicalizer_identity: str, value_expression_decoder_identity: str, guard_canonicalizer_identity: str, guard_decoder_identity: str, expression_variable_collector_identity: str, guard_expression_collector_identity: str, guard_variable_collector_identity: str, value_ordering_policy_identity: str, token_ordering_policy_identity: str, external_output_validator_identity: str, input_arc_validator_identity: str, output_arc_validator_identity: str, complete_enabler_identity: str, enablement_failure_builder_identity: str, enabled_binding_ordering_identity: str, binding_selector_identity: str, transition_firer_identity: str, token_occurrence_reconstructor_identity: str, firing_result_identity_deriver_identity: str, successor_marking_builder_identity: str, firing_failure_builder_identity: str, shadow_firer_identity: str, shadow_firing_replayer_identity: str, execution_plan_compiler_identity: str, child_definition_exporter_identity: str, execution_profile_resolver_identity: str, semantic_version: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileIdentityDerivationInput",
+      "signature": "(profile: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileIdentityDeriver",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileIdentityDeriverIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.profile-identity-deriver:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileResolutionIssue",
+      "signature": "(component_name: str, retained_identity: str, supported_identity: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.profiles.definition",
+      "name": "WorkflowCpnExecutionProfileResolutionResult",
+      "signature": "(profile_identity: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity, issues: tuple[projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileResolutionIssue, ...], transition_firer: projectkoios.workflow.petrinet.colored.firing.transitions.CpnTransitionFirer | None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.routes.transitions",
+      "name": "WorkflowTransitionRoute",
+      "signature": "(definition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnDefinitionIdentity, transition_identity: projectkoios.workflow.petrinet.colored.definitions.CpnTransitionIdentity, kind: projectkoios.workflow.petrinet.colored.routes.transitions.WorkflowTransitionRouteKind, mapping_descriptors: tuple[projectkoios.workflow.petrinet.colored.mappings.values.WorkflowValueMappingDescriptor, ...], protected_effect_capability_identity: str | None, contract_version: int) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "PURE_CPN",
+          "value": "pure_cpn"
+        },
+        {
+          "name": "OWNER_ADAPTER",
+          "value": "owner_adapter"
+        },
+        {
+          "name": "PROTECTED_EFFECT",
+          "value": "protected_effect"
+        },
+        {
+          "name": "HIERARCHICAL_CHILD",
+          "value": "hierarchical_child"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.routes.transitions",
+      "name": "WorkflowTransitionRouteKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnBindingSelectionRequest",
+      "signature": "(definition: 'CpnDefinition', enablement: 'CpnEnablementResult', directive: 'CpnSelectionDirective | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnBindingSelector",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnBindingSelectorIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionDirective",
+      "signature": "(enablement_result_identity: 'CpnEnablementResultIdentity', binding: 'CpnBinding') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionDirectiveIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "ENABLEMENT_FAILED",
+          "value": "enablement_failed"
+        },
+        {
+          "name": "DEFINITION_MISMATCH",
+          "value": "definition_mismatch"
+        },
+        {
+          "name": "DIRECTED_SELECTION_PROHIBITED",
+          "value": "directed_selection_prohibited"
+        },
+        {
+          "name": "DIRECTIVE_ENABLEMENT_MISMATCH",
+          "value": "directive_enablement_mismatch"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionFailureCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "SELECTED",
+          "value": "selected"
+        },
+        {
+          "name": "EMPTY",
+          "value": "empty"
+        },
+        {
+          "name": "NO_MATCH",
+          "value": "no_match"
+        },
+        {
+          "name": "FAILURE",
+          "value": "failure"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionOutcomeKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionResult",
+      "signature": "(enablement_result_identity: 'CpnEnablementResultIdentity', selector_identity: 'CpnBindingSelectorIdentity', ordering_policy_identity: 'CpnOrderingPolicyIdentity', outcome: 'CpnSelectionOutcomeKind', selected_binding: 'CpnBinding | None' = None, directive: 'CpnSelectionDirective | None' = None, failure_code: 'CpnSelectionFailureCode | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.selection",
+      "name": "CpnSelectionResultIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFirerIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.shadow-firer:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "type",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFiringError",
+      "signature": "(code: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringErrorCode, path: tuple[str, ...], diagnostic: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "INVALID_ARGUMENT",
+          "value": "invalid_argument"
+        },
+        {
+          "name": "DEFINITION_MISMATCH",
+          "value": "definition_mismatch"
+        },
+        {
+          "name": "PREDECESSOR_MARKING_MISMATCH",
+          "value": "predecessor_marking_mismatch"
+        },
+        {
+          "name": "EXECUTION_PROFILE_UNAVAILABLE",
+          "value": "execution_profile_unavailable"
+        },
+        {
+          "name": "RETAINED_RESULT_MISMATCH",
+          "value": "retained_result_mismatch"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFiringErrorCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFiringInput",
+      "signature": "(canonical_definition: projectkoios.workflow.petrinet.colored.canonical.definitions.CpnCanonicalDefinition, execution_profile: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfile, canonical_predecessor_marking: projectkoios.workflow.petrinet.colored.canonical.markings.CpnCanonicalMarking, firing_input: projectkoios.workflow.petrinet.colored.firing.inputs.CpnFiringInput) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFiringResult",
+      "signature": "(identity: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringResultIdentity, canonical_definition_identity: projectkoios.workflow.petrinet.colored.canonical.definitions.CpnCanonicalDefinitionIdentity, canonical_definition_sha256: str, execution_profile_identity: projectkoios.workflow.petrinet.colored.profiles.definition.WorkflowCpnExecutionProfileIdentity, predecessor_marking_identity: projectkoios.workflow.petrinet.colored.canonical.markings.CpnCanonicalMarkingIdentity, predecessor_marking_sha256: str, firing_result_identity: projectkoios.workflow.petrinet.colored.firing.results.CpnFiringResultIdentity, successor_marking_identity: projectkoios.workflow.petrinet.colored.canonical.markings.CpnCanonicalMarkingIdentity | None, successor_marking_sha256: str | None, firing_result: projectkoios.workflow.petrinet.colored.firing.results.CpnFiringResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.contracts",
+      "name": "CpnShadowFiringResultIdentity",
+      "signature": "(value: str) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.firing",
+      "name": "CpnShadowFirer",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.replay",
+      "name": "CpnShadowFiringReplayer",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.replay_contracts",
+      "name": "CpnShadowFiringReplayInput",
+      "signature": "(firing_input: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringInput, retained_result: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringResult) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.replay_contracts",
+      "name": "CpnShadowFiringReplayResult",
+      "signature": "(is_match: bool, replayed_result: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringResult | None, issue_code: projectkoios.workflow.petrinet.colored.shadow.contracts.CpnShadowFiringErrorCode | None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.shadow.replay_contracts",
+      "name": "CpnShadowFiringReplayerIdentity",
+      "signature": "(value: str = 'projectkoios.workflow.cpn.shadow-firing-replayer:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnDefinitionValidationRequest",
+      "signature": "(definition: 'CpnDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnDefinitionValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnDefinitionValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.definition-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnInputArcValidationRequest",
+      "signature": "(definition: 'CpnDefinition', arc: 'CpnArcDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnInputArcValidationResponse",
+      "signature": "(result: 'CpnValidationResult') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnInputArcValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnInputArcValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.input-arc-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnOutputArcValidationRequest",
+      "signature": "(definition: 'CpnDefinition', arc: 'CpnArcDefinition') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnOutputArcValidationResponse",
+      "signature": "(result: 'CpnValidationResult') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnOutputArcValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.definitions",
+      "name": "CpnOutputArcValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.output-arc-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.findings",
+      "name": "CpnValidationIssue",
+      "signature": "(code: 'CpnValidationIssueCode', path: 'tuple[str, ...]', related_identities: 'tuple[str, ...]', message: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "UNKNOWN_COLOR",
+          "value": "unknown_color"
+        },
+        {
+          "name": "UNKNOWN_PLACE",
+          "value": "unknown_place"
+        },
+        {
+          "name": "UNKNOWN_TRANSITION",
+          "value": "unknown_transition"
+        },
+        {
+          "name": "COLOR_NOT_ALLOWED",
+          "value": "color_not_allowed"
+        },
+        {
+          "name": "VALUE_KIND_NOT_ALLOWED",
+          "value": "value_kind_not_allowed"
+        },
+        {
+          "name": "UNDECLARED_BINDING_VARIABLE",
+          "value": "undeclared_binding_variable"
+        },
+        {
+          "name": "UNBOUND_BINDING_VARIABLE",
+          "value": "unbound_binding_variable"
+        },
+        {
+          "name": "DUPLICATE_BINDING_VARIABLE",
+          "value": "duplicate_binding_variable"
+        },
+        {
+          "name": "EXTERNAL_OUTPUT_VARIABLE_IN_GUARD",
+          "value": "external_output_variable_in_guard"
+        },
+        {
+          "name": "DEFINITION_IDENTITY_MISMATCH",
+          "value": "definition_identity_mismatch"
+        },
+        {
+          "name": "PLACE_SET_MISMATCH",
+          "value": "place_set_mismatch"
+        },
+        {
+          "name": "INVALID_CONTROL_RECORD_SCHEMA",
+          "value": "invalid_control_record_schema"
+        },
+        {
+          "name": "UNKNOWN_CONTROL_RECORD_TYPE",
+          "value": "unknown_control_record_type"
+        },
+        {
+          "name": "CONTROL_RECORD_TYPE_NOT_ALLOWED",
+          "value": "control_record_type_not_allowed"
+        },
+        {
+          "name": "INVALID_CONTROL_RECORD_VALUE",
+          "value": "invalid_control_record_value"
+        },
+        {
+          "name": "INVALID_VALUE_EXPRESSION",
+          "value": "invalid_value_expression"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.validation.findings",
+      "name": "CpnValidationIssueCode",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.findings",
+      "name": "CpnValidationResult",
+      "signature": "(issues: 'tuple[CpnValidationIssue, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.markings",
+      "name": "CpnMarkingValidationInput",
+      "signature": "(definition: 'CpnDefinition', marking: 'CpnMarking') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "action",
+      "module": "projectkoios.workflow.petrinet.colored.validation.markings",
+      "name": "CpnMarkingValidator",
+      "signature": "()",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.validation.markings",
+      "name": "CpnMarkingValidatorIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.marking-validator:0.1') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnColorIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecord",
+      "signature": "(type_identity: 'CpnControlRecordTypeIdentity', fields: 'tuple[CpnControlRecordField, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecordField",
+      "signature": "(identity: 'CpnControlRecordFieldIdentity', value: 'CpnValue') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecordFieldDefinition",
+      "signature": "(identity: 'CpnControlRecordFieldIdentity', value_kind: 'CpnValueKind | None' = None, record_type_identity: 'CpnControlRecordTypeIdentity | None' = None, reference_role_identity: 'str | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecordFieldIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecordTypeDefinition",
+      "signature": "(identity: 'CpnControlRecordTypeIdentity', contract_version: 'int', fields: 'tuple[CpnControlRecordFieldDefinition, ...]') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnControlRecordTypeIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnToken",
+      "signature": "(color_identity: 'CpnColorIdentity', value: 'CpnValue', token_identity: 'CpnTokenIdentity | None' = None) -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnTokenIdentity",
+      "signature": "(value: 'str') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnValue",
+      "signature": "(kind: 'CpnValueKind', value: 'None | bool | int | float | str | tuple[str, ...] | CpnControlRecord') -> None",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "enum",
+      "members": [
+        {
+          "name": "NONE",
+          "value": "none"
+        },
+        {
+          "name": "BOOLEAN",
+          "value": "boolean"
+        },
+        {
+          "name": "INTEGER",
+          "value": "integer"
+        },
+        {
+          "name": "REAL",
+          "value": "real"
+        },
+        {
+          "name": "STRING",
+          "value": "string"
+        },
+        {
+          "name": "STRING_SEQUENCE",
+          "value": "string_sequence"
+        },
+        {
+          "name": "CONTROL_RECORD",
+          "value": "control_record"
+        }
+      ],
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnValueKind",
+      "signature": "(*values)",
+      "stability": "release-candidate"
+    },
+    {
+      "kind": "record",
+      "module": "projectkoios.workflow.petrinet.colored.values",
+      "name": "CpnValueModelIdentity",
+      "signature": "(value: 'str' = 'projectkoios.workflow.cpn.value-model:0.1') -> None",
+      "stability": "release-candidate"
+    }
+  ],
+  "schema_version": 1,
+  "stability": "release-candidate",
+  "tasks": [
+    {
+      "example": "examples/sdk/define_validate.py",
+      "operations": [
+        "CpnDefinitionValidator"
+      ],
+      "task": "define-and-validate-flat-cpn"
+    },
+    {
+      "example": "examples/sdk/execute_firing.py",
+      "operations": [
+        "CpnTransitionEnabler",
+        "CpnBindingSelector",
+        "CpnTransitionFirer"
+      ],
+      "task": "enable-select-and-fire"
+    },
+    {
+      "example": "examples/sdk/canonical_replay.py",
+      "operations": [
+        "CpnCanonicalFiringResultCodec"
+      ],
+      "task": "canonical-firing-result-replay"
+    },
+    {
+      "example": "examples/sdk/payload_reference.py",
+      "operations": [
+        "WorkflowDomainPayloadReferenceAssembler",
+        "WorkflowDomainPayloadReferenceCodec",
+        "WorkflowDomainPayloadReferenceVerifier"
+      ],
+      "task": "retain-and-verify-opaque-payload"
+    },
+    {
+      "example": "examples/sdk/child_plan_export.py",
+      "operations": [
+        "WorkflowExecutionPlanCompiler",
+        "WorkflowChildDefinitionExporter",
+        "WorkflowChildPlanExportCorrelator",
+        "WorkflowChildPlanGraphValidator"
+      ],
+      "task": "compile-export-and-link-child-plan"
+    }
+  ]
+}

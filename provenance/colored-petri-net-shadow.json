@@ -1252,6 +1252,11 @@
     },
     {
       "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSdkManifest.py",
+      "sha256": "88a69b48adcb4985b5c0bd2dfce68c1a484dc5a47969b3223807f33ed10390e1"
+    },
+    {
+      "origin": "owner-authored",
       "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFirer.py",
       "sha256": "f27205ed55c880c02d04e2de82e98dd54de2143ee5306e86d6a72b70ff36b1ab"
     },

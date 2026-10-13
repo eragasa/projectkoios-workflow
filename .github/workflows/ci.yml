@@ -42,21 +42,21 @@ jobs:
         run: >-
           .venv/bin/python -m ruff format --check
           src/python/projectkoios/workflow/core
-          src/python/projectkoios/workflow/course_review
           src/python/projectkoios/workflow/persistence
           src/python/projectkoios/workflow/petrinet/colored
-          src/python/projectkoios/workflow/reference_review
+          src/python/projectkoios/workflow/review
           src/python/projectkoios/workflow/runtime
           tests/projectkoios/workflow/core
-          tests/projectkoios/workflow/course_review
           tests/projectkoios/workflow/persistence
           tests/projectkoios/workflow/petrinet/colored
-          tests/projectkoios/workflow/reference_review
+          tests/projectkoios/workflow/review
           tests/projectkoios/workflow/runtime
           tests/test__CpnShadowProvenance.py
+          examples/sdk
+          tools/generate_cpn_sdk_manifest.py
 
       - name: Lint all Python
-        run: .venv/bin/python -m ruff check src/python tests
+        run: .venv/bin/python -m ruff check src/python tests examples/sdk tools
 
       - name: Type-check all production source
         run: .venv/bin/python -m mypy src/python
@@ -72,27 +72,44 @@ jobs:
           uv venv /tmp/projectkoios-workflow-wheel --python 3.14 --clear
           uv pip install --python /tmp/projectkoios-workflow-wheel/bin/python dist/*.whl
           /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
-          from projectkoios.workflow.course_review import CourseReviewWorkflow
+          from importlib.util import find_spec
           from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-          from projectkoios.workflow.petrinet.colored.canonical.firings import (
+          from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
               CpnCanonicalFiringResultCodec,
           )
           from projectkoios.workflow.petrinet.colored.deployments.bindings import (
               WorkflowExecutionBindings,
           )
-          from projectkoios.workflow.reference_review import (
-              IngestionClaimCandidateReference,
-              ReferenceReviewWorkflow,
+          from projectkoios.workflow.petrinet.colored.payloads.references.canonical import (
+              WorkflowDomainPayloadReferenceCodec,
           )
+          from projectkoios.workflow.review.course.workflow import CourseReviewWorkflow
+          from projectkoios.workflow.review.reference.models import IngestionClaimCandidateReference
+          from projectkoios.workflow.review.reference.workflow import ReferenceReviewWorkflow
           from projectkoios.workflow.runtime import LocalWorkflowRuntime
           assert CourseReviewWorkflow is not None
           assert CpnCanonicalFiringResultCodec is not None
+          assert WorkflowDomainPayloadReferenceCodec is not None
           assert WorkflowExecutionBindings is not None
           assert IngestionClaimCandidateReference is not None
           assert ReferenceReviewWorkflow is not None
           assert SQLiteAtomicRevisionStore is not None
           assert LocalWorkflowRuntime is not None
+          assert find_spec("projectkoios.workflow.course_review") is None
+          assert find_spec("projectkoios.workflow.reference_review") is None
           PY
+
+      - name: Run SDK examples against installed wheel
+        run: |
+          for example in \
+            examples/sdk/define_validate.py \
+            examples/sdk/execute_firing.py \
+            examples/sdk/canonical_replay.py \
+            examples/sdk/payload_reference.py \
+            examples/sdk/child_plan_export.py
+          do
+            /tmp/projectkoios-workflow-wheel/bin/python "$example"
+          done
 
       - name: Check patch whitespace
         run: git diff --check HEAD

@@ -18,14 +18,16 @@ from projectkoios.workflow.core import (
     WorkflowTransitionPreflightInput,
 )
 from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-from projectkoios.workflow.reference_review import (
+from projectkoios.workflow.review.reference.models import (
+    IngestionClaimCandidateReference,
+    IngestionReferenceEvidenceReference,
+    ReferenceReviewStage,
+)
+from projectkoios.workflow.review.reference.workflow import (
     EXCLUDE_REVIEWED_CLAIM_OPERATION,
     REQUIRE_MANUAL_CLAIM_REVIEW_OPERATION,
     RETAIN_REVIEWED_CLAIM_OPERATION,
-    IngestionClaimCandidateReference,
     IngestionEvidenceReviewAdapter,
-    IngestionReferenceEvidenceReference,
-    ReferenceReviewStage,
     ReferenceReviewWorkflow,
 )
 from projectkoios.workflow.runtime import (

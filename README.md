@@ -10,11 +10,21 @@ canonical transport, control-record, execution-profile, child-plan/export,
 deployment-linking, and replay extensions. Exact inherited and owner-authored
 file evidence is recorded in
 [`provenance/colored-petri-net-shadow.json`](provenance/colored-petri-net-shadow.json).
-The candidate remains non-authoritative and does not authorize consumer imports,
-migration, provider execution, or scientific acceptance.
+The candidate remains non-authoritative for provider execution, migration, and
+scientific acceptance. Its documented direct-module imports are now an
+authorized release-candidate SDK evaluation surface; they are not yet a
+published package compatibility promise. Start with the
+[SDK quick start](docs/sdk/quickstart.md), use the checked
+[operation manifest](docs/sdk/operation-manifest.json) for human or LLM
+discovery, follow the [error-handling guide](docs/sdk/error-handling.md), and
+apply the [provider conformance profile](docs/sdk/provider-conformance.md) in a
+provider repository.
 
 The candidate provides pure definitions, markings, validation, enablement,
-deterministic selection, and firing. A separate unaccepted
+deterministic selection, and firing. Review workflow kinds are grouped under
+the explicit `projectkoios.workflow.review.{course,reference}` namespace; no
+parallel top-level `*_review` packages or initializer facades are provided. A
+separate unaccepted
 `projectkoios.workflow.core` prototype provides immutable engine-neutral
 references, runs, state snapshots, structural preflight, bounded transition
 processing, audit evidence, and deterministic replay.
@@ -42,6 +52,17 @@ promise. See the
 [colored-Petri-net reference authority](docs/references/colored-petri-net-authority.md).
 
 Repository routing is documented in `projectkoios-bootstrap/maps/repositories.md`; cross-repository product architecture belongs in `projectkoios`.
+
+## SDK evaluation
+
+Five copyable examples under [`examples/sdk`](examples/sdk) cover definition
+validation, enablement/selection/firing, canonical replay, opaque payload
+references, and separate child-plan export/linking. CI executes every example
+against the built wheel. Package initializers intentionally remain empty;
+consumers import from the semantic owner modules recorded in the SDK manifest.
+
+The project version remains `0.0.0` until the provider-owned simulations trial,
+independent review, and release gate complete. No package has been published.
 
 ## Contracts
 

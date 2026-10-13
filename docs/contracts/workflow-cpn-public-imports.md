@@ -1,11 +1,22 @@
 # Workflow CPN public import inventory
 
-Status: owner candidate accompanying `projectkoios/workflow/v0.1`.
+Status: authorized release-candidate SDK import inventory accompanying
+`projectkoios/workflow/v0.1`.
 
-This candidate inventory records the proposed semantic owner modules. It does
-not establish an implementation binding or authorize consumer imports. Package `__init__.py` files intentionally export
-no objects. They are namespace boundaries, not aggregate facades; consumers
-must not depend on incidental transitive imports.
+The direct semantic-owner modules below are the supported SDK evaluation
+imports. This decision authorizes source and installed-wheel evaluation against
+the documented surface; it does not authorize consumer migration, provider
+execution, scientific acceptance, or package release. Compatibility remains
+release-candidate until the provider trial and release gate complete. Package
+`__init__.py` files intentionally export no objects. They are namespace
+boundaries, not aggregate facades; consumers must not depend on incidental
+transitive imports.
+
+The machine-readable operation and public-signature inventory is
+[`../sdk/operation-manifest.json`](../sdk/operation-manifest.json). Exact
+human/LLM usage and error semantics are documented in
+[`../sdk/quickstart.md`](../sdk/quickstart.md) and
+[`../sdk/error-handling.md`](../sdk/error-handling.md).
 
 ## Execution and transport
 
@@ -102,7 +113,7 @@ contracts are owned by
 `projectkoios.workflow.petrinet.colored.shadow.replay_contracts`; the replay
 action is owned by `projectkoios.workflow.petrinet.colored.shadow.replay`.
 
-These imports expose software contracts only. They do not authorize provider
-execution, consumer migration, dependency changes, release, scientific
-acceptance, or use of a child export whose exact evidence binding has not passed
-deployment linking.
+These direct imports are authorized for SDK evaluation only. They do not
+authorize provider execution, consumer migration, dependency changes, release,
+scientific acceptance, or use of a child export whose exact evidence binding
+has not passed deployment linking.
