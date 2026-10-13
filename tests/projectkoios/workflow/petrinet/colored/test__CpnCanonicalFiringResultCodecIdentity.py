@@ -1,4 +1,4 @@
-from projectkoios.workflow.petrinet.colored.canonical.firings import (
+from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
     CpnCanonicalFiringResultCodec,
 )
 

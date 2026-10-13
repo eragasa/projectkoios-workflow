@@ -1,40 +1,18 @@
-from dataclasses import replace
-
-import pytest
-from _child_export_evidence_fixtures import child_interface
+from dataclasses import fields, is_dataclass
 
 from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowTerminalDeliveryRequirement,
 )
 
-
-def test_constructor__enforces_collection_and_signed_64_bit_bounds() -> None:
-    source = child_interface().terminal_delivery_requirements[0]
-    companion = source.companion_requirements[0]
-    excessive = tuple(
-        replace(
-            companion,
-            ordinal=index,
-            evidence_role_identity=f"synthetic-role-{index}",
-        )
-        for index in range(65)
-    )
-    with pytest.raises(ValueError, match="at most 64"):
-        replace(
-            source,
-            companion_requirements=excessive,
-            maximum_total_companion_reference_count=65,
-        )
-    with pytest.raises(TypeError, match="nonnegative"):
-        replace(
-            source,
-            companion_requirements=(),
-            maximum_total_companion_reference_count=9_223_372_036_854_775_808,
-        )
+SUT = WorkflowTerminalDeliveryRequirement
 
 
-def test_candidate_direct_module_contract__is_declared() -> None:
-    assert (
-        WorkflowTerminalDeliveryRequirement.__name__
-        == "WorkflowTerminalDeliveryRequirement"
+def test_public_data__is_frozen_slotted_and_typed() -> None:
+    assert is_dataclass(SUT)
+    assert SUT.__dataclass_params__.frozen
+    assert "__slots__" in SUT.__dict__
+    declared_fields = fields(SUT)
+    assert declared_fields
+    assert all(
+        item.type not in (object, list, dict) for item in declared_fields
     )

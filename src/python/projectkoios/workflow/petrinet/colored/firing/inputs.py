@@ -3,7 +3,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from ..definitions import CpnDefinition
-from ..enablement.outcomes import (
+from ..enablement.results import (
     CpnEnablementResult,
 )
 from ..bindings import CpnBinding

@@ -1,5 +1,3 @@
-"""Mirrored public-contract test for :class:`CpnControlRecordValidationIssueCode`."""
-
 from projectkoios.workflow.petrinet.colored.control.records.findings import (
     CpnControlRecordValidationIssueCode,
 )
@@ -7,6 +5,8 @@ from projectkoios.workflow.petrinet.colored.control.records.findings import (
 SUT = CpnControlRecordValidationIssueCode
 
 
-def test_public__exact_class_name_is_stable() -> None:
-    """The named public contract is directly importable from its candidate owner module for verification."""
-    assert SUT.__name__ == "CpnControlRecordValidationIssueCode"
+def test_public_enum__is_closed_unique_and_nonempty() -> None:
+    values = tuple(item.value for item in SUT)
+    assert values
+    assert len(values) == len(set(values))
+    assert all(type(value) is str and value for value in values)

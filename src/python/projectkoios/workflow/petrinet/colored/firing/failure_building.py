@@ -9,7 +9,7 @@ from .identity_derivation import (
     CpnFiringResultIdentityDeriver,
 )
 from .inputs import CpnFiringInput
-from .outcomes import (
+from .results import (
     CpnFiringFailure,
     CpnFiringFailureIdentity,
     CpnFiringOutcomeKind,

@@ -13,7 +13,7 @@ from ..control.records.ordering import (
 )
 from ..definitions import CpnDefinition
 from ..bindings import CpnBinding
-from .outcomes import CpnOrderingPolicyIdentity
+from .results import CpnOrderingPolicyIdentity
 
 
 @dataclass(frozen=True, slots=True)

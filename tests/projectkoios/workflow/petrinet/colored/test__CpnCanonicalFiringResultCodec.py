@@ -9,11 +9,13 @@ from _canonical_firing_result_fixtures import (
     failed_firing_result,
     firing_result,
 )
-from projectkoios.workflow.petrinet.colored.canonical.firings import (
+from projectkoios.workflow.petrinet.colored.canonical.firing_results.documents import (
     CpnCanonicalFiringResult,
-    CpnCanonicalFiringResultCodec,
     CpnCanonicalFiringResultDecodingInput,
     CpnCanonicalFiringResultEncodingInput,
+)
+from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
+    CpnCanonicalFiringResultCodec,
 )
 from projectkoios.workflow.petrinet.colored.canonical.json import (
     CpnCanonicalCodecError,

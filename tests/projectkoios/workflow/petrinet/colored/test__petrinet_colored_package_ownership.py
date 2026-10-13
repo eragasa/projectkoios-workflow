@@ -53,14 +53,18 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
     assert (
         not {
             "canonical.py",
+            "canonical/firing_contracts.py",
+            "canonical/firings.py",
             "canonical_definition.py",
             "canonical_expressions.py",
             "canonical_marking.py",
             "control_records.py",
             "enablement.py",
+            "enablement/outcomes.py",
             "expression_operations.py",
             "expressions.py",
             "firing.py",
+            "firing/outcomes.py",
             "shadow.py",
             "validation.py",
             "workflow_identities.py",
@@ -105,33 +109,33 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
         visit(module_name)
 
     expected_operation_dependencies = {
-        "enablement.outcomes": set(),
-        "enablement.identity_derivation": {"enablement.outcomes"},
+        "enablement.results": set(),
+        "enablement.identity_derivation": {"enablement.results"},
         "enablement.failure_building": {
             "enablement.identity_derivation",
-            "enablement.outcomes",
+            "enablement.results",
         },
-        "enablement.ordering": {"enablement.outcomes"},
+        "enablement.ordering": {"enablement.results"},
         "enablement.transitions": {
             "enablement.failure_building",
             "enablement.identity_derivation",
             "enablement.ordering",
-            "enablement.outcomes",
+            "enablement.results",
         },
-        "firing.inputs": {"enablement.outcomes"},
+        "firing.inputs": {"enablement.results"},
         "firing.audits": set(),
-        "firing.outcomes": {"firing.audits", "firing.inputs"},
+        "firing.results": {"firing.audits", "firing.inputs"},
         "firing.occurrence_reconstruction": {"firing.audits"},
         "firing.identity_derivation": {
             "firing.audits",
             "firing.inputs",
-            "firing.outcomes",
+            "firing.results",
         },
         "firing.successor_marking": {"firing.audits", "firing.inputs"},
         "firing.failure_building": {
             "firing.identity_derivation",
             "firing.inputs",
-            "firing.outcomes",
+            "firing.results",
         },
         "firing.transitions": {
             "enablement.transitions",
@@ -140,9 +144,21 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
             "firing.identity_derivation",
             "firing.inputs",
             "firing.occurrence_reconstruction",
-            "firing.outcomes",
+            "firing.results",
             "firing.successor_marking",
         },
+        "canonical.firing_results.identity": set(),
+        "canonical.firing_results.documents": {"firing.results"},
+        "canonical.firing_results.codec": {
+            "canonical.firing_results.documents",
+            "canonical.firing_results.identity",
+            "firing.inputs",
+            "firing.results",
+        },
+        "payloads.references.definition": set(),
+        "payloads.references.canonical": {"payloads.references.definition"},
+        "payloads.references.assembly": {"payloads.references.definition"},
+        "payloads.references.verification": {"payloads.references.definition"},
     }
     for (
         module_name,
@@ -151,7 +167,14 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
         actual_dependencies = {
             dependency
             for dependency in dependencies[module_name]
-            if dependency.startswith(("enablement.", "firing."))
+            if dependency.startswith(
+                (
+                    "canonical.firing_results.",
+                    "enablement.",
+                    "firing.",
+                    "payloads.references.",
+                )
+            )
         }
         assert actual_dependencies == expected_dependencies
 
@@ -172,6 +195,12 @@ def test_artifact__operation_modules__declare_one_semantic_action() -> None:
         "firing/successor_marking.py": {"CpnSuccessorMarkingBuilder"},
         "firing/failure_building.py": {"CpnFiringFailureBuilder"},
         "firing/transitions.py": {"CpnTransitionFirer"},
+        "payloads/references/assembly.py": {
+            "WorkflowDomainPayloadReferenceAssembler"
+        },
+        "payloads/references/verification.py": {
+            "WorkflowDomainPayloadReferenceVerifier"
+        },
     }
     for relative_path, expected in expected_actions.items():
         tree = ast.parse(

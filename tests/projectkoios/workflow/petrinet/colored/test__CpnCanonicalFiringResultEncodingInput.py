@@ -1,5 +1,5 @@
 from _canonical_firing_result_fixtures import execution_profile, firing_result
-from projectkoios.workflow.petrinet.colored.canonical.firings import (
+from projectkoios.workflow.petrinet.colored.canonical.firing_results.documents import (
     CpnCanonicalFiringResultEncodingInput,
 )
 

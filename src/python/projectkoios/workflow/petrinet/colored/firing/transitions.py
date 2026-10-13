@@ -42,7 +42,7 @@ from .occurrence_reconstruction import (
     CpnTokenOccurrenceReconstructionRequest,
     CpnTokenOccurrenceReconstructor,
 )
-from .outcomes import (
+from .results import (
     CpnFiringFailureCode,
     CpnFiringOutcomeKind,
     CpnFiringResult,

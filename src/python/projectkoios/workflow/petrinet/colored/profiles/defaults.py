@@ -7,7 +7,7 @@ from ..canonical.bindings import CpnCanonicalBindingCodecIdentity
 from ..canonical.definitions import CpnCanonicalDefinitionCodecIdentity
 from ..canonical.directives import CpnCanonicalSelectionDirectiveCodecIdentity
 from ..canonical.enablement import CpnCanonicalEnablementResultCodecIdentity
-from ..canonical.firing_contracts import (
+from ..canonical.firing_results.identity import (
     CpnCanonicalFiringResultCodecIdentity,
 )
 from ..canonical.expressions.guards import (

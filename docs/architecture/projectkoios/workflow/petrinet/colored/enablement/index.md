@@ -6,7 +6,7 @@ Semantic owner boundary; import from the operation-specific modules.
 
 ## Coordination boundary
 
-This node coordinates `failure_building`, `identity_derivation`, `ordering`, `outcomes`, `transitions` and declares no directly declared classes. It selects typed
+This node coordinates `failure_building`, `identity_derivation`, `ordering`, `results`, `transitions` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

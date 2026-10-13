@@ -15,7 +15,7 @@ must not depend on incidental transitive imports.
 | Flat CPN graph definitions and graph identities | `projectkoios.workflow.petrinet.colored.definitions` |
 | Markings, places, tokens, and marking identities | `projectkoios.workflow.petrinet.colored.markings` |
 | Ordered transition bindings | `projectkoios.workflow.petrinet.colored.bindings` |
-| Enablement outcomes and semantic identities | `projectkoios.workflow.petrinet.colored.enablement.outcomes` |
+| Enablement results and semantic identities | `projectkoios.workflow.petrinet.colored.enablement.results` |
 | Enablement-result identity derivation | `projectkoios.workflow.petrinet.colored.enablement.identity_derivation` |
 | Enablement-failure construction | `projectkoios.workflow.petrinet.colored.enablement.failure_building` |
 | Enabled-binding ordering | `projectkoios.workflow.petrinet.colored.enablement.ordering` |
@@ -23,7 +23,7 @@ must not depend on incidental transitive imports.
 | Deterministic or directed selection | `projectkoios.workflow.petrinet.colored.selection` |
 | Complete firing inputs | `projectkoios.workflow.petrinet.colored.firing.inputs` |
 | Firing occurrence and output audits | `projectkoios.workflow.petrinet.colored.firing.audits` |
-| Firing outcomes | `projectkoios.workflow.petrinet.colored.firing.outcomes` |
+| Firing results | `projectkoios.workflow.petrinet.colored.firing.results` |
 | Token-occurrence reconstruction | `projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction` |
 | Firing-result identity derivation | `projectkoios.workflow.petrinet.colored.firing.identity_derivation` |
 | Successor-marking construction | `projectkoios.workflow.petrinet.colored.firing.successor_marking` |
@@ -43,8 +43,9 @@ must not depend on incidental transitive imports.
 | Selection directives | `projectkoios.workflow.petrinet.colored.canonical.directives` |
 | Enablement results | `projectkoios.workflow.petrinet.colored.canonical.enablement` |
 | Selection results | `projectkoios.workflow.petrinet.colored.canonical.selections` |
-| Firing transport identity contracts | `projectkoios.workflow.petrinet.colored.canonical.firing_contracts` |
-| Firing results and pure replay | `projectkoios.workflow.petrinet.colored.canonical.firings` |
+| Firing-result transport identity | `projectkoios.workflow.petrinet.colored.canonical.firing_results.identity` |
+| Firing-result documents | `projectkoios.workflow.petrinet.colored.canonical.firing_results.documents` |
+| Firing-result canonical replay codec | `projectkoios.workflow.petrinet.colored.canonical.firing_results.codec` |
 
 The expression owners are:
 
@@ -79,6 +80,10 @@ The control-record owners are:
 | Transition routes | `projectkoios.workflow.petrinet.colored.routes.transitions` |
 | Owner value mappings | `projectkoios.workflow.petrinet.colored.mappings.values` |
 | Payload/color bindings | `projectkoios.workflow.petrinet.colored.payloads.bindings` |
+| Retained owner-payload reference values | `projectkoios.workflow.petrinet.colored.payloads.references.definition` |
+| Canonical payload-reference transport | `projectkoios.workflow.petrinet.colored.payloads.references.canonical` |
+| Payload-reference assembly | `projectkoios.workflow.petrinet.colored.payloads.references.assembly` |
+| Exact-byte payload-reference verification | `projectkoios.workflow.petrinet.colored.payloads.references.verification` |
 | Child interfaces and terminal delivery | `projectkoios.workflow.petrinet.colored.children.interfaces` |
 | Hierarchical child bindings | `projectkoios.workflow.petrinet.colored.children.bindings` |
 | Child-export definition records | `projectkoios.workflow.petrinet.colored.children.exports.definition` |

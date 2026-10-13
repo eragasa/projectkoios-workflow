@@ -1,7 +1,14 @@
+import pytest
+
 from projectkoios.workflow.petrinet.colored.markings import (
     CpnTokenOrderingPolicy,
 )
 
+SUT = CpnTokenOrderingPolicy
 
-def test_public_contract__is_declared() -> None:
-    assert CpnTokenOrderingPolicy.__name__ == "CpnTokenOrderingPolicy"
+
+def test_public_action__is_final_slotted_and_rejects_untyped_input() -> None:
+    assert SUT.__final__ is True
+    assert SUT.__slots__ == ()
+    with pytest.raises(TypeError):
+        SUT().execute(None)  # type: ignore[arg-type]

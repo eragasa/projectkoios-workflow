@@ -8,7 +8,7 @@ flowchart TD
     owner --> child0["failure_building"]
     owner --> child1["identity_derivation"]
     owner --> child2["ordering"]
-    owner --> child3["outcomes"]
+    owner --> child3["results"]
     owner --> child4["transitions"]
 ```
 

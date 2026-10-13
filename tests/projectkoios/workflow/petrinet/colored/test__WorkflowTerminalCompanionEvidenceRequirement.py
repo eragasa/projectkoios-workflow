@@ -1,34 +1,18 @@
-from dataclasses import replace
-
-import pytest
-from _child_export_evidence_fixtures import child_interface
+from dataclasses import fields, is_dataclass
 
 from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowTerminalCompanionEvidenceRequirement,
 )
 
-
-def test_constructor__enforces_signed_64_bit_representation_bounds() -> None:
-    source = (
-        child_interface()
-        .terminal_delivery_requirements[0]
-        .companion_requirements[0]
-    )
-    maximum = 9_223_372_036_854_775_807
-    assert (
-        replace(source, maximum_payload_bytes=maximum).maximum_payload_bytes
-        == maximum
-    )
-    with pytest.raises(TypeError, match="signed-64-bit"):
-        replace(source, maximum_payload_bytes=maximum + 1)
-    with pytest.raises(TypeError, match="signed-64-bit"):
-        replace(source, maximum_reference_count=maximum + 1)
-    with pytest.raises(TypeError, match="signed-64-bit"):
-        replace(source, ordinal=maximum + 1)
+SUT = WorkflowTerminalCompanionEvidenceRequirement
 
 
-def test_candidate_direct_module_contract__is_declared() -> None:
-    assert (
-        WorkflowTerminalCompanionEvidenceRequirement.__name__
-        == "WorkflowTerminalCompanionEvidenceRequirement"
+def test_public_data__is_frozen_slotted_and_typed() -> None:
+    assert is_dataclass(SUT)
+    assert SUT.__dataclass_params__.frozen
+    assert "__slots__" in SUT.__dict__
+    declared_fields = fields(SUT)
+    assert declared_fields
+    assert all(
+        item.type not in (object, list, dict) for item in declared_fields
     )

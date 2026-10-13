@@ -19,7 +19,7 @@ This is software verification, not scientific validation or UQ.
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.enablement.outcomes import (
+from projectkoios.workflow.petrinet.colored.enablement.results import (
     CpnEnablementFailure,
     CpnEnablementFailureCode,
     CpnEnablementFailureIdentity,

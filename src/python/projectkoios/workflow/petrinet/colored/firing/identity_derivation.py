@@ -21,7 +21,7 @@ from ..markings import CpnMarking
 from ..validation.findings import CpnValidationIssue
 from .audits import CpnFiringAudit, CpnTransitionFirerIdentity
 from .inputs import CpnFiringInput
-from .outcomes import CpnFiringFailureCode, CpnFiringResultIdentity
+from .results import CpnFiringFailureCode, CpnFiringResultIdentity
 
 
 @dataclass(frozen=True, slots=True)

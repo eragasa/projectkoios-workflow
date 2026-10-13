@@ -10,11 +10,10 @@ flowchart TD
     owner --> child2["directives"]
     owner --> child3["enablement"]
     owner --> child4["expressions"]
-    owner --> child5["firing_contracts"]
-    owner --> child6["firings"]
-    owner --> child7["json"]
-    owner --> child8["markings"]
-    owner --> child9["selections"]
+    owner --> child5["firing_results"]
+    owner --> child6["json"]
+    owner --> child7["markings"]
+    owner --> child8["selections"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

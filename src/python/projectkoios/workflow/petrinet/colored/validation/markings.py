@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 from ..control.records.schema import (
     CpnControlRecordSchemaValidationInput,
@@ -39,6 +40,7 @@ class CpnMarkingValidationInput:
             raise TypeError("marking must be CpnMarking")
 
 
+@final
 class CpnMarkingValidator:
     """ActionObject for definition-relative generic marking validation."""
 

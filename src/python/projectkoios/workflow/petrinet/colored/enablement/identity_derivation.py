@@ -22,7 +22,7 @@ from ..expressions.evaluation import CpnExpressionEvaluatorIdentity
 from ..bindings import CpnBinding
 from ..markings import CpnMarking
 from ..validation.findings import CpnValidationIssue
-from .outcomes import (
+from .results import (
     CpnEnablementFailureCode,
     CpnEnablementResultIdentity,
     CpnOrderingPolicyIdentity,

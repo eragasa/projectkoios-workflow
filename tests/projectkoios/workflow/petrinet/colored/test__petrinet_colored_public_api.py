@@ -104,6 +104,31 @@ def test_public_import_inventory__names_every_semantic_owner_module(
         assert f"`{prefix}.{suffix}`" in inventory
 
 
+def test_mirrored_class_evidence__is_not_name_only(
+    pytestconfig: pytest.Config,
+) -> None:
+    test_root = (
+        pytestconfig.rootpath / "tests/projectkoios/workflow/petrinet/colored"
+    )
+    for path in test_root.glob("test__*.py"):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        has_behavioral_or_structural_assertion = any(
+            isinstance(node, ast.With)
+            or (
+                isinstance(node, ast.Assert)
+                and not any(
+                    isinstance(member, ast.Attribute)
+                    and member.attr == "__name__"
+                    for member in ast.walk(node)
+                )
+            )
+            for node in ast.walk(tree)
+        )
+        assert has_behavioral_or_structural_assertion, (
+            f"mirrored class evidence is name-only: {path}"
+        )
+
+
 def test_production_operations__forbid_hidden_callable_semantics() -> None:
     package_root = Path(colored.__file__).parent
     for path in package_root.rglob("*.py"):
@@ -158,6 +183,10 @@ def test_production_actions__use_one_typed_request_and_one_response() -> None:
             if not execute_methods:
                 continue
             assert len(execute_methods) == 1
+            assert any(
+                isinstance(decorator, ast.Name) and decorator.id == "final"
+                for decorator in class_node.decorator_list
+            ), f"{path}:{class_node.lineno} action must be final"
             explicit_slots = any(
                 isinstance(node, ast.Assign)
                 and any(

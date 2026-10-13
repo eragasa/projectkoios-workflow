@@ -2,6 +2,11 @@ from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowChildPortDirection,
 )
 
+SUT = WorkflowChildPortDirection
 
-def test_candidate_direct_module_contract__is_declared() -> None:
-    assert WorkflowChildPortDirection.__name__ == "WorkflowChildPortDirection"
+
+def test_public_enum__is_closed_unique_and_nonempty() -> None:
+    values = tuple(item.value for item in SUT)
+    assert values
+    assert len(values) == len(set(values))
+    assert all(type(value) is str and value for value in values)

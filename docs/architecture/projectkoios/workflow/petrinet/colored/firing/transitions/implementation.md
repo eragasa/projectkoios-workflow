@@ -7,7 +7,7 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `..enablement.transitions`, `..expressions.evaluation`, `..external_outputs`, `..bindings`, `..selection`, `..validation.definitions`, `..validation.markings`, `..values`, `.audits`, `.failure_building`, `.identity_derivation`, `.inputs`, `.occurrence_reconstruction`, `.outcomes`, `.successor_marking`. Dependencies point toward narrower
+Direct relative dependencies are `..enablement.transitions`, `..expressions.evaluation`, `..external_outputs`, `..bindings`, `..selection`, `..validation.definitions`, `..validation.markings`, `..values`, `.audits`, `.failure_building`, `.identity_derivation`, `.inputs`, `.occurrence_reconstruction`, `.results`, `.successor_marking`. Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

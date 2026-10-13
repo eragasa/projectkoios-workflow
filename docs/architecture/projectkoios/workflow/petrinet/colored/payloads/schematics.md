@@ -6,6 +6,7 @@
 flowchart TD
     owner["projectkoios.workflow.petrinet.colored.payloads"]
     owner --> child0["bindings"]
+    owner --> child1["references"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 from ..control.records.type_graph import (
     CpnControlRecordTypeGraphValidationInput,
@@ -63,6 +64,7 @@ class CpnInputArcValidatorIdentity:
     value: str = "projectkoios.workflow.cpn.input-arc-validator:0.1"
 
 
+@final
 class CpnInputArcValidator:
     """Validate one input arc without mutating a caller-owned issue list."""
 
@@ -164,6 +166,7 @@ class CpnOutputArcValidatorIdentity:
     value: str = "projectkoios.workflow.cpn.output-arc-validator:0.1"
 
 
+@final
 class CpnOutputArcValidator:
     """Validate one output arc without mutating caller-owned state."""
 
@@ -274,6 +277,7 @@ class CpnDefinitionValidatorIdentity:
     value: str = "projectkoios.workflow.cpn.definition-validator:0.1"
 
 
+@final
 class CpnDefinitionValidator:
     """ActionObject for deterministic generic definition validation."""
 

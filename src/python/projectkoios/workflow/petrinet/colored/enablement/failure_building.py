@@ -11,7 +11,7 @@ from .identity_derivation import (
     CpnEnablementResultIdentityDerivationInput,
     CpnEnablementResultIdentityDeriver,
 )
-from .outcomes import (
+from .results import (
     CpnEnablementFailure,
     CpnEnablementFailureIdentity,
     CpnEnablementResult,

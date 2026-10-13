@@ -1,10 +1,14 @@
+import pytest
+
 from projectkoios.workflow.petrinet.colored.closure_validation import (
     WorkflowCpnClosureCorrelationValidator,
 )
 
+SUT = WorkflowCpnClosureCorrelationValidator
 
-def test_candidate_direct_module_contract__is_declared() -> None:
-    assert (
-        WorkflowCpnClosureCorrelationValidator.__name__
-        == "WorkflowCpnClosureCorrelationValidator"
-    )
+
+def test_public_action__is_final_slotted_and_rejects_untyped_input() -> None:
+    assert SUT.__final__ is True
+    assert SUT.__slots__ == ()
+    with pytest.raises(TypeError):
+        SUT().execute(None)  # type: ignore[arg-type]

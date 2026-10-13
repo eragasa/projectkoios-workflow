@@ -1,4 +1,4 @@
-"""Mirrored public-contract test for :class:`CpnGuardVariableCollector`."""
+import pytest
 
 from projectkoios.workflow.petrinet.colored.expressions.collection import (
     CpnGuardVariableCollector,
@@ -7,6 +7,8 @@ from projectkoios.workflow.petrinet.colored.expressions.collection import (
 SUT = CpnGuardVariableCollector
 
 
-def test_public__exact_class_name_is_stable() -> None:
-    """The named public contract is directly importable from its candidate owner module for verification."""
-    assert SUT.__name__ == "CpnGuardVariableCollector"
+def test_public_action__is_final_slotted_and_rejects_untyped_input() -> None:
+    assert SUT.__final__ is True
+    assert SUT.__slots__ == ()
+    with pytest.raises(TypeError):
+        SUT().execute(None)  # type: ignore[arg-type]

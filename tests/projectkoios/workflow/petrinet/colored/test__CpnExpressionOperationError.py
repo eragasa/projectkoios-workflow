@@ -1,5 +1,3 @@
-"""Mirrored public-contract test for :class:`CpnExpressionOperationError`."""
-
 from projectkoios.workflow.petrinet.colored.expressions.errors import (
     CpnExpressionOperationError,
 )
@@ -7,6 +5,6 @@ from projectkoios.workflow.petrinet.colored.expressions.errors import (
 SUT = CpnExpressionOperationError
 
 
-def test_public__exact_class_name_is_stable() -> None:
-    """The named public contract is directly importable from its candidate owner module for verification."""
-    assert SUT.__name__ == "CpnExpressionOperationError"
+def test_public_error__retains_nominal_exception_boundary() -> None:
+    assert issubclass(SUT, ValueError)
+    assert SUT is not ValueError

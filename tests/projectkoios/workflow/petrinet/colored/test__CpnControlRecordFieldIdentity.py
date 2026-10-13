@@ -1,4 +1,4 @@
-"""Mirrored public-contract test for :class:`CpnControlRecordFieldIdentity`."""
+from dataclasses import fields, is_dataclass
 
 from projectkoios.workflow.petrinet.colored.values import (
     CpnControlRecordFieldIdentity,
@@ -7,6 +7,12 @@ from projectkoios.workflow.petrinet.colored.values import (
 SUT = CpnControlRecordFieldIdentity
 
 
-def test_public__exact_class_name_is_stable() -> None:
-    """The named public contract is directly importable from its candidate owner module for verification."""
-    assert SUT.__name__ == "CpnControlRecordFieldIdentity"
+def test_public_data__is_frozen_slotted_and_typed() -> None:
+    assert is_dataclass(SUT)
+    assert SUT.__dataclass_params__.frozen
+    assert "__slots__" in SUT.__dict__
+    declared_fields = fields(SUT)
+    assert declared_fields
+    assert all(
+        item.type not in (object, list, dict) for item in declared_fields
+    )

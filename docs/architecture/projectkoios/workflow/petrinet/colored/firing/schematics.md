@@ -10,7 +10,7 @@ flowchart TD
     owner --> child2["identity_derivation"]
     owner --> child3["inputs"]
     owner --> child4["occurrence_reconstruction"]
-    owner --> child5["outcomes"]
+    owner --> child5["results"]
     owner --> child6["successor_marking"]
     owner --> child7["transitions"]
 ```

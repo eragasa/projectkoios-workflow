@@ -32,7 +32,7 @@ from .ordering import (
     CpnEnabledBindingOrderingInput,
     CpnEnabledBindingOrderingPolicy,
 )
-from .outcomes import (
+from .results import (
     CpnEnablementFailureCode,
     CpnEnablementResult,
     CpnOrderingPolicyIdentity,

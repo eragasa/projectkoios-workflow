@@ -515,6 +515,21 @@ owner codec and assembler. Generic Workflow MUST NOT fabricate an artifact
 identity, interpret the owner payload's scientific or provider-specific fields,
 or let the CPN kernel invoke a codec, assembler, or artifact store.
 
+The Workflow-owned candidate implements only the generic reference boundary:
+
+- `payloads.references.definition` owns the exact six-field immutable reference,
+  owner encoding metadata, and content-derived reference identity;
+- `payloads.references.canonical` owns strict canonical reference transport;
+- `payloads.references.assembly` computes digest and byte size from supplied
+  owner bytes and combines them with a separately store-issued artifact identity
+  under the exact compiled `WorkflowPayloadColorBinding`; and
+- `payloads.references.verification` correlates supplied bytes with the retained
+  reference and compiled binding without decoding owner content or resolving the
+  artifact identity.
+
+These modules do not define or register a simulations codec, retain artifacts,
+resolve locators, or issue Workflow execution identities.
+
 ## Binding payload references to CPN colors
 
 ### `WorkflowPayloadColorBinding`
