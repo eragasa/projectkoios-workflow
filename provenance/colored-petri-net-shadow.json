@@ -76,7 +76,7 @@
     {
       "origin": "owner-authored",
       "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/json.py",
-      "sha256": "21d5a0f2ee8650886f1376441979c4f17f9a413dd3b52f0b179788241ecdbdf1"
+      "sha256": "d6e1e2545fc49a018359414d8b432355a0d2082d774b6fc337090f322ded1e0a"
     },
     {
       "origin": "owner-authored",
@@ -271,12 +271,12 @@
     {
       "origin": "owner-authored",
       "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/defaults.py",
-      "sha256": "58351e4044aedf7ec6b84f3bc4a5ce1bff8d9883a857d509c82db9beb7ea6899"
+      "sha256": "ae3a081b3d270d2d3918cbc820e5c16f4a61e67aacea73ec550d407ce5144f37"
     },
     {
       "origin": "owner-authored",
       "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/definition.py",
-      "sha256": "c58d96d6f2a37560ced06ca66acc4270168fc6f00ca7712834ef00eeef714cd7"
+      "sha256": "7d4c3361982f08431ec799de4d316b96d709aaaccb7c1009f5c6e2e9058ee09c"
     },
     {
       "origin": "owner-authored",
@@ -563,7 +563,7 @@
     {
       "origin": "owner-authored",
       "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalJsonParser.py",
-      "sha256": "54323b4a109e7aa5888da0cadfe227d8f7624cfe7db5cb20c27d09901259fdf6"
+      "sha256": "95e09d040cc9e7b0016091e6e31fd3af67f64e3c9bc5ccc0dff867accef769b5"
     },
     {
       "origin": "owner-authored",
@@ -819,11 +819,6 @@
       "origin": "owner-authored",
       "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinitionValidatorIdentity.py",
       "sha256": "c3ca94e28e5db670c407a40068d79699a185be4b91b70a58d4b35d4cdc770847"
-    },
-    {
-      "origin": "owner-authored",
-      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDuplicateRejectingObjectPairsHookIdentity.py",
-      "sha256": "825a97370077f8840004f9cdc12158b448585e501d88fa0f61acfe2433600361"
     },
     {
       "origin": "owner-authored",
@@ -1174,11 +1169,6 @@
       "origin": "owner-authored",
       "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputArcValidatorIdentity.py",
       "sha256": "a101a338c2f1b6cd0c48730bba7ed21a7f1fe67a7bc5924319f11b5a9850b37d"
-    },
-    {
-      "origin": "owner-authored",
-      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnJsonNumberRejectorIdentity.py",
-      "sha256": "40515a9a45c64776c4bb42f28564a18ac3714bd94ba5bdce746e093cc5e06b2c"
     },
     {
       "origin": "owner-authored",

@@ -18,11 +18,7 @@ from ..canonical.expressions.values import (
     CpnValueExpressionCanonicalDecoderIdentity,
     CpnValueExpressionCanonicalizerIdentity,
 )
-from ..canonical.json import (
-    CpnCanonicalJsonParserIdentity,
-    CpnDuplicateRejectingObjectPairsHookIdentity,
-    CpnJsonNumberRejectorIdentity,
-)
+from ..canonical.json import CpnCanonicalJsonParserIdentity
 from ..canonical.markings import CpnCanonicalMarkingCodecIdentity
 from ..canonical.selections import CpnCanonicalSelectionResultCodecIdentity
 from ..children.exports.canonical import WorkflowChildDefinitionExporter
@@ -124,10 +120,6 @@ class WorkflowCpnExecutionProfileBuilder:
         return WorkflowCpnExecutionProfile(
             value_model_identity=CpnValueModelIdentity().value,
             expression_grammar_identity=CpnExpressionGrammarIdentity().value,
-            duplicate_key_rejector_identity=(
-                CpnDuplicateRejectingObjectPairsHookIdentity().value
-            ),
-            json_number_rejector_identity=CpnJsonNumberRejectorIdentity().value,
             canonical_json_parser_identity=CpnCanonicalJsonParserIdentity().value,
             canonical_definition_codec_identity=(
                 CpnCanonicalDefinitionCodecIdentity().value

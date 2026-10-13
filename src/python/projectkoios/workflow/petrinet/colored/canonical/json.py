@@ -58,20 +58,6 @@ class CpnCanonicalCodecError(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class CpnDuplicateRejectingObjectPairsHookIdentity:
-    """Retained identity of duplicate-key rejection semantics."""
-
-    value: str = "projectkoios.workflow.cpn.duplicate-key-rejector:0.1"
-
-
-@dataclass(frozen=True, slots=True)
-class CpnJsonNumberRejectorIdentity:
-    """Retained identity of raw JSON number rejection semantics."""
-
-    value: str = "projectkoios.workflow.cpn.json-number-rejector:0.1"
-
-
-@dataclass(frozen=True, slots=True)
 class CpnCanonicalJsonParserIdentity:
     """Identity of exact UTF-8 canonical JSON parsing semantics."""
 

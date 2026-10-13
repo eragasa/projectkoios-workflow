@@ -36,8 +36,6 @@ class WorkflowCpnExecutionProfile:
 
     value_model_identity: str
     expression_grammar_identity: str
-    duplicate_key_rejector_identity: str
-    json_number_rejector_identity: str
     canonical_json_parser_identity: str
     canonical_definition_codec_identity: str
     canonical_control_record_codec_identity: str
