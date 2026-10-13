@@ -9,8 +9,10 @@ from projectkoios.workflow.petrinet.colored.canonical.firings import (
     CpnCanonicalFiringResultCodec,
     CpnCanonicalFiringResultEncodingInput,
 )
-from projectkoios.workflow.petrinet.colored.firing import (
+from projectkoios.workflow.petrinet.colored.firing.outcomes import (
     CpnFiringResult,
+)
+from projectkoios.workflow.petrinet.colored.firing.transitions import (
     CpnTransitionFirer,
 )
 from projectkoios.workflow.petrinet.colored.profiles.defaults import (

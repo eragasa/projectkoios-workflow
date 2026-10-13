@@ -23,7 +23,7 @@ from projectkoios.workflow.petrinet.colored.definitions import (
     CpnDefinitionIdentity,
     CpnSelectionPolicy,
 )
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.outcomes import (
     CpnEnablementFailure,
     CpnEnablementFailureCode,
     CpnEnablementFailureIdentity,

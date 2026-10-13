@@ -7,11 +7,13 @@ from projectkoios.workflow.petrinet.colored.bindings import (
     CpnBindingAssignment,
 )
 from projectkoios.workflow.petrinet.colored.definitions import CpnDefinition
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )
-from projectkoios.workflow.petrinet.colored.firing import CpnFiringInput
+from projectkoios.workflow.petrinet.colored.firing.inputs import (
+    CpnFiringInput,
+)
 from projectkoios.workflow.petrinet.colored.markings import (
     CpnMarking,
     CpnMarkingIdentity,

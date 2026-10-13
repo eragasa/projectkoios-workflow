@@ -19,7 +19,7 @@ This is software verification, not external execution or scientific validation.
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing import (
+from projectkoios.workflow.petrinet.colored.firing.outcomes import (
     CpnFiringFailureIdentity,
     CpnFiringResultIdentity,
 )

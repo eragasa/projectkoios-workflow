@@ -12,8 +12,10 @@ from ..canonical.markings import (
     CpnCanonicalMarking,
     CpnCanonicalMarkingIdentity,
 )
-from ..firing import (
+from ..firing.inputs import (
     CpnFiringInput,
+)
+from ..firing.outcomes import (
     CpnFiringOutcomeKind,
     CpnFiringResult,
     CpnFiringResultIdentity,

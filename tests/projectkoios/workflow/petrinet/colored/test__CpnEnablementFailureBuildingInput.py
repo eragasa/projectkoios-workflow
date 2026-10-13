@@ -1,4 +1,4 @@
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.failure_building import (
     CpnEnablementFailureBuildingInput,
 )
 

@@ -1,5 +1,5 @@
 from _selection_fixtures import selection_enablement
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.ordering import (
     CpnEnabledBindingOrderingInput,
     CpnEnabledBindingOrderingPolicy,
 )

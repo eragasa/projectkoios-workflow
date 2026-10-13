@@ -32,9 +32,13 @@ from ..control.records.value_canonical import (
     CpnValueCanonicalDecoderIdentity,
     CpnValueCanonicalizerIdentity,
 )
-from ..enablement import (
+from ..enablement.ordering import (
     CpnEnabledBindingOrderingPolicy,
+)
+from ..enablement.failure_building import (
     CpnEnablementFailureBuilder,
+)
+from ..enablement.transitions import (
     CpnTransitionEnabler,
 )
 from ..expressions.collection import (
@@ -56,11 +60,19 @@ from ..expressions.validation import (
 from ..external_outputs import (
     CpnExternalOutputValidatorIdentity,
 )
-from ..firing import (
+from ..firing.failure_building import (
     CpnFiringFailureBuilder,
+)
+from ..firing.identity_derivation import (
     CpnFiringResultIdentityDeriver,
+)
+from ..firing.successor_marking import (
     CpnSuccessorMarkingBuilder,
+)
+from ..firing.occurrence_reconstruction import (
     CpnTokenOccurrenceReconstructor,
+)
+from ..firing.transitions import (
     CpnTransitionFirer,
 )
 from ..markings import CpnTokenOrderingPolicy

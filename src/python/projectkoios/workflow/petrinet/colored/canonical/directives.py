@@ -6,7 +6,9 @@ from hashlib import sha256
 from string import hexdigits
 from typing import final
 
-from ..enablement import CpnEnablementResultIdentity
+from ..enablement.outcomes import (
+    CpnEnablementResultIdentity,
+)
 from ..selection import (
     CpnSelectionDirective,
     CpnSelectionDirectiveIdentity,

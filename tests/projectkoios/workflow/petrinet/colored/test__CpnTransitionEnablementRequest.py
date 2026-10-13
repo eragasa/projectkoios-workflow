@@ -1,6 +1,6 @@
 from _selection_fixtures import selection_definition
 from _firing_fixtures import predecessor
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.transitions import (
     CpnTransitionEnablementRequest,
 )
 

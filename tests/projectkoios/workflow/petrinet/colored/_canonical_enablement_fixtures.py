@@ -12,8 +12,10 @@ from projectkoios.workflow.petrinet.colored.definitions import (
     CpnDefinition,
     CpnDefinitionIdentity,
 )
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.outcomes import (
     CpnEnablementResult,
+)
+from projectkoios.workflow.petrinet.colored.enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )

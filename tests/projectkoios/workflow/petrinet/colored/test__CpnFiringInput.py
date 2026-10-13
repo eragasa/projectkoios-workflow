@@ -20,7 +20,9 @@ This is software verification, not external execution or scientific validation.
 import pytest
 from _firing_fixtures import valid_firing_input
 
-from projectkoios.workflow.petrinet.colored.firing import CpnFiringInput
+from projectkoios.workflow.petrinet.colored.firing.inputs import (
+    CpnFiringInput,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = CpnFiringInput

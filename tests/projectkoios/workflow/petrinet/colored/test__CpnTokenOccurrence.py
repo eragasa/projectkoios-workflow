@@ -20,7 +20,9 @@ This is software verification, not scientific validation or UQ.
 import pytest
 from _firing_fixtures import valid_firing_input
 
-from projectkoios.workflow.petrinet.colored.firing import CpnTokenOccurrence
+from projectkoios.workflow.petrinet.colored.firing.audits import (
+    CpnTokenOccurrence,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = CpnTokenOccurrence

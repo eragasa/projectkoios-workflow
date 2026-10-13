@@ -19,7 +19,9 @@ This is software verification, not scientific validation or UQ.
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing import CpnFiringOutcomeKind
+from projectkoios.workflow.petrinet.colored.firing.outcomes import (
+    CpnFiringOutcomeKind,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = CpnFiringOutcomeKind

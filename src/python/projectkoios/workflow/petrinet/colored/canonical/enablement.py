@@ -11,16 +11,18 @@ from ..definitions import (
     CpnDefinitionIdentity,
     CpnSelectionPolicy,
 )
-from ..enablement import (
+from ..enablement.outcomes import (
     CpnEnablementFailure,
     CpnEnablementFailureCode,
     CpnEnablementFailureIdentity,
     CpnEnablementResult,
     CpnEnablementResultIdentity,
     CpnOrderingPolicyIdentity,
+    CpnTransitionEnablerIdentity,
+)
+from ..enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
-    CpnTransitionEnablerIdentity,
 )
 from ..expressions.evaluation import CpnExpressionEvaluatorIdentity
 from ..markings import CpnMarking, CpnMarkingIdentity

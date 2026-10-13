@@ -15,9 +15,20 @@ must not depend on incidental transitive imports.
 | Flat CPN graph definitions and graph identities | `projectkoios.workflow.petrinet.colored.definitions` |
 | Markings, places, tokens, and marking identities | `projectkoios.workflow.petrinet.colored.markings` |
 | Ordered transition bindings | `projectkoios.workflow.petrinet.colored.bindings` |
-| Complete enablement and enabled-binding ordering | `projectkoios.workflow.petrinet.colored.enablement` |
+| Enablement outcomes and semantic identities | `projectkoios.workflow.petrinet.colored.enablement.outcomes` |
+| Enablement-result identity derivation | `projectkoios.workflow.petrinet.colored.enablement.identity_derivation` |
+| Enablement-failure construction | `projectkoios.workflow.petrinet.colored.enablement.failure_building` |
+| Enabled-binding ordering | `projectkoios.workflow.petrinet.colored.enablement.ordering` |
+| Complete transition enablement | `projectkoios.workflow.petrinet.colored.enablement.transitions` |
 | Deterministic or directed selection | `projectkoios.workflow.petrinet.colored.selection` |
-| Pure transition firing and firing audit | `projectkoios.workflow.petrinet.colored.firing` |
+| Complete firing inputs | `projectkoios.workflow.petrinet.colored.firing.inputs` |
+| Firing occurrence and output audits | `projectkoios.workflow.petrinet.colored.firing.audits` |
+| Firing outcomes | `projectkoios.workflow.petrinet.colored.firing.outcomes` |
+| Token-occurrence reconstruction | `projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction` |
+| Firing-result identity derivation | `projectkoios.workflow.petrinet.colored.firing.identity_derivation` |
+| Successor-marking construction | `projectkoios.workflow.petrinet.colored.firing.successor_marking` |
+| Firing-failure construction | `projectkoios.workflow.petrinet.colored.firing.failure_building` |
+| Pure transition firing | `projectkoios.workflow.petrinet.colored.firing.transitions` |
 | External-output admission | `projectkoios.workflow.petrinet.colored.external_outputs` |
 | Definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions` |
 | Marking validation | `projectkoios.workflow.petrinet.colored.validation.markings` |

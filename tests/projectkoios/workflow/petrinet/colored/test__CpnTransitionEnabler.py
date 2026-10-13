@@ -22,6 +22,7 @@ effect, scientific validation, or uncertainty quantification.
 from dataclasses import replace
 
 import pytest
+from _firing_fixtures import valid_firing_input
 from _validation_fixtures import valid_definition, variable
 
 from projectkoios.workflow.petrinet.colored.definitions import (
@@ -30,9 +31,11 @@ from projectkoios.workflow.petrinet.colored.definitions import (
     CpnDefinition,
     CpnTransitionDefinition,
 )
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.outcomes import (
     CpnEnablementFailureCode,
     CpnOrderingPolicyIdentity,
+)
+from projectkoios.workflow.petrinet.colored.enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )
@@ -78,6 +81,27 @@ def marking(definition: CpnDefinition, values: tuple[int, ...]) -> CpnMarking:
         CpnMarkingIdentity("marking"),
         definition.identity,
         (CpnPlaceMarking(definition.places[0].identity, tokens),),
+    )
+
+
+def test_method__execute__retained_vector__preserves_exact_identity() -> None:
+    firing_input = valid_firing_input()
+
+    result = SUT().execute(
+        CpnTransitionEnablementRequest(
+            firing_input.definition,
+            firing_input.predecessor_marking,
+        )
+    )
+
+    assert result.identity.value == (
+        "2129292215957352322b9687254ea8b586ce34b26c8b2f03689ee491077627fe"
+    )
+    assert result.transition_enabler_identity.value == (
+        "colored-petri-net-transition-enabler-v1"
+    )
+    assert result.ordering_policy_identity.value == (
+        "colored-petri-net-enablement-order-v1"
     )
 
 

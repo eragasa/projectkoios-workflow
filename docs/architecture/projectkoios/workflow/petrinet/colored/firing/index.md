@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Identity-closed pure firing for generic colored Petri nets.
+Semantic owner boundary; import from the operation-specific modules.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `CpnFiringResultIdentity`, `CpnTransitionFirerIdentity`, `CpnTokenOccurrence`, `CpnInhibitorEvaluation`, `CpnProducedToken`, `CpnFiringInput`, `CpnFiringFailureCode`, `CpnFiringFailureIdentity`, `CpnFiringFailure`, `CpnFiringAudit`, `CpnFiringOutcomeKind`, `CpnFiringResult`, `CpnTokenOccurrenceReconstructionRequest`, `CpnTokenOccurrenceReconstructionSuccess`, `CpnTokenOccurrenceReconstructionFailure`, `CpnTokenOccurrenceReconstructionResponse`, `CpnTokenOccurrenceReconstructorIdentity`, `CpnTokenOccurrenceReconstructor`, `CpnFiringFailureState`, `CpnFiringResultIdentityDerivationRequest`, `CpnFiringResultIdentityDeriverIdentity`, `CpnFiringResultIdentityDeriver`, `CpnSuccessorMarkingBuildingRequest`, `CpnSuccessorMarkingBuilderIdentity`, `CpnSuccessorMarkingBuilder`, `CpnFiringFailureBuildingRequest`, `CpnFiringFailureBuilderIdentity`, `CpnFiringFailureBuilder`, `CpnTransitionFirer`. It selects typed
+This node coordinates `audits`, `failure_building`, `identity_derivation`, `inputs`, `occurrence_reconstruction`, `outcomes`, `successor_marking`, `transitions` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 
@@ -19,5 +19,5 @@ authorization, firing, numerical verification, and scientific validation.
 
 ## Source
 
-The production owner is `src/python/projectkoios/workflow/petrinet/colored/firing.py`. The companion implementation and
+The production owner is `src/python/projectkoios/workflow/petrinet/colored/firing/__init__.py`. The companion implementation and
 schematics documents record dependency rules and composition flow.

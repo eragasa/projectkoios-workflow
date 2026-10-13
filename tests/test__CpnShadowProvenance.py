@@ -70,6 +70,7 @@ def test__shadow_manifest__binds_pinned_source_and_owner_extensions(
         assert record["transformation"] in {
             "byte-identical",
             "owner extension after pinned byte-identical shadow import",
+            "operation-package split after pinned transformed import",
         }
         if record["transformation"] == "byte-identical":
             assert record["source_sha256"] == record["destination_sha256"]

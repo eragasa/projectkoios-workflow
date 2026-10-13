@@ -43,9 +43,11 @@ from projectkoios.workflow.petrinet.colored.expressions.grammar import (
     CpnTokenPattern,
     CpnTokenTemplate,
 )
-from projectkoios.workflow.petrinet.colored.firing import (
+from projectkoios.workflow.petrinet.colored.firing.outcomes import (
     CpnFiringFailureCode,
     CpnFiringOutcomeKind,
+)
+from projectkoios.workflow.petrinet.colored.firing.transitions import (
     CpnTransitionFirer,
 )
 from projectkoios.workflow.petrinet.colored.markings import CpnPlaceMarking
@@ -79,6 +81,15 @@ def test_method__execute__success__consumes_and_produces_pure_successor() -> (
     assert result.outcome is CpnFiringOutcomeKind.SUCCESS
     assert result.successor_marking is not None
     assert result.audit is not None
+    assert result.identity.value == (
+        "b64415a51603618654d7dde36525dab1918f28d851cb0679cff8882dc07908d7"
+    )
+    assert result.audit.firer_identity.value == (
+        "projectkoios.workflow.cpn.transition-firer:0.1"
+    )
+    assert result.successor_marking.identity.value == (
+        "bfe7ea103dfdb4c6c3da82b50c1e9ec956f94ae39a4780b64dc94da8b4330c0b"
+    )
     assert len(result.audit.consumed_occurrences) == 1
     assert result.audit.read_occurrences == ()
     assert len(result.audit.produced_tokens) == 1

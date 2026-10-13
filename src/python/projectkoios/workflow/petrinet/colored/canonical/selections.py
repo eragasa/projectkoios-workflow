@@ -6,7 +6,10 @@ from hashlib import sha256
 from string import hexdigits
 from typing import final
 
-from ..enablement import CpnEnablementResultIdentity, CpnOrderingPolicyIdentity
+from ..enablement.outcomes import (
+    CpnEnablementResultIdentity,
+    CpnOrderingPolicyIdentity,
+)
 from ..selection import (
     CpnBindingSelectorIdentity,
     CpnSelectionFailureCode,

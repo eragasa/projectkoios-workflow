@@ -6,7 +6,9 @@ from hashlib import sha256
 from string import hexdigits
 from typing import final
 
-from ..firing import CpnTransitionFirer
+from ..firing.transitions import (
+    CpnTransitionFirer,
+)
 
 
 @dataclass(frozen=True, slots=True)

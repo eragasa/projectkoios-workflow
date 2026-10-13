@@ -7,8 +7,10 @@ from string import hexdigits
 from typing import final
 
 from ..definitions import CpnTransitionIdentity
-from ..firing import (
+from ..firing.inputs import (
     CpnFiringInput,
+)
+from ..firing.outcomes import (
     CpnFiringOutcomeKind,
     CpnFiringResult,
     CpnFiringResultIdentity,

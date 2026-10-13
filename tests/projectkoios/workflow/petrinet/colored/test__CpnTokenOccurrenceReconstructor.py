@@ -1,4 +1,4 @@
-from projectkoios.workflow.petrinet.colored.firing import (
+from projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction import (
     CpnTokenOccurrenceReconstructor,
 )
 

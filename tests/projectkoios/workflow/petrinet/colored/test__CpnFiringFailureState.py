@@ -1,4 +1,6 @@
-from projectkoios.workflow.petrinet.colored.firing import CpnFiringFailureState
+from projectkoios.workflow.petrinet.colored.firing.identity_derivation import (
+    CpnFiringFailureState,
+)
 
 
 def test_public_contract__is_declared() -> None:

@@ -3,9 +3,11 @@
 from _firing_fixtures import predecessor
 from _validation_fixtures import valid_definition
 
-from projectkoios.workflow.petrinet.colored.enablement import (
+from projectkoios.workflow.petrinet.colored.enablement.identity_derivation import (
     CpnEnablementResultIdentityDerivationInput,
     CpnEnablementResultIdentityDeriver,
+)
+from projectkoios.workflow.petrinet.colored.enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )
