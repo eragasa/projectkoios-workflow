@@ -5,8 +5,8 @@ from enum import StrEnum
 from typing import final
 
 from ..children.exports.definition import WorkflowChildDefinitionExportClosure
-from ..plans.definition import (
-    WorkflowExecutionPlanClosure,
+from ..plans.definition import WorkflowExecutionPlanClosure
+from ..plans.identity import (
     WorkflowExecutionPlanIdentityDerivationInput,
     WorkflowExecutionPlanIdentityDeriver,
 )

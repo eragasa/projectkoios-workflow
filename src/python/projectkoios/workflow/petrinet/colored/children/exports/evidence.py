@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from hashlib import sha256
 from string import hexdigits
 
-from .canonical import (
+from .canonical.identity import (
     WorkflowChildDefinitionExportIdentityDerivationInput,
     WorkflowChildDefinitionExportIdentityDeriver,
 )

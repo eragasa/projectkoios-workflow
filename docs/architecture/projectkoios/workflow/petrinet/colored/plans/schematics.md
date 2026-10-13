@@ -5,8 +5,10 @@
 ```mermaid
 flowchart TD
     owner["projectkoios.workflow.petrinet.colored.plans"]
-    owner --> child0["definition"]
-    owner --> child1["identities"]
+    owner --> child0["compilation"]
+    owner --> child1["definition"]
+    owner --> child2["identities"]
+    owner --> child3["identity"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

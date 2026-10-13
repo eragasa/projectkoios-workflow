@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.validation.definitions import (
+from projectkoios.workflow.petrinet.colored.validation.definitions.complete import (
     CpnDefinitionValidationRequest,
 )
 

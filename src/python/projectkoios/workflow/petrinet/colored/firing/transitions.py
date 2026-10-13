@@ -7,7 +7,7 @@ from ..enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )
-from ..expressions.evaluation import (
+from ..expressions.evaluation.expressions import (
     CpnExpressionEvaluationInput,
     CpnExpressionEvaluator,
 )
@@ -21,7 +21,7 @@ from ..selection import (
     CpnBindingSelector,
     CpnSelectionOutcomeKind,
 )
-from ..validation.definitions import (
+from ..validation.definitions.complete import (
     CpnDefinitionValidationRequest,
     CpnDefinitionValidator,
 )

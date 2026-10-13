@@ -5,15 +5,15 @@ from dataclasses import dataclass
 from itertools import product
 from typing import final
 from ..definitions import CpnDefinition
-from ..expressions.evaluation import (
-    CpnExpressionEvaluatorIdentity,
+from ..expressions.evaluation.expressions import CpnExpressionEvaluatorIdentity
+from ..expressions.evaluation.guards import (
     CpnGuardEvaluationInput,
     CpnGuardEvaluator,
 )
 from ..expressions.grammar import CpnInputMode, CpnTokenPattern
 from ..bindings import CpnBinding, CpnBindingAssignment
 from ..markings import CpnMarking
-from ..validation.definitions import (
+from ..validation.definitions.complete import (
     CpnDefinitionValidationRequest,
     CpnDefinitionValidator,
 )

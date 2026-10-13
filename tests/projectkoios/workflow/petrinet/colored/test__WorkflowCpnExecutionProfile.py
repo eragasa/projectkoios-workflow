@@ -21,11 +21,11 @@ from projectkoios.workflow.petrinet.colored.closure.validation import (
     WorkflowCpnClosureCorrelationInput,
     WorkflowCpnClosureCorrelationValidator,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.identity import (
     WorkflowExecutionPlanIdentityDerivationInput,
     WorkflowExecutionPlanIdentityDeriver,
 )
-from projectkoios.workflow.petrinet.colored.profiles.defaults import (
+from projectkoios.workflow.petrinet.colored.profiles.building import (
     WorkflowCpnExecutionProfileBuilder,
     WorkflowCpnExecutionProfileBuildingRequest,
 )

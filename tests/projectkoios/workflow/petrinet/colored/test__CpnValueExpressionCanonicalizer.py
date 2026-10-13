@@ -1,10 +1,12 @@
 """Direct tests for closed value-expression canonical transport."""
 
-from projectkoios.workflow.petrinet.colored.canonical.expressions.values import (
-    CpnValueExpressionCanonicalDecoder,
-    CpnValueExpressionCanonicalDecodingInput,
+from projectkoios.workflow.petrinet.colored.canonical.expressions.values.canonicalization import (
     CpnValueExpressionCanonicalizationInput,
     CpnValueExpressionCanonicalizer,
+)
+from projectkoios.workflow.petrinet.colored.canonical.expressions.values.decoding import (
+    CpnValueExpressionCanonicalDecoder,
+    CpnValueExpressionCanonicalDecodingInput,
 )
 from projectkoios.workflow.petrinet.colored.expressions.grammar import (
     CpnBindingVariableIdentity,

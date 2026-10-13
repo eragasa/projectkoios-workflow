@@ -6,7 +6,7 @@ Package boundary for :mod:`projectkoios.workflow.petrinet.colored.profiles`. Pub
 
 ## Coordination boundary
 
-This node coordinates `defaults`, `definition` and declares no directly declared classes. It selects typed
+This node coordinates `building`, `definition`, `resolution` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

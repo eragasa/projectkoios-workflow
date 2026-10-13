@@ -7,7 +7,8 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `..control.records.findings`, `..control.records.schema`, `..values`, `.errors`. Dependencies point toward narrower
+Direct internal dependencies from the shared repository graph are `petrinet.colored.control.records.findings`, `petrinet.colored.control.records.schema`, `petrinet.colored.expressions.errors`, `petrinet.colored.values`.
+Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

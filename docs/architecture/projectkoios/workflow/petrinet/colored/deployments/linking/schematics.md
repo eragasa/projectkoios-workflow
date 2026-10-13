@@ -5,7 +5,8 @@
 ```mermaid
 flowchart TD
     owner["projectkoios.workflow.petrinet.colored.deployments.linking"]
-    owner --> contracts["Directly owned class contracts"]
+    owner --> child0["correlation"]
+    owner --> child1["graph"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

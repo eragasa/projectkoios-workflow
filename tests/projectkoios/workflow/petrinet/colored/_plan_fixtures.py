@@ -17,7 +17,7 @@ from projectkoios.workflow.petrinet.colored.mappings.values import (
 from projectkoios.workflow.petrinet.colored.plans.definition import (
     WorkflowExecutionPlanClosure,
 )
-from projectkoios.workflow.petrinet.colored.profiles.defaults import (
+from projectkoios.workflow.petrinet.colored.profiles.building import (
     WorkflowCpnExecutionProfileBuilder,
     WorkflowCpnExecutionProfileBuildingRequest,
 )

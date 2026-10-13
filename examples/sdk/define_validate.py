@@ -23,7 +23,7 @@ from projectkoios.workflow.petrinet.colored.expressions.grammar import (
     CpnValueExpression,
     CpnValueExpressionKind,
 )
-from projectkoios.workflow.petrinet.colored.validation.definitions import (
+from projectkoios.workflow.petrinet.colored.validation.definitions.complete import (
     CpnDefinitionValidationRequest,
     CpnDefinitionValidator,
 )

@@ -6,6 +6,11 @@ from pathlib import Path
 
 import pytest
 
+_CPN_ARCHITECTURE_TESTS = (
+    Path("tests/architecture/test__cpn_architecture_documentation.py"),
+    Path("tests/architecture/test__cpn_public_surface.py"),
+)
+
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -91,7 +96,13 @@ def test__shadow_manifest__binds_transformed_software_verification(
         record["path"] for record in owner_records
     }
     test_directory = root / "tests/projectkoios/workflow/petrinet/colored"
-    actual_paths = tuple(test_directory.rglob("*.py")) + (Path(__file__),)
+    actual_paths = (
+        tuple(test_directory.rglob("*.py"))
+        + tuple(root / path for path in _CPN_ARCHITECTURE_TESTS)
+        + (Path(__file__),)
+    )
+    # Purpose: consolidated CPN architecture gates remain part of the exact
+    # shadow evidence even though their long-term owner is tests/architecture.
     actual = {str(path.relative_to(root)) for path in actual_paths}
     assert recorded == actual
     for record in owner_records:

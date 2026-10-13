@@ -1,5 +1,5 @@
 from _child_plan_graph_fixtures import child_reference, validation_input
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanGraphValidationIssueCode,
     WorkflowChildPlanGraphValidator,
 )

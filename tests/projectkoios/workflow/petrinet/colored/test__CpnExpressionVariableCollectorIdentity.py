@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.expressions.collection import (
+from projectkoios.workflow.petrinet.colored.expressions.collection.expressions import (
     CpnExpressionVariableCollectorIdentity,
 )
 

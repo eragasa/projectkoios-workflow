@@ -8,11 +8,13 @@ from string import hexdigits
 
 from ..children.exports.evidence import WorkflowChildExportEvidenceBinding
 from ..children.interfaces import WorkflowCompanionProductionPhase
-from ..plans.definition import WorkflowExecutionPlan
+from ..plans.compilation import WorkflowExecutionPlan
 from ..plans.identities import WorkflowExecutionPlanIdentity
-from .linking import (
+from .linking.correlation import (
     WorkflowChildPlanExportCorrelationRequest,
     WorkflowChildPlanExportCorrelator,
+)
+from .linking.graph import (
     WorkflowChildPlanGraphValidationInput,
     WorkflowChildPlanGraphValidator,
     WorkflowChildPlanReference,

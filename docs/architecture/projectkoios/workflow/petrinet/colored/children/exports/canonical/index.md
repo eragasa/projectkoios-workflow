@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Canonical content identity derivation for child-definition exports.
+Namespace boundary for children.exports.canonical.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `WorkflowChildDefinitionExportIdentityDeriverIdentity`, `WorkflowChildDefinitionExportIdentityDerivationInput`, `WorkflowChildDefinitionExportIdentityDeriver`, `WorkflowChildDefinitionExporterIdentity`, `WorkflowChildDefinitionExportInput`, `WorkflowChildDefinitionExporter`. It selects typed
+This node coordinates `exporting`, `identity` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 
@@ -19,5 +19,5 @@ authorization, firing, numerical verification, and scientific validation.
 
 ## Source
 
-The production owner is `src/python/projectkoios/workflow/petrinet/colored/children/exports/canonical.py`. The companion implementation and
+The production owner is `src/python/projectkoios/workflow/petrinet/colored/children/exports/canonical/__init__.py`. The companion implementation and
 schematics documents record dependency rules and composition flow.

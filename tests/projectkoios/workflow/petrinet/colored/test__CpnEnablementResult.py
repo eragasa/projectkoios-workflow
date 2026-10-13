@@ -32,7 +32,7 @@ from projectkoios.workflow.petrinet.colored.enablement.results.definition import
     CpnOrderingPolicyIdentity,
     CpnTransitionEnablerIdentity,
 )
-from projectkoios.workflow.petrinet.colored.expressions.evaluation import (
+from projectkoios.workflow.petrinet.colored.expressions.evaluation.expressions import (
     CpnExpressionEvaluatorIdentity,
 )
 from projectkoios.workflow.petrinet.colored.markings import CpnMarkingIdentity

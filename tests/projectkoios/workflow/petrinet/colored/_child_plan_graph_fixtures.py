@@ -3,7 +3,7 @@
 from projectkoios.workflow.petrinet.colored.children.exports.definition import (
     WorkflowChildDefinitionExportIdentity,
 )
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanGraphValidationInput,
     WorkflowChildPlanReference,
 )

@@ -10,17 +10,21 @@ from string import hexdigits
 from typing import final
 
 from .json import CpnCanonicalJsonParser, CpnCanonicalJsonParsingInput
-from .expressions.guards import (
-    CpnGuardCanonicalDecoder,
-    CpnGuardCanonicalDecodingInput,
+from .expressions.guards.canonicalization import (
     CpnGuardCanonicalizationInput,
     CpnGuardCanonicalizer,
 )
-from .expressions.values import (
-    CpnValueExpressionCanonicalDecoder,
-    CpnValueExpressionCanonicalDecodingInput,
+from .expressions.guards.decoding import (
+    CpnGuardCanonicalDecoder,
+    CpnGuardCanonicalDecodingInput,
+)
+from .expressions.values.canonicalization import (
     CpnValueExpressionCanonicalizationInput,
     CpnValueExpressionCanonicalizer,
+)
+from .expressions.values.decoding import (
+    CpnValueExpressionCanonicalDecoder,
+    CpnValueExpressionCanonicalDecodingInput,
 )
 from ..definitions import (
     CpnArcDefinition,

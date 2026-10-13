@@ -1,4 +1,4 @@
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanGraphValidationResult,
 )
 

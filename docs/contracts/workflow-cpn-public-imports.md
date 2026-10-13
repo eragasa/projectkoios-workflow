@@ -45,7 +45,9 @@ human/LLM usage and error semantics are documented in
 | Firing-failure construction | `projectkoios.workflow.petrinet.colored.firing.failures.building` |
 | Pure transition firing | `projectkoios.workflow.petrinet.colored.firing.transitions` |
 | External-output admission | `projectkoios.workflow.petrinet.colored.outputs.external` |
-| Definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions` |
+| Input-arc definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions.input` |
+| Output-arc definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions.output` |
+| Complete definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions.complete` |
 | Marking validation | `projectkoios.workflow.petrinet.colored.validation.markings` |
 | Validation findings | `projectkoios.workflow.petrinet.colored.validation.findings` |
 
@@ -68,12 +70,18 @@ The expression owners are:
 - `projectkoios.workflow.petrinet.colored.expressions.errors`
 - `projectkoios.workflow.petrinet.colored.expressions.projection`
 - `projectkoios.workflow.petrinet.colored.expressions.construction`
-- `projectkoios.workflow.petrinet.colored.expressions.validation`
-- `projectkoios.workflow.petrinet.colored.expressions.collection`
-- `projectkoios.workflow.petrinet.colored.expressions.evaluation`
+- `projectkoios.workflow.petrinet.colored.expressions.validation.structure`
+- `projectkoios.workflow.petrinet.colored.expressions.validation.bounds`
+- `projectkoios.workflow.petrinet.colored.expressions.collection.expressions`
+- `projectkoios.workflow.petrinet.colored.expressions.collection.guards`
+- `projectkoios.workflow.petrinet.colored.expressions.collection.variables`
+- `projectkoios.workflow.petrinet.colored.expressions.evaluation.expressions`
+- `projectkoios.workflow.petrinet.colored.expressions.evaluation.guards`
 - `projectkoios.workflow.petrinet.colored.canonical.expressions.errors`
-- `projectkoios.workflow.petrinet.colored.canonical.expressions.values`
-- `projectkoios.workflow.petrinet.colored.canonical.expressions.guards`
+- `projectkoios.workflow.petrinet.colored.canonical.expressions.values.canonicalization`
+- `projectkoios.workflow.petrinet.colored.canonical.expressions.values.decoding`
+- `projectkoios.workflow.petrinet.colored.canonical.expressions.guards.canonicalization`
+- `projectkoios.workflow.petrinet.colored.canonical.expressions.guards.decoding`
 
 The control-record owners are:
 
@@ -90,9 +98,12 @@ The control-record owners are:
 | Semantic owner | Candidate module |
 |---|---|
 | Execution-profile values and profile identity derivation | `projectkoios.workflow.petrinet.colored.profiles.definition` |
-| Reviewed local profile construction and component resolution | `projectkoios.workflow.petrinet.colored.profiles.defaults` |
-| Execution plans and compiler | `projectkoios.workflow.petrinet.colored.plans.definition` |
+| Reviewed local profile construction | `projectkoios.workflow.petrinet.colored.profiles.building` |
+| Retained-profile component resolution | `projectkoios.workflow.petrinet.colored.profiles.resolution` |
+| Execution-plan closure records | `projectkoios.workflow.petrinet.colored.plans.definition` |
 | Execution-plan identity value | `projectkoios.workflow.petrinet.colored.plans.identities` |
+| Execution-plan identity derivation | `projectkoios.workflow.petrinet.colored.plans.identity` |
+| Execution-plan compilation | `projectkoios.workflow.petrinet.colored.plans.compilation` |
 | Transition routes | `projectkoios.workflow.petrinet.colored.routes.transitions` |
 | Owner value mappings | `projectkoios.workflow.petrinet.colored.mappings.values` |
 | Payload/color bindings | `projectkoios.workflow.petrinet.colored.payloads.bindings` |
@@ -103,9 +114,11 @@ The control-record owners are:
 | Child interfaces and terminal delivery | `projectkoios.workflow.petrinet.colored.children.interfaces` |
 | Hierarchical child bindings | `projectkoios.workflow.petrinet.colored.children.bindings` |
 | Child-export definition records | `projectkoios.workflow.petrinet.colored.children.exports.definition` |
-| Child-export identity derivation and exporter | `projectkoios.workflow.petrinet.colored.children.exports.canonical` |
+| Child-export identity derivation | `projectkoios.workflow.petrinet.colored.children.exports.canonical.identity` |
+| Child-export assembly | `projectkoios.workflow.petrinet.colored.children.exports.canonical.exporting` |
 | Post-hoc child-export conformance evidence | `projectkoios.workflow.petrinet.colored.children.exports.evidence` |
-| Static child-plan references and cycle validation | `projectkoios.workflow.petrinet.colored.deployments.linking` |
+| Child-plan/export correlation | `projectkoios.workflow.petrinet.colored.deployments.linking.correlation` |
+| Static child-plan references and cycle validation | `projectkoios.workflow.petrinet.colored.deployments.linking.graph` |
 | Deployment descriptors and execution bindings | `projectkoios.workflow.petrinet.colored.deployments.bindings` |
 | Cross-artifact closure correlation | `projectkoios.workflow.petrinet.colored.closure.validation` |
 

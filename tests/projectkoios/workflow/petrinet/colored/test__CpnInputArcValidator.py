@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.validation.definitions import (
+from projectkoios.workflow.petrinet.colored.validation.definitions.input import (
     CpnInputArcValidator,
 )
 

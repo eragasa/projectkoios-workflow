@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from string import hexdigits
 from ...definitions import CpnSelectionPolicy
-from ...expressions.evaluation import CpnExpressionEvaluatorIdentity
+from ...expressions.evaluation.expressions import CpnExpressionEvaluatorIdentity
 from ...bindings import CpnBinding
 from ...definitions import CpnDefinitionIdentity
 from ...markings import CpnMarkingIdentity

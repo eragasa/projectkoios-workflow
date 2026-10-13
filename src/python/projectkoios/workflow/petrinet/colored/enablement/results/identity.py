@@ -18,7 +18,7 @@ from ...control.records.values.canonicalization import (
     CpnValueCanonicalizer,
 )
 from ...definitions import CpnDefinition
-from ...expressions.evaluation import CpnExpressionEvaluatorIdentity
+from ...expressions.evaluation.expressions import CpnExpressionEvaluatorIdentity
 from ...bindings import CpnBinding
 from ...markings import CpnMarking
 from ...validation.findings import CpnValidationIssue

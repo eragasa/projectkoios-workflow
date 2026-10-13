@@ -6,7 +6,7 @@ from hashlib import sha256
 from _plan_fixtures import execution_plan_closure
 from _selection_fixtures import selection_enablement
 
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.exporting import (
     WorkflowChildDefinitionExportInput,
     WorkflowChildDefinitionExporter,
 )
@@ -28,7 +28,7 @@ from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowTerminalCompanionEvidenceRequirement,
     WorkflowTerminalDeliveryRequirement,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlan,
     WorkflowExecutionPlanCompilationInput,
     WorkflowExecutionPlanCompiler,

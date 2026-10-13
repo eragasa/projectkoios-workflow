@@ -214,3 +214,10 @@ class WorkflowCpnExecutionProfileIdentityDeriver:
             "projectkoios.workflow.cpn-execution-profile:0.1:"
             + sha256(encoded).hexdigest()
         )
+
+
+@dataclass(frozen=True, slots=True)
+class WorkflowCpnExecutionProfileResolverIdentity:
+    """Identity of exact local component-resolution semantics."""
+
+    value: str = "projectkoios.workflow.cpn.execution-profile-resolver:0.1"

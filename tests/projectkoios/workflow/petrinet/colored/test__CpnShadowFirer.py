@@ -14,7 +14,7 @@ from projectkoios.workflow.petrinet.colored.canonical.markings import (
     CpnCanonicalMarkingEncodingInput,
 )
 from projectkoios.workflow.petrinet.colored.markings import CpnMarkingIdentity
-from projectkoios.workflow.petrinet.colored.profiles.defaults import (
+from projectkoios.workflow.petrinet.colored.profiles.building import (
     WorkflowCpnExecutionProfileBuilder,
     WorkflowCpnExecutionProfileBuildingRequest,
 )

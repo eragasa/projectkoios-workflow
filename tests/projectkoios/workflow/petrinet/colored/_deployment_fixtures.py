@@ -13,7 +13,7 @@ from projectkoios.workflow.petrinet.colored.deployments.bindings import (
     WorkflowProviderCapability,
     WorkflowExecutionBindings,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlanCompilationInput,
     WorkflowExecutionPlanCompiler,
 )

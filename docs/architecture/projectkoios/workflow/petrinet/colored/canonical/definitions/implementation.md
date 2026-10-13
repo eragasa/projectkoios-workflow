@@ -7,7 +7,8 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `.json`, `.expressions.guards`, `.expressions.values`, `..definitions`, `..expressions.grammar`, `..values`. Dependencies point toward narrower
+Direct internal dependencies from the shared repository graph are `petrinet.colored.canonical.expressions.guards.canonicalization`, `petrinet.colored.canonical.expressions.guards.decoding`, `petrinet.colored.canonical.expressions.values.canonicalization`, `petrinet.colored.canonical.expressions.values.decoding`, `petrinet.colored.canonical.json`, `petrinet.colored.definitions`, `petrinet.colored.expressions.grammar`, `petrinet.colored.values`.
+Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

@@ -10,7 +10,7 @@ from ....firing.results.definition import (
     CpnFiringResultIdentity,
 )
 from ....selection import CpnSelectionDirectiveIdentity
-from ....profiles.defaults import (
+from ....profiles.resolution import (
     WorkflowCpnExecutionProfileResolutionRequest,
     WorkflowCpnExecutionProfileResolver,
 )

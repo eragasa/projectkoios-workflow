@@ -12,6 +12,10 @@ import sys
 from enum import Enum
 from pathlib import Path
 
+from workflow_architecture import (
+    discover_workflow_architecture as discover_source_modules,
+)
+
 PACKAGE_NAME = "projectkoios.workflow.petrinet.colored"
 MANIFEST_PATH = Path("docs/sdk/operation-manifest.json")
 OPERATION_METHODS = ("execute", "encode", "decode")
@@ -90,6 +94,36 @@ def method_contract(cls: type[object], method_name: str) -> dict[str, object]:
     }
 
 
+def sdk_audiences(module_name: str) -> list[str]:
+    """Classify intended evaluators without granting execution authority."""
+    relative = module_name.removeprefix(f"{PACKAGE_NAME}.")
+    audiences = {"workflow-author"}
+    if relative.startswith(
+        (
+            "children.",
+            "closure.",
+            "deployments.",
+            "mappings.",
+            "payloads.",
+            "plans.",
+            "profiles.",
+            "routes.",
+        )
+    ):
+        audiences.add("provider-integrator")
+    if relative.startswith(
+        (
+            "enablement.",
+            "firing.",
+            "outputs.",
+            "selection",
+            "shadow.",
+        )
+    ):
+        audiences.update(("provider-integrator", "runtime-integrator"))
+    return sorted(audiences)
+
+
 def class_kind(cls: type[object]) -> str:
     """Classify one public class for SDK discovery."""
     if issubclass(cls, Enum):
@@ -121,8 +155,21 @@ def discover_modules() -> list[object]:
     return [importlib.import_module(name) for name in sorted(set(names))]
 
 
-def build_manifest() -> dict[str, object]:
+def build_manifest(root: Path) -> dict[str, object]:
     """Build the complete operation catalog and public signature snapshot."""
+    source_modules = discover_source_modules(root)
+    expected_actions = {
+        (f"projectkoios.workflow.{module}", owner)
+        for module, record in source_modules.items()
+        for owner in record.action_classes
+        if module.startswith("petrinet.colored")
+    }
+    expected_codecs = {
+        (f"projectkoios.workflow.{module}", owner)
+        for module, record in source_modules.items()
+        for owner in record.codec_classes
+        if module.startswith("petrinet.colored")
+    }
     operations: list[dict[str, object]] = []
     public_types: list[dict[str, object]] = []
     for module in discover_modules():
@@ -136,6 +183,7 @@ def build_manifest() -> dict[str, object]:
         for cls in sorted(classes, key=lambda value: value.__name__):
             kind = class_kind(cls)
             type_record: dict[str, object] = {
+                "audiences": sdk_audiences(module.__name__),
                 "kind": kind,
                 "module": module.__name__,
                 "name": cls.__name__,
@@ -158,6 +206,7 @@ def build_manifest() -> dict[str, object]:
             operations.append(
                 {
                     "action": cls.__name__,
+                    "audiences": sdk_audiences(module.__name__),
                     "identity": identity,
                     "methods": [
                         method_contract(cls, method_name)
@@ -169,6 +218,36 @@ def build_manifest() -> dict[str, object]:
             )
     public_types.sort(key=lambda item: (item["module"], item["name"]))
     operations.sort(key=lambda item: (item["module"], item["action"]))
+    actual_actions = {
+        (item["module"], item["action"])
+        for item in operations
+        if len(item["methods"]) == 1
+    }
+    actual_codecs = {
+        (item["module"], item["action"])
+        for item in operations
+        if len(item["methods"]) == 2
+    }
+    if actual_actions != expected_actions or actual_codecs != expected_codecs:
+        raise RuntimeError(
+            "runtime SDK operation discovery differs from the canonical AST "
+            "operation inventory"
+        )
+    identity_owners: dict[str, list[str]] = {}
+    for operation in operations:
+        identity_owners.setdefault(operation["identity"], []).append(
+            f"{operation['module']}:{operation['action']}"
+        )
+    duplicate_identities = {
+        identity: owners
+        for identity, owners in identity_owners.items()
+        if len(owners) != 1
+    }
+    if duplicate_identities:
+        raise RuntimeError(
+            "semantic identities have multiple operation owners: "
+            + json.dumps(duplicate_identities, sort_keys=True)
+        )
     discovered_actions = {item["action"] for item in operations}
     task_actions = {action for task in TASKS for action in task["operations"]}
     missing_actions = sorted(task_actions - discovered_actions)
@@ -178,21 +257,22 @@ def build_manifest() -> dict[str, object]:
             + ", ".join(missing_actions)
         )
     return {
+        "compatibility_commitment": False,
         "contract_namespace": "projectkoios/workflow/v0.1",
         "operations": operations,
         "package": "projectkoios-workflow",
         "public_types": public_types,
-        "schema_version": 1,
+        "schema_version": 2,
         "stability": "release-candidate",
         "tasks": TASKS,
     }
 
 
-def render_manifest() -> str:
+def render_manifest(root: Path) -> str:
     """Render canonical readable JSON for review and exact comparison."""
     return (
         json.dumps(
-            build_manifest(),
+            build_manifest(root),
             ensure_ascii=False,
             indent=2,
             sort_keys=True,
@@ -210,7 +290,7 @@ def main() -> int:
     root = arguments.root.resolve()
     sys.path.insert(0, str(root / "src/python"))
     destination = root / MANIFEST_PATH
-    rendered = render_manifest()
+    rendered = render_manifest(root)
     if arguments.check:
         if not destination.exists() or destination.read_text() != rendered:
             print(f"stale SDK manifest: {destination}", file=sys.stderr)

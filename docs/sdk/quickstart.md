@@ -6,8 +6,11 @@ The SDK exposes immutable records and identity-bearing semantic actions. Package
 initializers are namespace boundaries; import each type from the semantic owner
 module listed in
 [`operation-manifest.json`](operation-manifest.json). The manifest is generated
-as an offline documentation/build artifact and checked exactly in CI; it is not
-a runtime reflection, registration, or autodiscovery mechanism.
+as an offline documentation/build artifact and checked exactly in CI. Every
+entry declares its intended evaluation audiences and remains
+`release-candidate`; `compatibility_commitment` is false until a provider trial
+selects the demonstrated stable subset. The manifest is not a runtime
+reflection, registration, or autodiscovery mechanism.
 
 This SDK status stabilizes the documented direct-module imports for evaluation.
 It does not authorize provider effects, consumer migration, scientific

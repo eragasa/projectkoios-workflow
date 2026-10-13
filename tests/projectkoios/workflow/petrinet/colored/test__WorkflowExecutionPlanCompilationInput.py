@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlanCompilationInput,
 )
 

@@ -47,15 +47,21 @@ jobs:
           src/python/projectkoios/workflow/review
           src/python/projectkoios/workflow/runtime
           tests/projectkoios/workflow
+          tests/architecture
           tests/test__CpnShadowProvenance.py
           examples/sdk
-          tools/generate_cpn_sdk_manifest.py
+          tools
 
       - name: Lint all Python
         run: .venv/bin/python -m ruff check src/python tests examples/sdk tools
 
       - name: Type-check all production source
         run: .venv/bin/python -m mypy src/python
+
+      - name: Verify generated architecture documentation
+        run: |
+          .venv/bin/python tools/generate_workflow_architecture.py --check --root .
+          .venv/bin/python tools/generate_cpn_architecture.py --check --root .
 
       - name: Run full test suite
         run: .venv/bin/python -m pytest -q

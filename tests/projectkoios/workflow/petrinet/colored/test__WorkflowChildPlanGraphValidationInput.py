@@ -1,7 +1,7 @@
 import pytest
 
 from _child_plan_graph_fixtures import child_reference, plan_identity
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanGraphValidationInput,
 )
 

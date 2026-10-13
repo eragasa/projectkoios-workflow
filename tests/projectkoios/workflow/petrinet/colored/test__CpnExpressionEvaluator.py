@@ -1,6 +1,6 @@
 """Direct tests for bounded closed CPN expression evaluation."""
 
-from projectkoios.workflow.petrinet.colored.expressions.evaluation import (
+from projectkoios.workflow.petrinet.colored.expressions.evaluation.expressions import (
     CpnExpressionEvaluationInput,
     CpnExpressionEvaluator,
 )

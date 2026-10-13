@@ -37,7 +37,9 @@ def test_manifest__is_task_discoverable_and_release_candidate(
         (root / "docs/sdk/operation-manifest.json").read_text()
     )
     assert manifest["contract_namespace"] == "projectkoios/workflow/v0.1"
+    assert manifest["schema_version"] == 2
     assert manifest["stability"] == "release-candidate"
+    assert manifest["compatibility_commitment"] is False
     assert len(manifest["operations"]) >= 50
     assert len(manifest["public_types"]) >= 350
     assert len(manifest["tasks"]) == 5
@@ -55,6 +57,9 @@ def test_manifest__is_task_discoverable_and_release_candidate(
     ]
     assert enums
     assert all(public_type["members"] for public_type in enums)
+    for public_type in manifest["public_types"]:
+        assert public_type["stability"] == "release-candidate"
+        assert public_type["audiences"]
     for operation in manifest["operations"]:
         assert operation["module"].startswith(
             "projectkoios.workflow.petrinet.colored."
@@ -62,6 +67,9 @@ def test_manifest__is_task_discoverable_and_release_candidate(
         assert isinstance(operation["identity"], str)
         assert operation["identity"]
         assert operation["stability"] == "release-candidate"
+        # Purpose: importability alone must not silently define the consumer
+        # contract; every candidate operation declares who should evaluate it.
+        assert operation["audiences"]
         assert operation["methods"]
         for method in operation["methods"]:
             assert method["request_types"]

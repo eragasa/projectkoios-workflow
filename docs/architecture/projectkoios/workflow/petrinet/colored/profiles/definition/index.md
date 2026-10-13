@@ -6,7 +6,7 @@ Immutable CPN execution profiles and content identities.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `WorkflowCpnExecutionProfileIdentity`, `WorkflowCpnExecutionProfile`, `WorkflowCpnExecutionProfileIdentityDeriverIdentity`, `WorkflowCpnExecutionProfileResolutionIssue`, `WorkflowCpnExecutionProfileResolutionResult`, `WorkflowCpnExecutionProfileIdentityDerivationInput`, `WorkflowCpnExecutionProfileIdentityDeriver`. It selects typed
+This node coordinates no child package or module nodes and declares `WorkflowCpnExecutionProfileIdentity`, `WorkflowCpnExecutionProfile`, `WorkflowCpnExecutionProfileIdentityDeriverIdentity`, `WorkflowCpnExecutionProfileResolutionIssue`, `WorkflowCpnExecutionProfileResolutionResult`, `WorkflowCpnExecutionProfileIdentityDerivationInput`, `WorkflowCpnExecutionProfileIdentityDeriver`, `WorkflowCpnExecutionProfileResolverIdentity`. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

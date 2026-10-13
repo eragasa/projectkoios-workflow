@@ -60,6 +60,13 @@ validation, enablement/selection/firing, canonical replay, opaque payload
 references, and separate child-plan export/linking. CI executes every example
 against the built wheel. Package initializers intentionally remain empty;
 consumers import from the semantic owner modules recorded in the SDK manifest.
+The rationale for operation, namespace, dependency, composition-root, runtime,
+and stability boundaries is retained in
+[`architecture-decisions.md`](docs/policies/architecture-decisions.md), with
+normative dependency policy in
+[`workflow-architecture-policy.json`](docs/policies/workflow-architecture-policy.json).
+The observed module graph is generated separately in
+[`architecture-baseline.md`](docs/policies/architecture-baseline.md).
 
 The project version remains `0.0.0` until the provider-owned simulations trial,
 independent review, and release gate complete. No package has been published.

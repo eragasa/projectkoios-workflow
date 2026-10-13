@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.profiles.defaults import (
+from projectkoios.workflow.petrinet.colored.profiles.building import (
     WorkflowCpnExecutionProfileBuilder,
 )
 

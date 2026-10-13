@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.expressions.evaluation import (
+from projectkoios.workflow.petrinet.colored.expressions.evaluation.guards import (
     CpnGuardEvaluator,
 )
 

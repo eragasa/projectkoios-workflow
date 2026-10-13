@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Complete flat CPN definition validation.
+Namespace boundary for validation.definitions.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `CpnInputArcValidationRequest`, `CpnInputArcValidationResponse`, `CpnInputArcValidatorIdentity`, `CpnInputArcValidator`, `CpnOutputArcValidationRequest`, `CpnOutputArcValidationResponse`, `CpnOutputArcValidatorIdentity`, `CpnOutputArcValidator`, `CpnDefinitionValidationRequest`, `CpnDefinitionValidatorIdentity`, `CpnDefinitionValidator`. It selects typed
+This node coordinates `complete`, `input`, `output` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 
@@ -19,5 +19,5 @@ authorization, firing, numerical verification, and scientific validation.
 
 ## Source
 
-The production owner is `src/python/projectkoios/workflow/petrinet/colored/validation/definitions.py`. The companion implementation and
+The production owner is `src/python/projectkoios/workflow/petrinet/colored/validation/definitions/__init__.py`. The companion implementation and
 schematics documents record dependency rules and composition flow.

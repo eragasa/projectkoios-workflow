@@ -6,14 +6,14 @@ from _child_export_evidence_fixtures import child_execution_plan, child_export
 from projectkoios.workflow.petrinet.colored.canonical.definitions import (
     CpnCanonicalDefinitionIdentity,
 )
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.identity import (
     WorkflowChildDefinitionExportIdentityDerivationInput,
     WorkflowChildDefinitionExportIdentityDeriver,
 )
 from projectkoios.workflow.petrinet.colored.children.exports.definition import (
     WorkflowChildDefinitionExport,
 )
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.correlation import (
     WorkflowChildPlanExportCorrelationRequest,
     WorkflowChildPlanExportCorrelator,
 )

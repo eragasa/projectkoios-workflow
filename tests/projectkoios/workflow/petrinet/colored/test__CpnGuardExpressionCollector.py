@@ -2,7 +2,7 @@
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.expressions.collection import (
+from projectkoios.workflow.petrinet.colored.expressions.collection.guards import (
     CpnGuardExpressionCollectionInput,
     CpnGuardExpressionCollector,
 )

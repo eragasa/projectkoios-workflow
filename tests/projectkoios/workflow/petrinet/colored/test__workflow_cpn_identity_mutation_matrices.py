@@ -9,7 +9,7 @@ from _plan_fixtures import execution_plan_closure, value_mapping_descriptor
 from projectkoios.workflow.petrinet.colored.canonical.definitions import (
     CpnCanonicalDefinition,
 )
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.identity import (
     WorkflowChildDefinitionExportIdentityDerivationInput,
     WorkflowChildDefinitionExportIdentityDeriver,
 )
@@ -19,7 +19,7 @@ from projectkoios.workflow.petrinet.colored.children.interfaces import (
 from projectkoios.workflow.petrinet.colored.definitions import (
     CpnDefinitionIdentity,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.identity import (
     WorkflowExecutionPlanIdentityDerivationInput,
     WorkflowExecutionPlanIdentityDeriver,
 )

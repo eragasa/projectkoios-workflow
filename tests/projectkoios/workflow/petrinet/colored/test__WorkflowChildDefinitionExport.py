@@ -6,7 +6,7 @@ from dataclasses import replace
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.exporting import (
     WorkflowChildDefinitionExportInput,
     WorkflowChildDefinitionExporter,
 )
@@ -23,7 +23,7 @@ from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowTerminalDeliveryRequirement,
     WorkflowCompanionProductionPhase,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.identity import (
     WorkflowExecutionPlanIdentityDerivationInput,
     WorkflowExecutionPlanIdentityDeriver,
 )

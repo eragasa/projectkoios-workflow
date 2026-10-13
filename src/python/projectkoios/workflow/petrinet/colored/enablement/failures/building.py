@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 from ...definitions import CpnDefinition
-from ...expressions.evaluation import CpnExpressionEvaluatorIdentity
+from ...expressions.evaluation.expressions import CpnExpressionEvaluatorIdentity
 from ...markings import CpnMarking
 from ..results.identity import (
     CpnEnablementFailureState,

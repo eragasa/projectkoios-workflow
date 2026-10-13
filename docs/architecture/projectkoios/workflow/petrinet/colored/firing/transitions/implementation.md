@@ -7,7 +7,8 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `..enablement.transitions`, `..expressions.evaluation`, `..outputs.external`, `..bindings`, `..selection`, `..validation.definitions`, `..validation.markings`, `..values`, `.audits`, `.failures.building`, `.results.identity`, `.inputs`, `.occurrences.reconstruction`, `.results.definition`, `.markings.successor`. Dependencies point toward narrower
+Direct internal dependencies from the shared repository graph are `petrinet.colored.bindings`, `petrinet.colored.enablement.transitions`, `petrinet.colored.expressions.evaluation.expressions`, `petrinet.colored.firing.audits`, `petrinet.colored.firing.failures.building`, `petrinet.colored.firing.inputs`, `petrinet.colored.firing.markings.successor`, `petrinet.colored.firing.occurrences.reconstruction`, `petrinet.colored.firing.results.definition`, `petrinet.colored.firing.results.identity`, `petrinet.colored.outputs.external`, `petrinet.colored.selection`, `petrinet.colored.validation.definitions.complete`, `petrinet.colored.validation.markings`, `petrinet.colored.values`.
+Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

@@ -8,7 +8,7 @@ from projectkoios.workflow.petrinet.colored.expressions.grammar import (
     CpnValueExpression,
     CpnValueExpressionKind,
 )
-from projectkoios.workflow.petrinet.colored.expressions.validation import (
+from projectkoios.workflow.petrinet.colored.expressions.validation.structure import (
     CpnExpressionStructureValidationInput,
     CpnExpressionStructureValidator,
 )

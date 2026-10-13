@@ -15,7 +15,7 @@ from ..canonical.markings import (
     CpnCanonicalMarkingDecodingInput,
     CpnCanonicalMarkingEncodingInput,
 )
-from ..profiles.defaults import (
+from ..profiles.resolution import (
     WorkflowCpnExecutionProfileResolutionRequest,
     WorkflowCpnExecutionProfileResolver,
 )

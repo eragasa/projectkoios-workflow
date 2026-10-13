@@ -17,9 +17,11 @@ from projectkoios.workflow.petrinet.colored.firing.results.definition import (
 from projectkoios.workflow.petrinet.colored.firing.transitions import (
     CpnTransitionFirer,
 )
-from projectkoios.workflow.petrinet.colored.profiles.defaults import (
+from projectkoios.workflow.petrinet.colored.profiles.building import (
     WorkflowCpnExecutionProfileBuilder,
     WorkflowCpnExecutionProfileBuildingRequest,
+)
+from projectkoios.workflow.petrinet.colored.profiles.resolution import (
     WorkflowCpnExecutionProfileResolutionRequest,
     WorkflowCpnExecutionProfileResolver,
 )

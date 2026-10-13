@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Finite acyclic child-plan reference validation for deployment linking.
+Namespace boundary for deployments.linking.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `WorkflowChildPlanExportCorrelationRequest`, `WorkflowChildPlanExportCorrelationResult`, `WorkflowChildPlanExportCorrelatorIdentity`, `WorkflowChildPlanExportCorrelator`, `WorkflowChildPlanReference`, `WorkflowChildPlanGraphValidationIssueCode`, `WorkflowChildPlanGraphValidationIssue`, `WorkflowChildPlanGraphValidationInput`, `WorkflowChildPlanGraphValidationResult`, `WorkflowChildPlanGraphValidatorIdentity`, `WorkflowChildPlanGraphValidator`. It selects typed
+This node coordinates `correlation`, `graph` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 
@@ -19,5 +19,5 @@ authorization, firing, numerical verification, and scientific validation.
 
 ## Source
 
-The production owner is `src/python/projectkoios/workflow/petrinet/colored/deployments/linking.py`. The companion implementation and
+The production owner is `src/python/projectkoios/workflow/petrinet/colored/deployments/linking/__init__.py`. The companion implementation and
 schematics documents record dependency rules and composition flow.

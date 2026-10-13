@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.identity import (
     WorkflowChildDefinitionExportIdentityDeriverIdentity,
 )
 

@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlanCompiler,
 )
 

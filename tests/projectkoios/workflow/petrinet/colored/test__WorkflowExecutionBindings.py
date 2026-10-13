@@ -19,10 +19,10 @@ from projectkoios.workflow.petrinet.colored.deployments.bindings import (
     WorkflowDeploymentBindingKind,
     WorkflowExecutionBindings,
 )
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanReference,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlan,
     WorkflowExecutionPlanCompilationInput,
     WorkflowExecutionPlanCompiler,

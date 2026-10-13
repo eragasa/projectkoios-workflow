@@ -24,7 +24,7 @@ from ..enablement.transitions import (
     CpnTransitionEnablementRequest,
     CpnTransitionEnabler,
 )
-from ..expressions.evaluation import CpnExpressionEvaluatorIdentity
+from ..expressions.evaluation.expressions import CpnExpressionEvaluatorIdentity
 from ..markings import CpnMarking, CpnMarkingIdentity
 from ..validation.findings import CpnValidationIssue, CpnValidationIssueCode
 from .bindings import (

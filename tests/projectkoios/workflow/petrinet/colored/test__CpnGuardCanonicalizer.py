@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.canonical.expressions.guards import (
+from projectkoios.workflow.petrinet.colored.canonical.expressions.guards.canonicalization import (
     CpnGuardCanonicalizer,
 )
 

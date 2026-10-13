@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.canonical.expressions.guards import (
+from projectkoios.workflow.petrinet.colored.canonical.expressions.guards.decoding import (
     CpnGuardCanonicalDecodingResult,
 )
 

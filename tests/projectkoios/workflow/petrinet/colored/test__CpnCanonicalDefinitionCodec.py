@@ -9,7 +9,7 @@ from projectkoios.workflow.petrinet.colored.canonical.definitions import (
 )
 
 from projectkoios.workflow.petrinet.colored.definitions import CpnPlaceIdentity
-from projectkoios.workflow.petrinet.colored.validation.definitions import (
+from projectkoios.workflow.petrinet.colored.validation.definitions.complete import (
     CpnDefinitionValidationRequest,
     CpnDefinitionValidator,
 )

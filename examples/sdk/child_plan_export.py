@@ -3,7 +3,7 @@
 from dataclasses import replace
 
 from _support import flat_plan_closure
-from projectkoios.workflow.petrinet.colored.children.exports.canonical import (
+from projectkoios.workflow.petrinet.colored.children.exports.canonical.exporting import (
     WorkflowChildDefinitionExporter,
     WorkflowChildDefinitionExportInput,
 )
@@ -14,14 +14,16 @@ from projectkoios.workflow.petrinet.colored.children.interfaces import (
     WorkflowChildCancellationCapability,
     WorkflowChildInterface,
 )
-from projectkoios.workflow.petrinet.colored.deployments.linking import (
+from projectkoios.workflow.petrinet.colored.deployments.linking.correlation import (
     WorkflowChildPlanExportCorrelationRequest,
     WorkflowChildPlanExportCorrelator,
+)
+from projectkoios.workflow.petrinet.colored.deployments.linking.graph import (
     WorkflowChildPlanGraphValidationInput,
     WorkflowChildPlanGraphValidator,
     WorkflowChildPlanReference,
 )
-from projectkoios.workflow.petrinet.colored.plans.definition import (
+from projectkoios.workflow.petrinet.colored.plans.compilation import (
     WorkflowExecutionPlanCompilationInput,
     WorkflowExecutionPlanCompiler,
 )

@@ -29,9 +29,11 @@ from projectkoios.workflow.petrinet.colored.bindings import (
 from projectkoios.workflow.petrinet.colored.definitions import (
     CpnTransitionIdentity,
 )
-from projectkoios.workflow.petrinet.colored.expressions.evaluation import (
+from projectkoios.workflow.petrinet.colored.expressions.evaluation.expressions import (
     CpnExpressionEvaluationInput,
     CpnExpressionEvaluator,
+)
+from projectkoios.workflow.petrinet.colored.expressions.evaluation.guards import (
     CpnGuardEvaluationInput,
     CpnGuardEvaluator,
 )
