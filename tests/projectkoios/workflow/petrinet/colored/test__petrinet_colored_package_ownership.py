@@ -46,7 +46,7 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
         "control/records/schema.py",
         "control/records/type_graph.py",
         "shadow/firing.py",
-        "shadow/replay.py",
+        "shadow/replay/action.py",
         "validation/definitions.py",
         "validation/markings.py",
     } <= relative_paths
@@ -147,11 +147,11 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
             "firing.results",
             "firing.successor_marking",
         },
-        "canonical.firing_results.identity": set(),
-        "canonical.firing_results.documents": {"firing.results"},
-        "canonical.firing_results.codec": {
-            "canonical.firing_results.documents",
-            "canonical.firing_results.identity",
+        "canonical.firing.results.identity": set(),
+        "canonical.firing.results.documents": {"firing.results"},
+        "canonical.firing.results.codec": {
+            "canonical.firing.results.documents",
+            "canonical.firing.results.identity",
             "firing.inputs",
             "firing.results",
         },
@@ -169,7 +169,7 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
             for dependency in dependencies[module_name]
             if dependency.startswith(
                 (
-                    "canonical.firing_results.",
+                    "canonical.firing.results.",
                     "enablement.",
                     "firing.",
                     "payloads.references.",

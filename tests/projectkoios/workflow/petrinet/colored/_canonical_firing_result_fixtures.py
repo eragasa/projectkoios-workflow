@@ -4,11 +4,11 @@ from _firing_fixtures import valid_firing_input
 
 from dataclasses import replace
 
-from projectkoios.workflow.petrinet.colored.canonical.firing_results.documents import (
+from projectkoios.workflow.petrinet.colored.canonical.firing.results.documents import (
     CpnCanonicalFiringResult,
     CpnCanonicalFiringResultEncodingInput,
 )
-from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
+from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
     CpnCanonicalFiringResultCodec,
 )
 from projectkoios.workflow.petrinet.colored.firing.results import (

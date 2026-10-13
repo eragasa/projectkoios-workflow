@@ -6,11 +6,13 @@ import json
 from dataclasses import dataclass
 from typing import final
 
-from ...control.records.value_canonical import (
-    CpnValueCanonicalDecodingInput,
-    CpnValueCanonicalDecoder,
+from ...control.records.values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
+)
+from ...control.records.values.decoding import (
+    CpnValueCanonicalDecodingInput,
+    CpnValueCanonicalDecoder,
 )
 from ...expressions.grammar import (
     CpnControlRecordConstructorField,

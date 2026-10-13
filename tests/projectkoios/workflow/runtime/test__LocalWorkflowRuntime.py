@@ -5,13 +5,21 @@ from __future__ import annotations
 from pathlib import Path
 
 from _runtime_fixtures import runtime_fixture, transition_input
-from projectkoios.workflow.core import WorkflowTransitionPreflightInput
-from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-from projectkoios.workflow.runtime import (
-    LocalWorkflowRuntime,
-    WorkflowHistoryLoadStatus,
-    WorkflowRuntimeActionStatus,
+from projectkoios.workflow.core.transitions.inputs import (
+    WorkflowTransitionPreflightInput,
+)
+from projectkoios.workflow.persistence.revisions.sqlite import (
+    SQLiteAtomicRevisionStore,
+)
+from projectkoios.workflow.runtime.events.definition import (
     WorkflowRuntimeEventKind,
+)
+from projectkoios.workflow.runtime.execution.local import (
+    LocalWorkflowRuntime,
+    WorkflowRuntimeActionStatus,
+)
+from projectkoios.workflow.runtime.history.repository import (
+    WorkflowHistoryLoadStatus,
     WorkflowRuntimeRepository,
 )
 

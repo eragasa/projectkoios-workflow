@@ -6,7 +6,7 @@ Package boundary for :mod:`projectkoios.workflow.petrinet.colored.control.record
 
 ## Coordination boundary
 
-This node coordinates `canonical`, `findings`, `ordering`, `schema`, `type_graph`, `value_canonical` and declares no directly declared classes. It selects typed
+This node coordinates `canonical`, `findings`, `ordering`, `schema`, `type_graph`, `values` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

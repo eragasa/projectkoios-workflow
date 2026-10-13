@@ -7,11 +7,13 @@ from string import hexdigits
 from typing import final
 
 from ..bindings import CpnBinding, CpnBindingAssignment
-from ..control.records.value_canonical import (
-    CpnValueCanonicalDecoder,
-    CpnValueCanonicalDecodingInput,
+from ..control.records.values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
+)
+from ..control.records.values.decoding import (
+    CpnValueCanonicalDecoder,
+    CpnValueCanonicalDecodingInput,
 )
 from ..definitions import CpnTransitionIdentity
 from ..expressions.grammar import CpnBindingVariableIdentity

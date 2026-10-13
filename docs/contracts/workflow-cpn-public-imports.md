@@ -54,9 +54,9 @@ human/LLM usage and error semantics are documented in
 | Selection directives | `projectkoios.workflow.petrinet.colored.canonical.directives` |
 | Enablement results | `projectkoios.workflow.petrinet.colored.canonical.enablement` |
 | Selection results | `projectkoios.workflow.petrinet.colored.canonical.selections` |
-| Firing-result transport identity | `projectkoios.workflow.petrinet.colored.canonical.firing_results.identity` |
-| Firing-result documents | `projectkoios.workflow.petrinet.colored.canonical.firing_results.documents` |
-| Firing-result canonical replay codec | `projectkoios.workflow.petrinet.colored.canonical.firing_results.codec` |
+| Firing-result transport identity | `projectkoios.workflow.petrinet.colored.canonical.firing.results.identity` |
+| Firing-result documents | `projectkoios.workflow.petrinet.colored.canonical.firing.results.documents` |
+| Firing-result canonical replay codec | `projectkoios.workflow.petrinet.colored.canonical.firing.results.codec` |
 
 The expression owners are:
 
@@ -76,7 +76,8 @@ The control-record owners are:
 - `projectkoios.workflow.petrinet.colored.control.records.findings`
 - `projectkoios.workflow.petrinet.colored.control.records.type_graph`
 - `projectkoios.workflow.petrinet.colored.control.records.schema`
-- `projectkoios.workflow.petrinet.colored.control.records.value_canonical`
+- `projectkoios.workflow.petrinet.colored.control.records.values.canonicalization`
+- `projectkoios.workflow.petrinet.colored.control.records.values.decoding`
 - `projectkoios.workflow.petrinet.colored.control.records.ordering`
 - `projectkoios.workflow.petrinet.colored.control.records.canonical`
 
@@ -102,7 +103,7 @@ The control-record owners are:
 | Post-hoc child-export conformance evidence | `projectkoios.workflow.petrinet.colored.children.exports.evidence` |
 | Static child-plan references and cycle validation | `projectkoios.workflow.petrinet.colored.deployments.linking` |
 | Deployment descriptors and execution bindings | `projectkoios.workflow.petrinet.colored.deployments.bindings` |
-| Cross-artifact closure correlation | `projectkoios.workflow.petrinet.colored.closure_validation` |
+| Cross-artifact closure correlation | `projectkoios.workflow.petrinet.colored.closure.validation` |
 
 ## Shadow execution
 
@@ -110,8 +111,8 @@ Immutable shadow firing contracts are owned by
 `projectkoios.workflow.petrinet.colored.shadow.contracts`; the firing action is
 owned by `projectkoios.workflow.petrinet.colored.shadow.firing`. Immutable replay
 contracts are owned by
-`projectkoios.workflow.petrinet.colored.shadow.replay_contracts`; the replay
-action is owned by `projectkoios.workflow.petrinet.colored.shadow.replay`.
+`projectkoios.workflow.petrinet.colored.shadow.replay.contracts`; the replay
+action is owned by `projectkoios.workflow.petrinet.colored.shadow.replay.action`.
 
 These direct imports are authorized for SDK evaluation only. They do not
 authorize provider execution, consumer migration, dependency changes, release,

@@ -7,7 +7,7 @@ from ..canonical.bindings import CpnCanonicalBindingCodecIdentity
 from ..canonical.definitions import CpnCanonicalDefinitionCodecIdentity
 from ..canonical.directives import CpnCanonicalSelectionDirectiveCodecIdentity
 from ..canonical.enablement import CpnCanonicalEnablementResultCodecIdentity
-from ..canonical.firing_results.identity import (
+from ..canonical.firing.results.identity import (
     CpnCanonicalFiringResultCodecIdentity,
 )
 from ..canonical.expressions.guards import (
@@ -28,9 +28,11 @@ from ..control.records.schema import CpnControlRecordSchemaValidatorIdentity
 from ..control.records.type_graph import (
     CpnControlRecordTypeGraphValidatorIdentity,
 )
-from ..control.records.value_canonical import (
-    CpnValueCanonicalDecoderIdentity,
+from ..control.records.values.canonicalization import (
     CpnValueCanonicalizerIdentity,
+)
+from ..control.records.values.decoding import (
+    CpnValueCanonicalDecoderIdentity,
 )
 from ..enablement.ordering import (
     CpnEnabledBindingOrderingPolicy,
@@ -79,7 +81,7 @@ from ..markings import CpnTokenOrderingPolicy
 from ..plans.definition import WorkflowExecutionPlanCompiler
 from ..selection import CpnBindingSelector
 from ..shadow.contracts import CpnShadowFirerIdentity
-from ..shadow.replay_contracts import CpnShadowFiringReplayerIdentity
+from ..shadow.replay.contracts import CpnShadowFiringReplayerIdentity
 from ..validation.definitions import (
     CpnDefinitionValidatorIdentity,
     CpnInputArcValidator,

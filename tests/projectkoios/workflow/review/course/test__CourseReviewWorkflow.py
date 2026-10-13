@@ -6,27 +6,37 @@ from dataclasses import fields, replace
 from pathlib import Path
 
 import pytest
-from projectkoios.workflow.core import (
+from projectkoios.workflow.core.identities.definition import (
     WorkflowActorIdentity,
-    WorkflowAuthorityReference,
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
+)
+from projectkoios.workflow.core.records.kinds import (
     WorkflowTransitionOutcomeKind,
+)
+from projectkoios.workflow.core.records.references import (
+    WorkflowAuthorityReference,
+)
+from projectkoios.workflow.core.transitions.inputs import (
     WorkflowTransitionPreflightInput,
 )
-from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-from projectkoios.workflow.review.course.models import (
-    CourseReviewStage,
-    OrganizerTeachingProposalReference,
+from projectkoios.workflow.persistence.revisions.sqlite import (
+    SQLiteAtomicRevisionStore,
 )
-from projectkoios.workflow.review.course.workflow import (
+from projectkoios.workflow.review.course.execution import (
     COURSE_IDENTITY_CANDIDATE_OPERATION,
     CourseReviewWorkflow,
     OrganizerCourseCandidateAdapter,
 )
-from projectkoios.workflow.runtime import (
+from projectkoios.workflow.review.course.proposals import (
+    OrganizerTeachingProposalReference,
+)
+from projectkoios.workflow.review.course.stages import CourseReviewStage
+from projectkoios.workflow.runtime.execution.local import (
     LocalWorkflowRuntime,
     WorkflowRuntimeActionStatus,
+)
+from projectkoios.workflow.runtime.history.repository import (
     WorkflowRuntimeRepository,
 )
 

@@ -4,23 +4,31 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from projectkoios.workflow.core import (
+from projectkoios.workflow.core.identities.definition import (
     WorkflowActorIdentity,
-    WorkflowAdapterDisposition,
-    WorkflowAdapterEvidence,
     WorkflowAdapterIdentity,
-    WorkflowAuthorityReference,
-    WorkflowDefinitionReference,
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
     WorkflowOperationIdentity,
+    WorkflowSubjectIdentity,
+)
+from projectkoios.workflow.core.records.evidence import WorkflowAdapterEvidence
+from projectkoios.workflow.core.records.kinds import WorkflowAdapterDisposition
+from projectkoios.workflow.core.records.references import (
+    WorkflowAuthorityReference,
+    WorkflowDefinitionReference,
+    WorkflowTypedReference,
+)
+from projectkoios.workflow.core.records.requests import (
+    WorkflowTransitionRequest,
+)
+from projectkoios.workflow.core.records.runs import (
     WorkflowRun,
     WorkflowRunStarter,
-    WorkflowStateSnapshot,
-    WorkflowSubjectIdentity,
+)
+from projectkoios.workflow.core.records.states import WorkflowStateSnapshot
+from projectkoios.workflow.core.transitions.inputs import (
     WorkflowTransitionInput,
-    WorkflowTransitionRequest,
-    WorkflowTypedReference,
 )
 
 _DIGEST = "a" * 64

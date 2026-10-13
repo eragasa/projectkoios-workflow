@@ -7,32 +7,44 @@ from dataclasses import fields, replace
 from pathlib import Path
 
 import pytest
-from projectkoios.workflow.core import (
+from projectkoios.workflow.core.identities.definition import (
     WorkflowActorIdentity,
-    WorkflowAuthorityReference,
-    WorkflowDecisionReference,
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
+)
+from projectkoios.workflow.core.records.kinds import (
     WorkflowRunStatus,
     WorkflowTransitionOutcomeKind,
+)
+from projectkoios.workflow.core.records.references import (
+    WorkflowAuthorityReference,
+    WorkflowDecisionReference,
+)
+from projectkoios.workflow.core.transitions.inputs import (
     WorkflowTransitionPreflightInput,
 )
-from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-from projectkoios.workflow.review.reference.models import (
-    IngestionClaimCandidateReference,
-    IngestionReferenceEvidenceReference,
-    ReferenceReviewStage,
+from projectkoios.workflow.persistence.revisions.sqlite import (
+    SQLiteAtomicRevisionStore,
 )
-from projectkoios.workflow.review.reference.workflow import (
+from projectkoios.workflow.review.reference.claims import (
+    IngestionClaimCandidateReference,
+)
+from projectkoios.workflow.review.reference.evidence import (
+    IngestionReferenceEvidenceReference,
+)
+from projectkoios.workflow.review.reference.execution import (
     EXCLUDE_REVIEWED_CLAIM_OPERATION,
     REQUIRE_MANUAL_CLAIM_REVIEW_OPERATION,
     RETAIN_REVIEWED_CLAIM_OPERATION,
     IngestionEvidenceReviewAdapter,
     ReferenceReviewWorkflow,
 )
-from projectkoios.workflow.runtime import (
+from projectkoios.workflow.review.reference.stages import ReferenceReviewStage
+from projectkoios.workflow.runtime.execution.local import (
     LocalWorkflowRuntime,
     WorkflowRuntimeActionStatus,
+)
+from projectkoios.workflow.runtime.history.repository import (
     WorkflowRuntimeRepository,
 )
 

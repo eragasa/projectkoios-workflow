@@ -6,7 +6,7 @@ Package boundary for :mod:`projectkoios.workflow.petrinet.colored.canonical`. Pu
 
 ## Coordination boundary
 
-This node coordinates `bindings`, `definitions`, `directives`, `enablement`, `expressions`, `firing_results`, `json`, `markings`, `selections` and declares no directly declared classes. It selects typed
+This node coordinates `bindings`, `definitions`, `directives`, `enablement`, `expressions`, `firing`, `json`, `markings`, `selections` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

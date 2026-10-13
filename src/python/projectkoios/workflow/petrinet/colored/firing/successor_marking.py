@@ -5,7 +5,7 @@ import json
 from dataclasses import dataclass
 from hashlib import sha256
 from typing import final
-from ..control.records.value_canonical import (
+from ..control.records.values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
 )

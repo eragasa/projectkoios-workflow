@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.control.records.value_canonical import (
+from projectkoios.workflow.petrinet.colored.control.records.values.decoding import (
     CpnValueCanonicalDecodingInput,
 )
 

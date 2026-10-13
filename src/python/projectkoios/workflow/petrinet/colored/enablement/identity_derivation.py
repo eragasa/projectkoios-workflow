@@ -13,7 +13,7 @@ from ..canonical.markings import (
     CpnCanonicalMarkingCodec,
     CpnCanonicalMarkingEncodingInput,
 )
-from ..control.records.value_canonical import (
+from ..control.records.values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
 )

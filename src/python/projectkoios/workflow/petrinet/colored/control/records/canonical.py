@@ -22,11 +22,13 @@ from .schema import (
     CpnControlRecordSchemaValidationInput,
     CpnControlRecordSchemaValidator,
 )
-from .value_canonical import (
-    CpnValueCanonicalDecoder,
-    CpnValueCanonicalDecodingInput,
+from .values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
+)
+from .values.decoding import (
+    CpnValueCanonicalDecoder,
+    CpnValueCanonicalDecodingInput,
 )
 
 _CONTROL_RECORD_PROFILE = "projectkoios.workflow.cpn-control-record-json:0.1.0"

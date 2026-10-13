@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.closure_validation import (
+from projectkoios.workflow.petrinet.colored.closure.validation import (
     WorkflowCpnClosureCorrelationValidatorIdentity,
 )
 

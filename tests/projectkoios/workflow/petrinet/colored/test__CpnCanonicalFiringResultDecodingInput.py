@@ -2,7 +2,7 @@ from _canonical_firing_result_fixtures import (
     canonical_firing_result,
     execution_profile,
 )
-from projectkoios.workflow.petrinet.colored.canonical.firing_results.documents import (
+from projectkoios.workflow.petrinet.colored.canonical.firing.results.documents import (
     CpnCanonicalFiringResultDecodingInput,
 )
 

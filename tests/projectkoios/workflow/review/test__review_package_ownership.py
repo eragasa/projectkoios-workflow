@@ -18,8 +18,8 @@ def test_review_packages__use_review_namespace_without_suffix_siblings(
         if path.is_dir() and path.name.endswith("_review")
     )
     assert suffix_packages == ()
-    assert (workflow / "review/course/workflow.py").is_file()
-    assert (workflow / "review/reference/workflow.py").is_file()
+    assert (workflow / "review/course/execution.py").is_file()
+    assert (workflow / "review/reference/execution.py").is_file()
 
 
 def test_review_packages__keep_initializers_as_empty_boundaries(

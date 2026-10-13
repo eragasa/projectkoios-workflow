@@ -10,10 +10,10 @@ from projectkoios.workflow.petrinet.colored.shadow.contracts import (
     CpnShadowFiringErrorCode,
 )
 from projectkoios.workflow.petrinet.colored.shadow.firing import CpnShadowFirer
-from projectkoios.workflow.petrinet.colored.shadow.replay import (
+from projectkoios.workflow.petrinet.colored.shadow.replay.action import (
     CpnShadowFiringReplayer,
 )
-from projectkoios.workflow.petrinet.colored.shadow.replay_contracts import (
+from projectkoios.workflow.petrinet.colored.shadow.replay.contracts import (
     CpnShadowFiringReplayInput,
 )
 

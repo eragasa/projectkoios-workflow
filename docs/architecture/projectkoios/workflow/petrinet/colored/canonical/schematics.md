@@ -10,7 +10,7 @@ flowchart TD
     owner --> child2["directives"]
     owner --> child3["enablement"]
     owner --> child4["expressions"]
-    owner --> child5["firing_results"]
+    owner --> child5["firing"]
     owner --> child6["json"]
     owner --> child7["markings"]
     owner --> child8["selections"]

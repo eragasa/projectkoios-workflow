@@ -46,11 +46,7 @@ jobs:
           src/python/projectkoios/workflow/petrinet/colored
           src/python/projectkoios/workflow/review
           src/python/projectkoios/workflow/runtime
-          tests/projectkoios/workflow/core
-          tests/projectkoios/workflow/persistence
-          tests/projectkoios/workflow/petrinet/colored
-          tests/projectkoios/workflow/review
-          tests/projectkoios/workflow/runtime
+          tests/projectkoios/workflow
           tests/test__CpnShadowProvenance.py
           examples/sdk
           tools/generate_cpn_sdk_manifest.py
@@ -73,8 +69,10 @@ jobs:
           uv pip install --python /tmp/projectkoios-workflow-wheel/bin/python dist/*.whl
           /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
           from importlib.util import find_spec
-          from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-          from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
+          from projectkoios.workflow.core.transitions.execution import WorkflowTransitionProcessor
+          from projectkoios.workflow.core.transitions.replay import WorkflowTransitionReplayer
+          from projectkoios.workflow.persistence.revisions.sqlite import SQLiteAtomicRevisionStore
+          from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
               CpnCanonicalFiringResultCodec,
           )
           from projectkoios.workflow.petrinet.colored.deployments.bindings import (
@@ -83,10 +81,12 @@ jobs:
           from projectkoios.workflow.petrinet.colored.payloads.references.canonical import (
               WorkflowDomainPayloadReferenceCodec,
           )
-          from projectkoios.workflow.review.course.workflow import CourseReviewWorkflow
-          from projectkoios.workflow.review.reference.models import IngestionClaimCandidateReference
-          from projectkoios.workflow.review.reference.workflow import ReferenceReviewWorkflow
-          from projectkoios.workflow.runtime import LocalWorkflowRuntime
+          from projectkoios.workflow.review.course.execution import CourseReviewWorkflow
+          from projectkoios.workflow.review.reference.claims import IngestionClaimCandidateReference
+          from projectkoios.workflow.review.reference.execution import ReferenceReviewWorkflow
+          from projectkoios.workflow.runtime.execution.local import LocalWorkflowRuntime
+          assert WorkflowTransitionProcessor is not None
+          assert WorkflowTransitionReplayer is not None
           assert CourseReviewWorkflow is not None
           assert CpnCanonicalFiringResultCodec is not None
           assert WorkflowDomainPayloadReferenceCodec is not None
@@ -97,6 +97,16 @@ jobs:
           assert LocalWorkflowRuntime is not None
           assert find_spec("projectkoios.workflow.course_review") is None
           assert find_spec("projectkoios.workflow.reference_review") is None
+          assert find_spec("projectkoios.workflow.core.models") is None
+          assert find_spec("projectkoios.workflow.core.processing") is None
+          assert find_spec("projectkoios.workflow.core.records.definition") is None
+          assert find_spec("projectkoios.workflow.core.transitions.processing") is None
+          assert find_spec("projectkoios.workflow.persistence.store") is None
+          assert find_spec("projectkoios.workflow.persistence.sqlite") is None
+          assert find_spec("projectkoios.workflow.runtime.records") is None
+          assert find_spec("projectkoios.workflow.runtime.repository") is None
+          assert find_spec("projectkoios.workflow.runtime.serialization") is None
+          assert find_spec("projectkoios.workflow.runtime.service") is None
           PY
 
       - name: Run SDK examples against installed wheel

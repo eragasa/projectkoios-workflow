@@ -8,7 +8,7 @@ flowchart TD
     owner --> child0["bindings"]
     owner --> child1["canonical"]
     owner --> child2["children"]
-    owner --> child3["closure_validation"]
+    owner --> child3["closure"]
     owner --> child4["control"]
     owner --> child5["definitions"]
     owner --> child6["deployments"]

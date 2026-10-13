@@ -2,7 +2,7 @@
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.shadow.replay_contracts import (
+from projectkoios.workflow.petrinet.colored.shadow.replay.contracts import (
     CpnShadowFiringReplayInput,
 )
 

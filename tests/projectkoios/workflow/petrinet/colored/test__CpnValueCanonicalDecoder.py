@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.control.records.value_canonical import (
+from projectkoios.workflow.petrinet.colored.control.records.values.decoding import (
     CpnValueCanonicalDecoder,
 )
 

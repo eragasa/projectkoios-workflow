@@ -1,10 +1,10 @@
 """Encode and deterministically replay one canonical firing result."""
 
 from _support import execution_profile, selected_firing_input
-from projectkoios.workflow.petrinet.colored.canonical.firing_results.codec import (
+from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
     CpnCanonicalFiringResultCodec,
 )
-from projectkoios.workflow.petrinet.colored.canonical.firing_results.documents import (
+from projectkoios.workflow.petrinet.colored.canonical.firing.results.documents import (
     CpnCanonicalFiringResultDecodingInput,
     CpnCanonicalFiringResultEncodingInput,
 )

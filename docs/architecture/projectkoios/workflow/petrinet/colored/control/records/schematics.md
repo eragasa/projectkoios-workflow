@@ -10,7 +10,7 @@ flowchart TD
     owner --> child2["ordering"]
     owner --> child3["schema"]
     owner --> child4["type_graph"]
-    owner --> child5["value_canonical"]
+    owner --> child5["values"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

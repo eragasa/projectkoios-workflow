@@ -6,7 +6,7 @@ Package boundary for :mod:`projectkoios.workflow.petrinet.colored.shadow`. Publi
 
 ## Coordination boundary
 
-This node coordinates `contracts`, `firing`, `replay`, `replay_contracts` and declares no directly declared classes. It selects typed
+This node coordinates `contracts`, `firing`, `replay` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 

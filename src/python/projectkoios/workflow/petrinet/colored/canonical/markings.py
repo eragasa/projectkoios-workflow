@@ -9,11 +9,13 @@ from string import hexdigits
 from typing import final
 
 from .json import CpnCanonicalJsonParser, CpnCanonicalJsonParsingInput
-from ..control.records.value_canonical import (
-    CpnValueCanonicalDecoder,
-    CpnValueCanonicalDecodingInput,
+from ..control.records.values.canonicalization import (
     CpnValueCanonicalizationInput,
     CpnValueCanonicalizer,
+)
+from ..control.records.values.decoding import (
+    CpnValueCanonicalDecoder,
+    CpnValueCanonicalDecodingInput,
 )
 from ..definitions import CpnDefinition, CpnDefinitionIdentity, CpnPlaceIdentity
 from ..markings import CpnMarking, CpnMarkingIdentity, CpnPlaceMarking

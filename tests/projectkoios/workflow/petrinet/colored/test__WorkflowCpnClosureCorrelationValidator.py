@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.closure_validation import (
+from projectkoios.workflow.petrinet.colored.closure.validation import (
     WorkflowCpnClosureCorrelationValidator,
 )
 

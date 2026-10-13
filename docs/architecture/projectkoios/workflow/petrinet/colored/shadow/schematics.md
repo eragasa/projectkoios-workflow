@@ -8,7 +8,6 @@ flowchart TD
     owner --> child0["contracts"]
     owner --> child1["firing"]
     owner --> child2["replay"]
-    owner --> child3["replay_contracts"]
 ```
 
 Arrows denote ownership and composition, not scheduling or transferred

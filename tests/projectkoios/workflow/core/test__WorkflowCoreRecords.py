@@ -6,22 +6,26 @@ from dataclasses import FrozenInstanceError, replace
 
 import pytest
 from _core_fixtures import core_fixture
-from projectkoios.workflow.core import (
+from projectkoios.workflow.core.identities.definition import (
     WorkflowActorIdentity,
-    WorkflowArtifactDisposition,
-    WorkflowArtifactReference,
     WorkflowArtifactReferenceIdentity,
-    WorkflowAuditReference,
     WorkflowDecisionReferenceIdentity,
-    WorkflowDefinitionReference,
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
     WorkflowOperationIdentity,
-    WorkflowRequestBounds,
-    WorkflowRunStarter,
-    WorkflowTransitionRequest,
+)
+from projectkoios.workflow.core.records.audits import WorkflowAuditReference
+from projectkoios.workflow.core.records.kinds import WorkflowArtifactDisposition
+from projectkoios.workflow.core.records.references import (
+    WorkflowArtifactReference,
+    WorkflowDefinitionReference,
     WorkflowTypedReference,
 )
+from projectkoios.workflow.core.records.requests import (
+    WorkflowRequestBounds,
+    WorkflowTransitionRequest,
+)
+from projectkoios.workflow.core.records.runs import WorkflowRunStarter
 
 _DIGEST = "b" * 64
 

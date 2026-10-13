@@ -6,36 +6,56 @@ from dataclasses import replace
 
 import pytest
 from _core_fixtures import core_fixture, transition_input
-from projectkoios.workflow.core import (
+from projectkoios.workflow.core.identities.definition import (
     WorkflowActorIdentity,
-    WorkflowAdapterDisposition,
-    WorkflowAdapterEvidence,
     WorkflowAdapterIdentity,
-    WorkflowArtifactDisposition,
-    WorkflowArtifactReference,
-    WorkflowAuditEvent,
-    WorkflowAuditReference,
-    WorkflowAuthorityReference,
-    WorkflowDecisionReference,
     WorkflowExternalReferenceIdentity,
     WorkflowIdempotencyIdentity,
-    WorkflowInfrastructureFailureEvidence,
     WorkflowOperationIdentity,
-    WorkflowRequestBounds,
     WorkflowRunIdentity,
-    WorkflowRunStarter,
-    WorkflowRunStatus,
     WorkflowSubjectIdentity,
-    WorkflowTransitionExecution,
-    WorkflowTransitionInput,
+)
+from projectkoios.workflow.core.records.audits import (
+    WorkflowAuditEvent,
+    WorkflowAuditReference,
+)
+from projectkoios.workflow.core.records.evidence import (
+    WorkflowAdapterEvidence,
+    WorkflowInfrastructureFailureEvidence,
+)
+from projectkoios.workflow.core.records.kinds import (
+    WorkflowAdapterDisposition,
+    WorkflowArtifactDisposition,
+    WorkflowRunStatus,
     WorkflowTransitionOutcomeKind,
-    WorkflowTransitionPreflightInput,
-    WorkflowTransitionProcessor,
-    WorkflowTransitionReplayer,
-    WorkflowTransitionRequest,
-    WorkflowTransitionValidator,
-    WorkflowTypedReference,
     WorkflowValidationFindingCode,
+)
+from projectkoios.workflow.core.records.references import (
+    WorkflowArtifactReference,
+    WorkflowAuthorityReference,
+    WorkflowDecisionReference,
+    WorkflowTypedReference,
+)
+from projectkoios.workflow.core.records.requests import (
+    WorkflowRequestBounds,
+    WorkflowTransitionRequest,
+)
+from projectkoios.workflow.core.records.runs import WorkflowRunStarter
+from projectkoios.workflow.core.transitions.execution import (
+    WorkflowTransitionProcessor,
+)
+from projectkoios.workflow.core.transitions.inputs import (
+    WorkflowTransitionInput,
+    WorkflowTransitionPreflightInput,
+)
+from projectkoios.workflow.core.transitions.replay import (
+    WorkflowTransitionReplayer,
+)
+from projectkoios.workflow.core.transitions.results import (
+    WorkflowTransitionExecution,
+)
+from projectkoios.workflow.core.transitions.validation import (
+    WorkflowTransitionValidator,
 )
 
 
