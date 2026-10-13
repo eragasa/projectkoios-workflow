@@ -10,7 +10,11 @@ execution, scientific acceptance, or package release. Compatibility remains
 release-candidate until the provider trial and release gate complete. Package
 `__init__.py` files intentionally export no objects. They are namespace
 boundaries, not aggregate facades; consumers must not depend on incidental
-transitive imports.
+transitive imports. Compound semantic owners use nested noun namespaces rather
+than compound module names. A repository gate rejects concrete import facades
+and modules whose import declarations occupy more than one quarter of their
+physical source lines. This is a structural ownership signal, not proof that a
+module's semantics or dependency direction are correct.
 
 The machine-readable operation and public-signature inventory is
 [`../sdk/operation-manifest.json`](../sdk/operation-manifest.json). Exact
@@ -26,21 +30,21 @@ human/LLM usage and error semantics are documented in
 | Flat CPN graph definitions and graph identities | `projectkoios.workflow.petrinet.colored.definitions` |
 | Markings, places, tokens, and marking identities | `projectkoios.workflow.petrinet.colored.markings` |
 | Ordered transition bindings | `projectkoios.workflow.petrinet.colored.bindings` |
-| Enablement results and semantic identities | `projectkoios.workflow.petrinet.colored.enablement.results` |
-| Enablement-result identity derivation | `projectkoios.workflow.petrinet.colored.enablement.identity_derivation` |
-| Enablement-failure construction | `projectkoios.workflow.petrinet.colored.enablement.failure_building` |
+| Enablement results and semantic identities | `projectkoios.workflow.petrinet.colored.enablement.results.definition` |
+| Enablement-result identity derivation | `projectkoios.workflow.petrinet.colored.enablement.results.identity` |
+| Enablement-failure construction | `projectkoios.workflow.petrinet.colored.enablement.failures.building` |
 | Enabled-binding ordering | `projectkoios.workflow.petrinet.colored.enablement.ordering` |
 | Complete transition enablement | `projectkoios.workflow.petrinet.colored.enablement.transitions` |
 | Deterministic or directed selection | `projectkoios.workflow.petrinet.colored.selection` |
 | Complete firing inputs | `projectkoios.workflow.petrinet.colored.firing.inputs` |
 | Firing occurrence and output audits | `projectkoios.workflow.petrinet.colored.firing.audits` |
-| Firing results | `projectkoios.workflow.petrinet.colored.firing.results` |
-| Token-occurrence reconstruction | `projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction` |
-| Firing-result identity derivation | `projectkoios.workflow.petrinet.colored.firing.identity_derivation` |
-| Successor-marking construction | `projectkoios.workflow.petrinet.colored.firing.successor_marking` |
-| Firing-failure construction | `projectkoios.workflow.petrinet.colored.firing.failure_building` |
+| Firing results | `projectkoios.workflow.petrinet.colored.firing.results.definition` |
+| Token-occurrence reconstruction | `projectkoios.workflow.petrinet.colored.firing.occurrences.reconstruction` |
+| Firing-result identity derivation | `projectkoios.workflow.petrinet.colored.firing.results.identity` |
+| Successor-marking construction | `projectkoios.workflow.petrinet.colored.firing.markings.successor` |
+| Firing-failure construction | `projectkoios.workflow.petrinet.colored.firing.failures.building` |
 | Pure transition firing | `projectkoios.workflow.petrinet.colored.firing.transitions` |
-| External-output admission | `projectkoios.workflow.petrinet.colored.external_outputs` |
+| External-output admission | `projectkoios.workflow.petrinet.colored.outputs.external` |
 | Definition validation | `projectkoios.workflow.petrinet.colored.validation.definitions` |
 | Marking validation | `projectkoios.workflow.petrinet.colored.validation.markings` |
 | Validation findings | `projectkoios.workflow.petrinet.colored.validation.findings` |
@@ -74,7 +78,7 @@ The expression owners are:
 The control-record owners are:
 
 - `projectkoios.workflow.petrinet.colored.control.records.findings`
-- `projectkoios.workflow.petrinet.colored.control.records.type_graph`
+- `projectkoios.workflow.petrinet.colored.control.records.types.graph`
 - `projectkoios.workflow.petrinet.colored.control.records.schema`
 - `projectkoios.workflow.petrinet.colored.control.records.values.canonicalization`
 - `projectkoios.workflow.petrinet.colored.control.records.values.decoding`

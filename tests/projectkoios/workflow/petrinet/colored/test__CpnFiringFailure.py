@@ -23,7 +23,7 @@ import pytest
 from _firing_fixtures import valid_firing_input
 
 from projectkoios.workflow.petrinet.colored.bindings import CpnBinding
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringFailure,
 )
 from projectkoios.workflow.petrinet.colored.firing.transitions import (

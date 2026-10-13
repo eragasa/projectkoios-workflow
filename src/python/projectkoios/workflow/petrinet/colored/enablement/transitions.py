@@ -19,11 +19,11 @@ from ..validation.definitions import (
 )
 from ..validation.markings import CpnMarkingValidationInput, CpnMarkingValidator
 from ..values import CpnToken, CpnValue
-from .failure_building import (
+from .failures.building import (
     CpnEnablementFailureBuilder,
     CpnEnablementFailureBuildingInput,
 )
-from .identity_derivation import (
+from .results.identity import (
     CpnEnablementFailureState,
     CpnEnablementResultIdentityDerivationInput,
     CpnEnablementResultIdentityDeriver,
@@ -32,7 +32,7 @@ from .ordering import (
     CpnEnabledBindingOrderingInput,
     CpnEnabledBindingOrderingPolicy,
 )
-from .results import (
+from .results.definition import (
     CpnEnablementFailureCode,
     CpnEnablementResult,
     CpnOrderingPolicyIdentity,

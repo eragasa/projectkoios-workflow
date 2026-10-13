@@ -11,7 +11,7 @@ from projectkoios.workflow.petrinet.colored.canonical.firing.results.documents i
 from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
     CpnCanonicalFiringResultCodec,
 )
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringResult,
 )
 from projectkoios.workflow.petrinet.colored.firing.transitions import (

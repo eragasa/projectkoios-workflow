@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from hashlib import sha256
 from string import hexdigits
-from ....firing.results import CpnFiringResult
+from ....firing.results.definition import CpnFiringResult
 from ....profiles.definition import WorkflowCpnExecutionProfile
 
 

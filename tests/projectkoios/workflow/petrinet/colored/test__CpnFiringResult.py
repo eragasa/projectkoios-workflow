@@ -20,7 +20,7 @@ This is software verification, not external execution or scientific validation.
 import pytest
 from _firing_fixtures import valid_firing_input
 
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringOutcomeKind,
     CpnFiringResult,
 )

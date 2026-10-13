@@ -7,7 +7,7 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `....definitions`, `....firing.inputs`, `....firing.results`, `....selection`, `....profiles.defaults`, `....profiles.definition`, `...bindings`, `...definitions`, `...enablement`, `.identity`, `...json`, `...markings`, `...selections`, `.documents`. Dependencies point toward narrower
+Direct relative dependencies are `....definitions`, `....firing.inputs`, `....firing.results.definition`, `....selection`, `....profiles.defaults`, `....profiles.definition`, `...bindings`, `...definitions`, `...enablement`, `.identity`, `...json`, `...markings`, `...selections`, `.documents`. Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

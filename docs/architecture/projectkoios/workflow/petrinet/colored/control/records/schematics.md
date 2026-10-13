@@ -9,7 +9,7 @@ flowchart TD
     owner --> child1["findings"]
     owner --> child2["ordering"]
     owner --> child3["schema"]
-    owner --> child4["type_graph"]
+    owner --> child4["types"]
     owner --> child5["values"]
 ```
 

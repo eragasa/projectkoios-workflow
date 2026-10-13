@@ -44,7 +44,7 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
         "canonical/markings.py",
         "control/records/canonical.py",
         "control/records/schema.py",
-        "control/records/type_graph.py",
+        "control/records/types/graph.py",
         "shadow/firing.py",
         "shadow/replay/action.py",
         "validation/definitions.py",
@@ -109,51 +109,51 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
         visit(module_name)
 
     expected_operation_dependencies = {
-        "enablement.results": set(),
-        "enablement.identity_derivation": {"enablement.results"},
-        "enablement.failure_building": {
-            "enablement.identity_derivation",
-            "enablement.results",
+        "enablement.results.definition": set(),
+        "enablement.results.identity": {"enablement.results.definition"},
+        "enablement.failures.building": {
+            "enablement.results.definition",
+            "enablement.results.identity",
         },
-        "enablement.ordering": {"enablement.results"},
+        "enablement.ordering": {"enablement.results.definition"},
         "enablement.transitions": {
-            "enablement.failure_building",
-            "enablement.identity_derivation",
+            "enablement.failures.building",
             "enablement.ordering",
-            "enablement.results",
+            "enablement.results.definition",
+            "enablement.results.identity",
         },
-        "firing.inputs": {"enablement.results"},
+        "firing.inputs": {"enablement.results.definition"},
         "firing.audits": set(),
-        "firing.results": {"firing.audits", "firing.inputs"},
-        "firing.occurrence_reconstruction": {"firing.audits"},
-        "firing.identity_derivation": {
+        "firing.results.definition": {"firing.audits", "firing.inputs"},
+        "firing.occurrences.reconstruction": {"firing.audits"},
+        "firing.results.identity": {
             "firing.audits",
             "firing.inputs",
-            "firing.results",
+            "firing.results.definition",
         },
-        "firing.successor_marking": {"firing.audits", "firing.inputs"},
-        "firing.failure_building": {
-            "firing.identity_derivation",
+        "firing.markings.successor": {"firing.audits", "firing.inputs"},
+        "firing.failures.building": {
             "firing.inputs",
-            "firing.results",
+            "firing.results.definition",
+            "firing.results.identity",
         },
         "firing.transitions": {
             "enablement.transitions",
             "firing.audits",
-            "firing.failure_building",
-            "firing.identity_derivation",
+            "firing.failures.building",
             "firing.inputs",
-            "firing.occurrence_reconstruction",
-            "firing.results",
-            "firing.successor_marking",
+            "firing.markings.successor",
+            "firing.occurrences.reconstruction",
+            "firing.results.definition",
+            "firing.results.identity",
         },
         "canonical.firing.results.identity": set(),
-        "canonical.firing.results.documents": {"firing.results"},
+        "canonical.firing.results.documents": {"firing.results.definition"},
         "canonical.firing.results.codec": {
             "canonical.firing.results.documents",
             "canonical.firing.results.identity",
             "firing.inputs",
-            "firing.results",
+            "firing.results.definition",
         },
         "payloads.references.definition": set(),
         "payloads.references.canonical": {"payloads.references.definition"},
@@ -182,18 +182,22 @@ def test_artifact__package_ownership__has_no_flat_shims_or_import_cycles() -> (
 def test_artifact__operation_modules__declare_one_semantic_action() -> None:
     package_root = Path(colored.__file__).parent
     expected_actions = {
-        "enablement/identity_derivation.py": {
+        "control/records/types/graph.py": {
+            "CpnControlRecordTypeGraphValidator"
+        },
+        "enablement/results/identity.py": {
             "CpnEnablementResultIdentityDeriver"
         },
-        "enablement/failure_building.py": {"CpnEnablementFailureBuilder"},
+        "enablement/failures/building.py": {"CpnEnablementFailureBuilder"},
         "enablement/ordering.py": {"CpnEnabledBindingOrderingPolicy"},
         "enablement/transitions.py": {"CpnTransitionEnabler"},
-        "firing/occurrence_reconstruction.py": {
+        "outputs/external.py": {"CpnExternalOutputValidator"},
+        "firing/occurrences/reconstruction.py": {
             "CpnTokenOccurrenceReconstructor"
         },
-        "firing/identity_derivation.py": {"CpnFiringResultIdentityDeriver"},
-        "firing/successor_marking.py": {"CpnSuccessorMarkingBuilder"},
-        "firing/failure_building.py": {"CpnFiringFailureBuilder"},
+        "firing/results/identity.py": {"CpnFiringResultIdentityDeriver"},
+        "firing/markings/successor.py": {"CpnSuccessorMarkingBuilder"},
+        "firing/failures/building.py": {"CpnFiringFailureBuilder"},
         "firing/transitions.py": {"CpnTransitionFirer"},
         "payloads/references/assembly.py": {
             "WorkflowDomainPayloadReferenceAssembler"

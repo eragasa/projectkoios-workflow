@@ -2,7 +2,7 @@
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.enablement.identity_derivation import (
+from projectkoios.workflow.petrinet.colored.enablement.results.identity import (
     CpnEnablementResultIdentityDerivationInput,
 )
 

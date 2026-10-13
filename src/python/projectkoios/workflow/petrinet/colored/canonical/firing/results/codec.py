@@ -5,7 +5,10 @@ import json
 from typing import final
 from ....definitions import CpnTransitionIdentity
 from ....firing.inputs import CpnFiringInput
-from ....firing.results import CpnFiringOutcomeKind, CpnFiringResultIdentity
+from ....firing.results.definition import (
+    CpnFiringOutcomeKind,
+    CpnFiringResultIdentity,
+)
 from ....selection import CpnSelectionDirectiveIdentity
 from ....profiles.defaults import (
     WorkflowCpnExecutionProfileResolutionRequest,

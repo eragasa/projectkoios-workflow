@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.firing.identity_derivation import (
+from projectkoios.workflow.petrinet.colored.firing.results.identity import (
     CpnFiringResultIdentityDerivationRequest,
 )
 

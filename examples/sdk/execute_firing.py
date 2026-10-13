@@ -1,7 +1,7 @@
 """Enable, select, and purely fire one transition."""
 
 from _support import selected_firing_input
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringOutcomeKind,
 )
 from projectkoios.workflow.petrinet.colored.firing.transitions import (

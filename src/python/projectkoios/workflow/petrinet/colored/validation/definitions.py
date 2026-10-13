@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
-from ..control.records.type_graph import (
+from ..control.records.types.graph import (
     CpnControlRecordTypeGraphValidationInput,
     CpnControlRecordTypeGraphValidator,
 )

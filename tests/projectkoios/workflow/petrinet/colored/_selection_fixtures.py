@@ -6,7 +6,7 @@ from projectkoios.workflow.petrinet.colored.definitions import (
     CpnDefinition,
     CpnSelectionPolicy,
 )
-from projectkoios.workflow.petrinet.colored.enablement.results import (
+from projectkoios.workflow.petrinet.colored.enablement.results.definition import (
     CpnEnablementResult,
 )
 from projectkoios.workflow.petrinet.colored.enablement.transitions import (

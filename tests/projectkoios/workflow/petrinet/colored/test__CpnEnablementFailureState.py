@@ -1,9 +1,9 @@
 """Nominal tests for ``CpnEnablementFailureState``."""
 
-from projectkoios.workflow.petrinet.colored.enablement.results import (
+from projectkoios.workflow.petrinet.colored.enablement.results.definition import (
     CpnEnablementFailureCode,
 )
-from projectkoios.workflow.petrinet.colored.enablement.identity_derivation import (
+from projectkoios.workflow.petrinet.colored.enablement.results.identity import (
     CpnEnablementFailureState,
 )
 

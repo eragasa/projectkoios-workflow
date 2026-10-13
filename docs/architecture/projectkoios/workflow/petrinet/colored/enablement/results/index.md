@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Immutable enablement outcome vocabulary and embedded semantic identities.
+Namespace boundary for enablement.results.
 
 ## Coordination boundary
 
-This node coordinates no child package or module nodes and declares `CpnEnablementResultIdentity`, `CpnOrderingPolicyIdentity`, `CpnTransitionEnablerIdentity`, `CpnEnablementFailureIdentity`, `CpnEnablementFailureCode`, `CpnEnablementFailure`, `CpnEnablementResult`. It selects typed
+This node coordinates `definition`, `identity` and declares no directly declared classes. It selects typed
 collaborators and preserves dependency direction. It does not resolve payload
 bodies, invoke providers, access persistence, or grant execution authority.
 
@@ -19,5 +19,5 @@ authorization, firing, numerical verification, and scientific validation.
 
 ## Source
 
-The production owner is `src/python/projectkoios/workflow/petrinet/colored/enablement/results.py`. The companion implementation and
+The production owner is `src/python/projectkoios/workflow/petrinet/colored/enablement/results/__init__.py`. The companion implementation and
 schematics documents record dependency rules and composition flow.

@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.firing.successor_marking import (
+from projectkoios.workflow.petrinet.colored.firing.markings.successor import (
     CpnSuccessorMarkingBuildingRequest,
 )
 

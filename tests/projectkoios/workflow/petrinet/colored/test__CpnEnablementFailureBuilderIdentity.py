@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.enablement.failure_building import (
+from projectkoios.workflow.petrinet.colored.enablement.failures.building import (
     CpnEnablementFailureBuilderIdentity,
 )
 

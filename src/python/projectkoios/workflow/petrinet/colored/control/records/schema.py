@@ -15,7 +15,7 @@ from .findings import (
     CpnControlRecordValidationIssueCode,
     CpnControlRecordValidationResult,
 )
-from .type_graph import (
+from .types.graph import (
     CpnControlRecordTypeGraphValidationInput,
     CpnControlRecordTypeGraphValidator,
 )

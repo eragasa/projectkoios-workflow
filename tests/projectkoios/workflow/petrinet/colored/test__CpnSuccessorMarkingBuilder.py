@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing.successor_marking import (
+from projectkoios.workflow.petrinet.colored.firing.markings.successor import (
     CpnSuccessorMarkingBuilder,
 )
 

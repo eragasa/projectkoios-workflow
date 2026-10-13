@@ -4,7 +4,7 @@ from projectkoios.workflow.petrinet.colored.bindings import (
     CpnBinding,
     CpnBindingAssignment,
 )
-from projectkoios.workflow.petrinet.colored.external_outputs import (
+from projectkoios.workflow.petrinet.colored.outputs.external import (
     CpnExternalOutputValidationInput,
     CpnExternalOutputValidationIssueCode,
     CpnExternalOutputValidator,

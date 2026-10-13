@@ -15,7 +15,7 @@ from ..canonical.markings import (
 from ..firing.inputs import (
     CpnFiringInput,
 )
-from ..firing.results import (
+from ..firing.results.definition import (
     CpnFiringOutcomeKind,
     CpnFiringResult,
     CpnFiringResultIdentity,

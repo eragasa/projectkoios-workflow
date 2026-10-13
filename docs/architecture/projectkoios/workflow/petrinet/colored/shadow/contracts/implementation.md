@@ -7,7 +7,7 @@ but is not an alternate API, topology definition, or canonical representation.
 
 ## Dependency rule
 
-Direct relative dependencies are `..canonical.definitions`, `..canonical.markings`, `..firing.inputs`, `..firing.results`, `..profiles.definition`. Dependencies point toward narrower
+Direct relative dependencies are `..canonical.definitions`, `..canonical.markings`, `..firing.inputs`, `..firing.results.definition`, `..profiles.definition`. Dependencies point toward narrower
 typed contracts. Parent packages may re-export public contracts but must not
 supply compatibility aliases for removed flat modules. The package graph remains
 acyclic; this is a source-composition rule, not a workflow DAG restriction.

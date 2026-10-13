@@ -75,8 +75,20 @@ jobs:
           from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
               CpnCanonicalFiringResultCodec,
           )
+          from projectkoios.workflow.petrinet.colored.control.records.types.graph import (
+              CpnControlRecordTypeGraphValidator,
+          )
           from projectkoios.workflow.petrinet.colored.deployments.bindings import (
               WorkflowExecutionBindings,
+          )
+          from projectkoios.workflow.petrinet.colored.enablement.results.identity import (
+              CpnEnablementResultIdentityDeriver,
+          )
+          from projectkoios.workflow.petrinet.colored.firing.markings.successor import (
+              CpnSuccessorMarkingBuilder,
+          )
+          from projectkoios.workflow.petrinet.colored.outputs.external import (
+              CpnExternalOutputValidator,
           )
           from projectkoios.workflow.petrinet.colored.payloads.references.canonical import (
               WorkflowDomainPayloadReferenceCodec,
@@ -89,6 +101,10 @@ jobs:
           assert WorkflowTransitionReplayer is not None
           assert CourseReviewWorkflow is not None
           assert CpnCanonicalFiringResultCodec is not None
+          assert CpnControlRecordTypeGraphValidator is not None
+          assert CpnEnablementResultIdentityDeriver is not None
+          assert CpnSuccessorMarkingBuilder is not None
+          assert CpnExternalOutputValidator is not None
           assert WorkflowDomainPayloadReferenceCodec is not None
           assert WorkflowExecutionBindings is not None
           assert IngestionClaimCandidateReference is not None
@@ -107,6 +123,14 @@ jobs:
           assert find_spec("projectkoios.workflow.runtime.repository") is None
           assert find_spec("projectkoios.workflow.runtime.serialization") is None
           assert find_spec("projectkoios.workflow.runtime.service") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.control.records.type_graph") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.enablement.failure_building") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.enablement.identity_derivation") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.external_outputs") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.failure_building") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.identity_derivation") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.successor_marking") is None
           PY
 
       - name: Run SDK examples against installed wheel

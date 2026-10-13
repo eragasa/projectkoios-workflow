@@ -22,7 +22,7 @@ from .definitions import (
     CpnDefinition,
     CpnSelectionPolicy,
 )
-from .enablement.results import (
+from .enablement.results.definition import (
     CpnEnablementResult,
     CpnEnablementResultIdentity,
     CpnOrderingPolicyIdentity,

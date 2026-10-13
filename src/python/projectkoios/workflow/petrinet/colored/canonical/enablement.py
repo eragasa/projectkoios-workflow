@@ -11,7 +11,7 @@ from ..definitions import (
     CpnDefinitionIdentity,
     CpnSelectionPolicy,
 )
-from ..enablement.results import (
+from ..enablement.results.definition import (
     CpnEnablementFailure,
     CpnEnablementFailureCode,
     CpnEnablementFailureIdentity,

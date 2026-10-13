@@ -1,6 +1,6 @@
 """Nominal tests for ``CpnEnablementResultIdentityDeriverIdentity``."""
 
-from projectkoios.workflow.petrinet.colored.enablement.identity_derivation import (
+from projectkoios.workflow.petrinet.colored.enablement.results.identity import (
     CpnEnablementResultIdentityDeriverIdentity,
 )
 

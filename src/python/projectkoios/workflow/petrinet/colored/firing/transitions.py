@@ -11,7 +11,7 @@ from ..expressions.evaluation import (
     CpnExpressionEvaluationInput,
     CpnExpressionEvaluator,
 )
-from ..external_outputs import (
+from ..outputs.external import (
     CpnExternalOutputValidationInput,
     CpnExternalOutputValidator,
 )
@@ -28,26 +28,26 @@ from ..validation.definitions import (
 from ..validation.markings import CpnMarkingValidationInput, CpnMarkingValidator
 from ..values import CpnToken, CpnTokenIdentity, CpnValueKind
 from .audits import CpnFiringAudit, CpnProducedToken, CpnTransitionFirerIdentity
-from .failure_building import (
+from .failures.building import (
     CpnFiringFailureBuilder,
     CpnFiringFailureBuildingRequest,
 )
-from .identity_derivation import (
+from .results.identity import (
     CpnFiringFailureState,
     CpnFiringResultIdentityDerivationRequest,
     CpnFiringResultIdentityDeriver,
 )
 from .inputs import CpnFiringInput
-from .occurrence_reconstruction import (
+from .occurrences.reconstruction import (
     CpnTokenOccurrenceReconstructionRequest,
     CpnTokenOccurrenceReconstructor,
 )
-from .results import (
+from .results.definition import (
     CpnFiringFailureCode,
     CpnFiringOutcomeKind,
     CpnFiringResult,
 )
-from .successor_marking import (
+from .markings.successor import (
     CpnSuccessorMarkingBuilder,
     CpnSuccessorMarkingBuildingRequest,
 )

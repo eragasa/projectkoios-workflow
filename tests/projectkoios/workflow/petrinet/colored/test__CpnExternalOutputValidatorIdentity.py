@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.external_outputs import (
+from projectkoios.workflow.petrinet.colored.outputs.external import (
     CpnExternalOutputValidatorIdentity,
 )
 

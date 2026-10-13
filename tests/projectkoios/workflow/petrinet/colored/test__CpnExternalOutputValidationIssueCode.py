@@ -1,4 +1,4 @@
-from projectkoios.workflow.petrinet.colored.external_outputs import (
+from projectkoios.workflow.petrinet.colored.outputs.external import (
     CpnExternalOutputValidationIssueCode,
 )
 

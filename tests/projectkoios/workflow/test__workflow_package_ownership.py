@@ -5,16 +5,6 @@ from pathlib import Path
 
 import pytest
 
-_ALLOWED_COMPOUND_MODULES = {
-    "petrinet/colored/control/records/type_graph.py",
-    "petrinet/colored/enablement/failure_building.py",
-    "petrinet/colored/enablement/identity_derivation.py",
-    "petrinet/colored/external_outputs.py",
-    "petrinet/colored/firing/failure_building.py",
-    "petrinet/colored/firing/identity_derivation.py",
-    "petrinet/colored/firing/occurrence_reconstruction.py",
-    "petrinet/colored/firing/successor_marking.py",
-}
 _PROHIBITED_BUCKET_NAMES = {
     "models.py",
     "records.py",
@@ -40,10 +30,10 @@ def test_workflow_package__has_no_compound_package_directories(
     assert compound == ()
 
 
-def test_workflow_package__admits_only_cohesive_compound_module_names(
+def test_workflow_package__has_no_compound_module_names(
     pytestconfig: pytest.Config,
 ) -> None:
-    """Every remaining snake-case module is an explicitly reviewed operation."""
+    """Compound semantic ownership is represented by nested namespaces."""
     root = Path(str(pytestconfig.rootpath))
     package = root / "src/python/projectkoios/workflow"
     compound = {
@@ -51,7 +41,51 @@ def test_workflow_package__admits_only_cohesive_compound_module_names(
         for path in package.rglob("*_*.py")
         if path.name != "__init__.py"
     }
-    assert compound == _ALLOWED_COMPOUND_MODULES
+    assert compound == set()
+
+
+def test_workflow_package__has_no_import_facades_or_import_dominated_modules(
+    pytestconfig: pytest.Config,
+) -> None:
+    """Require concrete ownership and bounded import declarations."""
+    root = Path(str(pytestconfig.rootpath))
+    package = root / "src/python/projectkoios/workflow"
+    for path in package.rglob("*.py"):
+        if path.name == "__init__.py":
+            continue
+        source = path.read_text(encoding="utf-8")
+        module = ast.parse(source)
+        statements = tuple(
+            node
+            for node in module.body
+            if not (
+                isinstance(node, ast.Expr)
+                and isinstance(node.value, ast.Constant)
+                and type(node.value.value) is str
+            )
+        )
+        imports = tuple(
+            node
+            for node in statements
+            if isinstance(node, (ast.Import, ast.ImportFrom))
+        )
+        owned_statements = tuple(
+            node
+            for node in statements
+            if not isinstance(node, (ast.Import, ast.ImportFrom))
+        )
+        assert owned_statements, f"import facade: {path.relative_to(package)}"
+        import_lines = sum(
+            (node.end_lineno or node.lineno) - node.lineno + 1
+            for node in imports
+            if not (
+                isinstance(node, ast.ImportFrom) and node.module == "__future__"
+            )
+        )
+        assert import_lines * 4 <= len(source.splitlines()), (
+            f"import-dominated module: {path.relative_to(package)} "
+            f"({import_lines}/{len(source.splitlines())} lines)"
+        )
 
 
 def test_workflow_package__contains_no_generic_bucket_modules(

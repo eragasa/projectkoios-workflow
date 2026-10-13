@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing.identity_derivation import (
+from projectkoios.workflow.petrinet.colored.firing.results.identity import (
     CpnFiringResultIdentityDeriver,
 )
 

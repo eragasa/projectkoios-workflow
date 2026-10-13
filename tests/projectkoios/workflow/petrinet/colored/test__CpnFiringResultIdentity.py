@@ -19,7 +19,7 @@ This is software verification, not scientific validation or UQ.
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringResultIdentity,
 )
 

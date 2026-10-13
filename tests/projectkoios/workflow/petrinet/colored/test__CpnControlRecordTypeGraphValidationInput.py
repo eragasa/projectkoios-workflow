@@ -1,6 +1,6 @@
 from dataclasses import fields, is_dataclass
 
-from projectkoios.workflow.petrinet.colored.control.records.type_graph import (
+from projectkoios.workflow.petrinet.colored.control.records.types.graph import (
     CpnControlRecordTypeGraphValidationInput,
 )
 

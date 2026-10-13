@@ -43,7 +43,7 @@ from projectkoios.workflow.petrinet.colored.expressions.grammar import (
     CpnTokenPattern,
     CpnTokenTemplate,
 )
-from projectkoios.workflow.petrinet.colored.firing.results import (
+from projectkoios.workflow.petrinet.colored.firing.results.definition import (
     CpnFiringFailureCode,
     CpnFiringOutcomeKind,
 )

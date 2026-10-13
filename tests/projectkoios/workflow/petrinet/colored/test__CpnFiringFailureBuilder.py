@@ -1,6 +1,6 @@
 import pytest
 
-from projectkoios.workflow.petrinet.colored.firing.failure_building import (
+from projectkoios.workflow.petrinet.colored.firing.failures.building import (
     CpnFiringFailureBuilder,
 )
 

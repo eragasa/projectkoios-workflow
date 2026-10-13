@@ -3,7 +3,7 @@
 from projectkoios.workflow.petrinet.colored.control.records.findings import (
     CpnControlRecordValidationIssueCode,
 )
-from projectkoios.workflow.petrinet.colored.control.records.type_graph import (
+from projectkoios.workflow.petrinet.colored.control.records.types.graph import (
     CpnControlRecordTypeGraphValidationInput,
     CpnControlRecordTypeGraphValidator,
 )
