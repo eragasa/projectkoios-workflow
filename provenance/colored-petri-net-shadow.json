@@ -1,9 +1,9 @@
 {
   "compatibility": {
     "claim": "none",
-    "identity_domain_prefix": "ksdft2effmass.petrinet.colored",
-    "legacy_identity_domains_preserved": true,
-    "production_source": "byte-identical",
+    "identity_domain_prefix": "projectkoios.workflow.cpn",
+    "legacy_identity_domains_preserved": false,
+    "production_source": "owner implementation retaining pinned shadow provenance",
     "wire_format": "not selected"
   },
   "destination": {
@@ -12,70 +12,2267 @@
     "license": "Apache-2.0",
     "python_target": ">=3.14"
   },
+  "owner_production_files": [
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/bindings.py",
+      "sha256": "9e80daa12b391ae2368d45cd46f3552b53a378f88d7b388c6dba14b9b80b8ca2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/__init__.py",
+      "sha256": "50b4555c03d179113684342b41f2e2fef805eb767e5bc38e714692b5888bfac0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/bindings.py",
+      "sha256": "d8f37c3276405de294bc33a5906b840e0e7ec91e1e7d063411562f5a30bbdf3d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/definitions.py",
+      "sha256": "c187bc9d76bb91565609f49671874420747b7487bd150899b8692902ec01b175"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/directives.py",
+      "sha256": "8de71bef598b40f5e08e5f42e76ef44303c9259708a94b9b54f8f15f433b922e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/enablement.py",
+      "sha256": "e023a542d059dd9b01bffa0b76c48f53d375cd21aa2be7317d24b6a21877e60b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/__init__.py",
+      "sha256": "e22772fb7c237f40292bb0a5e05b5378b41a55c3c35ffb1ab9ee4c163425f91e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/errors.py",
+      "sha256": "735530f724b2016db153e28fc8b1dddde4c5010d8a0f49a7b31689fdd8b89d27"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/guards/__init__.py",
+      "sha256": "1f81261ca04962d0f528adfd401d7ee6e4aa3572f84c19d18983093a53826b60"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/guards/canonicalization.py",
+      "sha256": "44897f658eb841c089a6ecd9cdf32b49011fcd534733fecfe1e534bd51948aee"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/guards/decoding.py",
+      "sha256": "32d0f82fc9d24ce7fb0266630e8c967f1e1f1e6b55b77578bd3d811377aae1bb"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/values/__init__.py",
+      "sha256": "2bf9b46f614181a5a372160eae7d99fa48e8b4e4810f1f92d192999c1a812173"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/values/canonicalization.py",
+      "sha256": "300fcc3c161e7d99bab02136a9fa375d86fc3dce55ffeaab334c62409d93aff9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/expressions/values/decoding.py",
+      "sha256": "5dc83fee8d0715a8976afb9ab766270c834915b45cabb93d9295cd37934c5acd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/firing/__init__.py",
+      "sha256": "f0a81a255f4106082e9c705f9b5528df9087bcc49e7ccc983192bf44f9be5576"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/firing/results/__init__.py",
+      "sha256": "9c86290cae8d09eb80d4348cd62ba06927eddb669d097acad66d01049fdfb2ea"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/firing/results/codec.py",
+      "sha256": "1dc214f96f50af6a707118438ebf4666e331e6ed9c2dba44243ef02f10f48807"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/firing/results/documents.py",
+      "sha256": "c4908d0f354a7e04da620bc61a7555a42196b49c2263a7cfca0a986643d83bf4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/firing/results/identity.py",
+      "sha256": "c9fe345705879e93595764fce1cd9b35e3d4ed9973fb4c06b02a32ea598e7a54"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/json.py",
+      "sha256": "d6e1e2545fc49a018359414d8b432355a0d2082d774b6fc337090f322ded1e0a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/markings.py",
+      "sha256": "841bb02cb697cac07e95cc4c5fd99ed151d4b8ff761d3e554a081a4aeab5e34e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/canonical/selections.py",
+      "sha256": "0a4e9ec4fd083586d1d002bdcedd8caf0c431c9341a1ead4ea77e97c9fa85dd2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/__init__.py",
+      "sha256": "e321b28c45c88804c61a8c64b078242bd574dd8450c75ebcf6a199023121b991"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/bindings.py",
+      "sha256": "1377212e01cae3e326e0e73aabde19d66b1b49da909c1d51a0aae717fc7ed329"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/__init__.py",
+      "sha256": "631aec03fe5fcc9d54239597f4880038695005df6b68c35576fc9a0d9ecabd2f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/canonical/__init__.py",
+      "sha256": "215498b1bdc8cbc6e265fd5469f51d5a8a32602ec39f88fac5474dbd17c9978c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/canonical/exporting.py",
+      "sha256": "7190dca45abdb45c1b5afd02ccaf3c6e67c9036d07cde1aa470f9d8d94583727"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/canonical/identity.py",
+      "sha256": "c805f9b22c08396608be60262342b2d980c0f1d6ef453d311f4e717de5b74f07"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/definition.py",
+      "sha256": "ffefdc677470127faf0f8d632d21c6d958adc67d563685e3025829842784be64"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/exports/evidence.py",
+      "sha256": "9cd64fe9c898880fbc51b0b41eb53da364e5dbf6dfff6784279438b88610528d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/children/interfaces.py",
+      "sha256": "e705ab55731e331bf6671cf3ec98f7ac1af0e45deafb05e27a1ff086cba714a1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/closure/__init__.py",
+      "sha256": "fb20d9e9f638533db275484d56fc0d9c29440573c99f4e83a4d231dc645b4f68"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/closure/validation.py",
+      "sha256": "b9329fa5bb4250cdb940b16d3d8dc37b13df1450c23334a9b1e75b80f5067f24"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/__init__.py",
+      "sha256": "cd325c85c6a5c6639d332356f949ecc3cf2d8b7287bc9acfdec5782e685baf09"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/__init__.py",
+      "sha256": "62f7af9394c5f4266dba2482f19224d87408487730517ef774395dc936f62b30"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/canonical.py",
+      "sha256": "ffd6fd63fdc540b24af4436e2d16d36689293488b586fe74762f234ea05f2f8b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/findings.py",
+      "sha256": "e48c7589f5db6783a9f7ac33460fc0f4786e7eb482f9a8e365ca02025793dea2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/ordering.py",
+      "sha256": "27362a01e7c0e5bfb87278d8e50f72c97849749191613e94b77f779111271f87"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/schema.py",
+      "sha256": "a042f88272db45630244d077ccf9d9596a0b3b87f80f3ee17b1bfc44127b1c09"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/types/__init__.py",
+      "sha256": "e67e25772163eb1804674fd23fc14bfdaabd58430631842aa866f3bdb2a9319b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/types/graph.py",
+      "sha256": "60eb48ea867206e983eb7b1d74e2cd36901e4b622472057129217566824c9783"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/values/__init__.py",
+      "sha256": "904050776d5dcdfbcffc0230d5265162f877acd1167a1053bff1f6d92652f7d5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/values/canonicalization.py",
+      "sha256": "8f1ff3794254a7ce014923a371873242a3ddc435506c52c2996f66429ae225d2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/control/records/values/decoding.py",
+      "sha256": "468ba83824707e140524d95208b12f1cab7c3702a6755245c6501f7ed4c37372"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/deployments/__init__.py",
+      "sha256": "4e0c0ca147c0b6df2aba5819b254b8ec82d69e3f1ed3ad0c915163a4f25f17f1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/deployments/bindings.py",
+      "sha256": "6e716352da0d22159704ab172c0ccd4819a1c7891710d8d9f799ad065028099e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/deployments/linking/__init__.py",
+      "sha256": "1d8e478dc00af31afd68dda661449e53dd485925f3c4e7e0bc0bee32bd540724"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/deployments/linking/correlation.py",
+      "sha256": "481490d8f10fddcbce4f8080346c38dcde137c2cb52ddeab9146d35f8472f469"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/deployments/linking/graph.py",
+      "sha256": "5d0dfa1fe9d3b409d5c76be3fc6b02d68a0cb79dd693b3a92531e913d3cedee7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/enablement/__init__.py",
+      "sha256": "e652f9b209b1610395d4af8b299cbb336adf3d469b9c333ff436540425a18cc3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/enablement/failures/__init__.py",
+      "sha256": "13f84ff9b8698a55e424d5d3d72d7579313f380737633232a1c592f46171b50f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/enablement/results/__init__.py",
+      "sha256": "9d408b7429cff86b24529a6d7e36b6916202ccc5f844359e2371d1f2f1d69123"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/__init__.py",
+      "sha256": "5e3c55decff9300e8fc03586a839f041f1dc67571246a1630ab4086031c8bc59"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/collection/__init__.py",
+      "sha256": "5a3fdfcb77d5e81ca5edf496f190be03d236b6ca874290c52b1ca6ab24127cc4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/collection/expressions.py",
+      "sha256": "a4900fbb1d2a8278bcaa2ba9c85208e255e247661a4a7998c29621cd6c4b97f4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/collection/guards.py",
+      "sha256": "ebce3f5cd7e73adc01dacca020e34f1b652c26e95a7c545acf304e63742aca88"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/collection/variables.py",
+      "sha256": "4e92ca6655101491a4105ef9615f81827580381de55e03614b2defae7e53e762"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/construction.py",
+      "sha256": "cbb10353eaf7e4c7000288e4299520c39bd566ed0192500cd1d4191d3d8bcda2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/errors.py",
+      "sha256": "42f235e6b574fd96961f01ab4f87d372b15eae563f8d0aa41c8008da010decbd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/evaluation/__init__.py",
+      "sha256": "24708a701374d25cefd3f203983424704aa42067ddff3be6774ec0f7c65d7e29"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/evaluation/expressions.py",
+      "sha256": "140f9923748ec517a9f833a8421b37f08ee602a29737829549ffdc5716fea04c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/evaluation/guards.py",
+      "sha256": "4811c595932f3a3694157cd04d8586ddce3d2db3aa091c534d322402ba676be2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/grammar.py",
+      "sha256": "013d83b5f9810e47ff1286536e93768ca8f529e7b2862ac1ff53cd1b55f75bbf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/projection.py",
+      "sha256": "26e6a0519678896a7f068d0d8be5828de7b4d98f61a5f45edd4d802281a0c5f0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/validation/__init__.py",
+      "sha256": "46fa7f931e7f3bc426dd93ee6243a2cdea2214d3915b8c2c842ec0395bbcba70"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/validation/bounds.py",
+      "sha256": "dfc00155108e2ca145436b2800254cb6891b41000c90d531673f601e723ec8f0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/expressions/validation/structure.py",
+      "sha256": "c1200cc4e951af767cf8f0f081efa9d15e20f5808987b817b1a0e742abd83fa0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/firing/__init__.py",
+      "sha256": "e652f9b209b1610395d4af8b299cbb336adf3d469b9c333ff436540425a18cc3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/firing/failures/__init__.py",
+      "sha256": "cf42349586dc0ce7adad0ab6c158428093acc718dc23e0eb892d8ca0a7085338"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/firing/markings/__init__.py",
+      "sha256": "551a55a8abf0493226a60a5f877132e2c9135e7bf45c23a2952f6caca475ab61"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/firing/occurrences/__init__.py",
+      "sha256": "a514e3b612d77a64740b8089dd512e96e4e73b970bc4b703d5b5b0daf8c4684b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/firing/results/__init__.py",
+      "sha256": "955f52399227f1a4f09195d102a4ec96b3d3bf05c70e8b4d6e7a8cf30b4de102"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/mappings/__init__.py",
+      "sha256": "f2b6b65dd9165e6eac421620d89ee477c2ea2d32abac6125f4557a1193cdd18d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/mappings/values.py",
+      "sha256": "b4802ed8df8345dcb53c3abbde6b4d6b657d2f0db2f6c9a1a9c9bdec3c0b77e5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/outputs/__init__.py",
+      "sha256": "0ac0b06d71fd916cf0b292e11fc187b33c9414e4ef96f72cb88cb8a5a4bd9677"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/outputs/external.py",
+      "sha256": "59bc635c8f6b1f84785abad24876862cffbb18bec00efc1173f40f081d7395c7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/__init__.py",
+      "sha256": "ae8e47111349cad906ce5e1d1e930fd3b697701342d2ea11b528d7f8c556e8f6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/bindings.py",
+      "sha256": "e89e41bf3d81ce18491ef0dd1c8591d06f4ec41c650536c46f2ecf879606a1e3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/references/__init__.py",
+      "sha256": "b09bd88c1b29d26b2de17057bf6ccc1b994f10f9d2828308abb21e07b469971f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/references/assembly.py",
+      "sha256": "b2dd320eef85a269a435f678849ca3627cd0d8d448b1bf54ffb508d6e9258085"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/references/canonical.py",
+      "sha256": "38ab998f13f452e25228c46a500d5cd255af0976e25d5fa43d8df80279b4b9a5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/references/definition.py",
+      "sha256": "52c13e7a8302e097c44a1ed7ee14d2f82e5bae84d26d0edd06b12fa0769c5f17"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/payloads/references/verification.py",
+      "sha256": "8539b1a841fe4f3f1114972adce5f4b8045beb51e1fe9af89dc3ced159f96642"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/plans/__init__.py",
+      "sha256": "ea3a6f3167a1bfc160fe40fb6b8caae3f8e0bf17ed1d08fb5530544b965ab0ef"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/plans/compilation.py",
+      "sha256": "8632041cb973fc2a0c4f07f78572e2ac9b611858b1caff2fbaf91d45125f3abf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/plans/definition.py",
+      "sha256": "80515ce9adc424b79190f955b3b3e0b058d763d9d925d8f204752f539d99aa64"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/plans/identities.py",
+      "sha256": "49ab611a6096247192465093f07741913ccb3e622b10142effad50652afe2699"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/plans/identity.py",
+      "sha256": "3c39dce285c1d065dfcc98b77bbda29dd808c800cf17abb70fa6e0bcaf2b3ed3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/__init__.py",
+      "sha256": "0288b26d9f691ecab5e641ad94c0ea77c37ace61302e27bd8b0bbf08ac920d3c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/building.py",
+      "sha256": "ee5e6b8882f581895cb564cdfd6b49318c8c179353474bf80c14e7414db49a3a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/definition.py",
+      "sha256": "97c247cf2b48140af4045f613076fad24d34a9af471caf5d99c6c4579b2f848e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/profiles/resolution.py",
+      "sha256": "b163e37c33e8cb47b8bff4b2f7c50b5c5a109f3626dd260de755a5721ba90362"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/routes/__init__.py",
+      "sha256": "ef2f51737e1ca6fb41e4b5e06ec126e1a8640c8680e20971926c8f08573422b1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/routes/transitions.py",
+      "sha256": "65cd1296b71207e6ba1db598db6ba7578bcc5757cfab5ac4c50898946b1e664c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/__init__.py",
+      "sha256": "8b62d77ec081b7d70029b17e451f867d5f31bc08e9034e199d2cb3fd976e03b8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/contracts.py",
+      "sha256": "c0ca4f1192d18323c1d58a3d4449a4c3a5f7db98d2c32744f18664f1ba0d2b6f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/firing.py",
+      "sha256": "eb7ec5d7b73ccd124295e8d356a7050ef8520868bf4346671050c86dec375268"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/replay/__init__.py",
+      "sha256": "40e05b313aed16778c2cfe3d68f422a899855375897299076b3f0d6578b8805e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/replay/action.py",
+      "sha256": "55938db9d0edfa8a16cd197e2be392fe44d4958e19c1631c50fd8ea6b788ab13"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/shadow/replay/contracts.py",
+      "sha256": "9dfe1a10e0ff1b395d2233e4e80a237c1f82a5fff59354d97cacfd39de5577ad"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/__init__.py",
+      "sha256": "948cd2e96443468123f73ec48e72c23455956994183198f393d0502b16e52d93"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/definitions/__init__.py",
+      "sha256": "27d682faf0168f71e561486d3be6ee184c3729d0dd15dccabfb136ba24042c56"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/definitions/complete.py",
+      "sha256": "7faec6fc162934941fd66992008be44b993cd7de18765c6bc9986cc2f0945ce9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/definitions/input.py",
+      "sha256": "99965e96ded8b1294651cecc15dedb136147fc9f6897a3eba48a9627f53cc3d8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/definitions/output.py",
+      "sha256": "7e5829e3f982456ffc95c166b3f3e5bac73811a27936b16cd2d37d64614b0c6d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/findings.py",
+      "sha256": "5484370f758e36d6cee5cc4d3c1ccc4df9a0b74d972cb7386886159d75e95557"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "src/python/projectkoios/workflow/petrinet/colored/validation/markings.py",
+      "sha256": "7abfbe1ae8d9cc51a48c63589f5502abd460f3899a0bc54bf324d9b24e4e3cb4"
+    }
+  ],
+  "owner_test_files": [
+    {
+      "origin": "owner-authored",
+      "path": "tests/architecture/test__cpn_architecture_documentation.py",
+      "sha256": "dd3dbd59b25157a185e024bb46facb334e1ada935deb806a99c8f52f0ccab9de"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/architecture/test__cpn_public_surface.py",
+      "sha256": "08054dcd60fd71278f034c02bb782a6c3695bcb08969ed8ee04b08e8de0a853d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_canonical_binding_fixtures.py",
+      "sha256": "ec760b86ca37ac81cfcf3762bee49b95e7d00bdadc2a9cd5cab409fbe04f510a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_canonical_directive_fixtures.py",
+      "sha256": "a51ac02ce8bbfbde8af2f0a8a73d1366ce851745af4acf2cfe57eb3613f5433f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_canonical_enablement_fixtures.py",
+      "sha256": "1673d729cfd539065243db68887c81c2e5d227220d5a5d0698f85876ce09bbe8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_canonical_firing_result_fixtures.py",
+      "sha256": "3399bb27ac2c8fb1c9ba75b2b3ed5bd7b302243f5b40f95d3b1aba4fe94ee0f0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_canonical_selection_fixtures.py",
+      "sha256": "4600af915fa69f3c18c988dab1fee1d0c57e1ae1a659bd2bc2fa8c839135af30"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_child_export_evidence_fixtures.py",
+      "sha256": "d7b842db9c753f44b69ac4b788461a541342e0a31a7557d4c7e2ddcfe5c9ad2c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_child_plan_graph_fixtures.py",
+      "sha256": "41326e3e4973021f66ea8eff41fae8ba0eae8d2b19a093de95fd1b543aeae0e4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_control_record_fixtures.py",
+      "sha256": "8f69afa4cf8bc102687fc309b7fa77b5bf298cd561fe7f55eb8431ef77a2ea96"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_deployment_fixtures.py",
+      "sha256": "4a8ab5bd462822c2d12bcdcf396c991bb79e5b28205840f6ecc4672acff4aabb"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_payload_reference_fixtures.py",
+      "sha256": "c35d00d45c71451e1239ae291c3a08d759ab1ecd947e460838d1d7752fdb95bc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/_plan_fixtures.py",
+      "sha256": "7685879571c3ce9cf653d66562ef9fa70d1620f2cc7f228c406b0e61b8a8258a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBindingSelectionRequest.py",
+      "sha256": "c94cdd71cda70e1657901db9f8f980a3304e4338a60d293a13dd8557c232690b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBinding.py",
+      "sha256": "41053c060ae82bc10e1a148c6191f89cfe3c2e2cdc129e8d8f66a24d6cfc93be"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingCodec.py",
+      "sha256": "8bca5bf7883c63c47937c323d3d4a7a153961a6e33e507a23d2cc2ea0db61380"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingCodecIdentity.py",
+      "sha256": "84f7c468f3afb565d16561aa331961376bce39100925a51cef0695c4b4a1c224"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingDecodingInput.py",
+      "sha256": "35248818057411e821fbed1a66a55f5da3ec4de80e86b7c12c8168a7b705c0be"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingDecodingResult.py",
+      "sha256": "909990704e7c4cad4870be1911ae00000a56d50c4aa9eb62118b703a9976500a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingEncodingInput.py",
+      "sha256": "b17fc892e1ec17ce716c2a4831e0628ac6befb9b77a0680f34295e6b0e5cc6a6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalBindingIdentity.py",
+      "sha256": "b953d52e96af37b9f3b1ad12c40ef6d557edbc54a0d6e1388bf3abe52370b7f8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalCodecError.py",
+      "sha256": "6dd655c53e67741f43bc8dcecdcacef4e74d2523ade8d6a5a1155eaf8ed26748"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalCodecErrorCode.py",
+      "sha256": "03692bd88174fd36f0962c0d7990d22d586937356aa8d95dff7917f659c31d74"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalControlRecord.py",
+      "sha256": "95c0959d8d68d7059a4d50e921afd096e9081f3f511914d16e3a424d71a4d3bd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalControlRecordIdentity.py",
+      "sha256": "dc8cfde02829abbade73c4ad1ed1a401671d98bf864d24a574efe959cc1753d6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinition.py",
+      "sha256": "6b6ce8174b1836feb111f898ecdfd4ef67c18085e9e8ce9857efb883aa254afb"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionCodec.py",
+      "sha256": "60331a1c6645d7d922abde498a60355617c37d7f1859bab100cff60fcfb0b657"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionCodecError.py",
+      "sha256": "691b5beb5aad89d2d0ce059a46c517dc858831902be7a8dd952ac6354cc58592"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionCodecErrorCode.py",
+      "sha256": "37299744e56d9982bd169a1a24817244f96997f3742cefd315761485a6b79634"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionCodecIdentity.py",
+      "sha256": "309471588cac42b82273b63431dba4b746dfff4ea035df5c54dd1e66d71287d5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionDecodingInput.py",
+      "sha256": "45227ab433f7453b48ba988460ae248e4397a3535fbba7bd2167b80a2ba4a338"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionDecodingResult.py",
+      "sha256": "e16acaf8cbccf1f61795a456dab19f1839056e006bc5137768706087e6647213"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionEncodingInput.py",
+      "sha256": "d5f8a576f57f3322a990f6a067ac79fd1209839e03f782e3e206eaa24700dd35"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalDefinitionIdentity.py",
+      "sha256": "c14e06c18c7d562b2296ea719a97971d97f1ff87d6ad1e34d39f2f6c7ed63cf4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResult.py",
+      "sha256": "cf7b0de838869b2a24d1e2fc89c1e11946d31fc09069845c58efb84c216fb378"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultCodec.py",
+      "sha256": "a44621282822c975fa06b7925349185fe2f05086cec7cf0a5f0d8ad28c2fe8aa"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultCodecIdentity.py",
+      "sha256": "db7d0e823c5a8030185d16731185038a07dbee86cc2a28b874ba24b47ce36fac"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultDecodingInput.py",
+      "sha256": "0d240cb210ba281a227ff7d4409ca904ca79d71799ebc4d3cf05f687e61c9020"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultDecodingResult.py",
+      "sha256": "e597f9347dd0561fd8f4c20eff0d568d7dba4aad3e64e95289928d4b70c014be"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultEncodingInput.py",
+      "sha256": "84b688a3749d5d8746e775f4e1564dcffec5ca5b7eebe88cda1d5f8b3190d5b0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalEnablementResultIdentity.py",
+      "sha256": "f283d4901b874604c0515273309971151c125fa09912a383719bdc33e6a0ac7f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResult.py",
+      "sha256": "cf74bd172ebb80ddb62d891cd5fb027ac914507914c9df3a85e09ed7ba17c50e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultCodec.py",
+      "sha256": "59ed34fca9a882494ae346cc6f10001136790dbf250101fd3f151e0ffb3835f2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultCodecIdentity.py",
+      "sha256": "393acbef835a8cfc9c7f6758ba3000e6265dea4bf71103851cb16230ae19a5ba"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultDecodingInput.py",
+      "sha256": "ae0d15f52721a14daee7ca5ba35ed73c00dab62a9b7b761005d5cc790e553b85"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultDecodingResult.py",
+      "sha256": "ccd79946480490db53ee5c2d61afb9cf073c09f3b387ddf819e3df5e1628a182"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultEncodingInput.py",
+      "sha256": "78a70d7e1cc3f9f549bd88a1f7ab412ae0cecf3b9ec17c8139925e4a6d321714"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalFiringResultIdentity.py",
+      "sha256": "cb4fb7981e43e8ddeaec08c7a61df20ac0fc0f2b65fd2c527ba93af89cd28052"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalJsonParser.py",
+      "sha256": "95e09d040cc9e7b0016091e6e31fd3af67f64e3c9bc5ccc0dff867accef769b5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalJsonParserIdentity.py",
+      "sha256": "2927221200b68d77df52c0521732ce6f1db78b4af17c5d8c773b8c78df258e8e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalJsonParsingInput.py",
+      "sha256": "fc92c4081fe56bc639b85055266b511b2a05b3c748d81f847388e6b583e06dd7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalJsonParsingResult.py",
+      "sha256": "0d685863e20ef6380a76c128ca2b5ee9fc9485cd48fda9130739ba67f4bff458"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarking.py",
+      "sha256": "498de2ba11d7b1f668e25114782fe5911a8358202b7b3eaccefffd6cc1980037"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingCodec.py",
+      "sha256": "10b719b7ee7309415ee5b78ee7d67ab2063c023af79a48e9a4d0aca03cba9880"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingCodecIdentity.py",
+      "sha256": "e6f6ba74a7db1d0b8bd91709461562148351ba7ebbb825511944099f7cfded2b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingDecodingInput.py",
+      "sha256": "24f37788ef64cd4de7b67b34625f0e327fbe440f19ab0781e8c2a089a2730f33"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingDecodingResult.py",
+      "sha256": "a6fb98f51058e47a73acaa303f944919978d33798b98fcaf933d2926d3394323"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingEncodingInput.py",
+      "sha256": "db5549e18d745196c3b27ba8482fee79731997949d2e3a179cb8dbc73ea877ce"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalMarkingIdentity.py",
+      "sha256": "d050f75c42452d69ea2d9822e645d211f4065457a0cf47aa818f8ef8183940dc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirective.py",
+      "sha256": "4d1bb41f07fde442aec8606d99d538bf402140ced1ef4271105ee274f4ac9215"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveCodec.py",
+      "sha256": "4e942306a31250d794c1a1f642541cd6b26314b860ba0c000b9e5ac1a85d5d9a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveCodecIdentity.py",
+      "sha256": "0a9cd157984fc3eee4852f55b4b7389eacbc25c402c8b2f2c31c4d57cfb30005"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveDecodingInput.py",
+      "sha256": "a4536c271f46c378b35e20f5b21e76138897a26828d02e1f349b3f214f061c92"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveDecodingResult.py",
+      "sha256": "5eb492115c30d3cd9991aad43fdb98ef2f24116cf5cf4cead4bb73b76d78c333"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveEncodingInput.py",
+      "sha256": "9e76bb4d6c4ae0a4481a68dca1532e3d52e0f91290075ab722d5cdb5c928451f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionDirectiveIdentity.py",
+      "sha256": "e9455d81caa21549d565d848901aba702be00ae96e1e82697cc4210ce764f692"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResult.py",
+      "sha256": "2cb19d158dad5968377ab964d200739624432fe746eab446b9ed0c9918b4fa45"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultCodec.py",
+      "sha256": "3b46d89f1acd1643fa2fb549a8246453d9029f647331ab724fee6db5b6c5c4cf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultCodecIdentity.py",
+      "sha256": "49e5869057a382217e9e00c09d72b1a2929121effd44efbbbb882ff4240d39ec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultDecodingInput.py",
+      "sha256": "41a1fb1f5a465142fbd601068da2bb4d75bc54ae660b8f7a33a40630aef66298"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultDecodingResult.py",
+      "sha256": "65026ff27d50d47c3becdaaa2715fd9b5c2e25f8fc9c76599955f264cbf26c10"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultEncodingInput.py",
+      "sha256": "e7a61e59673955520ffd95fda6902f278072246d752638f46aec02baf06c9597"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnCanonicalSelectionResultIdentity.py",
+      "sha256": "5db5e886ef9a78eb1704d04ede5bc692633cea1088284e2dc09e173dd5e1ed6a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecord.py",
+      "sha256": "a059d4ed0da124c11fd4d5c2c27d35145061312c7eba134b78fb5aca69dbffe4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordCanonicalCodec.py",
+      "sha256": "85c8bac83e098354eeb043abdbb94f4f444f9f033f4b0ca143cd1a835ea1d383"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordCanonicalCodecIdentity.py",
+      "sha256": "8aaa6a54baf1db60bea8896e31dfe93ce552fd749e458642901392f807022ecc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordCanonicalDecodingInput.py",
+      "sha256": "c4e3933df898dadfbb97bf022e47b22891e7143313cdf0d0990463981af79929"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordCanonicalDecodingResult.py",
+      "sha256": "91beffdc6415b7302d6b23178fa7f04c2afc2a571d540d22993be41a97006473"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordCanonicalEncodingInput.py",
+      "sha256": "b5cd4f0b6893479dc13d67ccbf453eac17485e358b2aa20b66c681eef0675190"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordConstructionInput.py",
+      "sha256": "12890b759ca1f59ff35ed6b2fe6281daf6413da3aa6f9e9dfcc9ddb36f0fe5cd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordConstructionResult.py",
+      "sha256": "006653c3d537147060685e36e16cc5c5214d9e2c4c574969f10b44430954403a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordConstructor.py",
+      "sha256": "5c21e8d53ce0e4a86396dc49e7c2254a629905af236fe88129f20506437ec949"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordConstructorField.py",
+      "sha256": "0744ddbc75140da70416c6bd67468efb17b53434d9ca042d8adbadd10bb37a5d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordConstructorIdentity.py",
+      "sha256": "c233bb2b84a4ffa5a066d31dcd8992fede657b7fbcb731ea1f4d126d88675dba"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordField.py",
+      "sha256": "f574e4a6937476ff3ed5d01a1df0b382ba31227c9d7e780fd36e0fb084695e72"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordFieldDefinition.py",
+      "sha256": "bcdf6bd3f2016ea3073104108f77dc2ccd360332cb3e8b3bc8085791456c5a22"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordFieldIdentity.py",
+      "sha256": "d827f3a448f831caffdca1ecf36c168711cf03709239b54dbc6562ce80853479"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordSchemaValidationInput.py",
+      "sha256": "92a857095599de4f61dd4d31560b659d1a7dfa3d144e43cf0b1546b264c37240"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordSchemaValidator.py",
+      "sha256": "9484c6fff8961891fd5a7ead770962b2f8c2254b54b6450c5957701d1447ee31"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordSchemaValidatorIdentity.py",
+      "sha256": "0325356de2fa2e8b3fb6edd980b8d2b6671b17d69a19b29c8e79dbce4b26a450"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordTypeDefinition.py",
+      "sha256": "e34d478e363e743a307029ba1af686058c0988bd14ed24a44cc813f3a64e1dd6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordTypeGraphValidationInput.py",
+      "sha256": "5deda200ca41b4107177293237ae0e05752f81b1b16f4e621401a83acb96ad0d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordTypeGraphValidator.py",
+      "sha256": "bafa6483cb21f50daa5dd41425612d38f7f793d466d832ef4945cc2e7ee13a8d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordTypeGraphValidatorIdentity.py",
+      "sha256": "ace70c30eb92ee7077b66bb9470cfcd07d209ab2e308195a3f572dec043d73c6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordTypeIdentity.py",
+      "sha256": "ed59e515c79cf3dff98ae9771fb65a6ac72ec29462592042fa197d741712e143"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordValidationIssue.py",
+      "sha256": "f198f7a41f53eabdf1c68ac15ef6e10c1146fd12c3cc7645fda7ec57b2683c26"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordValidationIssueCode.py",
+      "sha256": "d6141373133e39233948ccb392916f9ccbaf6f4382289e5511ea03f689a952f2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnControlRecordValidationResult.py",
+      "sha256": "9e8741bf56dd24f7c3b384c8bdeab76d72563f2e9f903cd9222423270b04928f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinitionValidationRequest.py",
+      "sha256": "b74a535e95c6c6d5c674a4b6e33055576871e2837f0259513808f26bf7d6bf8d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinitionValidatorIdentity.py",
+      "sha256": "8b21f4b6cbdd21ca6303e344e81f29c094c177be9cf5465c1cb7989422a68bec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnabledBindingOrderingInput.py",
+      "sha256": "df932d56e4b120815e3310c49cc92643c92c60382d967309246ce80b8aa3df73"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnabledBindingOrderingPolicy.py",
+      "sha256": "ad63ca0893e07eee7e9d38f645056c7da28e1a72aeb6d64f0b7350e017baa221"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnabledBindingOrderingResult.py",
+      "sha256": "5440d3866b3546ddb8deb9379dd01654c31dead4723856460cd37969486ca67c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureBuilder.py",
+      "sha256": "dd800f26fe7cba1862eb226b87f7e5e093e07fe8935152a55ab61a3399c1170d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureBuilderIdentity.py",
+      "sha256": "6929cc0d2b359e4f5dbbffe6c6174745fde84e7fd18f6fa1305945bfe974f36e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureBuildingInput.py",
+      "sha256": "294fb73cba123e136783efe07ca233d25aca004536857ead12e7af37eded8ffb"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureState.py",
+      "sha256": "09a0bf62f261b93facfd57bfa0076e83480aa89f953351c347ccb08fe53c4d6b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementResultIdentityDerivationInput.py",
+      "sha256": "3f4c52b123bc02c0a7cb81a053b520ddedbad9917f588326a8ec4d2394cf2f75"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementResultIdentityDeriver.py",
+      "sha256": "c56177b0d7f35156a1c0f5f5603b9d416c48f7f1d0e097f2d72a31ec3ca25aa4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementResultIdentityDeriverIdentity.py",
+      "sha256": "94942f8fb6a334dea9eae8d40a96ae316ce8638103517c84fcd2802f732343d9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionBoundsValidationInput.py",
+      "sha256": "254445d3c4de910e8da32df07a639108bce4ef84c5803217759846866048cfce"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionBoundsValidationResult.py",
+      "sha256": "a0e9554f5febf501cfdc6d46142b829b6d44bb530b66b9545d96979259a188a2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionBoundsValidator.py",
+      "sha256": "d6f404dd4172a39d2efea76985c8e55f7309e2a6bbd11361c2a0d022c9bda49d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionBoundsValidatorIdentity.py",
+      "sha256": "a16df3c620580f859b706558d54ca14ac5e8f80d2814aba76cb478506a5aaf12"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionCanonicalCodecError.py",
+      "sha256": "1ab29fcc4a7fbc51fd14658a6bd916b833a28b1a747ca3c442653a5b411916af"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionCanonicalCodecErrorCode.py",
+      "sha256": "8a457bef7ffd3c2fcab8e436d1f172e95d76d72e98d65b4b93b0338aa53f3f22"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionEvaluationInput.py",
+      "sha256": "20d1ba3f5325538572cd028778967a318bd932f8cb1352aca4cedaf7bdcaf68b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionEvaluationResult.py",
+      "sha256": "5143d657dc7cd064b8fec647361b618e9d286c38a91275db063317ba4c8023f6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionEvaluator.py",
+      "sha256": "eb92f5e409850a5888ceace5de943cea46693db76201184e1e3c0378e0405084"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionGrammarIdentity.py",
+      "sha256": "79897fa38a28934b2f6d72e5422c464c9fd2e964889d981f46995def93014929"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionOperationError.py",
+      "sha256": "0ac145b21d14a1ed8a82fd14c08b22113489bf7713432f42c05bc5e71e6514ee"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionOperationErrorCode.py",
+      "sha256": "4aa4326cc6f85a157c0643bb955483c9ce79d873fe430c572ddb27d3b670bdb9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionStructureValidationInput.py",
+      "sha256": "b56bc2cf8710d85d8d5c67aba3a0fc54e6bcaf03393d05007e566979055573fd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionStructureValidationResult.py",
+      "sha256": "b290b6edbbb69d88405093acfd6c8b9b6fd9fd0ad8d029f8059cd2d44f303ef7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionStructureValidator.py",
+      "sha256": "80662001981cb378c36a34c4b0e309453c87b1e796f10f6f66558cad647dc365"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionStructureValidatorIdentity.py",
+      "sha256": "71ac39644e4816bea1aa131f26eb07ca966afafa2cbcab07ca9e07f51aebbcda"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionVariableCollectionInput.py",
+      "sha256": "247246d2d892100d1e8f9e21c25434213fd2a4bddc1ced7ca8a54639beb122fa"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionVariableCollectionResult.py",
+      "sha256": "05a525e5d9c455b8960ae5d1bc27898edd1ba16e25bd6afc81e7da442808f519"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionVariableCollector.py",
+      "sha256": "b6a5d3e1379016778f2d4d81b519ec42693191b85bbf0929c82028e1483bb6d7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionVariableCollectorIdentity.py",
+      "sha256": "fec34eed1b9abf6afd1170e6353072119ea80e6c3a1e8714411820d48323b1df"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidationInput.py",
+      "sha256": "48072801856b8fad9b0f644091476a21ccadee94c32cff8485fb218b022281dd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidationIssue.py",
+      "sha256": "14a662b60a8bb67c843aa0ec0d887ebdb5c7b40d3d3940fca1b02a37f52cdff6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidationIssueCode.py",
+      "sha256": "cb22c3eb45d59f2da561ba7062f6439e4477c07ad3827ae7191c002adc718537"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidationResult.py",
+      "sha256": "8832ddf0320fd7d7108008cb2e4ff27a4dfb56ae153e91a9453d4807b7d76941"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidator.py",
+      "sha256": "0e69217b7bf6beb8e9db33793993244d53cb5dd980f110939120e73eca5a13c6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExternalOutputValidatorIdentity.py",
+      "sha256": "acb4b2376c3b9315a0e7ea807e3ee96c3a6767541e02ab9e4a24af1ee1e5831b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFieldProjectionInput.py",
+      "sha256": "863afec67f51bed333b146bd4759c460d9541609faad97da770822b7373eb4a1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFieldProjectionResult.py",
+      "sha256": "0a8758e26fc34dc1def07e683bd7063b920fce379abe4e0bd2e47760b7d02567"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFieldProjector.py",
+      "sha256": "c81f2a51f82bec927f9882d94c3269f3fe25ccb02f3aed191dce9f6e63453fdb"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFieldProjectorIdentity.py",
+      "sha256": "20b8d8955bf3f3469946c1e2e1b2c27294fd4109de9c9d5bf93052b61c95fd1d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureBuilder.py",
+      "sha256": "5449dcff7812d651fdae77bba4d73615d585e9016256dc157fc08e92dfb4d170"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureBuilderIdentity.py",
+      "sha256": "e576570c8a98840ef83084ddcaa3534ddbc35a47e2cd3a367bd45e769f53ba51"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureBuildingRequest.py",
+      "sha256": "f4123802267cb17cc1c800aa363c0018a87268bbba8be555df8f729f9fcef41f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureState.py",
+      "sha256": "062666fc9e3af97d54c611a84d74f855a203a4de26aa7239d065937e45831711"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringResultIdentityDerivationRequest.py",
+      "sha256": "869e6b97b61f44493f020ec5fefeedad8f9eefc9f7270028aed940d0bc250464"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringResultIdentityDeriver.py",
+      "sha256": "22b2720a72a2fe728fe58297e831dbfb391504ba2d919287db2eca08875c7a11"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringResultIdentityDeriverIdentity.py",
+      "sha256": "d7f6eec45df76f04e0c8e377fbf9b070fc4fdbc80b1c39e8c66e24a30c4d422e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalDecoder.py",
+      "sha256": "fb904ec3f71298e33a5b0a11187555a26b10059fcf80ea7d1395b283fcded778"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalDecoderIdentity.py",
+      "sha256": "83f660b2d449d371d3c5930ef700ae559d5a66e9bc1f786ffb869b2c162eb6a8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalDecodingInput.py",
+      "sha256": "5777b4261aedf88899aa2c6f3a3575f4ddd1c5fa57c750d397afacceb3b339db"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalDecodingResult.py",
+      "sha256": "f5c233b31eb492eb9b9cf64eeec5bd300881da5544f1be0a8233def80f314f56"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalizationInput.py",
+      "sha256": "122d8129741f651d0b3acbf536b7c1d1a72e88a25747d37f49c3bb7b488236b2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalizationResult.py",
+      "sha256": "51a287b9ebcdc37c916552c43289400705c99a3d3b53322993099953bc931183"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalizer.py",
+      "sha256": "b7cf6a758de980b585227667de6388263087991e3afe2a5b9b7113d4b2a8187f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardCanonicalizerIdentity.py",
+      "sha256": "65e0570709dbbeda63df249f95dd9343d7fe0c93db83626e1f2d58b37ab8fef0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardEvaluationInput.py",
+      "sha256": "20c8cbaff4e8ae38b3dff1d04a39ef9ffc2c0946ef7458e1123b616a3835dee4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardEvaluator.py",
+      "sha256": "81c9cd574ff62f694bf4249ae217f0986a683e47cd8754848b4f3fb1a2887432"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardEvaluatorIdentity.py",
+      "sha256": "72d12e22d31ea60241c783a70580c80fd0032488312b69aef501946eb8365365"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardExpressionCollectionInput.py",
+      "sha256": "53f1193223dbe3970cc778cd6e72b77ed4ea3987449e40c1ac7c1872de097cd7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardExpressionCollectionResult.py",
+      "sha256": "9a201865fdcc4ed8185d283c7b2b459dcff94dfcc1019058acee6ef0bc870109"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardExpressionCollector.py",
+      "sha256": "187db74a0905f02d8e10617da99787b9c303cfe3ebd98213eebb40af75382e04"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardExpressionCollectorIdentity.py",
+      "sha256": "c01e4060bdf03a440b807308d190821027e143757e82cf639e7f64c8e23baed3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardVariableCollectionInput.py",
+      "sha256": "9bb9e219346eaa8621b285327ca5eee25eebf9c7dee682e9da590af7816e8c45"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardVariableCollectionResult.py",
+      "sha256": "4743229d93768b5d77a78cd5acd57a77312166fa3e624dc7e471e825e0eb258e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardVariableCollector.py",
+      "sha256": "83e1db094b188a897ff6c59a7d629c402d4c25dc9b90a321ce926e1939488505"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardVariableCollectorIdentity.py",
+      "sha256": "745f2ad46898a3b8c5fbf65954d68e6de425c8a01a016895fe9e162e0310ce7c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputArcValidationRequest.py",
+      "sha256": "7da4fea34e7b37aa3f4bc51fc50bd7babbd35f4abb014e507a085749e8647281"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputArcValidationResponse.py",
+      "sha256": "ad5afcf788ca3772b307798d37a4588b5bd37b9f16e5a8a4a89b29e397d02e06"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputArcValidator.py",
+      "sha256": "349614c1bdf2f7a41613ce6dfdfc286d8151402162e0aa267ca02f2fc86eef5d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputArcValidatorIdentity.py",
+      "sha256": "55e7dd018ebe606a7f918f798dcaa93d9463e8d5481f7d75b380271bf3269594"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnMarkingValidationInput.py",
+      "sha256": "f70c3f277e717f0e4b00b47943744c4ba054336b27ad4af81ceb2d76df718767"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnMarkingValidatorIdentity.py",
+      "sha256": "9c968dbe3f29461ca63182d2d73f32f06ee00010e2f82bd4b511d903cac371fa"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOutputArcValidationRequest.py",
+      "sha256": "14ebf76b8f8b8ba1ff21276aa5a090dc55be0f796c84fbf67976c93e4eff2205"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOutputArcValidationResponse.py",
+      "sha256": "a789fa023fa5307052ecdae8fe0df6f2498f6d664b67725f4f3d56f205c7c732"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOutputArcValidator.py",
+      "sha256": "3477ddf74d886af5b1fc0023fa0091fd4f13c7ac68df6d548d86efb986fae62b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOutputArcValidatorIdentity.py",
+      "sha256": "50dca62da9e50ed8ad90cade16ae6a0ef4d01fb2bfec1f8e2e516ddae19ed5c6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSdkManifest.py",
+      "sha256": "8b0c6c092a32be55ebc9ce875e8677f2955e8dbcff0daf99cd42451c8f2a3c37"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFirer.py",
+      "sha256": "c3bd18af7e517974b731f4ab652dcf589f3dc6a2706aa7825729a480fe6f1cdc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFirerIdentity.py",
+      "sha256": "88cf4ed909a64024f30454f5da375f41f932f32b91947391f75e682f40b5147e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringError.py",
+      "sha256": "386fdb69e8f86ad5c9e3c3e4938ad5ee8317cbebcaf0ebfc95baa7c3364c875c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringErrorCode.py",
+      "sha256": "8c2bd57e2d7f33a0899a0ef86ec0c595f629a56ae2e5e020e77bb1b1a2ead2ce"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringInput.py",
+      "sha256": "99c8aeaa1d6df1df25c9bd2b832c3edc0d8be3275e4e63d47a7a730ddf071cf0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringReplayInput.py",
+      "sha256": "493ff9fef2e62fbc695c13a063690cb20761b0053d1d475e559733635603bb4f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringReplayResult.py",
+      "sha256": "a7a0ccd47b61480d6c051f35d9746237e2a3fec49d784affa54e2c4aa7a2e416"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringReplayer.py",
+      "sha256": "c5c393ae2936fdc1d7bae0137d8bc42fb497133399df6a7b3fce60ead392669b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringReplayerIdentity.py",
+      "sha256": "26e7d767e92ce52c9a7bec44faafdaf1d72832f4e330215eb5a65831c0330dd7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringResult.py",
+      "sha256": "1aa87e4b88e9ee2d017ca5b713aecf404c9ae767b3091eaa6f4cdf328a21b55f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnShadowFiringResultIdentity.py",
+      "sha256": "98425556bdf4d2871b68286533f58941d531e0ce95140d585984a7923f9ef158"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSuccessorMarkingBuilder.py",
+      "sha256": "490e96d39a0e6f9373059a31f75b14d6bbc7a035b914c3f05e487ac5617996c9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSuccessorMarkingBuilderIdentity.py",
+      "sha256": "60646511818c21a0933fd72199c687d3ebdf4b266a24bb19d9a5dbe3bca776ae"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSuccessorMarkingBuildingRequest.py",
+      "sha256": "fbfe65e58170ac3cdfb1354d8dcb88c67948d2cd0bfe0ac4ddf5b44d6750114d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructionFailure.py",
+      "sha256": "314ef0624c01478115454cc143fea578e5a38a75a73eacd726f1d521ad48e7ef"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructionRequest.py",
+      "sha256": "681e32981bca03948d015204e3248038f775c647914dfffb955e21ac66f4fcd6"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructionResponse.py",
+      "sha256": "9e77f0130ba17db15f1b2f646ac6bfcfc97e62eb9d0df69f642a784b11e7ef17"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructionSuccess.py",
+      "sha256": "457c875166319a3ea9cecc742a5dce4e2419a81ba04b311f8cf7956cb8531885"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructor.py",
+      "sha256": "9cedae0ba75f0379df3eb619e4eb48333b2a04f610e13b3048dbac32a645aba5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrenceReconstructorIdentity.py",
+      "sha256": "a38ff509663c4f787c0198dbcdbe48c324cfc45acdc94432a9cc700ccc3c3429"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOrderingInput.py",
+      "sha256": "0f02332552fad5343655887a70c9cdd4682696f96d3942849df5380a467c4710"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOrderingPolicy.py",
+      "sha256": "7062814af069869f4db5d9a40bd24e007d83d3e33d4b3f32009e3735cef663b3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOrderingPolicyIdentity.py",
+      "sha256": "26d670dfe9a0464aa52f72e7bacc1af66108dcc1da01018b791138ae9d504d29"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOrderingResult.py",
+      "sha256": "4d3fa98769d49ee34b0fe3c863255923198e49136ed3a6bf09d108df9d37032e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionEnablementRequest.py",
+      "sha256": "ece47449e318b48382fb5e702a3f7d44c70cb677826e2fcec02ac492f7fdda7f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalDecoder.py",
+      "sha256": "597b31f1d233d6032f525246b9b88dda58d5bae890f26dfac320eebe583991bc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalDecoderIdentity.py",
+      "sha256": "e7d29dd25d26ff75c964833c441d5cd08d23f6a29d137ccaf67ff0cc2c090d01"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalDecodingInput.py",
+      "sha256": "f63d816c413ee2f8b1184162eaba6236c5c888ca897c98a008f8aba8262d9ed7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalDecodingResult.py",
+      "sha256": "ef9f6c0aa3541e78d091df2327a2ea3960f2f9b425ebb8e32d00e2fc3c9a82fc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalizationInput.py",
+      "sha256": "8b8c19fa4c13815e4f0968f0a1fe7662faa77f12ee903efd59edce5c050a3eaf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalizationResult.py",
+      "sha256": "38f6665e938c3713022cca2ae04f90769e2c9cb69d27261bdf71d6507c199812"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalizer.py",
+      "sha256": "868ff53563bb0fb1ec1cbef52c590845351044b5060949e3a405627c2d4ba183"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueCanonicalizerIdentity.py",
+      "sha256": "5388323dd751b0fcbeb7bba321f49517f39a9d2c112fd711b447257f9caa29e4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalDecoder.py",
+      "sha256": "c4cea31ad2446a6efd7ea9c8d08efd9a8c67b21e94061b0c27d6744576b7d424"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalDecoderIdentity.py",
+      "sha256": "a1f60f830646a97d0e14ee6fcc18270758c146e13acf4eea4793492305d23992"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalDecodingInput.py",
+      "sha256": "b93740e5f287819f03875fc05a5f4ae17208d8d5aa0bf0d22dc24b28a87e2401"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalDecodingResult.py",
+      "sha256": "0952caa8e15b49da73ba2a7b049408f8934ab7e670ca22f37000d8c926f809c2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalizationInput.py",
+      "sha256": "4426461aeda23f4a84d1952363d907bffc447e7dd4b41dc6e13f4b76208a8b92"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalizationResult.py",
+      "sha256": "70063247508fada956027aeea1bf99823882e43dc5244c7f76f50499cc96b7f0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalizer.py",
+      "sha256": "973bf5a095d711d43190cea72b128cb81158d2c0674f8a91545ee6d1d2ae8ae5"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionCanonicalizerIdentity.py",
+      "sha256": "b465e202fc5bd9610dc41f21c3130bfaab4cac06cf667a54f0401f865a73d3cd"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueModelIdentity.py",
+      "sha256": "02a1f3306832eb05c34b6c395b6f23a8f04ca53cd251d809d2da82d462fdff6c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueOrderingInput.py",
+      "sha256": "fcb85d521835333f50da41d1aa3d128f62df4c143ab24dc66020aafe4b543688"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueOrderingPolicy.py",
+      "sha256": "71a02591e8f78df7cfd511d8b1bea1b046ee5045dc0eafebe8591b89975ec2f3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueOrderingPolicyIdentity.py",
+      "sha256": "4548ec63287cfca3b5e6e9c836ef5ee59f115b97af22e214c1e640dc4a4d5abf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueOrderingResult.py",
+      "sha256": "46bce213b65c468b75c5b1ea678f5b0379a5f9ec11be74ced094ea628a0fc845"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCanonicalDomainPayloadReference.py",
+      "sha256": "320f0a0cc9f05a34b5d7ec0cf06284ca94e8a9d8c0025f2981543d9c3094bd87"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildCancellationCapability.py",
+      "sha256": "c0d88389fe4199813c598acae7af8fe79ba8d290012306876464cfd66d39063d"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExport.py",
+      "sha256": "6f6117544a189131b4da777543350302b9c5cf3e33d39a1f653852e7064c7e90"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportClosure.py",
+      "sha256": "e951c935ce9d54c4bb66a29333c17c347a91f89372b8484550c5e453b521d6ef"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportIdentity.py",
+      "sha256": "7cd0675b3d87266cff90063cb2bbf7645e2a91d67eda07124bd146bf4699a9e2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportIdentityDerivationInput.py",
+      "sha256": "51c64cf3f389a1dd944a30b48cc8e0de401b4e7903a63ef2ddfa4b915e711a4c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportIdentityDeriver.py",
+      "sha256": "aa7321f30b4b4cdc0697b198db7a9120e27f6f0ced37b20bab03d57835adf76f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportIdentityDeriverIdentity.py",
+      "sha256": "d3d2a92b5c952cd089058e4d7c27f7570a65cadcb22ac514064ee352a43c3cb7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExportInput.py",
+      "sha256": "3e8ed6c0466bf601576e7c32d29dbfac21bd21eddc9e6956b01423d993fd86a3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExporter.py",
+      "sha256": "541dc66480c786a2ae325d2abcf2805ab78dad5358dd65cf0c0fb567f060206a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildDefinitionExporterIdentity.py",
+      "sha256": "c62edc27a36529fe4702c08a1d86b08524a99c8fb2ed949106b651fe02ba9bd8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildExportConformanceEvidenceReference.py",
+      "sha256": "b1bddd01ad53ca9f2b6a00f18e52eda203fd54113c758cc7110a330ac4b9bf1e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildExportEvidenceBinding.py",
+      "sha256": "102f508008561fba57e021c03ac4f3cd6929106f1bce934d9227160fa99dad90"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildExportEvidenceBindingIdentity.py",
+      "sha256": "e4241a4f06d972aea2056b46d9381bf74219d74385b94599d0370fca146594c1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildInterface.py",
+      "sha256": "b40cda2ca2c9a725c599f61bde3e92fa08f00955d75fa0e97e441b6d1b641f89"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanExportCorrelationRequest.py",
+      "sha256": "b8e6575f8a326756cf87f8e49900d8fa4db1c24fb4a15b3802a58ec8b800b042"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanExportCorrelationResult.py",
+      "sha256": "a234d592595f1e40e06b07cdae9a05abf2b1427116e6d16391bc507130b5ed81"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanExportCorrelator.py",
+      "sha256": "f49c6ed57da71643c1f204439a86c2d8c9d0a4d196bd892e656f3b6c0e19a848"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanExportCorrelatorIdentity.py",
+      "sha256": "5d9843d686d1b508c9b88895ff25f4808544bf93118527476906137cfb3753be"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidationInput.py",
+      "sha256": "e55f8dca1822ff232118cecfe763954307cdd7b4aa03ca33c5fe4133d3d6407f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidationIssue.py",
+      "sha256": "6dc9218c512b36af637175e7cfc3644fbee278bf731e0edf2054a5a6c39d5090"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidationIssueCode.py",
+      "sha256": "61356d08a158b0682ece442e671cb02bd553ea86a070b14899f421fa54c3afd9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidationResult.py",
+      "sha256": "36aabbdf754e115319df637a297e1e138c36120970d5dd934568bf6017631fb2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidator.py",
+      "sha256": "0f97928a4d82bef5e459e1d9858ffbce7b8b494372f557fc7bfb4ac5adf271c8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanGraphValidatorIdentity.py",
+      "sha256": "32a5510936cdbd5f0ec30d199428c68595e228fbef92d367de65a8b1e4d6ae15"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPlanReference.py",
+      "sha256": "37c31ff3897668e16d64863f78d3bc4bdca0e8c9ea49467b0fbef1874d2c9dfc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPortDefinition.py",
+      "sha256": "103d5f2f1de940705f6b591b3b61f70aa1573f05f004245033d7852f9d71a525"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPortDirection.py",
+      "sha256": "47ecbbdb0533c20af95a8680461bcf050a2f457bff40d1485383258ec992e196"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowChildPortTrafficKind.py",
+      "sha256": "457b711650a5721b44441fa1ece30050b4840478d87c1771620c23f6f4d55f12"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCompanionCapability.py",
+      "sha256": "30108142a455464f7eac1b2cc0b2b94a1c24b44cdb9b9817207154092f1f3abe"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCompanionProductionPhase.py",
+      "sha256": "ca07649ade8147a587b88cfc9dcca6660b1f0267767e4aa3e856b0273387ad97"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationInput.py",
+      "sha256": "910dde1116598d8cf47c84a40fc56083b61d40ded51d2273e3c0493eabbf54b3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationIssue.py",
+      "sha256": "e173657d11ece91497ab89cb2882de861d4ef73c20b6562fa92fba3df431b9f2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationIssueCode.py",
+      "sha256": "9121346557f38bce722367c38c44cecc2dcba6b73929742340d68b0cc746f182"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationResult.py",
+      "sha256": "f2d548e7650c61f88b982456e589dcd4ec0cf9539971f12cbf37e52756aa8931"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationValidator.py",
+      "sha256": "27a5337d264f3f245a7cb0a80f3fb8a9ea4fd2f445a1bed5eea1e27db13142f8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnClosureCorrelationValidatorIdentity.py",
+      "sha256": "ac59fb0f398630b38819e9c981cf4ec41bf1fe91532abe63cf7567835b84f88b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfile.py",
+      "sha256": "6d6c2732a20e1c48905a0a7ba0d9a032ee54ce5e897a521830d2bd941d0555d8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileBuilder.py",
+      "sha256": "c14acf35d97dfc62cc194f821fb33257dbc1f951d4f9e198bed71e10508b65d0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileBuilderIdentity.py",
+      "sha256": "e92796978d15db2e1668185eda67a877e99df2e83c15f05d640213301e15e3c0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileBuildingRequest.py",
+      "sha256": "1a1246f13e2f0d697e915c4b9d8f25f0995f77024ff3d6c4f8e986a304e7b896"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileIdentity.py",
+      "sha256": "cf3155d8d778084a2edd88b975b4bef7ddea56397f17294b6029e70519b2cce3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileIdentityDerivationInput.py",
+      "sha256": "cb5ba6084462fbf5a75c0bb557e7feff2dfd8ced16edac8ca4bcf8f8829be1f8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileIdentityDeriver.py",
+      "sha256": "5aa09c376a155531444674cd48b2d30cbcbe8974a00fe7a0ccd7f30c8ff377cc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileIdentityDeriverIdentity.py",
+      "sha256": "0b47dc42ed65841ff04aae4170a9d8c4e8bad2d719c9eae91918e399a6a5a118"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileResolutionIssue.py",
+      "sha256": "147dacf3e6527c938559e3ac1ef54b7e077b3c0723c1cea975a2653ec5c5a588"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileResolutionRequest.py",
+      "sha256": "3fc2ca70bf0179660d8af26baafb68b21efaa92dee8311fa2dfc4ccb77584452"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileResolutionResult.py",
+      "sha256": "560fce521643c58647043cc23161a295e8a26dc5f15b818333018a7d27b6d306"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileResolver.py",
+      "sha256": "45b6cd48dc3db8f9d7e5a8282f2de09c45ca6bdce5355db0a547476a8da102b2"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowCpnExecutionProfileResolverIdentity.py",
+      "sha256": "219aeec20fb56f37446927087403ca09954f91092cba05ca8478ccd81d93f8d8"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDeploymentBindingDescriptor.py",
+      "sha256": "4d523658b4a2bf34e236d1b6b9bf1ea65a70cd1bafb14e27043b282a382e2443"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDeploymentBindingKind.py",
+      "sha256": "c6f5ea9fceb0c9a7ab4d8e0c0e64c9687715aefb843f0e4e8249ce88b20698ee"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDeploymentCapabilityPhase.py",
+      "sha256": "2798fe38c5934ad5f23ddd6fb73e02d6954b016a43109126d781d82b7cea9f26"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadEncodingMetadata.py",
+      "sha256": "8ecf010949b8adc341f77df6c66862197704e7c32f7047024b17a60580b5f63c"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReference.py",
+      "sha256": "48ae259152f05a1b6625c4aa12acc46515cff01483fa09b3d50661228a4488c7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssembler.py",
+      "sha256": "2ea2e00fd433487622bc41034ffdd3a69e6a4f1342286761da426c09b700099b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssemblerIdentity.py",
+      "sha256": "676d2c7561789e56ae9997f1b56d23fca22bf538ce1086f27e1538dfd24523b9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssemblyFailure.py",
+      "sha256": "0940362d9d076fdac15c943e586724589b1cb8ac8ed1907d4d9dbd7264611b0e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssemblyFailureCode.py",
+      "sha256": "68dec19b60dc2d2493d3c9251e7fe8437e55eaef0802134b9852ffff2cbbd0ce"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssemblyRequest.py",
+      "sha256": "16d96bc582ce30ad12004269ae1dd8a549fd21a9dc32c2a9061cac4e630de95b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceAssemblyResult.py",
+      "sha256": "95627d8553d868d4e7baf604816e4d24b95e0c2747b93068601e04477ca57d51"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceCodec.py",
+      "sha256": "7703a587ca81e7be05212c34c51c1adbb1c0fde8d0a8f073cacdc36d0e49de89"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceCodecIdentity.py",
+      "sha256": "25e6d0ccb25dc66d7ab67db8e659e56f94755c5671117c292fe8f97d2edc28c1"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceDecodingInput.py",
+      "sha256": "fc2cd87364060ed453196ac6e81cdbf50e6f3a63a86d7d22ab5af12d61deae30"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceDecodingResult.py",
+      "sha256": "d335b6f806b31a35d3646748036b10ad0fa1ec9cb9fe038b492d6e524c61ba5a"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceEncodingInput.py",
+      "sha256": "94c3c5a118e571d52effd707e2b2df705c01439ce1664c3f859b34fec242ac86"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceIdentity.py",
+      "sha256": "81b33ee0d8f89e925f03e1209a058d4925a68a189f862924b8c44de6b8622d78"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerificationIssue.py",
+      "sha256": "447a40f40ee2d2c0c7086bcaf0bd2c8a2a4a7bc0731d4845d59ba6c41bff87ec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerificationIssueCode.py",
+      "sha256": "f64d1407f3c098ce087933bc3ab6fc9a153248f4019744db5729bb4db6ff0c40"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerificationRequest.py",
+      "sha256": "11b2cfdfa934be1f0d305abb560cd432a234e807b8cf8d60564de2a598b552ec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerificationResult.py",
+      "sha256": "c6e024ee3f1dd92a592e6ae4ad151adf829b6dba92a946d99da90213d23a8cec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerifier.py",
+      "sha256": "100de30932d1879d3a5a45b136818dbffdba815c27a375786f956b23ccf53c36"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowDomainPayloadReferenceVerifierIdentity.py",
+      "sha256": "13fc24519f25321f440d09fb29480c84efbc7081901c666b7ef1d4cf58cf25ec"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionBindings.py",
+      "sha256": "24241b71239e4b4fd392a2a868dba455515a94285311d3b131d7bc95bad83cdf"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionBindingsIdentity.py",
+      "sha256": "58810ea0e2f048ecaaf378d5c632dd5c25148c02dde38976d8d395591220b097"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlan.py",
+      "sha256": "8aeb0d919466a383089c058eb6abe9b0e95064b3060d7faeacaba4ce1079f023"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanClosure.py",
+      "sha256": "34c16375e9d39210814ee18c8757b328674a89382e7aa95f099a52549ef8e533"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanCompilationInput.py",
+      "sha256": "ed689d58480182f8f5f07d2292e5f474775ff516d91dffc3c98d4cd03a3b5fe0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanCompiler.py",
+      "sha256": "c30621e016c9021bf6c28dfd9dfa2c48e438e46c3d377e625e87693cda33fdc3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanCompilerIdentity.py",
+      "sha256": "413f7f49e400f79453afb685a1c1e53be45dc31c279ba571b6a965129247a036"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanIdentity.py",
+      "sha256": "d4e92b1f79401765f77d979a6f88ddf47b9faccfdfb9f673188057d7e978aa9e"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanIdentityDerivationInput.py",
+      "sha256": "e0d0cd143d8dea5205aa816faad69a0cc3e10458d18b29ace7d756680294987b"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanIdentityDeriver.py",
+      "sha256": "919f2d7f59db06ebe44f2a7c5059869907791bea3e9c33fc0dfe5fc5b6e94667"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowExecutionPlanIdentityDeriverIdentity.py",
+      "sha256": "c8fb4cce6d6856479114245c31f341bab35a30430dbb95bb31b33ed7c776b2e7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowHierarchicalChildBinding.py",
+      "sha256": "9f6b95f7f3ce441bde16a134c99a335459249cbdb66ab880083efc366e8106ea"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowHierarchicalChildInputMapping.py",
+      "sha256": "7d3369554da6ac0eea64635d8ca351de2bd01a20255ce05a04f763ae2746ca3f"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowHierarchicalChildTerminalMapping.py",
+      "sha256": "8860bfc89367ce1a146df734395f04369ad8119ecb651da5c9c61f8cc60cf6c0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowPayloadColorBinding.py",
+      "sha256": "4766bfc7bc7964221b35c0e2ce7936c89b816349781a3760ae97477f11747c71"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowProviderCapability.py",
+      "sha256": "cc5d065f229c4e1023cff7a6452a444c963a6c450adf2674c6c3709208ad10e4"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowTerminalCompanionEvidenceRequirement.py",
+      "sha256": "cd74d239bd7d76f62b09d4263c2ef054e794a135757e990a77422bd3248cefc0"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowTerminalDeliveryRequirement.py",
+      "sha256": "220697f544856272980a2ac7c8e655b48b4c833836b3b5c18d5ab9777a368284"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowTransitionRoute.py",
+      "sha256": "ccc1a2419aa43fb2052e802c3a2b9cb8b8f13e0999dc2fcad27dc0c0d07ac7d7"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowTransitionRouteKind.py",
+      "sha256": "54baa1a4952b0e5267a93822acaf62142fd955299ce6c6a8fc0553e25b51c7d3"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__WorkflowValueMappingDescriptor.py",
+      "sha256": "15b9a609a5556d069228053e94a557de63bcd02228f39cea406b4d8836c80ddc"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/projectkoios/workflow/petrinet/colored/test__workflow_cpn_identity_mutation_matrices.py",
+      "sha256": "58b7b66007ce0a2133a6e3e5937947bfe9c9ad1e4e1bb7585361c8dfe1bbf0d9"
+    },
+    {
+      "origin": "owner-authored",
+      "path": "tests/test__CpnShadowProvenance.py",
+      "sha256": "f24c7ff5f09c9ce57e70c7472927ed76415e6b407c2577d1729edc626a4b528f"
+    }
+  ],
   "pilot": "WORKFLOW-CPN-SHADOW-01",
   "production_files": [
     {
       "destination_path": "src/python/projectkoios/workflow/petrinet/colored/__init__.py",
-      "destination_sha256": "ecd8bbc2fc646ace4a72c0cc44c236e7a08295b7016f7b5982dace853d3bfeda",
+      "destination_sha256": "979cb7a127708e84c9c0d303be32d2b2a3130901ad9d6404fabc336a71b89f2a",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/__init__.py",
       "source_sha256": "ecd8bbc2fc646ace4a72c0cc44c236e7a08295b7016f7b5982dace853d3bfeda",
-      "transformation": "byte-identical"
+      "transformation": "owner extension after pinned byte-identical shadow import"
     },
     {
       "destination_path": "src/python/projectkoios/workflow/petrinet/colored/definitions.py",
-      "destination_sha256": "67b645584b163f03264f827ad85839cb5cb599cd9e90136e5c2d5eb113a1b160",
+      "destination_sha256": "b3ec13d2d90fef9502fd54168233da4645323efea4dbb24b6d94a07f64053b34",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/definitions.py",
       "source_sha256": "67b645584b163f03264f827ad85839cb5cb599cd9e90136e5c2d5eb113a1b160",
-      "transformation": "byte-identical"
+      "transformation": "owner extension after pinned byte-identical shadow import"
     },
     {
-      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement.py",
-      "destination_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement/failures/building.py",
+      "destination_sha256": "bed1a7aebf94d1f41f136682cc457ecaf87adfc0c82ed9a6f321bb8f69a76228",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
       "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
-      "transformation": "byte-identical"
+      "transformation": "operation-package split after pinned transformed import"
     },
     {
-      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/expressions.py",
-      "destination_sha256": "0ae1016093e4a65e15b27da06ab2dae84caf38bf34a4fef0dec1382e34695d32",
-      "source_path": "python/src/ksdft2effmass/petrinet/colored/expressions.py",
-      "source_sha256": "0ae1016093e4a65e15b27da06ab2dae84caf38bf34a4fef0dec1382e34695d32",
-      "transformation": "byte-identical"
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement/results/identity.py",
+      "destination_sha256": "7ca39b0fa69315acc351ad1d231ffe21244a6fe349b2bf4f8bce811cee134c11",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "transformation": "operation-package split after pinned transformed import"
     },
     {
-      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing.py",
-      "destination_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement/ordering.py",
+      "destination_sha256": "008838d906921a89c5e04eb8fc773dcaec1a87e2878deeea81bc0763631831a9",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement/results/definition.py",
+      "destination_sha256": "aa9b6a7e5817d66e91177025a872ae9497ce6d13aec43f2903e3ac0924ab8712",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/enablement/transitions.py",
+      "destination_sha256": "2be5a14b16a60b14d1f5cb93014e18f04d108a7473c013299c0cbaf61dcb1a97",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "source_sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/audits.py",
+      "destination_sha256": "b172b69f57f4f2dea3229cf00cfe6c2da705c61a241663fc12539ead0445ed0f",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
       "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
-      "transformation": "byte-identical"
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/failures/building.py",
+      "destination_sha256": "ce63a7ae4814074f71cb9bf6a87188274be15189267c12f95bced8d966edfbcc",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/results/identity.py",
+      "destination_sha256": "d7ca5b0a33121cf592c95d8fda312a8562fd77606e564cb25c740e072cabad32",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/inputs.py",
+      "destination_sha256": "21d85af59dc8210279dd4ce90e23dfa4e8b9e00400c733400ec83bf51e221b07",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/occurrences/reconstruction.py",
+      "destination_sha256": "ae427fcf2bb4276aba1e110eff4554043868c356c64f5be36c4a1d34ed93bfce",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/results/definition.py",
+      "destination_sha256": "19a102ec2faa601acf5c3d82abb9e72f1f468fbe6b8b38cf0c3b4ae9c89e0a85",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/markings/successor.py",
+      "destination_sha256": "c8a6fff29afb25e3ef04c196801b0514d7c06a792b14579230483e0eb3ef09e3",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
+    },
+    {
+      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/firing/transitions.py",
+      "destination_sha256": "a87469fba701520aa518e709fa64824245a51e305d1278b61e86dbd06653de39",
+      "source_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "source_sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "transformation": "operation-package split after pinned transformed import"
     },
     {
       "destination_path": "src/python/projectkoios/workflow/petrinet/colored/markings.py",
-      "destination_sha256": "c01338792c3fbf8909f0ac7f6d479c2e78b39c00cf0ff0218baae5bd0b4e70c6",
+      "destination_sha256": "4088cc6cfed14e1f070af7e5a5273ddf9ddb547128f60ddf510a1b65b1324161",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/markings.py",
       "source_sha256": "c01338792c3fbf8909f0ac7f6d479c2e78b39c00cf0ff0218baae5bd0b4e70c6",
-      "transformation": "byte-identical"
+      "transformation": "owner extension after pinned byte-identical shadow import"
     },
     {
       "destination_path": "src/python/projectkoios/workflow/petrinet/colored/selection.py",
-      "destination_sha256": "f236c28e086ea1655e1c012bdd0f5a589cb7fe5c7e6fc93c9340f9cc9ed18fb6",
+      "destination_sha256": "d7fda358bc359f5b4d9cefd4d835c83bfbd2266eb31cbc26b47fe597bdea4ce1",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/selection.py",
       "source_sha256": "f236c28e086ea1655e1c012bdd0f5a589cb7fe5c7e6fc93c9340f9cc9ed18fb6",
-      "transformation": "byte-identical"
-    },
-    {
-      "destination_path": "src/python/projectkoios/workflow/petrinet/colored/validation.py",
-      "destination_sha256": "98eff08be2f7c2915bf3eeb50f467b66bf550eadf48f595001e7f8cf15c9486b",
-      "source_path": "python/src/ksdft2effmass/petrinet/colored/validation.py",
-      "source_sha256": "98eff08be2f7c2915bf3eeb50f467b66bf550eadf48f595001e7f8cf15c9486b",
-      "transformation": "byte-identical"
+      "transformation": "owner extension after pinned byte-identical shadow import"
     },
     {
       "destination_path": "src/python/projectkoios/workflow/petrinet/colored/values.py",
-      "destination_sha256": "b6caca30ff13022f1266f2bb17fc5d0ba1a0f339c7d9e9694219599754884613",
+      "destination_sha256": "571f008b92a77124f8fd9c0c18224b96819cfd01c349d2a2e595d5adc5092646",
       "source_path": "python/src/ksdft2effmass/petrinet/colored/values.py",
       "source_sha256": "b6caca30ff13022f1266f2bb17fc5d0ba1a0f339c7d9e9694219599754884613",
-      "transformation": "byte-identical"
+      "transformation": "owner extension after pinned byte-identical shadow import"
     }
   ],
   "schema_version": 1,
@@ -89,514 +2286,507 @@
   "test_files": [
     {
       "destination_path": "tests/projectkoios/workflow/petrinet/colored/_firing_fixtures.py",
-      "destination_sha256": "b7954cd75dc5566b53d4cc8a6279ae391dd811086eaf3b9d9c65cd33ffa9db93",
+      "destination_sha256": "a6ce9d11ce899c9654e2db43ee4f78be78bdf8db3bfa88e4cc74524b500deddc",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_firing_fixtures.py",
       "source_sha256": "f816c3796047328cc66089529ec7b050c29851e1c9a1ead50eedb5134a8c0bae",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
       "destination_path": "tests/projectkoios/workflow/petrinet/colored/_selection_fixtures.py",
-      "destination_sha256": "a267f7b942e1ec356c91a02197c40d3126bf449ef6f8c41fa67e638525178309",
+      "destination_sha256": "1de8213f305484a217f41ece438843ce837e81c154091761cfce6350bb98b7dd",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_selection_fixtures.py",
       "source_sha256": "8d120387e995d8b5735080892b45a9b272cd8a445604764fc22fd5dcff5d15a2",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
       "destination_path": "tests/projectkoios/workflow/petrinet/colored/_validation_fixtures.py",
-      "destination_sha256": "4600661958be5fe7d9ccb33171cc574f8bf10583cc7fdd36072312515c9c95fd",
+      "destination_sha256": "e3594f8e1ea87ed985df056646716bfa6853a9c11b9501299c7ce8d6864f59ca",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/_validation_fixtures.py",
       "source_sha256": "882b8569e47c5dd1d818c2bff2cdec3b21c8f42d57a39cd0eaecbc59e3f82d96",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetArcDefinition.py",
-      "destination_sha256": "de475ada6d9fd6ecc07be7087af979062f7cd0682d7425ccd10c1605f9770ff5",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnArcDefinition.py",
+      "destination_sha256": "13d318d42e48358c54aa5f36f34804c14bc65918e8eb2b2e83e8d5e859d2b930",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcDefinition.py",
       "source_sha256": "24ab49be21c441fe9ebc89b583a8e164a514be3b1b0f1f4d1170055cbce0e9a2",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetArcIdentity.py",
-      "destination_sha256": "d278dab200d5765ee810f5cf4c5591960a8592f9c3b141396307dec47d79dc2b",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnArcIdentity.py",
+      "destination_sha256": "344acc2fa9472ef75ee49bc6e4524378ce13dd90fcf2c63298746aa735888482",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetArcIdentity.py",
       "source_sha256": "73ae2193d0c542cd724af77fe6503f3c76db305b8384724a39a616b4abbbe1a1",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBinding.py",
-      "destination_sha256": "b342fb9913960d296bff3a322c55b500f6602951ead8e489867d82ed76781d5c",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBinding.py",
+      "destination_sha256": "a76f9e8feaad536f2f2df914592ce94c7f826982ccded3a894fb10e7747993e6",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBinding.py",
       "source_sha256": "0c70951fdaa13913d38473a01450ae026faddb9ba74fc42c9883f4c4a5e9a92c",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingAssignment.py",
-      "destination_sha256": "0a22d738473c0dabb3cfdc0457514e4adaeb8cf6a5bd087338be820365800c81",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBindingAssignment.py",
+      "destination_sha256": "7a30907c76d4f3343067504ebf055effb30f8caa11989241d172c2d27d8cb2f6",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingAssignment.py",
       "source_sha256": "11df606361ed817b7675632fa325979d99e969995c85a3b49d0e278789942ef6",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingSelector.py",
-      "destination_sha256": "259de568ab09cb22a4f6fbbe4e144f841568ab2738c135049f51d1091fa413e2",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBindingSelector.py",
+      "destination_sha256": "a0b5091d5e420e52d296c8db014f4bcd60cdc2f9b3d3e7e98ef50cf726e97231",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelector.py",
       "source_sha256": "9f295e887d2270c18d74cf6c42233099d3f24955002cdcceb94701d005a721c9",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingSelectorIdentity.py",
-      "destination_sha256": "4ec0dbc30bd5de68c161a1ab094b649a98a522669b089ba49dd8b35c14751077",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBindingSelectorIdentity.py",
+      "destination_sha256": "8dcccd718d805bc3792af6044dc08a5b2901e5413c84b47f05d377b8080fd0be",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingSelectorIdentity.py",
       "source_sha256": "3c4fc3fea60702f42efb82600bb59a9cf6f86a2a40a257e22dc03bf7e9ba22dd",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetBindingVariableIdentity.py",
-      "destination_sha256": "3bc37117229947ac3d12589c380375efa33c25d5836dd7063690078a84ec702e",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnBindingVariableIdentity.py",
+      "destination_sha256": "32a595320f96940041073403c26013ad2da0c2d5caacb31433fd4d2598ea91bd",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetBindingVariableIdentity.py",
       "source_sha256": "d0d5a0a5e6f87426429151959798b6bca1c800519e73edcadf250d22c7947ae0",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
-      "destination_sha256": "591e380fd9f935421d3073c57e93d60c73fbcbb052a8720b544f20ce182c1693",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnColorDefinition.py",
+      "destination_sha256": "ae8a81a1eff186ef6d2a7d3961b5fd7dac3756a324145aa04ed2b115d4e37bc1",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorDefinition.py",
       "source_sha256": "e2652d64a756d523800891e6ae3dc34ede61570e2f7bd4da24f8aa3b0e01eafb",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetColorIdentity.py",
-      "destination_sha256": "4d17a71041d6817974f5b076fc921f2180d665c33fb726d647dd6c03917c7d5a",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnColorIdentity.py",
+      "destination_sha256": "4bca2448fd4e79ab91a4527a081814833cb7394e2e731601f290154d1e806c5c",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetColorIdentity.py",
       "source_sha256": "f4904134b23143ca3b047bb3f27d29fb53571f4692e7f4f4ab9ea076638b6e23",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinition.py",
-      "destination_sha256": "6c9fee9a9a60f100c9659093411be2d3c4815084170c22b46f1dd77423d578f8",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinition.py",
+      "destination_sha256": "3bb207848bfa8298ddbad9d76249a0067fd4d1e752dbaa9adbec8d304ee32b77",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinition.py",
       "source_sha256": "c28337ad297f7bdb850189d22841e93aefc3562f57aa3472c40777ec1090560a",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinitionIdentity.py",
-      "destination_sha256": "73f38c50a255c4dec405b2ad31d60a21f70ba809dd7c7c5043f30a3e2d6c980f",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinitionIdentity.py",
+      "destination_sha256": "69f43c2bef52f560c81f2fe599e57007113e21c5b62314da603b282f5fbb14c8",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionIdentity.py",
       "source_sha256": "16eb4246470ba679c5905818f5e1194538f4fff6515904cc82d42c59e86f88b7",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetDefinitionValidator.py",
-      "destination_sha256": "1e20da2418402d05e0da732da638a424f3e7e181483e4645fc88d29198f7a2f6",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnDefinitionValidator.py",
+      "destination_sha256": "4e680dd07246ecc88893fa365623fafd0380bf192229fb063e7aae33b4dda794",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetDefinitionValidator.py",
       "source_sha256": "7f9e754e470200fc0fa004cdc765fbc02bfe1cd43a6db9111496b15000a6f547",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailure.py",
-      "destination_sha256": "699dc1ccb45468b51f55fb284b3c51db63cfd25616baa4ce91238683018f2ea2",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailure.py",
+      "destination_sha256": "20319e134b2599e26dd31b172a033bbc0796dbd25712cab72fb923ae3610dbd5",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailure.py",
       "source_sha256": "c91a443d1e007f6a6a638539bce860127d914555365d462c635b2fc8906f0afc",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailureCode.py",
-      "destination_sha256": "11f96bd5d190fa214b15441f60829ddc7d3ea5cc042f0751722c4a25ddd32157",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureCode.py",
+      "destination_sha256": "43622ed0f9d55bed3eda1e6ffe4fc91ca5ddccaca5213089ddbac3e8d3ce84d0",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureCode.py",
       "source_sha256": "0c9cfe790a96fa5e5246ec8cd065d6d0d5538bf0452bbd26ea67172a2f7d5472",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementFailureIdentity.py",
-      "destination_sha256": "6c92b440f51d84be91c0ed58309aa09ab6e2fca3b27935a03fed09e28107ee18",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementFailureIdentity.py",
+      "destination_sha256": "c2868457e823b0f295219167385d9ccc095d1761ec7ca3817650a9d8cca594c0",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementFailureIdentity.py",
       "source_sha256": "8aae0a44a4aaab72676a1ed327c059266deb4937ac85d7dac969d6867e1d097f",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementResult.py",
-      "destination_sha256": "3f9f0ac33ba01d58bc15f39d8b0676ba57b4753cd730ec186eea5fb0cfa271cd",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementResult.py",
+      "destination_sha256": "b3f894a6891de55fbd550ee8e9470163061d2296b30d29a6cd7cdbb1d4120196",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResult.py",
       "source_sha256": "d2a35cd00f9d0d393f5738e7989a962d27567bc34221706af3712ba7a63bb3e4",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetEnablementResultIdentity.py",
-      "destination_sha256": "34e44e3b0fbd8373bff398810bdd58e508a6828f122910a82a0ed5fba07cb41c",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnEnablementResultIdentity.py",
+      "destination_sha256": "fa842e724712dfa3dd8a204f1a112877256fc22eae1ab77302e2ab1cd7b9a83f",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetEnablementResultIdentity.py",
       "source_sha256": "a3c4de7769115634d72d971258528b34fd5e830782c2a2011c620571babe73bd",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetExpressionEvaluator.py",
-      "destination_sha256": "f31715fac5399d50445032b9b954d78b1c021e8df345c08feb7dfa2d86f482e0",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionEvaluatorCompatibility.py",
+      "destination_sha256": "5fa1fbd72f19056abda65383d64e70ed1293939aebc6062e037977a49d0d5494",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluator.py",
       "source_sha256": "b24a067277073fcd4f38152ed10494385482fea74e08c938bae201ee402b94a1",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetExpressionEvaluatorIdentity.py",
-      "destination_sha256": "b24c2ff1c6dce5bd4374feff6846b50c551627ec7ccef22a220f36de83a0cd23",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnExpressionEvaluatorIdentity.py",
+      "destination_sha256": "683fe000f9195a8839a815ef75192ab75bba4ede44dd401098ce5401bbff0e88",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetExpressionEvaluatorIdentity.py",
       "source_sha256": "77ff6d9ca5b22497ad435fd5795a3505e517cdea993293ebe124ce16084b4a8d",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringAudit.py",
-      "destination_sha256": "62f36e5dcd347ba08b3363fde850232c987e636f057e4c480e54d93bc5f28afe",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringAudit.py",
+      "destination_sha256": "888b10f89c5142d8cc7661fbda2913b36b41f5f6308c008885fd93ffa33f3437",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringAudit.py",
       "source_sha256": "6917b8d40d11cc17a03edd21e668f05f8ad5fadb947e3de959970ce544781225",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailure.py",
-      "destination_sha256": "5677e3da780c20c28fb03bb8f82eb880bf3c8326d89c28b0880e289df7159d3c",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailure.py",
+      "destination_sha256": "19208d872602a1e2f5775f7810886714b077323735057e0a447c375478891e2b",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailure.py",
       "source_sha256": "a82bade358f0ddc6e5e93ed541554a1d46e8a0d193c46593121480e1fa56097a",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailureCode.py",
-      "destination_sha256": "c33cced58275c11961f847b008701af6e0659c71775bcbbe34807bb6393b367e",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureCode.py",
+      "destination_sha256": "ef0e0a2b80e6b4b577d8163c72517dbd69074b169c15388d3fe005c0d7b09a8a",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureCode.py",
       "source_sha256": "2ebf7204125f07f960ebd10e1bba3c828fb5833d40a6007686eb689353efb160",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringFailureIdentity.py",
-      "destination_sha256": "e95c11144b5fc4eaf0869dc9520bde1485bac3ddc61699010267798fcda0babc",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringFailureIdentity.py",
+      "destination_sha256": "d953dc2812cbee8e65f511cf18f3989dfb5d5b95ec01ae73f217c5e926e37a00",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringFailureIdentity.py",
       "source_sha256": "fcda27497a9a13ddae6574333cc20a10ad9094fb6dd7c17a95f47eafc30b7c27",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringInput.py",
-      "destination_sha256": "3c8d574ba040e54c96d1b007eaa30f7283cdb7b9935fcbbed5262e1b124369cf",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringInput.py",
+      "destination_sha256": "b20b403fab7fd98adb439064e17cb15bb3db08ee406c0532988830909d1eed33",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringInput.py",
       "source_sha256": "4fa1d681ae23252473cd0a839303266709a3508253f77ccdc4414b12ed794ef1",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringOutcomeKind.py",
-      "destination_sha256": "ea1f63404f2e76ac2652a460e2256597719007fe7b1e2e5157b56a872d9b62bd",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringOutcomeKind.py",
+      "destination_sha256": "c33ca9c1384b2f596912ba8226dc1703a4e421e633434e3b413c3cc12998c6a6",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringOutcomeKind.py",
       "source_sha256": "63250ba0533730a07ee02778554b04d245b1b94f391870c182cca8ccad5ae7e2",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringResult.py",
-      "destination_sha256": "3dcbe752bcfb0cb58c51a7f853afb33802b6eb4a2ddf16207e9f53797abc4403",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringResult.py",
+      "destination_sha256": "ca94d3c73b3815e6300e242dcbc384ccb91f0b1ce4f4e28b6cda28fecbdb0980",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResult.py",
       "source_sha256": "1b45b18dff191ad38638cc7ac8b7331f24b8812966e096a5e85d13f7f41bcef3",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetFiringResultIdentity.py",
-      "destination_sha256": "0b74a617e24f992bfbc2bea75863fb6def9b492201e79bdd36b5225bb48b141e",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnFiringResultIdentity.py",
+      "destination_sha256": "834f17499320c31fafdffcc4ad20ef53e1718174d782919e4a1a67adac3355e4",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetFiringResultIdentity.py",
       "source_sha256": "39a3f0e6cf8681aba32ac0224f7a0e59464c36fc5589fd333ea6586c998edf93",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardEvaluationResult.py",
-      "destination_sha256": "f29dab39a3c24e6de5f51135efd9362999d89a34ddb097b45b646d46efb86101",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardEvaluationResult.py",
+      "destination_sha256": "bf5ea408b08195b2bce59524b09cefa5fc9c04c80d5d4abaeaac0d3872661632",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardEvaluationResult.py",
       "source_sha256": "208d9a1bf6d174885619b77f4e14b305e3fa09425248623ead711c3d5c294268",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardExpression.py",
-      "destination_sha256": "fb9141a77eeee90896a2f284a562dbcafc4f05b2ef823769687cd4920ed224b1",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardExpression.py",
+      "destination_sha256": "d6f439daf3cc9b6faddccbcb364b90fdd892f14261c831e0aa4666e085285868",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardExpression.py",
       "source_sha256": "f678ab68f5b0f169e772eefe8952b07ff9e8461ffa110c721c5c0b697b8925e8",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetGuardOperator.py",
-      "destination_sha256": "3c3584680e7d6d2ad8d1d215fe9449fc594c446d85c860babd105329ebde0b7e",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnGuardOperator.py",
+      "destination_sha256": "083a64c2dc7bafa1d97b6c135fca88bc86b742ffb2e99071a3199ece064bad95",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetGuardOperator.py",
       "source_sha256": "83c5c29a914934299deca81981f977826f8c11d5d1bd70c8737bc29cde93dada",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInhibitorEvaluation.py",
-      "destination_sha256": "00ed3b7b2f464fc1f0d0b1d87e4682c2b2bc41ca9a36072135984dcccd7f6634",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInhibitorEvaluation.py",
+      "destination_sha256": "81907c994958e9918204de9017d23e93584c16db3e153bcd82b20be9a54faf06",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorEvaluation.py",
       "source_sha256": "9c32ba002adee32789e2942538c5fb79b4fe23a2704eb7013d799ba92306e766",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInhibitorPattern.py",
-      "destination_sha256": "aac793a9a06bbbb4987ad786f9523dba5c4486bf4e9acb96a803478cd57aefc0",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInhibitorPattern.py",
+      "destination_sha256": "1ecb2ab6593d779c947871b52eb86363a101ed868848a109c358dc07bec84bf4",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInhibitorPattern.py",
       "source_sha256": "70ea92d3044b0391ae21e28a3a1bd6108d1c0b485557efd6d7e51014cd3e01e9",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInputInscription.py",
-      "destination_sha256": "ab00c711f2ebc1b10dd41e83d939d77f9b076a81242bb27ce9055515ed8e2913",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputInscription.py",
+      "destination_sha256": "0a9cc453edd2deffeb76387d9d7d151b9b9a35585a8d969b7efce6b23c6b6fb7",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputInscription.py",
       "source_sha256": "085d22ca3567e8429835cfc946eb6a182f6d0ffbbe1e4c8a6e26bcfa71b5cc33",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetInputMode.py",
-      "destination_sha256": "d65715a2d2f891a5f01387091d0753653405bd390f133f59f9e609ee0e4948d4",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnInputMode.py",
+      "destination_sha256": "415da3e5423a68e1dbbf0d03709cd3031fb324290d5f5257ffccf34612d38906",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetInputMode.py",
       "source_sha256": "27ad106d583b41156e9e3fc3c183921f014e35e4e96de86fb4a59a5dd59cdef3",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarking.py",
-      "destination_sha256": "dd2decb1981d30b13322fb9f4969d05ef82fbcd9a1729c6afc9bb36196c8bdab",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnMarking.py",
+      "destination_sha256": "fb1a031c606bed9c4fed5c7c38aba57a7c779ea0399bd860021e0e0fc2f216c1",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarking.py",
       "source_sha256": "d26b404502e887a730bcf5b2a8548bc0fce59ac183cde24e633f26e5af669396",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarkingIdentity.py",
-      "destination_sha256": "51ede65c2b9d8e7ef7ea4d168da8d8e8a53c2526dd38b8543127674361dc4f3b",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnMarkingIdentity.py",
+      "destination_sha256": "d55bf0933d53462e3dbf8473da57797771e5801547041c276ba9d9c50b4ff79c",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingIdentity.py",
       "source_sha256": "b89fe07ec62f5696b122ef1a27c4615d809d91635d0758dfce1332a06ab574f2",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetMarkingValidator.py",
-      "destination_sha256": "c839f53dbcb562c7d68a43777dd5ece3ca727ce80e5ef18c4b2aa40687686f17",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnMarkingValidator.py",
+      "destination_sha256": "988e3c48be82c0dcbf41dd0f2f14fbf413cf87656144e0cc83a0accb5a49addc",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetMarkingValidator.py",
       "source_sha256": "8df377fcea770ddf1ac541f315a2cd1fdd401916b14ed5f22679ec9d1624e778",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetOrderingPolicyIdentity.py",
-      "destination_sha256": "43a13ebf252ae6b163aa96917588598ed6af0d9377d633f3b450a9d94cc7bd26",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOrderingPolicyIdentity.py",
+      "destination_sha256": "822be9da0bb00df4ce77e57a6d42f42d2d53387a8543624679937d519efc3a84",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOrderingPolicyIdentity.py",
       "source_sha256": "70719d3f1dda1b92a08700f4fe7c4e502e0500c96908a035b103780817708ad5",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetOutputInscription.py",
-      "destination_sha256": "9c031dfb44ec8a08daa2806fccfc07e1d57640330f3dcea102bb18dce26c3280",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnOutputInscription.py",
+      "destination_sha256": "614c7948930f37aa88b55ea5c3b6d076941c054ef48bf3ec05a11dff040e6709",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetOutputInscription.py",
       "source_sha256": "d9aad5be54592ad5e9a2e651c531840f265cbfca93f288804f8280f244692f57",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceDefinition.py",
-      "destination_sha256": "f0514377871b794e646a832144da44d60c79dfd55f8690cea74779ac89298fe0",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnPlaceDefinition.py",
+      "destination_sha256": "e58105d07baa27007376c054de5094b2d566b2d56fdba9ebdf5989aa9c165c52",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceDefinition.py",
       "source_sha256": "be190d0414a6488ce5516aeda17c1db5ebe2bb77f8f993572ad91c7d4ea40669",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceIdentity.py",
-      "destination_sha256": "c82f899f3c0bd9a565bf6038c792dbfb7de7deaceeb6ecfb28f9616df9246cd1",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnPlaceIdentity.py",
+      "destination_sha256": "540b790f59c1b19742dd2c659cf8a2af6cc2a1ae9fd42bcc75ef78d2fe3c77df",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceIdentity.py",
       "source_sha256": "6a90ffca472cb10cede316103dc058d284bd99fd062368efc88b73da2e0a82fd",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetPlaceMarking.py",
-      "destination_sha256": "5722b946822bdb5bd3a5d47a3d3aa17643ed8573231e49dda6a7795d339af026",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnPlaceMarking.py",
+      "destination_sha256": "d7d3b2a3443bca698ccbbce006a7d03632b8164744e9ae3d12868f8dfe543ab8",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetPlaceMarking.py",
       "source_sha256": "3bfc92e993a3ab64d2d1014e37cfcd41c12b980ea5e24230baf04ce52da43448",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetProducedToken.py",
-      "destination_sha256": "4867fe5be277151050701e65e5dccf3d61227cbf47e8ef9a9284ec55a104f048",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnProducedToken.py",
+      "destination_sha256": "302ee20be00294650a7fe51a29964041e994914e96e2294ee7db2576a8669ceb",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetProducedToken.py",
       "source_sha256": "efe38c71fb7c5c8805f261f648e9083bd36bfb42b697ab3088b1043871f4554a",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionDirective.py",
-      "destination_sha256": "c8e17a9617477a8ad5ce959cb94fbaa56d4bb092fa3795d8b17edec1ace4f6bf",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionDirective.py",
+      "destination_sha256": "63844f81bc6a89cd7afefbbff24949116f52efff84b599c2c9d4be5fd6449c86",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirective.py",
       "source_sha256": "7ed1afd60c79d09f5d9985bfd4b290832fbebe5ae6801d5663c5e3ac67107b4d",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionDirectiveIdentity.py",
-      "destination_sha256": "3564b541490839ba2e739bda97e9ce71d22166049716fc7b24ad7e76d3cfb298",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionDirectiveIdentity.py",
+      "destination_sha256": "b100a8c901227383f4317602c989cfd4c2df079828458addfac60622b00a1a54",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionDirectiveIdentity.py",
       "source_sha256": "f0a44bacfe8ea5a5ca64c5f087eccb41d7681e6d3a4c6ba9d80c7797c1518a24",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionFailureCode.py",
-      "destination_sha256": "3d6440e4a8f2e53c6dc8eaaa3f52ea69376aa0a3a3e4ea75c44efa877ec1db0c",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionFailureCode.py",
+      "destination_sha256": "90d1b9adec3a64ae7ce1e79be2ad2b148a042e0cc025fedc0a9e567ac41cc975",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionFailureCode.py",
       "source_sha256": "7f2afec3c44413221a8946c0bd4347bbc2a1af379a42e7c320f2db3e6b893261",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionOutcomeKind.py",
-      "destination_sha256": "71505497d206258123c809d4c56f38082f8ca5d2c86b09b4301cacb1c6541443",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionOutcomeKind.py",
+      "destination_sha256": "30b466d137a60a60e21b568d7b99e19cc66efe3574546efedbf071d5b0f8d5a9",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionOutcomeKind.py",
       "source_sha256": "e8de9c6897e30d0e1a5590fe09f3f98441333cac5f677c867eff9c5756826ad4",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionPolicy.py",
-      "destination_sha256": "55d5784f49949a4b8670a9f40a7cf17786371d9bb28770ddde4c32dbdd544034",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionPolicy.py",
+      "destination_sha256": "acb52c0776c7af543414a00a3bce895d01cb989389601908a7a7695aad5f4402",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionPolicy.py",
       "source_sha256": "3df719d165f4674ad051d854081ece96c769a97ec055c49ed067e9695173e5dc",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionResult.py",
-      "destination_sha256": "3879f8a39afef402382b4e467a5fe2b0bfe89478f895416edb35c607521dcf2a",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionResult.py",
+      "destination_sha256": "ede9e9ea82e835b0bee68e91fabcf6e0a23a883f99dd03b539ea212345f47d3b",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResult.py",
       "source_sha256": "aefc9ba6c1feef71567af094ef76af6d137c4b0a1f1da7365a2ef5548099699e",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetSelectionResultIdentity.py",
-      "destination_sha256": "fedd3f864ed1a64f2041acf510e672a6c75b2689f5c51bafce6dbb0b0382d865",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnSelectionResultIdentity.py",
+      "destination_sha256": "8248e6df664f9abca6cb1ab1c6f991fad6e7c7112a44005978cd2a453829746e",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetSelectionResultIdentity.py",
       "source_sha256": "7b67e578f581b05bf2f98d921bf0b25065f2cb2172d7339256c322a6616b83a6",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetToken.py",
-      "destination_sha256": "cc19b48d248907180c0aacb8d712932eb2ae33f8bfc784e66846c416fd75de80",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnToken.py",
+      "destination_sha256": "e2164147f0b3c598fbf6635de1a77c4733a6222a6baf635566999523b75b0b1e",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetToken.py",
       "source_sha256": "ae7b4daf8b45d30bf0d711dd89bc89e3c593247005f8a4d22395855219e236c3",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenIdentity.py",
-      "destination_sha256": "5ecffd163d24751b94cc7245d3474911b325677f4960ba6797f744bbebb82a12",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenIdentity.py",
+      "destination_sha256": "03ecb407d9cbe357c11dffb47730f379c07a962a9b6d73787835e0afdd1df198",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenIdentity.py",
       "source_sha256": "944fa58de4bd046e6f774b447d62d7bbbb30366ad93792b3649f6a4fa12af851",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenOccurrence.py",
-      "destination_sha256": "0edbb0e502f7ca5f686454a56eda80d5fa1b9929d5ec7e09ad5bcf133263ffb1",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenOccurrence.py",
+      "destination_sha256": "d7626de03dddf9fa26f1b0687df9038e2760a968145e653221becb03637d9309",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenOccurrence.py",
       "source_sha256": "7024243baf68bd170d6e834de6e094a0879fc22840cfa0ee2b4b7f03e67199fa",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenPattern.py",
-      "destination_sha256": "3f6ae0a9de8bc35d104a30c5256325a6bdb7a0b39086548eb65b46e0590992ca",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenPattern.py",
+      "destination_sha256": "a328f7007a04c6616a1cfe4fb3371286ac84bc479f4af817dbbb1259bc3cb62e",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenPattern.py",
       "source_sha256": "81d3ed0cc0415ee57e5f44e28bf515e8f757ac74273642356fa2393b57b65729",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTokenTemplate.py",
-      "destination_sha256": "1d163a9a46b1b03329faea1b194eeb5b636c2f20857898dec14f3d3afb1c9851",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTokenTemplate.py",
+      "destination_sha256": "24ed4ad5d5b2a352372a2ae0429bdf953d723e8d62f0d6bafe1e2654c64a3269",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTokenTemplate.py",
       "source_sha256": "9bc87c9d0909f4c1743ebe5e2d6d0d2562dafd77c33a7198a20394ac13937359",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionDefinition.py",
-      "destination_sha256": "3dc2a9e914b0d78f4733de61e4bd95dddf8033edee60cd0c0d858f30a27abe75",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionDefinition.py",
+      "destination_sha256": "80db415e04a62bd40fc0cd94736c7e2623135d4625812b8c048eb47e205390e4",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionDefinition.py",
       "source_sha256": "cb562de30dc0f5b1a02a64394525d802acc5ca0f4d16ced2ccd5d1339fa979dc",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionEnabler.py",
-      "destination_sha256": "43c38e31013a947734c18922158f9605b418c6e54d97a2407db8c52df560cc9b",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionEnabler.py",
+      "destination_sha256": "1327e701415fc410de7f161d985aa5e0b75de7ff68bd39ecc868ddcca9252560",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnabler.py",
       "source_sha256": "4ee054b40c98123e6be5f697e9f38cd2c0f0580f14cd01323c37da0cf9f2a4fd",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionEnablerIdentity.py",
-      "destination_sha256": "0f7951017f4af8fcc65325ced0080edfd3c6fbffe7a9a499d542ab7cb79d4cc8",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionEnablerIdentity.py",
+      "destination_sha256": "396e46be35fd86f8464afd014bcdfd1362887c5953cf76ac869f77df618ba023",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionEnablerIdentity.py",
       "source_sha256": "39686f81b57f27e49c7be40e5f073ae7bd0963d7d3c1117df7a2712589819569",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",
-      "destination_sha256": "b8be7c517ae017a1a17c06e74e52ce99286358082d0ad0d017b8a7b64efc33ab",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionFirer.py",
+      "destination_sha256": "9fa1499698652e890708cdab730bbc702b4969b92547afa06f631bb1e5bee8c4",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirer.py",
       "source_sha256": "90b7281d5159157bb9c20d74a2b5200c89879a2550f01fb840fe71b8b901b893",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionFirerIdentity.py",
-      "destination_sha256": "109c65b3b901de8bfda750141f2c34b0102cdc4067cb252d276d0cbf98d8e2d5",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionFirerIdentity.py",
+      "destination_sha256": "93e6a2eb0276a164cbcd5631d657ab88f11d9bb72894a3388ca6821adbd59008",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionFirerIdentity.py",
       "source_sha256": "54941bec352e7c0da04e9c507671ade7543795b2315fe608276df60c96d41071",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetTransitionIdentity.py",
-      "destination_sha256": "afd61db8b0f92f004ea913d26b7ed83eb27741c5923d79a84315bf3e36bdbc6b",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnTransitionIdentity.py",
+      "destination_sha256": "83bce35e22a482e33dac5524d22f73362e717e2fd2d77c32c3cc495ac9de0238",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetTransitionIdentity.py",
       "source_sha256": "a08a6ea45cf2790356134507c842ca0dd9aa429869f7782a96366f0f2475afd4",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationIssue.py",
-      "destination_sha256": "15f752da0287b5ef457da00fbc8122e6efbf5692440fc071ecd2b3058fbe5837",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValidationIssue.py",
+      "destination_sha256": "e0f12d10c0de75d15db22b912d6eef19775119fe5ac951c5cfdf23d5280e7517",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssue.py",
       "source_sha256": "d4bea53ba2f3fa42da62da7f3d22821e00325fd55dca3aca0d0dcaa6679a103a",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationIssueCode.py",
-      "destination_sha256": "d8bfbeca51390f21aafd9c1917fb88e88492f5b00a4bb69f68d67efbd09eb405",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValidationIssueCode.py",
+      "destination_sha256": "bf11c41c47117a43915e93e5f090040184a9353906950f6fa9fffaa4b5c85d26",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationIssueCode.py",
       "source_sha256": "46a70692b3a297db2fd7c93afbc35cbcd9e3af0b5a504007b2f46b25c49655e9",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValidationResult.py",
-      "destination_sha256": "9dd9970b3f8183f6a260c738814078b11f2c9cb81cfd25eda71c31ccec20be30",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValidationResult.py",
+      "destination_sha256": "c45005c79411b2e3085d75039de35e72c3763b4186cf2a9b64373e5e583f1b12",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValidationResult.py",
       "source_sha256": "4055d0da5849bfcab230ea4f908e5ca442bb92b2339f0e89e780237bc3abd620",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValue.py",
-      "destination_sha256": "7a3b30ce673996dba700d063fdd8bca29457d9f735da24bbc2fcdbdaefe871a9",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValue.py",
+      "destination_sha256": "5e0faf7f51fc83f666bb2d31236e41d4eeaf7930a6c20e1791172947af556549",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValue.py",
       "source_sha256": "45556a9c0dbb4c33d16a022d21d80b710ee4afd84f6133b0ec26b8f34a995a2d",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueExpression.py",
-      "destination_sha256": "8c0a723976e8fd1c49e9662f038071edfefc057b3adcb2f4a0938fded9dae6d0",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpression.py",
+      "destination_sha256": "f4462d18f31be6250e2ab8a6a1d27aeb6143c49ca3a3b0079f5323d96b9e3d05",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpression.py",
       "source_sha256": "0220fe4f93e94d753ccfdf4e1344442bb341efd86934e9900e5a713e41157b85",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueExpressionKind.py",
-      "destination_sha256": "e1bd20ee2fe4c044e10996011c0477f5561d18267185455220e75156663f857e",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueExpressionKind.py",
+      "destination_sha256": "aa41e40797f0a3166ab5e222976cf5b668d28370f8c0277837aba03ad066ae5c",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueExpressionKind.py",
       "source_sha256": "5651b23e830156e7faf62259df46bfcbf6f447d4b4260fe7de0e6eda237059d3",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__ColoredPetriNetValueKind.py",
-      "destination_sha256": "6904782f4ffcbbbe7c872c53d8a51070c6e271af82e7b18457d1a70eb4e03d2a",
+      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__CpnValueKind.py",
+      "destination_sha256": "9eb6c2d1edbd52e5bee54abaf33806b913f71c48e9600cd75df8aa9275d32696",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__ColoredPetriNetValueKind.py",
       "source_sha256": "0b594523510b75374958c42df34ff0e9c1fc10edc04707f6bd02a7347ea58175",
-      "transformation": "namespace substitution only"
+      "transformation": "owner contract extension after pinned transformed import"
     },
     {
       "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__petrinet_colored_identity_nominality.py",
-      "destination_sha256": "cc94f1aeb927d575e29c1296138951b7edbb97537acc7eed85c53586c6ca3d1f",
+      "destination_sha256": "6f0e07faed1785fa2df7d18f2792d35fdf97b79c3b0c62648ee88f98a0786b6f",
       "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_identity_nominality.py",
       "source_sha256": "ff0f28f998345510f147ede53a51377cc057bc8d94e0e596a78d01840c183489",
-      "transformation": "namespace substitution only"
-    },
-    {
-      "destination_path": "tests/projectkoios/workflow/petrinet/colored/test__petrinet_colored_public_api.py",
-      "destination_sha256": "c36d2b2265d7b98c4cb58b9c40106daa789169e77bc65f0c0b637e5cd2d16550",
-      "source_path": "python/tests/software_verification/ksdft2effmass/petrinet/colored/test__petrinet_colored_public_api.py",
-      "source_sha256": "5147a1a15e69e412d0c7d8f9d0e0e804be6f80e033d8b563d80b9fcfc40f9591",
-      "transformation": "namespace substitution and Project Koios dependency-boundary adaptation"
+      "transformation": "owner contract extension after pinned transformed import"
     }
   ]
 }

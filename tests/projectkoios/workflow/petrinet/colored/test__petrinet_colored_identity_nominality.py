@@ -20,13 +20,15 @@ scientific validity, UQ, authority, execution, or human acceptance.
 
 import pytest
 
-from projectkoios.workflow.petrinet.colored import (
-    ColoredPetriNetBindingVariableIdentity,
-    ColoredPetriNetDefinitionIdentity,
-    ColoredPetriNetMarkingIdentity,
-    ColoredPetriNetPlaceIdentity,
-    ColoredPetriNetTransitionIdentity,
+from projectkoios.workflow.petrinet.colored.definitions import (
+    CpnDefinitionIdentity,
+    CpnPlaceIdentity,
+    CpnTransitionIdentity,
 )
+from projectkoios.workflow.petrinet.colored.expressions.grammar import (
+    CpnBindingVariableIdentity,
+)
+from projectkoios.workflow.petrinet.colored.markings import CpnMarkingIdentity
 
 pytestmark = pytest.mark.software_verification
 
@@ -40,11 +42,11 @@ def test_artifact__identity_types__remain_nominally_distinct() -> None:
     Acceptance: Five equal lexical values produce pairwise-unequal records.
     """
     identities = (
-        ColoredPetriNetDefinitionIdentity("shared"),
-        ColoredPetriNetMarkingIdentity("shared"),
-        ColoredPetriNetPlaceIdentity("shared"),
-        ColoredPetriNetTransitionIdentity("shared"),
-        ColoredPetriNetBindingVariableIdentity("shared"),
+        CpnDefinitionIdentity("shared"),
+        CpnMarkingIdentity("shared"),
+        CpnPlaceIdentity("shared"),
+        CpnTransitionIdentity("shared"),
+        CpnBindingVariableIdentity("shared"),
     )
     assert all(
         left == right if left_index == right_index else left != right

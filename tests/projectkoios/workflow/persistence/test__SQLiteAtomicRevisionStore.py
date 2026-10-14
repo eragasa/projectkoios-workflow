@@ -10,13 +10,15 @@ from pathlib import Path
 from threading import Barrier
 
 import pytest
-from projectkoios.workflow.persistence import (
+from projectkoios.workflow.persistence.revisions.interfaces import (
     Revision,
     RevisionCommit,
     RevisionCommitStatus,
     RevisionReadRequest,
     RevisionReadStatus,
     RevisionSelector,
+)
+from projectkoios.workflow.persistence.revisions.sqlite import (
     SQLiteAtomicRevisionStore,
 )
 

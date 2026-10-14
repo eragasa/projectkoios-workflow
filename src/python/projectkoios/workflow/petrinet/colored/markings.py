@@ -1,56 +1,18 @@
-"""Immutable generic colored-Petri-net multisets and transition bindings.
-
-A place marking represents multiplicity by repeated equal anonymous tokens in a
-canonical tuple. Tokens never carry counts. Individually identified tokens may
-occur at most once in a complete marking. A transition binding is an ordered
-sequence of variable/value assignments; its order is definition-owned and is
-therefore preserved rather than lexically rewritten here.
-
-The records perform no definition compatibility validation, enablement, firing,
-persistence, Workflow orchestration, external effect, or scientific operation.
-Their tests are software verification only.
-"""
+"""Immutable generic colored-Petri-net markings and place multisets."""
 
 from dataclasses import dataclass
-from typing import Any
+from typing import final
 
-from .values import (
-    ColoredPetriNetToken,
-    ColoredPetriNetValue,
-    ColoredPetriNetValueKind,
+from .control.records.ordering import (
+    CpnValueOrderingInput,
+    CpnValueOrderingPolicy,
 )
+from .definitions import CpnDefinitionIdentity, CpnPlaceIdentity
+from .values import CpnToken
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetDefinitionIdentity:
-    """Nominal identity of one exact generic net definition.
-
-    Parameters
-    ----------
-    value
-        Nonempty owner-local lexical identity. Canonical encoding and wire
-        derivation remain deferred.
-
-    Raises
-    ------
-    TypeError
-        ``value`` is not an exact built-in string.
-    ValueError
-        ``value`` is empty.
-    """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        """Validate the exact built-in nonempty string boundary."""
-        if type(self.value) is not str:
-            raise TypeError("definition identity value must be a string")
-        if not self.value:
-            raise ValueError("definition identity value must not be empty")
-
-
-@dataclass(frozen=True, slots=True)
-class ColoredPetriNetMarkingIdentity:
+class CpnMarkingIdentity:
     """Nominal identity of one exact semantic generic marking.
 
     Parameters
@@ -78,107 +40,73 @@ class ColoredPetriNetMarkingIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetPlaceIdentity:
-    """Nominal identity of one place in a generic net definition.
+class CpnTokenOrderingInput:
+    """One immutable token sequence requested for semantic ordering."""
 
-    Parameters
-    ----------
-    value
-        Nonempty owner-local lexical identity.
-
-    Raises
-    ------
-    TypeError
-        ``value`` is not an exact built-in string.
-    ValueError
-        ``value`` is empty.
-    """
-
-    value: str
+    tokens: tuple[CpnToken, ...]
 
     def __post_init__(self) -> None:
-        """Validate the exact built-in nonempty string boundary."""
-        if type(self.value) is not str:
-            raise TypeError("place identity value must be a string")
-        if not self.value:
-            raise ValueError("place identity value must not be empty")
+        if type(self.tokens) is not tuple or any(
+            type(item) is not CpnToken for item in self.tokens
+        ):
+            raise TypeError("tokens must contain exact CpnToken values")
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetTransitionIdentity:
-    """Nominal identity of one transition in a generic net definition.
+class CpnTokenOrderingResult:
+    """One deterministically ordered immutable token sequence."""
 
-    Parameters
-    ----------
-    value
-        Nonempty owner-local lexical identity.
-
-    Raises
-    ------
-    TypeError
-        ``value`` is not an exact built-in string.
-    ValueError
-        ``value`` is empty.
-    """
-
-    value: str
+    tokens: tuple[CpnToken, ...]
 
     def __post_init__(self) -> None:
-        """Validate the exact built-in nonempty string boundary."""
-        if type(self.value) is not str:
-            raise TypeError("transition identity value must be a string")
-        if not self.value:
-            raise ValueError("transition identity value must not be empty")
+        if type(self.tokens) is not tuple or any(
+            type(item) is not CpnToken for item in self.tokens
+        ):
+            raise TypeError("tokens must contain exact CpnToken values")
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetBindingVariableIdentity:
-    """Nominal identity of one variable in a transition binding.
+class CpnTokenOrderingPolicyIdentity:
+    """Identity of exact generic token-ordering semantics."""
 
-    Parameters
-    ----------
-    value
-        Nonempty owner-local lexical identity.
-
-    Raises
-    ------
-    TypeError
-        ``value`` is not an exact built-in string.
-    ValueError
-        ``value`` is empty.
-    """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        """Validate the exact built-in nonempty string boundary."""
-        if type(self.value) is not str:
-            raise TypeError("binding variable identity value must be a string")
-        if not self.value:
-            raise ValueError("binding variable identity value must not be empty")
+    value: str = "projectkoios.workflow.cpn.token-ordering-policy:0.1"
 
 
-def _value_order_key(value: ColoredPetriNetValue) -> tuple[str, Any]:
-    """Return a deterministic in-memory key for one closed tagged value."""
-    active = value.value
-    if value.kind is ColoredPetriNetValueKind.NONE:
-        return (value.kind.value, ())
-    return (value.kind.value, active)
+@final
+class CpnTokenOrderingPolicy:
+    """Order tokens by color, admitted value order, and token identity."""
 
+    __slots__ = ()
 
-def _token_order_key(token: ColoredPetriNetToken) -> tuple[Any, ...]:
-    """Return the contract's deterministic in-memory token ordering key."""
-    identity = token.token_identity
-    return (
-        token.color_identity.value,
-        *_value_order_key(token.value),
-        identity is not None,
-        "" if identity is None else identity.value,
-    )
+    @property
+    def identity(self) -> CpnTokenOrderingPolicyIdentity:
+        """Return exact token-ordering semantics identity."""
+        return CpnTokenOrderingPolicyIdentity()
+
+    def execute(
+        self, ordering_input: CpnTokenOrderingInput
+    ) -> CpnTokenOrderingResult:
+        """Return a stable total ordering without hidden key functions."""
+        if type(ordering_input) is not CpnTokenOrderingInput:
+            raise TypeError("ordering_input must be CpnTokenOrderingInput")
+        ordered: list[tuple[tuple[object, ...], int, CpnToken]] = []
+        for ordinal, token in enumerate(ordering_input.tokens):
+            identity = token.token_identity
+            key = (
+                token.color_identity.value,
+                *CpnValueOrderingPolicy()
+                .execute(CpnValueOrderingInput(token.value))
+                .key,
+                identity is not None,
+                "" if identity is None else identity.value,
+            )
+            ordered.append((key, ordinal, token))
+        ordered.sort()
+        return CpnTokenOrderingResult(tuple(item[2] for item in ordered))
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetPlaceMarking:
+class CpnPlaceMarking:
     """Immutable semantic token multiset at one generic place.
 
     Parameters
@@ -199,31 +127,34 @@ class ColoredPetriNetPlaceMarking:
         One individual token identity occurs more than once.
     """
 
-    place_identity: ColoredPetriNetPlaceIdentity
-    tokens: tuple[ColoredPetriNetToken, ...]
+    place_identity: CpnPlaceIdentity
+    tokens: tuple[CpnToken, ...]
 
     def __post_init__(self) -> None:
         """Validate and canonicalize the owned semantic multiset."""
-        if type(self.place_identity) is not ColoredPetriNetPlaceIdentity:
-            raise TypeError("place_identity must be ColoredPetriNetPlaceIdentity")
+        if type(self.place_identity) is not CpnPlaceIdentity:
+            raise TypeError("place_identity must be CpnPlaceIdentity")
         if type(self.tokens) is not tuple or any(
-            type(token) is not ColoredPetriNetToken for token in self.tokens
+            type(token) is not CpnToken for token in self.tokens
         ):
-            raise TypeError("tokens must be a tuple of ColoredPetriNetToken")
+            raise TypeError("tokens must be a tuple of CpnToken")
         identities = tuple(
             token.token_identity
             for token in self.tokens
             if token.token_identity is not None
         )
         if len(set(identities)) != len(identities):
-            raise ValueError("identified token identities must be unique at a place")
-        object.__setattr__(
-            self, "tokens", tuple(sorted(self.tokens, key=_token_order_key))
+            raise ValueError(
+                "identified token identities must be unique at a place"
+            )
+        ordered = CpnTokenOrderingPolicy().execute(
+            CpnTokenOrderingInput(self.tokens)
         )
+        object.__setattr__(self, "tokens", ordered.tokens)
 
 
 @dataclass(frozen=True, slots=True)
-class ColoredPetriNetMarking:
+class CpnMarking:
     """One complete immutable semantic marking for an exact net definition.
 
     Parameters
@@ -250,22 +181,20 @@ class ColoredPetriNetMarking:
     later validator. Revision and wire-schema state are deliberately absent.
     """
 
-    identity: ColoredPetriNetMarkingIdentity
-    definition_identity: ColoredPetriNetDefinitionIdentity
-    places: tuple[ColoredPetriNetPlaceMarking, ...]
+    identity: CpnMarkingIdentity
+    definition_identity: CpnDefinitionIdentity
+    places: tuple[CpnPlaceMarking, ...]
 
     def __post_init__(self) -> None:
         """Validate complete owned state and canonicalize place order."""
-        if type(self.identity) is not ColoredPetriNetMarkingIdentity:
-            raise TypeError("identity must be ColoredPetriNetMarkingIdentity")
-        if type(self.definition_identity) is not ColoredPetriNetDefinitionIdentity:
-            raise TypeError(
-                "definition_identity must be ColoredPetriNetDefinitionIdentity"
-            )
+        if type(self.identity) is not CpnMarkingIdentity:
+            raise TypeError("identity must be CpnMarkingIdentity")
+        if type(self.definition_identity) is not CpnDefinitionIdentity:
+            raise TypeError("definition_identity must be CpnDefinitionIdentity")
         if type(self.places) is not tuple or any(
-            type(place) is not ColoredPetriNetPlaceMarking for place in self.places
+            type(place) is not CpnPlaceMarking for place in self.places
         ):
-            raise TypeError("places must be a tuple of ColoredPetriNetPlaceMarking")
+            raise TypeError("places must be a tuple of CpnPlaceMarking")
         place_ids = tuple(place.place_identity for place in self.places)
         if len(set(place_ids)) != len(place_ids):
             raise ValueError("place identities must be unique")
@@ -279,80 +208,13 @@ class ColoredPetriNetMarking:
             raise ValueError(
                 "identified token identities must be unique across the marking"
             )
+        ordered_places = [
+            (place.place_identity.value, ordinal, place)
+            for ordinal, place in enumerate(self.places)
+        ]
+        ordered_places.sort()
         object.__setattr__(
             self,
             "places",
-            tuple(sorted(self.places, key=lambda place: place.place_identity.value)),
+            tuple(item[2] for item in ordered_places),
         )
-
-
-@dataclass(frozen=True, slots=True)
-class ColoredPetriNetBindingAssignment:
-    """Association of one definition-owned variable with one generic value.
-
-    Parameters
-    ----------
-    variable_identity
-        Nominal identity of the bound variable.
-    value
-        Exact immutable generic value assigned to the variable.
-
-    Raises
-    ------
-    TypeError
-        A field does not have its exact owner-local nominal type.
-    """
-
-    variable_identity: ColoredPetriNetBindingVariableIdentity
-    value: ColoredPetriNetValue
-
-    def __post_init__(self) -> None:
-        """Validate exact nominal assignment components."""
-        if type(self.variable_identity) is not ColoredPetriNetBindingVariableIdentity:
-            raise TypeError(
-                "variable_identity must be ColoredPetriNetBindingVariableIdentity"
-            )
-        if type(self.value) is not ColoredPetriNetValue:
-            raise TypeError("value must be ColoredPetriNetValue")
-
-
-@dataclass(frozen=True, slots=True)
-class ColoredPetriNetBinding:
-    """One immutable ordered variable/value binding for a transition.
-
-    Parameters
-    ----------
-    transition_identity
-        Nominal identity of the transition for which values are bound.
-    assignments
-        Complete variable/value assignments in the owning definition's declared
-        variable order. This DataObject preserves that order and requires unique
-        variable identities; it does not infer or lexically reorder policy.
-
-    Raises
-    ------
-    TypeError
-        A field has the wrong nominal type or ``assignments`` is mutable.
-    ValueError
-        A variable identity occurs more than once.
-    """
-
-    transition_identity: ColoredPetriNetTransitionIdentity
-    assignments: tuple[ColoredPetriNetBindingAssignment, ...]
-
-    def __post_init__(self) -> None:
-        """Validate the intrinsic ordered-binding structure."""
-        if type(self.transition_identity) is not ColoredPetriNetTransitionIdentity:
-            raise TypeError(
-                "transition_identity must be ColoredPetriNetTransitionIdentity"
-            )
-        if type(self.assignments) is not tuple or any(
-            type(item) is not ColoredPetriNetBindingAssignment
-            for item in self.assignments
-        ):
-            raise TypeError(
-                "assignments must be a tuple of ColoredPetriNetBindingAssignment"
-            )
-        variables = tuple(item.variable_identity for item in self.assignments)
-        if len(set(variables)) != len(variables):
-            raise ValueError("binding variable identities must be unique")

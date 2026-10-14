@@ -6,11 +6,13 @@ import json
 
 import pytest
 from _runtime_fixtures import runtime_fixture
-from projectkoios.workflow.runtime import (
+from projectkoios.workflow.runtime.events.definition import (
     WorkflowRuntimeEvent,
     WorkflowRuntimeEventKind,
-    WorkflowRuntimeEventSerializer,
     WorkflowRuntimeEvidenceReference,
+)
+from projectkoios.workflow.runtime.events.serialization import (
+    WorkflowRuntimeEventSerializer,
 )
 
 

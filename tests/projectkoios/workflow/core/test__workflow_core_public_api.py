@@ -7,74 +7,36 @@ import inspect
 import os
 import subprocess
 import sys
+from dataclasses import is_dataclass
 from pathlib import Path
 
 import projectkoios.workflow.core as core
+from projectkoios.workflow.core.identities import definition as identities
+from projectkoios.workflow.core.records.runs import WorkflowRunStarter
+from projectkoios.workflow.core.transitions.execution import (
+    WorkflowTransitionProcessor,
+)
+from projectkoios.workflow.core.transitions.replay import (
+    WorkflowTransitionReplayer,
+)
+from projectkoios.workflow.core.transitions.validation import (
+    WorkflowTransitionValidator,
+)
 
 
 def test__workflow_core_public_api__is_explicit() -> None:
-    """The core exports its intended immutable records and pure actions."""
-    assert core.__all__ == [
-        "WORKFLOW_CORE_CONTRACT_VERSION",
-        "WorkflowActorIdentity",
-        "WorkflowAdapterDisposition",
-        "WorkflowAdapterEvidence",
-        "WorkflowAdapterEvidenceIdentity",
-        "WorkflowAdapterIdentity",
-        "WorkflowArtifactDisposition",
-        "WorkflowArtifactReference",
-        "WorkflowArtifactReferenceIdentity",
-        "WorkflowAuditEvent",
-        "WorkflowAuditEventIdentity",
-        "WorkflowAuditReference",
-        "WorkflowAuthorityReference",
-        "WorkflowAuthorityReferenceIdentity",
-        "WorkflowDecisionReference",
-        "WorkflowDecisionReferenceIdentity",
-        "WorkflowDefinitionIdentity",
-        "WorkflowDefinitionReference",
-        "WorkflowExternalReferenceIdentity",
-        "WorkflowIdempotencyIdentity",
-        "WorkflowInfrastructureFailureEvidence",
-        "WorkflowInfrastructureFailureIdentity",
-        "WorkflowOperationIdentity",
-        "WorkflowReplayIdentity",
-        "WorkflowReplayResult",
-        "WorkflowRequestBounds",
-        "WorkflowRun",
-        "WorkflowRunIdentity",
-        "WorkflowRunStarter",
-        "WorkflowRunStartResult",
-        "WorkflowRunStatus",
-        "WorkflowStateIdentity",
-        "WorkflowStateSnapshot",
-        "WorkflowSubjectIdentity",
-        "WorkflowTransitionExecution",
-        "WorkflowTransitionInput",
-        "WorkflowTransitionOutcome",
-        "WorkflowTransitionOutcomeIdentity",
-        "WorkflowTransitionOutcomeKind",
-        "WorkflowTransitionPreflightInput",
-        "WorkflowTransitionProcessor",
-        "WorkflowTransitionRequest",
-        "WorkflowTransitionRequestIdentity",
-        "WorkflowTransitionReplayer",
-        "WorkflowTransitionValidator",
-        "WorkflowTypedReference",
-        "WorkflowValidationFinding",
-        "WorkflowValidationFindingCode",
-        "WorkflowValidationFindingIdentity",
-        "WorkflowValidationIdentity",
-        "WorkflowValidationResult",
-    ]
+    """The core initializer is a namespace boundary, never a facade."""
+    assert core.__all__ == ()
 
 
 def test__workflow_core_identity__is_stable_across_hash_seeds() -> None:
     """Content identity is independent of process hash randomization."""
     script = """
-from projectkoios.workflow.core import (
-    WorkflowDefinitionReference,
+from projectkoios.workflow.core.identities.definition import (
     WorkflowOperationIdentity,
+)
+from projectkoios.workflow.core.records.references import (
+    WorkflowDefinitionReference,
 )
 definition = WorkflowDefinitionReference.create(
     contract_id="test.definition",
@@ -105,10 +67,13 @@ print(definition.identity.value)
 
 def test__workflow_core_identity_types__remain_nominal() -> None:
     """Each domain identity is a distinct runtime type, not a string alias."""
-    identity_names = [
-        name for name in core.__all__ if name.endswith("Identity")
+    identity_types = [
+        value
+        for name, value in vars(identities).items()
+        if name.startswith("Workflow")
+        and name.endswith("Identity")
+        and is_dataclass(value)
     ]
-    identity_types = [getattr(core, name) for name in identity_names]
 
     assert len(identity_types) == len(set(identity_types))
     for identity_type in identity_types:
@@ -134,7 +99,7 @@ def test__workflow_core__does_not_import_optional_engines_or_outer_layers() -> (
     }
     violations: list[str] = []
 
-    for path in sorted(package_dir.glob("*.py")):
+    for path in sorted(package_dir.rglob("*.py")):
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         for node in ast.walk(tree):
             modules: list[str] = []
@@ -153,10 +118,10 @@ def test__workflow_core__does_not_import_optional_engines_or_outer_layers() -> (
 def test__workflow_core_actions__expose_one_explicit_execute_method() -> None:
     """Actions use explicit inputs rather than hidden mutable state."""
     actions = (
-        core.WorkflowRunStarter,
-        core.WorkflowTransitionProcessor,
-        core.WorkflowTransitionReplayer,
-        core.WorkflowTransitionValidator,
+        WorkflowRunStarter,
+        WorkflowTransitionProcessor,
+        WorkflowTransitionReplayer,
+        WorkflowTransitionValidator,
     )
 
     for action in actions:

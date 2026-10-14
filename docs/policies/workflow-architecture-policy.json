@@ -1,0 +1,135 @@
+{
+  "allowed_layer_dependencies": {
+    "core": [
+      "core"
+    ],
+    "persistence": [
+      "persistence"
+    ],
+    "petrinet": [
+      "petrinet"
+    ],
+    "review": [
+      "core",
+      "review"
+    ],
+    "runtime": [
+      "core",
+      "persistence",
+      "runtime"
+    ]
+  },
+  "composition_root_dependencies": {
+    "petrinet.colored.profiles.building": [
+      "petrinet.colored.canonical.bindings",
+      "petrinet.colored.canonical.definitions",
+      "petrinet.colored.canonical.directives",
+      "petrinet.colored.canonical.enablement",
+      "petrinet.colored.canonical.expressions.guards.canonicalization",
+      "petrinet.colored.canonical.expressions.guards.decoding",
+      "petrinet.colored.canonical.expressions.values.canonicalization",
+      "petrinet.colored.canonical.expressions.values.decoding",
+      "petrinet.colored.canonical.firing.results.identity",
+      "petrinet.colored.canonical.json",
+      "petrinet.colored.canonical.markings",
+      "petrinet.colored.canonical.selections",
+      "petrinet.colored.children.exports.canonical.exporting",
+      "petrinet.colored.control.records.canonical",
+      "petrinet.colored.control.records.ordering",
+      "petrinet.colored.control.records.schema",
+      "petrinet.colored.control.records.types.graph",
+      "petrinet.colored.control.records.values.canonicalization",
+      "petrinet.colored.control.records.values.decoding",
+      "petrinet.colored.enablement.failures.building",
+      "petrinet.colored.enablement.ordering",
+      "petrinet.colored.enablement.transitions",
+      "petrinet.colored.expressions.collection.expressions",
+      "petrinet.colored.expressions.collection.guards",
+      "petrinet.colored.expressions.collection.variables",
+      "petrinet.colored.expressions.construction",
+      "petrinet.colored.expressions.evaluation.expressions",
+      "petrinet.colored.expressions.evaluation.guards",
+      "petrinet.colored.expressions.grammar",
+      "petrinet.colored.expressions.projection",
+      "petrinet.colored.expressions.validation.bounds",
+      "petrinet.colored.expressions.validation.structure",
+      "petrinet.colored.firing.failures.building",
+      "petrinet.colored.firing.markings.successor",
+      "petrinet.colored.firing.occurrences.reconstruction",
+      "petrinet.colored.firing.results.identity",
+      "petrinet.colored.firing.transitions",
+      "petrinet.colored.markings",
+      "petrinet.colored.outputs.external",
+      "petrinet.colored.plans.compilation",
+      "petrinet.colored.profiles.definition",
+      "petrinet.colored.selection",
+      "petrinet.colored.shadow.contracts",
+      "petrinet.colored.shadow.replay.contracts",
+      "petrinet.colored.validation.definitions.complete",
+      "petrinet.colored.validation.definitions.input",
+      "petrinet.colored.validation.definitions.output",
+      "petrinet.colored.validation.markings",
+      "petrinet.colored.values"
+    ]
+  },
+  "maximum_ordinary_module_fanout": 20,
+  "runtime_external_imports": {
+    "runtime": [],
+    "runtime.events": [],
+    "runtime.events.definition": [
+      "__future__",
+      "dataclasses",
+      "enum",
+      "hashlib",
+      "json",
+      "re"
+    ],
+    "runtime.events.serialization": [
+      "__future__",
+      "json"
+    ],
+    "runtime.execution": [],
+    "runtime.execution.local": [
+      "__future__",
+      "dataclasses",
+      "enum"
+    ],
+    "runtime.history": [],
+    "runtime.history.repository": [
+      "__future__",
+      "dataclasses",
+      "enum",
+      "hashlib"
+    ]
+  },
+  "runtime_internal_dependencies": {
+    "runtime": [],
+    "runtime.events": [],
+    "runtime.events.definition": [
+      "core.identities.definition"
+    ],
+    "runtime.events.serialization": [
+      "core.identities.definition",
+      "runtime.events.definition"
+    ],
+    "runtime.execution": [],
+    "runtime.execution.local": [
+      "core.identities.definition",
+      "core.records.runs",
+      "core.records.validation",
+      "core.transitions.execution",
+      "core.transitions.inputs",
+      "core.transitions.results",
+      "core.transitions.validation",
+      "runtime.events.definition",
+      "runtime.history.repository"
+    ],
+    "runtime.history": [],
+    "runtime.history.repository": [
+      "persistence.revisions.interfaces",
+      "runtime.events.definition",
+      "runtime.events.serialization"
+    ]
+  },
+  "schema_version": 1
+}

@@ -2,13 +2,23 @@
 
 ## Status
 
-Implemented as a non-authoritative shadow under `WORKFLOW-CPN-SHADOW-01`.
+Historical and superseded as the description of the current implementation.
+`WORKFLOW-CPN-SHADOW-01` records the original non-authoritative import baseline;
+the current working-tree candidate is governed by
+[`workflow-cpn-bindings.md`](../contracts/workflow-cpn-bindings.md).
 
-This pilot does not transfer production authority, publish a compatibility promise, select a wire format, migrate a consumer, or authorize workflow or scientific execution.
+Neither the historical pilot nor the current candidate transfers production
+authority, publishes a compatibility promise, migrates a consumer, or
+authorizes workflow or scientific execution.
 
 ## Source boundary
 
-The production modules under `projectkoios.workflow.petrinet.colored` are byte-identical copies of `ksdft2effmass.petrinet.colored` at clean source revision `be70e856911456402ea2b2562cd2508d0963e4d9` on the observed `dev` branch. The corresponding software-verification tests were copied with a deterministic import-namespace substitution. The public dependency-boundary test was additionally adapted from `ksdft2effmass` domain owners to Project Koios core, runtime, adapter, application, and research-domain owners.
+The original baseline imported production modules from
+`ksdft2effmass.petrinet.colored` at clean source revision
+`be70e856911456402ea2b2562cd2508d0963e4d9`. The current candidate is no longer
+byte-identical: it retains explicitly recorded inherited files and adds or
+changes Workflow-owned source and verification. This document must not be used
+as evidence of current byte identity.
 
 The machine-readable source paths, destination paths, SHA-256 identities, transformation descriptions, source revision, license, Python target, and compatibility limits are recorded in [`provenance/colored-petri-net-shadow.json`](../../provenance/colored-petri-net-shadow.json).
 
@@ -27,9 +37,13 @@ The kernel uses only the Python standard library and relative imports within its
 
 ## Deliberate compatibility treatment
 
-The copied production modules preserve the existing `ksdft2effmass.petrinet.colored.*` identity-domain strings. This is necessary for byte-identical shadow behavior and does not make those strings a Project Koios wire contract. A future production transfer must either retain them through an explicit compatibility policy or introduce a separately versioned identity migration with rollback evidence.
+The historical import initially preserved legacy identity domains. The current
+candidate uses separately versioned Project Koios identity domains and does not
+promise preservation of legacy identity strings. Its aggregate package
+initializer exports no facade names; proposed direct semantic-owner modules are
+listed in the candidate public-import inventory.
 
-The shadow import surface is `projectkoios.workflow.petrinet.colored`. The retained `specification/workflow-cpn/v1` material in `ksdft2effmass` is historical audit evidence and is not part of this pilot.
+The historical shadow namespace was `projectkoios.workflow.petrinet.colored`. The retained `specification/workflow-cpn/v1` material in `ksdft2effmass` is historical audit evidence and is not part of this pilot.
 
 ## Excluded surfaces
 

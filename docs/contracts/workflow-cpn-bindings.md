@@ -24,16 +24,15 @@ is a proposal, not an available Python API, implementation authorization,
 dependency authorization, provider migration, execution grant, release, or
 compatibility promise.
 
-The existing `projectkoios.workflow.petrinet.colored` package is a
-non-authoritative shadow kernel. It supplies useful evidence for immutable flat
-CPN definitions, markings, enablement, selection, and pure firing, but it does
-not implement this contract. In particular, its current `CpnValue` model admits
-only scalar values and a string sequence, and its current `CpnValueExpression`
-admits only literals and whole variables. It does not implement the bounded
-control-record, field-projection, or record-construction contract below. The
-current local runtime implements only its bounded effect-free Slice A and does
-not implement child launch, payload resolution, attempts, dispatch,
-cancellation, reconciliation, or quiescence.
+The working-tree `projectkoios.workflow.petrinet.colored` package is
+non-authoritative candidate implementation evidence. It includes bounded
+control records, field projection, record construction, canonical transports,
+plans, child exports, deployment linking, and pure replay, but no reviewed
+commit is bound to this proposed contract. The current local runtime still
+implements only its bounded effect-free Slice A and does not implement child
+launch, payload resolution, attempts, dispatch, cancellation, reconciliation,
+or quiescence. Nothing in this document makes the working-tree modules an
+available consumer API.
 
 ## Normative scope and vocabulary
 
@@ -103,8 +102,8 @@ The contract distinguishes three identities:
    bindings, transition routes, child bindings, terminal-delivery requirements,
    mapping descriptors, and compiler implementation/version descriptors.
 3. `WorkflowExecutionBindingsIdentity` identifies one exact deployment linking
-   of that plan to provider, worker, environment, resolver, and child-plan
-   descriptors.
+   of that retained plan to provider, worker, environment, resolver, typed
+   child-plan references, and typed child-export conformance-evidence bindings.
 
 The execution-plan identity MUST be the domain-separated SHA-256 of one closed
 canonical plan representation containing every semantic-closure item above. The
@@ -138,8 +137,8 @@ exact identities for:
 - closed expression grammar, including exact field-projection and
   control-record-construction variants;
 - canonical definition representation and decoding;
-- canonical marking, transition-binding, directive, and result representation
-  and identity derivation;
+- canonical marking, transition-binding, selection-directive, enablement-result,
+  selection-result, and firing-result representations and identity derivation;
 - definition validation;
 - marking and control-record-schema validation;
 - expression and constructor evaluation;
@@ -150,9 +149,41 @@ exact identities for:
 - transition firing.
 
 Changing any profile identity MUST change the execution-profile identity and the
-execution-plan identity. Replay MUST use the exact retained profile; current
-registry defaults or implementation-local constants are insufficient semantic
-closure.
+execution-plan identity. Replay MUST use the exact retained profile; current registry defaults or
+implementation-local constants are insufficient semantic closure. Profile
+resolution MUST inspect and report every retained component identity rather than
+accept or reject only by whole-profile equality. A resolved replay response MAY
+retain the concrete root action, but MUST NOT disguise executable dependencies
+as configuration data.
+
+Every semantic action MUST be a slotted, identity-bearing object with one public
+`execute` operation accepting one immutable operation-specific request and
+returning one immutable response or closed response variant. Production modules
+MUST NOT define module-level or anonymous semantic functions, private semantic
+methods, static methods, class methods, or multi-operation action objects.
+A canonical codec is the sole exception: it MAY expose distinct `encode` and
+`decode` transformations only when both accept and return exact immutable
+transport request/response objects and the codec has one retained identity.
+Configuration records, where genuine algorithm parameters exist, MUST contain
+only immutable data such as bounds, closed policies, and semantic versions;
+they MUST NOT contain actions, callables, callbacks, providers, resolvers, or
+registries. An action with no genuine configurable data MUST have no
+configuration record.
+
+Canonical transport admission and CPN structural validation are distinct.
+Canonical parser, value, value-expression, and guard operation boundaries MUST
+retain exact immutable bytes rather than mutable decoded lists/dictionaries or
+unspecified `object` state. Mutable JSON containers MAY exist only as local
+transient variables inside one action execution and MUST NOT cross a request or
+response boundary.
+Canonical definition and marking codecs MAY preserve constructor-valid but
+structurally invalid state so deterministic failure results can be retained and
+replayed; the definition and marking validators remain the authorities that
+classify those states. Canonical firing-result decoding MUST reconstruct the complete retained firing
+input, internally resolve every retained profile component to its exact supported
+action identity, execute the resolved pure transition firer, and reject any
+profile-component, result-identity, outcome, or successor-marking substitution.
+A caller-supplied profile-resolution result MUST NOT be an input to decoding.
 
 Post-hoc validation evidence MAY bind the already-derived plan and profile
 identities, but MUST NOT become an input to either identity.
@@ -484,6 +515,21 @@ owner codec and assembler. Generic Workflow MUST NOT fabricate an artifact
 identity, interpret the owner payload's scientific or provider-specific fields,
 or let the CPN kernel invoke a codec, assembler, or artifact store.
 
+The Workflow-owned candidate implements only the generic reference boundary:
+
+- `payloads.references.definition` owns the exact six-field immutable reference,
+  owner encoding metadata, and content-derived reference identity;
+- `payloads.references.canonical` owns strict canonical reference transport;
+- `payloads.references.assembly` computes digest and byte size from supplied
+  owner bytes and combines them with a separately store-issued artifact identity
+  under the exact compiled `WorkflowPayloadColorBinding`; and
+- `payloads.references.verification` correlates supplied bytes with the retained
+  reference and compiled binding without decoding owner content or resolving the
+  artifact identity.
+
+These modules do not define or register a simulations codec, retain artifacts,
+resolve locators, or issue Workflow execution identities.
+
 ## Binding payload references to CPN colors
 
 ### `WorkflowPayloadColorBinding`
@@ -581,9 +627,16 @@ The export MUST contain no live owner, provider, registry, interpreter, SNAKES
 object, callable, mutable configuration, or post-hoc evidence that identifies
 the export itself.
 
-A separate `WorkflowChildExportEvidenceBinding` MUST bind the already-derived
-child-export identity to canonical conformance-evidence references. That
-evidence binding MAY contribute to deployment acceptance and
+A separate `WorkflowChildExportEvidenceBinding` MUST retain the complete
+already-identified child export and bind its rederived identity to typed
+canonical conformance-evidence references. Each reference MUST identify its
+role, artifact, representation profile, media type, exact SHA-256, and contract
+version. Deployment linking MUST retain exactly one resolved export/evidence
+binding for every distinct referenced child plan/export pair. For every direct
+root-plan child binding it MUST also prove exact child execution-plan identity,
+input-port membership, complete terminal-requirement equality, cancellation
+propagation policy equality, cardinality `1`, and ordinal `0`. That evidence
+binding MAY contribute to deployment acceptance and
 `WorkflowExecutionBindingsIdentity`, but MUST NOT change or become an input to
 the child-export or child-plan identity.
 
@@ -748,15 +801,27 @@ so would create a content-identity cycle. The child flat topology does not becom
 part of the parent flat CPN definition and MUST NOT be reproduced in parent
 source, plan, or deployment bindings.
 
-Deployment linking MUST prove exact agreement among parent plan, child export,
-child plan, terminal-delivery and companion requirements, mapper and correlation
+Deployment linking MUST retain the complete root plan and every referenced child
+plan, then prove exact agreement among those plan closures, child exports,
+terminal-delivery and companion requirements, mapper and correlation
 descriptors, provider capabilities, protocol versions, and required child-export
-evidence bindings. A deployment MUST reject an admitted classification for which
+evidence bindings. Each deployment descriptor MUST retain one typed
+`WorkflowProviderCapability`, not an unvalidated string collection. That record
+MUST state its deployment phase, maximum total companion-reference count, exact
+supported companion role/production-phase/payload-byte/reference-count tuples,
+exact protected-effect capability identities, exact reconciliation capability
+identities, exact protocol requirement identities, and contract version; all
+fields contribute to its content identity. Companion ordinals, byte/count
+bounds, and aggregate bounds MUST fit nonnegative signed 64-bit representation;
+one terminal requirement admits at most 64 companion roles. A deployment MUST reject an admitted classification for which
 the linked provider cannot supply every required companion role in its declared
-phase and bounds. The transitive child-plan/export graph MUST be finite and
-acyclic; recursive child-plan references are invalid in this contract version.
-Discovery by matching names, annotations, nearby registry entries, or Python
-subclass relationships is prohibited.
+phase and bounds. The transitive child-plan/export **reference** graph MUST be finite and
+acyclic; recursive static child-plan references are invalid in this contract
+version. This is a content-identity and linker-termination restriction, not a
+workflow-DAG execution model. Flat CPN topology MAY remain cyclic, transitions
+MAY fire repeatedly, and runtime execution MAY retain concurrency, retries, and
+reconciliation. Discovery by matching names, annotations, nearby registry
+entries, or Python subclass relationships is prohibited.
 
 ### Child-instance identity
 

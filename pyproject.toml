@@ -22,6 +22,7 @@ dev = ["pytest>=8.0", "ruff>=0.8", "mypy>=1.13"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 markers = [
     "software_verification: implementation satisfies documented software contract",
 ]
@@ -36,6 +37,7 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.ruff.lint.per-file-ignores]
 "src/python/projectkoios/workflow/petrinet/colored/*.py" = ["E501", "I001"]
 "tests/projectkoios/workflow/petrinet/colored/*.py" = ["E501", "I001"]
+"examples/sdk/*.py" = ["E501"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -42,22 +42,26 @@ jobs:
         run: >-
           .venv/bin/python -m ruff format --check
           src/python/projectkoios/workflow/core
-          src/python/projectkoios/workflow/course_review
           src/python/projectkoios/workflow/persistence
-          src/python/projectkoios/workflow/reference_review
+          src/python/projectkoios/workflow/petrinet/colored
+          src/python/projectkoios/workflow/review
           src/python/projectkoios/workflow/runtime
-          tests/projectkoios/workflow/core
-          tests/projectkoios/workflow/course_review
-          tests/projectkoios/workflow/persistence
-          tests/projectkoios/workflow/reference_review
-          tests/projectkoios/workflow/runtime
-          tests/test__ColoredPetriNetShadowProvenance.py
+          tests/projectkoios/workflow
+          tests/architecture
+          tests/test__CpnShadowProvenance.py
+          examples/sdk
+          tools
 
       - name: Lint all Python
-        run: .venv/bin/python -m ruff check src/python tests
+        run: .venv/bin/python -m ruff check src/python tests examples/sdk tools
 
       - name: Type-check all production source
         run: .venv/bin/python -m mypy src/python
+
+      - name: Verify generated architecture documentation
+        run: |
+          .venv/bin/python tools/generate_workflow_architecture.py --check --root .
+          .venv/bin/python tools/generate_cpn_architecture.py --check --root .
 
       - name: Run full test suite
         run: .venv/bin/python -m pytest -q
@@ -70,19 +74,82 @@ jobs:
           uv venv /tmp/projectkoios-workflow-wheel --python 3.14 --clear
           uv pip install --python /tmp/projectkoios-workflow-wheel/bin/python dist/*.whl
           /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
-          from projectkoios.workflow.course_review import CourseReviewWorkflow
-          from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
-          from projectkoios.workflow.reference_review import (
-              IngestionClaimCandidateReference,
-              ReferenceReviewWorkflow,
+          from importlib.util import find_spec
+          from projectkoios.workflow.core.transitions.execution import WorkflowTransitionProcessor
+          from projectkoios.workflow.core.transitions.replay import WorkflowTransitionReplayer
+          from projectkoios.workflow.persistence.revisions.sqlite import SQLiteAtomicRevisionStore
+          from projectkoios.workflow.petrinet.colored.canonical.firing.results.codec import (
+              CpnCanonicalFiringResultCodec,
           )
-          from projectkoios.workflow.runtime import LocalWorkflowRuntime
+          from projectkoios.workflow.petrinet.colored.control.records.types.graph import (
+              CpnControlRecordTypeGraphValidator,
+          )
+          from projectkoios.workflow.petrinet.colored.deployments.bindings import (
+              WorkflowExecutionBindings,
+          )
+          from projectkoios.workflow.petrinet.colored.enablement.results.identity import (
+              CpnEnablementResultIdentityDeriver,
+          )
+          from projectkoios.workflow.petrinet.colored.firing.markings.successor import (
+              CpnSuccessorMarkingBuilder,
+          )
+          from projectkoios.workflow.petrinet.colored.outputs.external import (
+              CpnExternalOutputValidator,
+          )
+          from projectkoios.workflow.petrinet.colored.payloads.references.canonical import (
+              WorkflowDomainPayloadReferenceCodec,
+          )
+          from projectkoios.workflow.review.course.execution import CourseReviewWorkflow
+          from projectkoios.workflow.review.reference.claims import IngestionClaimCandidateReference
+          from projectkoios.workflow.review.reference.execution import ReferenceReviewWorkflow
+          from projectkoios.workflow.runtime.execution.local import LocalWorkflowRuntime
+          assert WorkflowTransitionProcessor is not None
+          assert WorkflowTransitionReplayer is not None
           assert CourseReviewWorkflow is not None
+          assert CpnCanonicalFiringResultCodec is not None
+          assert CpnControlRecordTypeGraphValidator is not None
+          assert CpnEnablementResultIdentityDeriver is not None
+          assert CpnSuccessorMarkingBuilder is not None
+          assert CpnExternalOutputValidator is not None
+          assert WorkflowDomainPayloadReferenceCodec is not None
+          assert WorkflowExecutionBindings is not None
           assert IngestionClaimCandidateReference is not None
           assert ReferenceReviewWorkflow is not None
           assert SQLiteAtomicRevisionStore is not None
           assert LocalWorkflowRuntime is not None
+          assert find_spec("projectkoios.workflow.course_review") is None
+          assert find_spec("projectkoios.workflow.reference_review") is None
+          assert find_spec("projectkoios.workflow.core.models") is None
+          assert find_spec("projectkoios.workflow.core.processing") is None
+          assert find_spec("projectkoios.workflow.core.records.definition") is None
+          assert find_spec("projectkoios.workflow.core.transitions.processing") is None
+          assert find_spec("projectkoios.workflow.persistence.store") is None
+          assert find_spec("projectkoios.workflow.persistence.sqlite") is None
+          assert find_spec("projectkoios.workflow.runtime.records") is None
+          assert find_spec("projectkoios.workflow.runtime.repository") is None
+          assert find_spec("projectkoios.workflow.runtime.serialization") is None
+          assert find_spec("projectkoios.workflow.runtime.service") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.control.records.type_graph") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.enablement.failure_building") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.enablement.identity_derivation") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.external_outputs") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.failure_building") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.identity_derivation") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.occurrence_reconstruction") is None
+          assert find_spec("projectkoios.workflow.petrinet.colored.firing.successor_marking") is None
           PY
+
+      - name: Run SDK examples against installed wheel
+        run: |
+          for example in \
+            examples/sdk/define_validate.py \
+            examples/sdk/execute_firing.py \
+            examples/sdk/canonical_replay.py \
+            examples/sdk/payload_reference.py \
+            examples/sdk/child_plan_export.py
+          do
+            /tmp/projectkoios-workflow-wheel/bin/python "$example"
+          done
 
       - name: Check patch whitespace
         run: git diff --check HEAD
