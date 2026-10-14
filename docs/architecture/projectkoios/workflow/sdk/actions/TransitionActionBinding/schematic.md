@@ -4,9 +4,12 @@
 
 ```mermaid
 flowchart TD
-    M[Content-identified mapping descriptor]
-    C[Retained occurrence context]
+    B[Exact ordered selected CPN binding]
+    K[Bounded canonical binding encoder]
+    D[Derived selected-binding SHA-256]
+    C[Retained runtime coordinates]
     Q[Exact SDK firing request]
+    M[Content-identified mapping descriptor]
     R[Correlated SDK success]
     A[Exact descriptor and metadata admission]
     I[Path-free canonical ASCII identity]
@@ -15,9 +18,13 @@ flowchart TD
     H[Exact-byte SHA-256]
     X[Identity-bound candidate external binding]
 
+    B --> K
+    K --> D
+    D --> Q
+    C --> Q
+    Q --> A
     M --> A
     C --> A
-    Q --> A
     R --> A
     A --> I
     I --> V

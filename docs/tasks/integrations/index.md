@@ -11,7 +11,7 @@ runtime dependency.
 
 1. [Workflow SDK alpha consumption readiness](sdk_alpha_readiness.md)
 2. [Pure firing vertical slice](pure_firing_vertical_slice.md), including the
-   [experimental ASCII output-mapping evidence](experimental_ascii_output_mapping_evidence.md)
+   [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
 3. [Simulations pilot](simulations/)
 4. [Second owner SDK pilot](second_owner_pilot.md)
 5. [Broader SDK adoption gate](broader_adoption_gate.md)

@@ -22,10 +22,12 @@ This component owns deterministic data adaptation and correlation only. It does
 not select transitions, reserve tokens, revalidate a current predecessor, claim
 work, authorize effects, choose providers, mutate markings, or fire the net.
 
-`projectkoios.workflow.actions` now contains an explicitly experimental mapper
-for the current non-authoritative shadow kernel. It closes one exact SDK
-transition binding and firer descriptor, validates a retained occurrence
-context and correlated success, and constructs one declared external `STRING`
-binding. It is a private Workflow service candidate, not part of the standalone
-SDK `0.1.0a1` inventory and not an implementation claim for the proposed full
-CPN-bindings contract.
+`projectkoios.workflow.actions` now contains an explicitly experimental request
+factory and result mapper for the current non-authoritative shadow kernel. The
+factory canonically encodes the exact ordered selected binding and derives its
+SHA-256 rather than accepting a caller claim, then constructs a correlated SDK
+request. The mapper closes the same exact SDK transition binding and firer
+descriptor, validates a retained occurrence context and correlated success, and
+constructs one declared external `STRING` binding. These are private Workflow
+service candidates, not part of the standalone SDK `0.1.0a1` inventory and not
+an implementation claim for the proposed full CPN-bindings contract.
