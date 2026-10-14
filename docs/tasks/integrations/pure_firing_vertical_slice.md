@@ -47,14 +47,16 @@ correctly stops at a correlated SDK result. The SDK
 uses the Simulations-owned `artifact_set_identity` as the opaque CPN string
 output and retains the complete canonical `artifact_set` document as evidence;
 the transport payload digest remains integrity evidence rather than domain
-state. An experimental Workflow-owned request factory now encodes one exact
-ordered caller-supplied binding, derives its digest, validates independently
-supplied request inputs and runtime coordinates, and constructs the SDK request
-without accepting a claimed digest. It does not prove that the binding came from
-the retained selection result, that the coordinates came from a current
-reservation, or that the owner inputs were admitted from that binding. Its
-private representation-profile identity is not yet retained with authoritative
-plan evidence.
+state. An experimental Workflow-owned selected-binding evidence record now
+requires an exact successful enablement and selection pair, proves membership of
+the selected binding in the enabled set, and retains the adapter-profile
+identity, canonical bytes, and derived digest. The request factory consumes that
+evidence rather than a bare binding, validates independently supplied request
+inputs and runtime coordinates, and constructs the SDK request without accepting
+a claimed digest. It does not prove that the coordinates came from a current
+reservation or that the owner inputs were admitted from the selected occurrence.
+The representation-profile identity is not yet retained with authoritative plan,
+persistence, and replay evidence.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -72,7 +74,8 @@ inventing the mapping inside the owner adapter.
 ## Completion evidence
 
 - [x] Record the isolated candidate
-  [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md).
+  [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
+  and [selected-binding evidence follow-up](selected_binding_evidence_followup.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

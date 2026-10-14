@@ -16,7 +16,7 @@ proposed canonical CPN-bindings contract set.
   the candidate SDK request boundary.
 - [ ] Retain that exact adapter-profile identity with selection, request,
   persistence, and replay evidence rather than inferring it from a digest.
-- [ ] Treat the shadow kernel's internal identity preimages as provenance-bound
+- [x] Treat the shadow kernel's internal identity preimages as provenance-bound
   backend evidence, not as public representations to duplicate or silently
   rewrite.
 - [ ] Define an immutable reserved pure-action invocation, or equivalent accepted
@@ -39,7 +39,7 @@ proposed canonical CPN-bindings contract set.
 
 ## Required tests
 
-- [ ] Reject a binding not selected by the retained selection result.
+- [x] Reject a binding not selected by the retained selection result.
 - [ ] Reject owner inputs not correlated with the reserved invocation.
 - [ ] Reject substituted definition, transition, predecessor, occurrence,
   attempt, mapping, and representation-profile identities.
@@ -49,14 +49,15 @@ proposed canonical CPN-bindings contract set.
   admitted-stage record.
 - [ ] Prove that a behavior-affecting profile mutation cannot reuse the previous
   authoritative plan identity.
-- [ ] Demonstrate deterministic request construction from the same retained
+- [x] Demonstrate deterministic request construction from the same retained
   evidence.
 
 ## Completion evidence
 
 - [ ] Record exact Workflow and SDK revisions.
-- [ ] Retain canonical selected-binding representation vectors and their profile
-  identity.
+- [x] Retain canonical selected-binding representation vectors and their profile
+  identity in the
+  [selected-binding evidence follow-up](selected_binding_evidence_followup.md).
 - [ ] Retain the execution-plan and deployment-binding identities.
 - [ ] Retain adversarial test results for selection, reservation, input
   provenance, profile, and reconstruction failures.
@@ -65,8 +66,11 @@ proposed canonical CPN-bindings contract set.
 
 The current
 [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
-is candidate evidence for this task. It does not satisfy the reservation,
-input-provenance, plan-closure, or authoritative-profile requirements above.
+and its
+[selected-binding evidence follow-up](selected_binding_evidence_followup.md)
+are candidate evidence for this task. They do not satisfy the reservation,
+input-provenance, plan-closure, persistence, or authoritative replay
+requirements above.
 
 ## Exclusions
 

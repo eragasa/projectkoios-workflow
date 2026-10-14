@@ -3,16 +3,29 @@
 ## Responsibility
 
 The experimental service-side boundary exposes immutable request coordinates, a
-selected-binding encoder, a firing-request factory, mapping descriptor metadata,
-and a pure result-conversion method under `projectkoios.workflow.actions`.
+selected-binding encoder and evidence record, a firing-request factory, mapping
+descriptor metadata, and a pure result-conversion method under
+`projectkoios.workflow.actions`.
+
+`ExperimentalWorkflowSelectedBindingEvidence` consumes one exact successful
+shadow-CPN enablement and selection pair. It requires matching enablement and
+ordering identities, proves that the selected binding occurs in the enabled set,
+and content-identifies the selection result, adapter-profile identity, canonical
+binding byte length, and binding-byte SHA-256. The shadow CPN source remains
+provenance-bound and byte-identical; this Workflow-owned adapter evidence does
+not redefine its internal identity preimages.
 
 The private selected-binding profile uses bounded canonical UTF-8 JSON with an
 explicit schema identity, transition identity, ordered assignments, variable
 identities, closed value-kind tags, signed integers encoded as decimal strings,
 finite reals encoded with `float.hex()`, and string sequences encoded as ordered
 arrays. The factory derives the exact byte SHA-256 and does not accept a claimed
-selected-binding digest. It validates transition/firer descriptors, role order,
-input metadata and bounds, runtime coordinates, and an SDK codec round trip.
+selected-binding digest. It accepts the selected-binding evidence rather than a
+bare binding, requires its definition, transition, and predecessor marking to
+match the SDK binding and request coordinates, and validates transition/firer
+descriptors, role order, input metadata and bounds, runtime coordinates, and an
+SDK codec round trip. The coordinates and owner inputs are still independently
+supplied pending authoritative reservation and input-provenance records.
 
 The mapping descriptor content identity closes the exact canonical SDK
 transition binding and firer descriptor, mapping version, decoder profile,

@@ -5,7 +5,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
-from projectkoios.workflow.petrinet.colored import ColoredPetriNetBinding
 from projectkoios.workflow_sdk.firing import (
     WorkflowFirerDescriptor,
     WorkflowFiringRequest,
@@ -23,7 +22,7 @@ from projectkoios.workflow_sdk.serialization import (
     WorkflowFiringRequestJsonCodec,
 )
 
-from ._binding import ExperimentalWorkflowSelectedBindingEncoder
+from ._selection import ExperimentalWorkflowSelectedBindingEvidence
 from ._validation import (
     _round_trip_firer_descriptor,
     _round_trip_transition_binding,
@@ -93,7 +92,7 @@ class ExperimentalWorkflowFiringRequestFactory:
         *,
         transition_binding: WorkflowTransitionFirerBinding,
         firer_descriptor: WorkflowFirerDescriptor,
-        selected_binding: ColoredPetriNetBinding,
+        selected_binding_evidence: ExperimentalWorkflowSelectedBindingEvidence,
         coordinates: ExperimentalWorkflowFiringRequestCoordinates,
         inputs: tuple[WorkflowInlinePayload, ...],
     ) -> WorkflowFiringRequest:
@@ -104,8 +103,25 @@ class ExperimentalWorkflowFiringRequestFactory:
             )
         if type(firer_descriptor) is not WorkflowFirerDescriptor:
             raise TypeError("firer_descriptor must be WorkflowFirerDescriptor")
-        if type(selected_binding) is not ColoredPetriNetBinding:
-            raise TypeError("selected_binding must be ColoredPetriNetBinding")
+        if (
+            type(selected_binding_evidence)
+            is not ExperimentalWorkflowSelectedBindingEvidence
+        ):
+            raise TypeError(
+                "selected_binding_evidence must be "
+                "ExperimentalWorkflowSelectedBindingEvidence"
+            )
+        validated_selected_binding_evidence = (
+            ExperimentalWorkflowSelectedBindingEvidence(
+                enablement_result=selected_binding_evidence.enablement_result,
+                selection_result=selected_binding_evidence.selection_result,
+            )
+        )
+        if validated_selected_binding_evidence != selected_binding_evidence:
+            raise ValueError(
+                "selected binding evidence differs after validation"
+            )
+        selected_binding_evidence = validated_selected_binding_evidence
         if (
             type(coordinates)
             is not ExperimentalWorkflowFiringRequestCoordinates
@@ -150,10 +166,23 @@ class ExperimentalWorkflowFiringRequestFactory:
             raise ValueError(
                 "transition binding output roles differ from descriptor"
             )
+        selected_binding = selected_binding_evidence.selected_binding
+        if (
+            selected_binding_evidence.enablement_result.definition_identity.value
+            != binding.definition_identity.value
+        ):
+            raise ValueError("selected CPN evidence has the wrong definition")
         if selected_binding.transition_identity.value != (
             binding.transition_identity.value
         ):
             raise ValueError("selected CPN binding has the wrong transition")
+        if (
+            selected_binding_evidence.enablement_result.marking_identity.value
+            != coordinates.predecessor_marking_identity.value
+        ):
+            raise ValueError(
+                "selected CPN evidence has the wrong predecessor marking"
+            )
 
         _validate_payloads(inputs, descriptor.input_contracts, "request inputs")
         input_bytes = sum(item.byte_length for item in inputs)
@@ -167,9 +196,7 @@ class ExperimentalWorkflowFiringRequestFactory:
             )
 
         selected_binding_sha256 = (
-            ExperimentalWorkflowSelectedBindingEncoder().sha256(
-                selected_binding
-            )
+            selected_binding_evidence.selected_binding_sha256
         )
         context = WorkflowOccurrenceContext(
             definition_identity=binding.definition_identity,

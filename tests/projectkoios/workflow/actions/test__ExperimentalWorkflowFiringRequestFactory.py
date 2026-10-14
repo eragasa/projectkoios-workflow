@@ -2,17 +2,32 @@ from __future__ import annotations
 
 import hashlib
 import inspect
+from dataclasses import replace
 
 import pytest
 from projectkoios.workflow.actions import (
     ExperimentalWorkflowFiringRequestCoordinates,
     ExperimentalWorkflowFiringRequestFactory,
     ExperimentalWorkflowSelectedBindingEncoder,
+    ExperimentalWorkflowSelectedBindingEvidence,
+    ExperimentalWorkflowSelectedBindingEvidenceIdentity,
+    ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity,
 )
 from projectkoios.workflow.petrinet.colored import (
     ColoredPetriNetBinding,
     ColoredPetriNetBindingAssignment,
+    ColoredPetriNetBindingSelectorIdentity,
     ColoredPetriNetBindingVariableIdentity,
+    ColoredPetriNetDefinitionIdentity,
+    ColoredPetriNetEnablementResult,
+    ColoredPetriNetEnablementResultIdentity,
+    ColoredPetriNetExpressionEvaluatorIdentity,
+    ColoredPetriNetMarkingIdentity,
+    ColoredPetriNetOrderingPolicyIdentity,
+    ColoredPetriNetSelectionOutcomeKind,
+    ColoredPetriNetSelectionPolicy,
+    ColoredPetriNetSelectionResult,
+    ColoredPetriNetTransitionEnablerIdentity,
     ColoredPetriNetTransitionIdentity,
     ColoredPetriNetValue,
     ColoredPetriNetValueKind,
@@ -124,6 +139,44 @@ def _selected_binding(
     )
 
 
+def _selected_binding_evidence(
+    binding: ColoredPetriNetBinding | None = None,
+) -> ExperimentalWorkflowSelectedBindingEvidence:
+    selected_binding = binding or _selected_binding()
+    ordering_identity = ColoredPetriNetOrderingPolicyIdentity(
+        "fixture.ordering"
+    )
+    enablement = ColoredPetriNetEnablementResult(
+        identity=ColoredPetriNetEnablementResultIdentity("1" * 64),
+        definition_identity=ColoredPetriNetDefinitionIdentity(
+            "fixture.definition"
+        ),
+        selection_policy=ColoredPetriNetSelectionPolicy.DETERMINISTIC_ONLY,
+        marking_identity=ColoredPetriNetMarkingIdentity("fixture.marking"),
+        expression_evaluator_identity=ColoredPetriNetExpressionEvaluatorIdentity(
+            "fixture.expression"
+        ),
+        ordering_policy_identity=ordering_identity,
+        transition_enabler_identity=ColoredPetriNetTransitionEnablerIdentity(
+            "fixture.enabler"
+        ),
+        enabled_bindings=(selected_binding,),
+    )
+    selection = ColoredPetriNetSelectionResult(
+        enablement_result_identity=enablement.identity,
+        selector_identity=ColoredPetriNetBindingSelectorIdentity(
+            "fixture.selector"
+        ),
+        ordering_policy_identity=ordering_identity,
+        outcome=ColoredPetriNetSelectionOutcomeKind.SELECTED,
+        selected_binding=selected_binding,
+    )
+    return ExperimentalWorkflowSelectedBindingEvidence(
+        enablement_result=enablement,
+        selection_result=selection,
+    )
+
+
 def _coordinates(
     predecessor_revision: int = 7,
 ) -> ExperimentalWorkflowFiringRequestCoordinates:
@@ -160,7 +213,9 @@ def _input(
 
 def _factory_request(
     *,
-    selected_binding: ColoredPetriNetBinding | None = None,
+    selected_binding_evidence: (
+        ExperimentalWorkflowSelectedBindingEvidence | None
+    ) = None,
     coordinates: ExperimentalWorkflowFiringRequestCoordinates | None = None,
     inputs: tuple[WorkflowInlinePayload, ...] | None = None,
 ) -> WorkflowFiringRequest:
@@ -169,7 +224,9 @@ def _factory_request(
     return ExperimentalWorkflowFiringRequestFactory().execute(
         transition_binding=transition_binding,
         firer_descriptor=descriptor,
-        selected_binding=selected_binding or _selected_binding(),
+        selected_binding_evidence=(
+            selected_binding_evidence or _selected_binding_evidence()
+        ),
         coordinates=coordinates or _coordinates(),
         inputs=(
             inputs
@@ -215,9 +272,114 @@ def test_selected_binding_digest_changes_with_order_kind_or_value() -> None:
     )
 
 
+def test_selected_binding_evidence_closes_selection_profile_and_bytes() -> None:
+    binding = _selected_binding()
+    first = _selected_binding_evidence(binding)
+    replay = _selected_binding_evidence(binding)
+
+    assert first == replay
+    assert first.identity == replay.identity
+    assert first.selected_binding == binding
+    assert first.selection_result.selected_binding == binding
+    assert first.profile_identity.value == (
+        "projectkoios.workflow.experimental-selected-binding-canonical-json:1"
+    )
+    assert first.selected_binding_bytes == (
+        ExperimentalWorkflowSelectedBindingEncoder().encode(binding)
+    )
+    assert (
+        first.selected_binding_sha256
+        == hashlib.sha256(first.selected_binding_bytes).hexdigest()
+    )
+
+
+def test_selected_binding_evidence_rejects_nonselected_or_absent_binding() -> (
+    None
+):
+    evidence = _selected_binding_evidence()
+    empty_selection = replace(
+        evidence.selection_result,
+        outcome=ColoredPetriNetSelectionOutcomeKind.EMPTY,
+        selected_binding=None,
+    )
+    changed_selection = replace(
+        evidence.selection_result,
+        selected_binding=_selected_binding(count=8),
+    )
+
+    with pytest.raises(ValueError, match="selected result"):
+        ExperimentalWorkflowSelectedBindingEvidence(
+            enablement_result=evidence.enablement_result,
+            selection_result=empty_selection,
+        )
+    with pytest.raises(ValueError, match="absent from enablement"):
+        ExperimentalWorkflowSelectedBindingEvidence(
+            enablement_result=evidence.enablement_result,
+            selection_result=changed_selection,
+        )
+
+
+def test_selected_binding_evidence_identities_are_nominal_and_strict() -> None:
+    with pytest.raises(TypeError):
+        ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity(  # type: ignore[arg-type]
+            1
+        )
+    with pytest.raises(ValueError):
+        ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity("")
+    with pytest.raises(ValueError):
+        ExperimentalWorkflowSelectedBindingEvidenceIdentity("A" * 64)
+
+
+def test_selected_binding_evidence_rejects_changed_enablement_link() -> None:
+    evidence = _selected_binding_evidence()
+    changed_selection = replace(
+        evidence.selection_result,
+        enablement_result_identity=ColoredPetriNetEnablementResultIdentity(
+            "2" * 64
+        ),
+    )
+
+    with pytest.raises(ValueError, match="differs from enablement"):
+        ExperimentalWorkflowSelectedBindingEvidence(
+            enablement_result=evidence.enablement_result,
+            selection_result=changed_selection,
+        )
+
+
+def test_selected_binding_evidence_rejects_changed_ordering_policy() -> None:
+    evidence = _selected_binding_evidence()
+    changed_selection = replace(
+        evidence.selection_result,
+        ordering_policy_identity=ColoredPetriNetOrderingPolicyIdentity(
+            "other.ordering"
+        ),
+    )
+
+    with pytest.raises(ValueError, match="ordering differs"):
+        ExperimentalWorkflowSelectedBindingEvidence(
+            enablement_result=evidence.enablement_result,
+            selection_result=changed_selection,
+        )
+
+
+def test_factory_revalidates_selected_binding_evidence() -> None:
+    evidence = _selected_binding_evidence()
+    object.__setattr__(
+        evidence,
+        "profile_identity",
+        ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity(
+            "substituted.profile:1"
+        ),
+    )
+
+    with pytest.raises(ValueError, match="differs after validation"):
+        _factory_request(selected_binding_evidence=evidence)
+
+
 def test_factory_derives_context_digest_and_canonical_sdk_request() -> None:
     selected_binding = _selected_binding()
-    request = _factory_request(selected_binding=selected_binding)
+    evidence = _selected_binding_evidence(selected_binding)
+    request = _factory_request(selected_binding_evidence=evidence)
 
     assert request.context.selected_binding_sha256 == (
         ExperimentalWorkflowSelectedBindingEncoder().sha256(selected_binding)
@@ -229,12 +391,11 @@ def test_factory_derives_context_digest_and_canonical_sdk_request() -> None:
     )
     codec = WorkflowFiringRequestJsonCodec()
     assert codec.decode(codec.encode(request)) == request
-    assert (
-        "selected_binding_sha256"
-        not in inspect.signature(
-            ExperimentalWorkflowFiringRequestFactory.execute
-        ).parameters
+    signature = inspect.signature(
+        ExperimentalWorkflowFiringRequestFactory.execute
     )
+    assert "selected_binding_sha256" not in signature.parameters
+    assert "selected_binding" not in signature.parameters
 
 
 def test_factory_rejects_selected_binding_for_another_transition() -> None:
@@ -245,7 +406,32 @@ def test_factory_rejects_selected_binding_for_another_transition() -> None:
     )
 
     with pytest.raises(ValueError, match="wrong transition"):
-        _factory_request(selected_binding=wrong)
+        _factory_request(
+            selected_binding_evidence=_selected_binding_evidence(wrong)
+        )
+
+
+def test_factory_rejects_wrong_selected_definition_or_predecessor() -> None:
+    evidence = _selected_binding_evidence()
+    wrong_definition = ExperimentalWorkflowSelectedBindingEvidence(
+        enablement_result=replace(
+            evidence.enablement_result,
+            definition_identity=ColoredPetriNetDefinitionIdentity("other"),
+        ),
+        selection_result=evidence.selection_result,
+    )
+    wrong_predecessor = ExperimentalWorkflowSelectedBindingEvidence(
+        enablement_result=replace(
+            evidence.enablement_result,
+            marking_identity=ColoredPetriNetMarkingIdentity("other"),
+        ),
+        selection_result=evidence.selection_result,
+    )
+
+    with pytest.raises(ValueError, match="wrong definition"):
+        _factory_request(selected_binding_evidence=wrong_definition)
+    with pytest.raises(ValueError, match="wrong predecessor marking"):
+        _factory_request(selected_binding_evidence=wrong_predecessor)
 
 
 def test_factory_rejects_wrong_input_role_codec_or_bound() -> None:
@@ -265,12 +451,13 @@ def test_factory_rejects_wrong_input_role_codec_or_bound() -> None:
 
 def test_predecessor_change_cannot_reuse_the_same_request_identity() -> None:
     selected = _selected_binding()
+    evidence = _selected_binding_evidence(selected)
     first = _factory_request(
-        selected_binding=selected,
+        selected_binding_evidence=evidence,
         coordinates=_coordinates(predecessor_revision=7),
     )
     stale = _factory_request(
-        selected_binding=selected,
+        selected_binding_evidence=evidence,
         coordinates=_coordinates(predecessor_revision=8),
     )
 

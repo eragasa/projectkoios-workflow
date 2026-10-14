@@ -9,6 +9,9 @@ from .mapping import (
     ExperimentalWorkflowMappedActionResult,
     ExperimentalWorkflowMappedActionResultIdentity,
     ExperimentalWorkflowSelectedBindingEncoder,
+    ExperimentalWorkflowSelectedBindingEvidence,
+    ExperimentalWorkflowSelectedBindingEvidenceIdentity,
+    ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity,
 )
 
 __all__ = [
@@ -20,4 +23,7 @@ __all__ = [
     "ExperimentalWorkflowMappedActionResult",
     "ExperimentalWorkflowMappedActionResultIdentity",
     "ExperimentalWorkflowSelectedBindingEncoder",
+    "ExperimentalWorkflowSelectedBindingEvidence",
+    "ExperimentalWorkflowSelectedBindingEvidenceIdentity",
+    "ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity",
 ]

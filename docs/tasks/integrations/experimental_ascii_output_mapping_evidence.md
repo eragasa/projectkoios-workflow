@@ -157,6 +157,16 @@ These limitations are tracked by the
 invalidate the bounded representation, correlation, and owner-boundary checks
 recorded above.
 
+## Subsequent follow-up
+
+The later
+[selected-binding evidence follow-up](selected_binding_evidence_followup.md)
+replaced the request factory's bare-binding input with identity-bound successful
+enablement and selection evidence while retaining the exact adapter profile and
+canonical bytes. This historical record remains the evidence for the earlier
+wheel and source hashes; its remaining reservation, input-provenance, plan,
+persistence, and replay limitations still apply.
+
 ## Remaining gate
 
 The selected-binding representation profile and candidate mapping descriptor

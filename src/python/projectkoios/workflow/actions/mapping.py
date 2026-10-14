@@ -12,6 +12,11 @@ from ._request import (
     ExperimentalWorkflowFiringRequestCoordinates,
     ExperimentalWorkflowFiringRequestFactory,
 )
+from ._selection import (
+    ExperimentalWorkflowSelectedBindingEvidence,
+    ExperimentalWorkflowSelectedBindingEvidenceIdentity,
+    ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity,
+)
 
 __all__ = [
     "ExperimentalWorkflowActionResultMappingIdentity",
@@ -22,4 +27,7 @@ __all__ = [
     "ExperimentalWorkflowMappedActionResult",
     "ExperimentalWorkflowMappedActionResultIdentity",
     "ExperimentalWorkflowSelectedBindingEncoder",
+    "ExperimentalWorkflowSelectedBindingEvidence",
+    "ExperimentalWorkflowSelectedBindingEvidenceIdentity",
+    "ExperimentalWorkflowSelectedBindingRepresentationProfileIdentity",
 ]
