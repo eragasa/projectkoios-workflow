@@ -8,6 +8,7 @@ license = "Apache-2.0"
 authors = [
     { name = "Eugene Ragasa", email = "eugene@projectkoios.com" },
 ]
+dependencies = ["projectkoios-workflow-sdk==0.1.0a1"]
 
 [build-system]
 requires = ["setuptools==84.0.0"]

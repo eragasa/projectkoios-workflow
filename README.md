@@ -2,6 +2,12 @@
 
 Reusable workflow execution and process/state orchestration for Project Koios.
 
+The service distribution pins the separately built
+`projectkoios-workflow-sdk==0.1.0a1` runtime dependency from this repository's
+`sdk/` build root. The alpha is not released for external owner consumption;
+local service environments must build and install that SDK wheel before
+installing the service wheel.
+
 The repository currently contains a non-authoritative colored-Petri-net shadow-conformance pilot under `projectkoios.workflow.petrinet.colored`. Its production source is byte-identical to the generic kernel in `ksdft2effmass` at revision `be70e856911456402ea2b2562cd2508d0963e4d9`; source and transformation evidence is recorded in [`provenance/colored-petri-net-shadow.json`](provenance/colored-petri-net-shadow.json).
 
 The pilot provides pure definitions, markings, validation, enablement,
@@ -33,6 +39,13 @@ promise. See the
 [colored-Petri-net reference authority](docs/references/colored-petri-net-authority.md).
 
 Repository routing is documented in `projectkoios-bootstrap/maps/repositories.md`; cross-repository product architecture belongs in `projectkoios`.
+
+Provisional package, module, and public-class architecture candidates are
+documented in the [architecture tree](docs/architecture/). Every architecture
+level carries its own responsibility, schematic, and implementation document
+rather than serving as a repository-wide link index. The tree is an
+uncommitted review draft, not an accepted implementation plan or compatibility
+promise.
 
 ## Contracts
 

@@ -1,0 +1,35 @@
+# `WorkflowExecutionBindings` schematic
+
+## Responsibility
+
+```mermaid
+flowchart TD
+    P[Workflow execution plan]
+    T[Compiled transition mapping]
+    A[Pure action descriptor]
+    M[Result-mapping descriptor]
+    W[Worker and environment handle]
+    E[External lifecycle provider]
+    N[Exact nested definition]
+    B[Immutable execution bindings]
+
+    P --> T
+    T --> A
+    A --> M
+    A --> W
+    T --> E
+    T --> N
+    M --> B
+    W --> B
+    E --> B
+    N --> B
+```
+
+The pure result-mapping descriptor fixes the correspondence among owner logical
+output roles, evidence roles, and declared CPN external variables. For the QE
+SCF artifact-set direction it distinguishes `artifact_set_identity` output from
+canonical `artifact_set` evidence.
+
+All mappings are complete, ordered, and content-bound. Changing the provider,
+identity codec, mapping revision, or environment produces another binding
+artifact; it never mutates the compiled plan or reinterprets retained evidence.
