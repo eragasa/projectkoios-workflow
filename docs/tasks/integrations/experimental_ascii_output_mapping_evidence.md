@@ -130,11 +130,39 @@ mapper, and produced:
 The imported mapping module came from the isolated installed Workflow wheel,
 not the source worktree.
 
+## Known limitations
+
+This evidence demonstrates deterministic candidate construction and isolated
+owner invocation. It does not demonstrate authoritative selection or runtime
+admission:
+
+- the request factory accepts a bare binding rather than the retained successful
+  CPN selection result;
+- the binding, runtime coordinates, and SDK inputs are independently supplied;
+- the empty selected binding used by the isolated fixture does not establish the
+  provenance of the separately supplied nonempty owner request;
+- no reservation proves that the predecessor marking and revision remain
+  current;
+- only the selected-binding digest enters the SDK context; the private
+  representation-profile identity is not retained with authoritative plan
+  evidence;
+- the mapped-result record is candidate evidence and does not itself grant
+  runtime admission authority; and
+- no current-marking revalidation, output-color validation, CPN firing, atomic
+  commit, rollback, or replay occurs.
+
+These limitations are tracked by the
+[pure-firing foundations task](pure_firing_foundations.md) and the
+[pure-firing vertical slice](pure_firing_vertical_slice.md). They do not
+invalidate the bounded representation, correlation, and owner-boundary checks
+recorded above.
+
 ## Remaining gate
 
 The selected-binding representation profile and candidate mapping descriptor
 are not yet part of a complete `WorkflowExecutionPlan` or retained
 `WorkflowExecutionBindings`. The runtime must still prove authoritative plan
-closure, current predecessor reservation/revalidation, output-color
-compatibility, pure CPN firing, atomic successor/history/evidence retention, and
-replay before the vertical slice can complete.
+closure, selected-binding and input provenance, current predecessor
+reservation/revalidation, output-color compatibility, pure CPN firing, atomic
+successor/history/evidence retention, and replay before the vertical slice can
+complete.

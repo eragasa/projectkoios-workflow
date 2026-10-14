@@ -10,13 +10,16 @@ runtime dependency.
 ## Integration sequence
 
 1. [Workflow SDK alpha consumption readiness](sdk_alpha_readiness.md)
-2. [Pure firing vertical slice](pure_firing_vertical_slice.md), including the
+2. [Simulations owner-side SDK pilot](simulations/)
+3. [Pure-firing foundations](pure_firing_foundations.md), informed by the
    [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
-3. [Simulations pilot](simulations/)
-4. [Second owner SDK pilot](second_owner_pilot.md)
-5. [Broader SDK adoption gate](broader_adoption_gate.md)
-6. [Effectful integration gate](effectful_integration_gate.md)
+4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
+5. [Second owner SDK pilot](second_owner_pilot.md)
+6. [Broader SDK adoption gate](broader_adoption_gate.md)
+7. [Effectful integration gate](effectful_integration_gate.md)
 
-The first two tasks establish a usable SDK boundary and one complete pure CPN
-path. The second owner tests generality. Broader adoption and external effects
-remain separately gated.
+The first two tasks establish a usable SDK boundary and one owner fixture. The
+foundations task closes representation, reservation, input-provenance, and plan
+semantics before the vertical slice claims one authoritative pure CPN path. The
+second owner then tests generality. Broader adoption and external effects remain
+separately gated.

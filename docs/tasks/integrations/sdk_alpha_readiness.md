@@ -36,7 +36,9 @@ external owner repository imports it as a runtime dependency.
   private duplicate public-contract types.
 - [x] Validate installation and imports in an isolated environment containing only
   declared runtime dependencies.
-- [ ] Complete the [pure firing vertical slice](pure_firing_vertical_slice.md).
+- [ ] Complete the
+  [pure-firing foundations](pure_firing_foundations.md).
+- [ ] Complete the [pure-firing vertical slice](pure_firing_vertical_slice.md).
 - [x] Publish an alpha contract statement identifying unstable surfaces,
   unsupported operations, compatibility limits, and prohibited production uses.
 

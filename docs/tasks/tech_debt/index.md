@@ -11,3 +11,8 @@ not authorize unrelated refactoring or change contract status.
 
 - [Remove private Workflow SDK contract duplicates](remove_private_sdk_contract_duplicates.md)
   after an accepted SDK alpha surface exists.
+- [Consolidate pure-action validation](consolidate_pure_action_validation.md)
+  after admission-stage records stabilize or before the path enters a runtime
+  hot loop.
+- [Retire the experimental pure-action surface](retire_experimental_action_surface.md)
+  before broader SDK adoption or supported pure external firing.

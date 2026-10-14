@@ -11,4 +11,6 @@ Workflow API as a compatibility promise.
 ## Tasks
 
 - [QE artifact-set Workflow SDK pilot](qe_artifact_set_sdk_pilot.md) — first
-  pure consumer fixture and end-to-end CPN firing evidence.
+  pure consumer fixture and isolated owner-side SDK firing evidence; the
+  authoritative CPN path remains tracked by the
+  [pure-firing vertical slice](../pure_firing_vertical_slice.md).

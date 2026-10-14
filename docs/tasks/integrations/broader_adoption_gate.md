@@ -9,6 +9,8 @@ owner repositories.
 
 Broader adoption remains blocked until all of the following hold:
 
+- [ ] Complete the [pure-firing foundations](pure_firing_foundations.md) and
+  [vertical-slice](pure_firing_vertical_slice.md) tasks.
 - [ ] Confirm two structurally independent consumer fixtures pass.
 - [ ] Accept SDK compatibility, versioning, deprecation, and schema-evolution
   rules.
@@ -17,6 +19,13 @@ Broader adoption remains blocked until all of the following hold:
   runtime internals.
 - [ ] Prove retained plans contain immutable descriptors and identities rather
   than live integration objects.
+- [ ] Ensure supported owner paths expose no experimental Workflow service-side
+  API.
+- [ ] Prove retained evidence identifies every behavior profile required for
+  deterministic replay.
+- [ ] Demonstrate replay across every supported SDK and retained-schema version.
+- [ ] Demonstrate that direct construction or nominal type membership cannot
+  bypass runtime admission.
 - [ ] Add automated tests for supported upgrades and explicitly incompatible
   versions.
 - [ ] Verify installation dependency direction.
