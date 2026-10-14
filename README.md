@@ -43,9 +43,8 @@ Repository routing is documented in `projectkoios-bootstrap/maps/repositories.md
 Provisional package, module, and public-class architecture candidates are
 documented in the [architecture tree](docs/architecture/). Every architecture
 level carries its own responsibility, schematic, and implementation document
-rather than serving as a repository-wide link index. The tree is an
-uncommitted review draft, not an accepted implementation plan or compatibility
-promise.
+rather than serving as a repository-wide link index. The tree remains a provisional review draft rather than an accepted
+implementation plan or compatibility promise.
 
 ## Contracts
 

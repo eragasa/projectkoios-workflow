@@ -4,26 +4,27 @@
 
 ```mermaid
 flowchart TD
-    M[Compiled transition mapping]
-    B[Selected token binding]
-    C[Occurrence context]
-    Q[Exact owner action request]
-    R[Correlated owner action result]
-    I[Logical-identity output role]
-    V[Identified external CPN variable]
-    E[Canonical document evidence]
+    M[Content-identified mapping descriptor]
+    C[Retained occurrence context]
+    Q[Exact SDK firing request]
+    R[Correlated SDK success]
+    A[Exact descriptor and metadata admission]
+    I[Path-free canonical ASCII identity]
+    V[Declared external STRING variable]
+    E[Ordered canonical evidence]
     H[Exact-byte SHA-256]
-    X[Candidate external-output binding]
+    X[Identity-bound candidate external binding]
 
-    M --> Q
-    B --> Q
-    C --> Q
-    Q --> R
-    R --> I
+    M --> A
+    C --> A
+    Q --> A
+    R --> A
+    A --> I
     I --> V
     V --> X
-    R --> E
+    A --> E
     E --> H
+    E --> X
 ```
 
 For the QE SCF artifact-set direction, the identity branch carries the opaque

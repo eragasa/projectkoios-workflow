@@ -128,9 +128,14 @@ canonical `artifact_set_identity` output plus the complete `artifact_set`
 document as evidence. The payload digest continues to identify exact bytes only
 and is not the owner logical identity.
 
-Workflow does not yet implement the mapping from that opaque owner identity to
-an identified CPN external-output binding. The pilot therefore remains
-fail-closed after the correlated SDK result. Workflow must separately define and
-validate the selected-binding digest, predecessor reservation/revalidation,
-external-output mapping, atomic CPN firing retention, and replay evidence before
-the pure vertical slice can complete.
+Workflow now contains an experimental mapper from that opaque canonical ASCII
+identity to one explicitly declared shadow-CPN `STRING` external variable. The
+mapper independently validates retained context, SDK correlation, metadata,
+roles, bounds, payload digests, evidence order, and path-free ASCII encoding; it
+does not import Simulations or parse the artifact-set evidence document.
+
+The pilot still stops before authoritative CPN admission. Workflow must retain
+the mapping through a complete execution plan, link it through deployment
+bindings, revalidate the current predecessor reservation, invoke pure firing,
+and atomically retain history and replay evidence before the vertical slice can
+complete.

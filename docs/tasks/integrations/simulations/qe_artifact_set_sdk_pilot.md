@@ -38,9 +38,11 @@ The operator selected the
   evidence and must not substitute for the owner logical identity; and
 - Workflow must not import Simulations types or parse its domain document.
 
-The revised pilot now emits `artifact_set_identity` as its sole external-state
+The revised pilot emits `artifact_set_identity` as its sole external-state
 output, retains `artifact_set` as evidence, and stops before CPN admission.
-Implementing the Workflow-owned mapping remains separately gated work.
+Workflow now has an experimental shadow-kernel mapping candidate; retaining it
+in an authoritative execution plan and integrating runtime admission remain
+separately gated work.
 
 ### Follow-up work
 

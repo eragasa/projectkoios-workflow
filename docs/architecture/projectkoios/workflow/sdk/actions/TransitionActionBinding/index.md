@@ -12,14 +12,20 @@ an owner defines a retention-independent logical result identity, that opaque
 identity is the external CPN value; the SHA-256 of SDK payload bytes remains
 exact-byte evidence and must not silently replace the owner identity.
 
-For the QE SCF artifact-set direction, `artifact_set_identity` is the future
-bounded Simulations-owned canonical ASCII output mapped to a CPN string
-variable. The existing canonical `artifact_set` document is supporting SDK
-evidence with its own payload digest. Workflow does not import Simulations
-classes or parse the artifact-set JSON to derive the identity.
+For the QE SCF artifact-set direction, `artifact_set_identity` is the bounded
+Simulations-owned canonical ASCII output mapped to a CPN string variable. The
+existing canonical `artifact_set` document is supporting SDK evidence with its
+own payload digest. Workflow does not import Simulations classes or parse the
+artifact-set JSON to derive the identity.
 
 This component owns deterministic data adaptation and correlation only. It does
-not select transitions, reserve tokens, admit a stale result, claim work,
-authorize effects, choose providers, mutate markings, or fire the net. The
-current `0.1.0a1` public inventory does not yet expose the complete mapping
-contract described here.
+not select transitions, reserve tokens, revalidate a current predecessor, claim
+work, authorize effects, choose providers, mutate markings, or fire the net.
+
+`projectkoios.workflow.actions` now contains an explicitly experimental mapper
+for the current non-authoritative shadow kernel. It closes one exact SDK
+transition binding and firer descriptor, validates a retained occurrence
+context and correlated success, and constructs one declared external `STRING`
+binding. It is a private Workflow service candidate, not part of the standalone
+SDK `0.1.0a1` inventory and not an implementation claim for the proposed full
+CPN-bindings contract.

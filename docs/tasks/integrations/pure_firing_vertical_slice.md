@@ -35,14 +35,21 @@ correctly stops at a correlated SDK result. The SDK
 uses the Simulations-owned `artifact_set_identity` as the opaque CPN string
 output and retains the complete canonical `artifact_set` document as evidence;
 the transport payload digest remains integrity evidence rather than domain
-state. [`WorkflowEngine`](../../architecture/projectkoios/workflow/runtime/WorkflowEngine/)
-must still implement result admission, the explicit mapping, predecessor
-reservation/revalidation, and atomic firing retention. No current SDK record
-authorizes inventing the mapping inside the owner adapter.
+state. An experimental Workflow-owned mapper now validates the exact SDK descriptors,
+retained context, result metadata, canonical ASCII identity, and evidence order,
+then constructs one declared shadow-CPN `STRING` binding. It does not expand the
+standalone SDK or claim the proposed full CPN-bindings contract.
+[`WorkflowEngine`](../../architecture/projectkoios/workflow/runtime/WorkflowEngine/)
+must still retain the mapping through an authoritative execution plan, perform
+current predecessor reservation/revalidation and result admission, invoke pure
+firing, and atomically retain firing evidence. No SDK record authorizes
+inventing the mapping inside the owner adapter.
 
 ## Completion evidence
 
-- [ ] Record exact SDK, Workflow, and consumer revisions.
+- [x] Record the isolated
+  [experimental ASCII output-mapping evidence](experimental_ascii_output_mapping_evidence.md).
+- [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, binding, firing, and history identities.
 - [ ] Retain deterministic replay evidence.
 - [ ] Retain negative test results for stale and mismatched results.
