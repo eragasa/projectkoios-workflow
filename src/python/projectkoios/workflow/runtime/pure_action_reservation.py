@@ -25,16 +25,28 @@ from projectkoios.workflow_sdk.identities import (
     WorkflowOccurrenceIdentity,
 )
 
+from .pure_action_input_authority import (
+    ExperimentalWorkflowPureActionAuthorizedInputs,
+    ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+)
 from .pure_action_inputs import (
-    ExperimentalWorkflowPureActionAdmittedInputs,
     ExperimentalWorkflowPureActionAdmittedInputsIdentity,
 )
+from .pure_action_source_repository import (
+    ExperimentalWorkflowPureActionInputSourceLoadResult,
+    ExperimentalWorkflowPureActionInputSourceLoadStatus,
+    ExperimentalWorkflowPureActionInputSourceReference,
+    ExperimentalWorkflowPureActionInputSourceRepository,
+)
 
-_RESERVATION_IDENTITY_DOMAIN = (
+_LEGACY_RESERVATION_IDENTITY_DOMAIN = (
     "projectkoios.workflow.experimental-pure-action-reservation:1"
 )
-_RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN = (
+_LEGACY_RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN = (
     "projectkoios.workflow.experimental-pure-action-reservation:2"
+)
+_RESERVATION_IDENTITY_DOMAIN = (
+    "projectkoios.workflow.experimental-pure-action-reservation:0"
 )
 
 
@@ -103,6 +115,9 @@ class ExperimentalWorkflowPureActionReservation:
     input_admission_identity: (
         ExperimentalWorkflowPureActionAdmittedInputsIdentity | None
     ) = None
+    input_authorization_identity: (
+        ExperimentalWorkflowPureActionAuthorizedInputsIdentity | None
+    ) = None
 
     def __post_init__(self) -> None:
         expected = (
@@ -165,6 +180,20 @@ class ExperimentalWorkflowPureActionReservation:
                 "input_admission_identity must be "
                 "ExperimentalWorkflowPureActionAdmittedInputsIdentity or None"
             )
+        if (
+            self.input_authorization_identity is not None
+            and type(self.input_authorization_identity)
+            is not ExperimentalWorkflowPureActionAuthorizedInputsIdentity
+        ):
+            raise TypeError(
+                "input_authorization_identity must be "
+                "ExperimentalWorkflowPureActionAuthorizedInputsIdentity or None"
+            )
+        if (
+            self.input_authorization_identity is not None
+            and self.input_admission_identity is None
+        ):
+            raise ValueError("input authorization requires input admission")
         parts: tuple[object, ...] = (
             self.execution_plan_identity.value,
             self.execution_bindings_identity.value,
@@ -177,10 +206,13 @@ class ExperimentalWorkflowPureActionReservation:
             self.attempt_identity.value,
             self.attempt_ordinal,
         )
-        domain = _RESERVATION_IDENTITY_DOMAIN
+        domain = _LEGACY_RESERVATION_IDENTITY_DOMAIN
         if self.input_admission_identity is not None:
-            domain = _RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN
+            domain = _LEGACY_RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN
             parts += (self.input_admission_identity.value,)
+        if self.input_authorization_identity is not None:
+            domain = _RESERVATION_IDENTITY_DOMAIN
+            parts += (self.input_authorization_identity.value,)
         object.__setattr__(
             self,
             "identity",
@@ -197,6 +229,12 @@ class ExperimentalWorkflowPureActionReserveStatus(StrEnum):
     IDEMPOTENT = "idempotent"
     STALE = "stale"
     CONFLICT = "conflict"
+    SOURCE_ABSENT = "source_absent"
+    SOURCE_INCOMPATIBLE = "source_incompatible"
+    SOURCE_CORRUPT = "source_corrupt"
+    SOURCE_INDETERMINATE = "source_indeterminate"
+    SOURCE_ERROR = "source_error"
+    SOURCE_CONFLICT = "source_conflict"
 
 
 class ExperimentalWorkflowPureActionRevalidationStatus(StrEnum):
@@ -386,11 +424,12 @@ class ExperimentalInMemoryPureActionReservationRepository(
 class ExperimentalWorkflowPureActionReservationService:
     """Construct an exact SDK request and reserve its current predecessor."""
 
-    __slots__ = ("_repository",)
+    __slots__ = ("_repository", "_source_repository")
 
     def __init__(
         self,
         repository: ExperimentalWorkflowPureActionReservationRepository,
+        source_repository: ExperimentalWorkflowPureActionInputSourceRepository,
     ) -> None:
         if not isinstance(
             repository,
@@ -400,7 +439,16 @@ class ExperimentalWorkflowPureActionReservationService:
                 "repository must implement "
                 "ExperimentalWorkflowPureActionReservationRepository"
             )
+        if not isinstance(
+            source_repository,
+            ExperimentalWorkflowPureActionInputSourceRepository,
+        ):
+            raise TypeError(
+                "source_repository must implement "
+                "ExperimentalWorkflowPureActionInputSourceRepository"
+            )
         self._repository = repository
+        self._source_repository = source_repository
 
     def __init_subclass__(cls, **kwargs: object) -> None:
         del kwargs
@@ -412,10 +460,18 @@ class ExperimentalWorkflowPureActionReservationService:
     def reserve(
         self,
         *,
-        admitted_inputs: ExperimentalWorkflowPureActionAdmittedInputs,
+        authorized_inputs: ExperimentalWorkflowPureActionAuthorizedInputs,
     ) -> ExperimentalWorkflowPureActionReservationResult:
-        """Reserve only a source-correlated, plan-selected SDK request."""
-        admitted = _reconstruct_admitted_inputs(admitted_inputs)
+        """Reserve only a repository-authorized, plan-selected SDK request."""
+        authorized = _reconstruct_authorized_inputs(authorized_inputs)
+        admitted = authorized.admitted_inputs
+        source_status = self._revalidate_sources(authorized)
+        if source_status is not None:
+            return ExperimentalWorkflowPureActionReservationResult(
+                status=source_status,
+                reservation=None,
+                request=None,
+            )
         bindings = admitted.input_bindings.execution_bindings
         selected_binding_evidence = admitted.selected_binding_evidence
         request = admitted.request
@@ -432,6 +488,7 @@ class ExperimentalWorkflowPureActionReservationService:
             attempt_identity=context.attempt_identity,
             attempt_ordinal=context.attempt_ordinal,
             input_admission_identity=admitted.identity,
+            input_authorization_identity=authorized.identity,
         )
         status = self._repository.reserve(reservation)
         if status in {
@@ -456,24 +513,77 @@ class ExperimentalWorkflowPureActionReservationService:
         """Revalidate one exact reservation after owner execution."""
         return self._repository.revalidate(reservation)
 
+    def _revalidate_sources(
+        self,
+        authorized: ExperimentalWorkflowPureActionAuthorizedInputs,
+    ) -> ExperimentalWorkflowPureActionReserveStatus | None:
+        admitted = authorized.admitted_inputs
+        for source, authority in zip(
+            admitted.source_evidence,
+            authorized.source_authorities,
+            strict=True,
+        ):
+            reference = ExperimentalWorkflowPureActionInputSourceReference(
+                source_kind=source.source_kind,
+                source_profile_identity=source.source_profile_identity,
+                source_identity=source.source_identity,
+            )
+            loaded = self._source_repository.load(reference)
+            if type(loaded) is not (
+                ExperimentalWorkflowPureActionInputSourceLoadResult
+            ):
+                raise TypeError("source repository returned an invalid result")
+            if loaded.status is not (
+                ExperimentalWorkflowPureActionInputSourceLoadStatus.LOADED
+            ):
+                return _source_reserve_failure(loaded.status)
+            if (
+                loaded.evidence != source
+                or loaded.revision_identity != authority.revision_identity
+                or loaded.reference.identity != authority.reference_identity
+            ):
+                return (
+                    ExperimentalWorkflowPureActionReserveStatus.SOURCE_CONFLICT
+                )
+        return None
 
-def _reconstruct_admitted_inputs(
-    value: ExperimentalWorkflowPureActionAdmittedInputs,
-) -> ExperimentalWorkflowPureActionAdmittedInputs:
-    if type(value) is not ExperimentalWorkflowPureActionAdmittedInputs:
+
+def _source_reserve_failure(
+    status: ExperimentalWorkflowPureActionInputSourceLoadStatus,
+) -> ExperimentalWorkflowPureActionReserveStatus:
+    return {
+        ExperimentalWorkflowPureActionInputSourceLoadStatus.ABSENT: (
+            ExperimentalWorkflowPureActionReserveStatus.SOURCE_ABSENT
+        ),
+        ExperimentalWorkflowPureActionInputSourceLoadStatus.INCOMPATIBLE: (
+            ExperimentalWorkflowPureActionReserveStatus.SOURCE_INCOMPATIBLE
+        ),
+        ExperimentalWorkflowPureActionInputSourceLoadStatus.CORRUPT: (
+            ExperimentalWorkflowPureActionReserveStatus.SOURCE_CORRUPT
+        ),
+        ExperimentalWorkflowPureActionInputSourceLoadStatus.INDETERMINATE: (
+            ExperimentalWorkflowPureActionReserveStatus.SOURCE_INDETERMINATE
+        ),
+        ExperimentalWorkflowPureActionInputSourceLoadStatus.ERROR: (
+            ExperimentalWorkflowPureActionReserveStatus.SOURCE_ERROR
+        ),
+    }[status]
+
+
+def _reconstruct_authorized_inputs(
+    value: ExperimentalWorkflowPureActionAuthorizedInputs,
+) -> ExperimentalWorkflowPureActionAuthorizedInputs:
+    if type(value) is not ExperimentalWorkflowPureActionAuthorizedInputs:
         raise TypeError(
-            "admitted_inputs must be "
-            "ExperimentalWorkflowPureActionAdmittedInputs"
+            "authorized_inputs must be "
+            "ExperimentalWorkflowPureActionAuthorizedInputs"
         )
-    reconstructed = ExperimentalWorkflowPureActionAdmittedInputs(
-        input_bindings=value.input_bindings,
-        selected_binding_evidence=value.selected_binding_evidence,
-        coordinates=value.coordinates,
-        source_evidence=value.source_evidence,
-        request=value.request,
+    reconstructed = ExperimentalWorkflowPureActionAuthorizedInputs(
+        admitted_inputs=value.admitted_inputs,
+        source_authorities=value.source_authorities,
     )
     if reconstructed != value:
-        raise ValueError("admitted inputs differ after validation")
+        raise ValueError("authorized inputs differ after validation")
     return reconstructed
 
 
@@ -498,6 +608,7 @@ def _reconstruct_reservation(
         attempt_identity=value.attempt_identity,
         attempt_ordinal=value.attempt_ordinal,
         input_admission_identity=value.input_admission_identity,
+        input_authorization_identity=value.input_authorization_identity,
     )
     if validated != value:
         raise ValueError("reservation differs after validation")

@@ -67,8 +67,11 @@ Validation retained for local Workflow commit `d3c58a3` (based on `d8f81c5`):
 The later
 [pure-action input-admission candidate](pure_action_input_admission_evidence.md)
 replaces independently supplied raw inputs at the reservation-service boundary
-and version-identifies the correlated input admission. The validation counts
-and hashes above remain evidence for `d3c58a3`, not the evolved source file.
+and content-identifies the correlated input admission. The subsequent
+[input-authority candidate](pure_action_input_authority_evidence.md) evolves the
+v0 reservation shape to revalidate owner/source observations. The
+validation counts and hashes above remain evidence for `d3c58a3`, not the
+evolved source file.
 
 ## Remaining authority gaps
 

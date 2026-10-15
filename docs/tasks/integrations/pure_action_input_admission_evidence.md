@@ -24,8 +24,8 @@ or replay.
   selected-binding evidence, runtime coordinates, ordered source evidence, and
   the exact SDK request under one content identity.
 - `ExperimentalWorkflowPureActionReservationService` now accepts only that
-  reconstructed aggregate. Version-2 reservation identities include the input
-  admission identity; version-1 reservations remain reconstructable.
+  reconstructed aggregate. The admission-bound v0 reservation shape includes
+  the input-admission identity; the earlier v0 base shape remains reconstructable.
 
 The source-evidence record is structural correlation, not proof that a durable
 repository owns the claimed source identity. Direct dataclass construction does
@@ -46,9 +46,9 @@ Focused tests cover:
 - selected-binding profile substitution;
 - concurrent reservation conflicts, stale state, consumed state, and revision
   rewind; and
-- reconstruction of the legacy version-1 reservation identity.
+- reconstruction of the earlier v0 base reservation identity.
 
-Validation from the uncommitted candidate on base Workflow revision `d3c58a3`:
+Validation retained for local Workflow commit `6351a93` (based on `d3c58a3`):
 
 - focused input-admission/reservation tests: `16 passed`;
 - full Workflow suite: `336 passed`;
@@ -82,15 +82,22 @@ Deterministic fixture identities:
 - input admission:
   `e2668a460f385525a630ee57107f95011e8fe5908a9f5e67d55351f0d60e20ab`;
 - SDK request: `e88386da127cc2e2e1b9fd3e60f947aa11700a09c3aab6e031f3d885a9de28d8`;
-- version-2 reservation:
+- v0 admission-bound reservation shape:
   `b25d1dbecb22b1f593c04d3713568ba3dc716b241a1b98121900323fd0d541e2`;
-- reconstructed version-1 reservation:
+- reconstructed v0 base reservation shape:
   `2189a0d705aa0523585e434eaa6efc922bcdda1c7535e217c671776a23e9baf7`.
+
+## Subsequent evolution
+
+The later
+[pure-action input-authority candidate](pure_action_input_authority_evidence.md)
+resolves references through a nominal owner/source repository and revalidates
+the exact source before reservation. The counts and hashes above remain evidence
+for `6351a93`, not the evolved source files.
 
 ## Remaining authority gaps
 
-The candidate does not validate a source identity against durable retained
-state. It does not implement source retrieval, owner invocation, result
-admission, CPN firing, atomic reservation consumption, successor persistence,
-rollback, or replay. The next runtime boundary must not infer source authority
-from nominal record membership.
+This structural candidate alone does not validate a source identity against an
+owner repository. It does not implement owner invocation, result admission, CPN
+firing, atomic reservation consumption, successor persistence, rollback, or
+replay. Nominal record membership alone grants no source authority.

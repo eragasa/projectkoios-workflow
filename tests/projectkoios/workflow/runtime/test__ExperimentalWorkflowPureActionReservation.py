@@ -46,9 +46,19 @@ from projectkoios.workflow.runtime import (
     ExperimentalInMemoryPureActionReservationRepository,
     ExperimentalWorkflowPureActionAdmittedInputs,
     ExperimentalWorkflowPureActionAdmittedInputsIdentity,
+    ExperimentalWorkflowPureActionAuthorizedInputs,
+    ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
     ExperimentalWorkflowPureActionCurrentPredecessor,
     ExperimentalWorkflowPureActionInputAdmissionFactory,
+    ExperimentalWorkflowPureActionInputAuthorizationService,
+    ExperimentalWorkflowPureActionInputAuthorizationStatus,
+    ExperimentalWorkflowPureActionInputSourceAuthority,
     ExperimentalWorkflowPureActionInputSourceEvidence,
+    ExperimentalWorkflowPureActionInputSourceLoadResult,
+    ExperimentalWorkflowPureActionInputSourceLoadStatus,
+    ExperimentalWorkflowPureActionInputSourceReference,
+    ExperimentalWorkflowPureActionInputSourceRepository,
+    ExperimentalWorkflowPureActionInputSourceRevisionIdentity,
     ExperimentalWorkflowPureActionReservation,
     ExperimentalWorkflowPureActionReservationIdentity,
     ExperimentalWorkflowPureActionReservationService,
@@ -82,6 +92,58 @@ from projectkoios.workflow_sdk.payloads import (
     WorkflowInlinePayload,
     WorkflowPayloadContract,
 )
+
+
+class _FixtureSourceRepository(
+    ExperimentalWorkflowPureActionInputSourceRepository
+):
+    def __init__(
+        self,
+        sources: tuple[ExperimentalWorkflowPureActionInputSourceEvidence, ...],
+        *,
+        failure_status: (
+            ExperimentalWorkflowPureActionInputSourceLoadStatus | None
+        ) = None,
+    ) -> None:
+        self._sources = {
+            _reference(source).identity: source for source in sources
+        }
+        self._failure_status = failure_status
+
+    def load(
+        self,
+        reference: ExperimentalWorkflowPureActionInputSourceReference,
+    ) -> ExperimentalWorkflowPureActionInputSourceLoadResult:
+        if self._failure_status is not None:
+            return ExperimentalWorkflowPureActionInputSourceLoadResult(
+                status=self._failure_status,
+                reference=reference,
+                revision_identity=None,
+                evidence=None,
+                diagnostics=("fixture_source_failure",),
+            )
+        source = self._sources.get(reference.identity)
+        if source is None:
+            return ExperimentalWorkflowPureActionInputSourceLoadResult(
+                status=(
+                    ExperimentalWorkflowPureActionInputSourceLoadStatus.ABSENT
+                ),
+                reference=reference,
+                revision_identity=None,
+                evidence=None,
+                diagnostics=("fixture_absent",),
+            )
+        return ExperimentalWorkflowPureActionInputSourceLoadResult(
+            status=ExperimentalWorkflowPureActionInputSourceLoadStatus.LOADED,
+            reference=reference,
+            revision_identity=(
+                ExperimentalWorkflowPureActionInputSourceRevisionIdentity(
+                    source.identity.value
+                )
+            ),
+            evidence=source,
+            diagnostics=(),
+        )
 
 
 def _contract(role: str, maximum: int) -> WorkflowPayloadContract:
@@ -384,6 +446,17 @@ def _source(
     )
 
 
+def _reference(
+    source: ExperimentalWorkflowPureActionInputSourceEvidence | None = None,
+) -> ExperimentalWorkflowPureActionInputSourceReference:
+    selected = source or _source()
+    return ExperimentalWorkflowPureActionInputSourceReference(
+        source_kind=selected.source_kind,
+        source_profile_identity=selected.source_profile_identity,
+        source_identity=selected.source_identity,
+    )
+
+
 def _admitted(
     *,
     input_bindings: ExperimentalWorkflowPureActionInputBindings | None = None,
@@ -399,6 +472,34 @@ def _admitted(
     )
 
 
+def _authorized(
+    admitted: ExperimentalWorkflowPureActionAdmittedInputs | None = None,
+) -> ExperimentalWorkflowPureActionAuthorizedInputs:
+    selected = admitted or _admitted()
+    authorities = tuple(
+        ExperimentalWorkflowPureActionInputSourceAuthority(
+            reference_identity=(
+                ExperimentalWorkflowPureActionInputSourceReference(
+                    source_kind=source.source_kind,
+                    source_profile_identity=source.source_profile_identity,
+                    source_identity=source.source_identity,
+                ).identity
+            ),
+            revision_identity=(
+                ExperimentalWorkflowPureActionInputSourceRevisionIdentity(
+                    source.identity.value
+                )
+            ),
+            evidence_identity=source.identity,
+        )
+        for source in selected.source_evidence
+    )
+    return ExperimentalWorkflowPureActionAuthorizedInputs(
+        admitted_inputs=selected,
+        source_authorities=authorities,
+    )
+
+
 def _predecessor(
     *,
     marking: str = "fixture.marking",
@@ -411,17 +512,136 @@ def _predecessor(
     )
 
 
-def _service() -> tuple[
+def _service(
+    *sources: ExperimentalWorkflowPureActionInputSourceEvidence,
+) -> tuple[
     ExperimentalWorkflowPureActionReservationService,
     ExperimentalInMemoryPureActionReservationRepository,
 ]:
     repository = ExperimentalInMemoryPureActionReservationRepository(
         (_predecessor(),)
     )
+    source_repository = _FixtureSourceRepository(sources or (_source(),))
     return (
-        ExperimentalWorkflowPureActionReservationService(repository),
+        ExperimentalWorkflowPureActionReservationService(
+            repository,
+            source_repository,
+        ),
         repository,
     )
+
+
+def test_authorization_loads_owner_source_and_reservation_revalidates_it() -> (
+    None
+):
+    source = _source(payload=b'{"retained":true}')
+    source_repository = _FixtureSourceRepository((source,))
+    authorization = ExperimentalWorkflowPureActionInputAuthorizationService(
+        source_repository
+    ).execute(
+        input_bindings=_input_bindings(),
+        selected_binding_evidence=_evidence(),
+        coordinates=_coordinates(),
+        source_references=(_reference(source),),
+    )
+
+    assert authorization.status is (
+        ExperimentalWorkflowPureActionInputAuthorizationStatus.AUTHORIZED
+    )
+    assert authorization.authorized_inputs is not None
+    assert (
+        authorization.authorized_inputs.admitted_inputs.request.inputs[0]
+        == source.payload
+    )
+    reservation_service, _ = _service(source)
+    reserved = reservation_service.reserve(
+        authorized_inputs=authorization.authorized_inputs
+    )
+    assert reserved.status is (
+        ExperimentalWorkflowPureActionReserveStatus.RESERVED
+    )
+    assert reserved.reservation is not None
+    assert reserved.reservation.input_authorization_identity == (
+        authorization.authorized_inputs.identity
+    )
+
+
+def test_authorization_fails_closed_for_absent_or_changed_reference() -> None:
+    service = ExperimentalWorkflowPureActionInputAuthorizationService(
+        _FixtureSourceRepository(())
+    )
+    absent = service.execute(
+        input_bindings=_input_bindings(),
+        selected_binding_evidence=_evidence(),
+        coordinates=_coordinates(),
+        source_references=(_reference(),),
+    )
+
+    assert absent.status is (
+        ExperimentalWorkflowPureActionInputAuthorizationStatus.ABSENT
+    )
+    assert absent.authorized_inputs is None
+    with pytest.raises(ValueError, match="kind differs from mapping"):
+        service.execute(
+            input_bindings=_input_bindings(),
+            selected_binding_evidence=_evidence(),
+            coordinates=_coordinates(),
+            source_references=(
+                ExperimentalWorkflowPureActionInputSourceReference(
+                    source_kind="caller-supplied-payload",
+                    source_profile_identity=(
+                        ExperimentalWorkflowInputSourceProfileIdentity(
+                            "fixture.retained-payload:1"
+                        )
+                    ),
+                    source_identity="fixture.source-evidence",
+                ),
+            ),
+        )
+
+
+@pytest.mark.parametrize(
+    ("source_status", "authorization_status"),
+    (
+        (
+            ExperimentalWorkflowPureActionInputSourceLoadStatus.INCOMPATIBLE,
+            ExperimentalWorkflowPureActionInputAuthorizationStatus.INCOMPATIBLE,
+        ),
+        (
+            ExperimentalWorkflowPureActionInputSourceLoadStatus.CORRUPT,
+            ExperimentalWorkflowPureActionInputAuthorizationStatus.CORRUPT,
+        ),
+        (
+            ExperimentalWorkflowPureActionInputSourceLoadStatus.INDETERMINATE,
+            ExperimentalWorkflowPureActionInputAuthorizationStatus.INDETERMINATE,
+        ),
+        (
+            ExperimentalWorkflowPureActionInputSourceLoadStatus.ERROR,
+            ExperimentalWorkflowPureActionInputAuthorizationStatus.ERROR,
+        ),
+    ),
+)
+def test_authorization_preserves_owner_source_failure_status(
+    source_status: ExperimentalWorkflowPureActionInputSourceLoadStatus,
+    authorization_status: (
+        ExperimentalWorkflowPureActionInputAuthorizationStatus
+    ),
+) -> None:
+    repository = _FixtureSourceRepository(
+        (),
+        failure_status=source_status,
+    )
+    authorization = ExperimentalWorkflowPureActionInputAuthorizationService(
+        repository
+    ).execute(
+        input_bindings=_input_bindings(),
+        selected_binding_evidence=_evidence(),
+        coordinates=_coordinates(),
+        source_references=(_reference(),),
+    )
+
+    assert authorization.status is authorization_status
+    assert authorization.authorized_inputs is None
 
 
 def test_input_mapping_tokens_are_bounded() -> None:
@@ -567,25 +787,62 @@ def test_admission_rejects_machine_paths_and_direct_identity_forgery() -> None:
         "identity",
         ExperimentalWorkflowPureActionAdmittedInputsIdentity("0" * 64),
     )
-    service, _ = _service()
     with pytest.raises(ValueError, match="admitted inputs differ"):
-        service.reserve(admitted_inputs=admitted)
+        _authorized(admitted)
+
+    authorized = _authorized()
+    forged_authority = replace(
+        authorized.source_authorities[0],
+        reference_identity=_reference(
+            _source(source_identity="fixture.other-source")
+        ).identity,
+    )
+    with pytest.raises(ValueError, match="differs from admitted source"):
+        ExperimentalWorkflowPureActionAuthorizedInputs(
+            admitted_inputs=authorized.admitted_inputs,
+            source_authorities=(forged_authority,),
+        )
+
+    object.__setattr__(
+        authorized,
+        "identity",
+        ExperimentalWorkflowPureActionAuthorizedInputsIdentity("0" * 64),
+    )
+    reservation_service, _ = _service()
+    with pytest.raises(ValueError, match="authorized inputs differ"):
+        reservation_service.reserve(authorized_inputs=authorized)
+
+
+def test_reservation_revalidates_authorized_source_against_repository() -> None:
+    claimed_source = _source(payload=b'{"claimed":true}')
+    retained_source = _source(payload=b'{"retained":true}')
+    service, _ = _service(retained_source)
+
+    result = service.reserve(
+        authorized_inputs=_authorized(_admitted(source=claimed_source))
+    )
+
+    assert result.status is (
+        ExperimentalWorkflowPureActionReserveStatus.SOURCE_CONFLICT
+    )
+    assert result.reservation is None
+    assert result.request is None
 
 
 def test_source_identity_changes_reservation_even_when_request_is_exact() -> (
     None
 ):
-    first_service, _ = _service()
-    changed_service, _ = _service()
-    first_admitted = _admitted(
-        source=_source(source_identity="fixture.source-a")
-    )
-    changed_admitted = _admitted(
-        source=_source(source_identity="fixture.source-b")
-    )
+    first_source = _source(source_identity="fixture.source-a")
+    changed_source = _source(source_identity="fixture.source-b")
+    first_service, _ = _service(first_source)
+    changed_service, _ = _service(changed_source)
+    first_admitted = _admitted(source=first_source)
+    changed_admitted = _admitted(source=changed_source)
 
-    first = first_service.reserve(admitted_inputs=first_admitted)
-    changed = changed_service.reserve(admitted_inputs=changed_admitted)
+    first = first_service.reserve(authorized_inputs=_authorized(first_admitted))
+    changed = changed_service.reserve(
+        authorized_inputs=_authorized(changed_admitted)
+    )
 
     assert first.request == changed.request
     assert first.reservation is not None
@@ -598,10 +855,10 @@ def test_source_identity_changes_reservation_even_when_request_is_exact() -> (
     )
 
 
-def test_legacy_reservation_identity_remains_reconstructable() -> None:
+def test_earlier_v0_reservation_shapes_remain_reconstructable() -> None:
     admitted = _admitted()
     service, _ = _service()
-    result = service.reserve(admitted_inputs=admitted)
+    result = service.reserve(authorized_inputs=_authorized(admitted))
     assert result.reservation is not None
     current = result.reservation
 
@@ -620,11 +877,33 @@ def test_legacy_reservation_identity_remains_reconstructable() -> None:
         attempt_ordinal=current.attempt_ordinal,
     )
 
+    admission_bound_shape = ExperimentalWorkflowPureActionReservation(
+        execution_plan_identity=current.execution_plan_identity,
+        execution_bindings_identity=current.execution_bindings_identity,
+        selected_binding_evidence_identity=(
+            current.selected_binding_evidence_identity
+        ),
+        request_identity=current.request_identity,
+        net_instance_identity=current.net_instance_identity,
+        predecessor_marking_identity=current.predecessor_marking_identity,
+        predecessor_revision=current.predecessor_revision,
+        occurrence_identity=current.occurrence_identity,
+        attempt_identity=current.attempt_identity,
+        attempt_ordinal=current.attempt_ordinal,
+        input_admission_identity=current.input_admission_identity,
+    )
+
     assert legacy.input_admission_identity is None
+    assert legacy.input_authorization_identity is None
     assert legacy.identity.value == (
         "2189a0d705aa0523585e434eaa6efc922bcdda1c7535e217c671776a23e9baf7"
     )
-    assert legacy.identity != current.identity
+    assert admission_bound_shape.input_authorization_identity is None
+    assert admission_bound_shape.identity.value == (
+        "b25d1dbecb22b1f593c04d3713568ba3dc716b241a1b98121900323fd0d541e2"
+    )
+    assert legacy.identity != admission_bound_shape.identity
+    assert admission_bound_shape.identity != current.identity
     legacy_repository = ExperimentalInMemoryPureActionReservationRepository(
         (_predecessor(),)
     )
@@ -647,8 +926,9 @@ def test_reserve_closes_plan_selection_request_and_current_predecessor() -> (
         input_bindings=_input_bindings(bindings=bindings),
         evidence=evidence,
     )
-    first = service.reserve(admitted_inputs=admitted)
-    replay = service.reserve(admitted_inputs=admitted)
+    authorized = _authorized(admitted)
+    first = service.reserve(authorized_inputs=authorized)
+    replay = service.reserve(authorized_inputs=authorized)
 
     assert first.status is ExperimentalWorkflowPureActionReserveStatus.RESERVED
     assert (
@@ -669,6 +949,7 @@ def test_reserve_closes_plan_selection_request_and_current_predecessor() -> (
     )
     assert first.reservation.request_identity == first.request.identity
     assert first.reservation.input_admission_identity == admitted.identity
+    assert first.reservation.input_authorization_identity == authorized.identity
     assert service.revalidate(first.reservation) is (
         ExperimentalWorkflowPureActionRevalidationStatus.CURRENT
     )
@@ -682,7 +963,7 @@ def test_stale_predecessor_fails_closed_before_owner_request_is_exposed() -> (
         _predecessor(marking="fixture.successor", revision=8)
     )
 
-    result = service.reserve(admitted_inputs=_admitted())
+    result = service.reserve(authorized_inputs=_authorized())
 
     assert result.status is ExperimentalWorkflowPureActionReserveStatus.STALE
     assert result.reservation is None
@@ -691,7 +972,7 @@ def test_stale_predecessor_fails_closed_before_owner_request_is_exposed() -> (
 
 def test_post_owner_revalidation_detects_state_change_and_consumption() -> None:
     service, repository = _service()
-    result = service.reserve(admitted_inputs=_admitted())
+    result = service.reserve(authorized_inputs=_authorized())
     assert result.reservation is not None
 
     repository.advance_current_predecessor(
@@ -706,7 +987,8 @@ def test_post_owner_revalidation_detects_state_change_and_consumption() -> None:
         consumed_reservation_identities=(result.reservation.identity,),
     )
     consumed_service = ExperimentalWorkflowPureActionReservationService(
-        consumed_repository
+        consumed_repository,
+        _FixtureSourceRepository((_source(),)),
     )
     assert consumed_service.revalidate(result.reservation) is (
         ExperimentalWorkflowPureActionRevalidationStatus.CONSUMED
@@ -717,7 +999,7 @@ def test_in_memory_predecessor_cannot_rewind_and_resurrect_reservation() -> (
     None
 ):
     service, repository = _service()
-    result = service.reserve(admitted_inputs=_admitted())
+    result = service.reserve(authorized_inputs=_authorized())
     assert result.reservation is not None
     repository.advance_current_predecessor(
         _predecessor(marking="fixture.successor", revision=8)
@@ -739,7 +1021,9 @@ def test_concurrent_different_attempts_cannot_reserve_same_predecessor() -> (
     def reserve(attempt: str) -> ExperimentalWorkflowPureActionReserveStatus:
         barrier.wait()
         return service.reserve(
-            admitted_inputs=_admitted(coordinates=_coordinates(attempt=attempt))
+            authorized_inputs=_authorized(
+                _admitted(coordinates=_coordinates(attempt=attempt))
+            )
         ).status
 
     with ThreadPoolExecutor(max_workers=2) as executor:
@@ -756,24 +1040,30 @@ def test_concurrent_different_attempts_cannot_reserve_same_predecessor() -> (
 
 
 def test_reservation_identity_changes_with_exact_request_inputs() -> None:
-    first_service, _ = _service()
-    changed_service, _ = _service()
+    first_source = _source(payload=b"{}")
+    changed_source = _source(payload=b'{"changed":true}')
+    first_service, _ = _service(first_source)
+    changed_service, _ = _service(changed_source)
     bindings = _bindings()
     evidence = _evidence()
 
     input_bindings = _input_bindings(bindings=bindings)
     first = first_service.reserve(
-        admitted_inputs=_admitted(
-            input_bindings=input_bindings,
-            evidence=evidence,
-            source=_source(payload=b"{}"),
+        authorized_inputs=_authorized(
+            _admitted(
+                input_bindings=input_bindings,
+                evidence=evidence,
+                source=first_source,
+            )
         )
     )
     changed = changed_service.reserve(
-        admitted_inputs=_admitted(
-            input_bindings=input_bindings,
-            evidence=evidence,
-            source=_source(payload=b'{"changed":true}'),
+        authorized_inputs=_authorized(
+            _admitted(
+                input_bindings=input_bindings,
+                evidence=evidence,
+                source=changed_source,
+            )
         )
     )
 
@@ -788,7 +1078,7 @@ def test_reservation_identity_changes_with_exact_request_inputs() -> None:
 
 def test_repository_rejects_forged_reservation_identity() -> None:
     service, _ = _service()
-    result = service.reserve(admitted_inputs=_admitted())
+    result = service.reserve(authorized_inputs=_authorized())
     assert result.reservation is not None
 
     object.__setattr__(

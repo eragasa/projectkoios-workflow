@@ -37,18 +37,22 @@ or stale outcomes never reach pure CPN firing.
 
 `ExperimentalWorkflowPureActionReservationService` is a bounded candidate for
 the pre-invocation and post-invocation current-state checks. It accepts only an
-exact reconstructed admitted-input aggregate rather than independently supplied
-raw inputs. It content-identifies a version-2 reservation over the plan,
-deployment binding, selection evidence, input admission, request, predecessor
-marking/revision, occurrence, and attempt. Version-1 reservations remain
-reconstructable. A nominal repository ABC owns atomic reserve and revalidate
-operations.
+exact reconstructed, repository-authorized input aggregate rather than
+independently supplied raw inputs. Immediately before reservation it reloads
+each opaque source reference and compares its source-owner revision, evidence,
+and exact payload. It content-identifies the current v0 reservation shape over
+the plan, deployment binding, selection evidence, input admission, source
+authorization, request, predecessor marking/revision, occurrence, and attempt.
+Earlier v0 experimental reservation shapes remain reconstructable. A nominal repository ABC owns
+atomic predecessor reserve and revalidate operations.
 
 The included in-memory repository is thread-safe, non-durable software evidence.
 It admits at most one distinct reservation per net-instance predecessor, treats
 an exact replay as idempotent, and rejects stale, conflicting, absent, or known
 consumed reservations. Its whole-predecessor lock granularity is deliberately
-conservative. Durable storage, input-source provenance, owner invocation, CPN
+conservative. A separate nominal source-repository ABC preserves owner storage
+ownership and closed uncertainty outcomes; Workflow retains only bounded
+references and content identities. A production owner adapter, owner invocation, CPN
 firing, atomic reservation consumption, successor persistence, and replay remain
 outside this candidate. In particular, the candidate exposes no standalone
 consume operation: reservation consumption must later share the accepted atomic

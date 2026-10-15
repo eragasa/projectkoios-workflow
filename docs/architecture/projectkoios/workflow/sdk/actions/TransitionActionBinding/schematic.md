@@ -12,7 +12,10 @@ flowchart TD
     D[Derived selected-binding SHA-256]
     C[Retained runtime coordinates]
     IM[Plan-selected input-source mappings]
-    IS[Opaque retained-source evidence]
+    IR[Opaque input-source references]
+    OR[Owner source repository]
+    IS[Resolved source evidence]
+    AU[Repository-authorized inputs]
     IA[Content-identified admitted inputs]
     Q[Exact SDK firing request]
     M[Content-identified mapping descriptor]
@@ -32,8 +35,12 @@ flowchart TD
     D --> IA
     C --> IA
     IM --> IA
+    IR --> OR
+    OR --> IS
     IS --> IA
-    IA --> Q
+    IA --> AU
+    OR --> AU
+    AU --> Q
     Q --> A
     M --> A
     C --> A
@@ -49,9 +56,10 @@ flowchart TD
 The selected-binding evidence prevents a bare arbitrary binding from entering
 request construction. The admitted-input aggregate additionally prevents the
 reservation service from independently combining raw owner payloads with that
-selection. The source identity remains opaque structural evidence until a
-durable source repository proves it; predecessor authority remains the separate
-reservation boundary.
+selection. The authorization service resolves opaque references through a
+nominal owner/source repository, and reservation revalidates those exact source
+observations. Private storage and locators remain owner-controlled; predecessor
+authority remains the separate reservation boundary.
 
 For the QE SCF artifact-set direction, the identity branch carries the opaque
 `artifact_set_identity` string and the evidence branch carries the canonical

@@ -1,5 +1,14 @@
 """Append-only local runtime around the pure Project Koios workflow core."""
 
+from .pure_action_input_authority import (
+    ExperimentalWorkflowPureActionAuthorizedInputs,
+    ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+    ExperimentalWorkflowPureActionInputAuthorizationResult,
+    ExperimentalWorkflowPureActionInputAuthorizationService,
+    ExperimentalWorkflowPureActionInputAuthorizationStatus,
+    ExperimentalWorkflowPureActionInputSourceAuthority,
+    ExperimentalWorkflowPureActionInputSourceAuthorityIdentity,
+)
 from .pure_action_inputs import (
     ExperimentalWorkflowPureActionAdmittedInputs,
     ExperimentalWorkflowPureActionAdmittedInputsIdentity,
@@ -17,6 +26,14 @@ from .pure_action_reservation import (
     ExperimentalWorkflowPureActionReservationService,
     ExperimentalWorkflowPureActionReserveStatus,
     ExperimentalWorkflowPureActionRevalidationStatus,
+)
+from .pure_action_source_repository import (
+    ExperimentalWorkflowPureActionInputSourceLoadResult,
+    ExperimentalWorkflowPureActionInputSourceLoadStatus,
+    ExperimentalWorkflowPureActionInputSourceReference,
+    ExperimentalWorkflowPureActionInputSourceReferenceIdentity,
+    ExperimentalWorkflowPureActionInputSourceRepository,
+    ExperimentalWorkflowPureActionInputSourceRevisionIdentity,
 )
 from .records import (
     WORKFLOW_RUNTIME_CONTRACT_VERSION,
@@ -44,11 +61,24 @@ from .service import (
 
 __all__ = [
     "ExperimentalInMemoryPureActionReservationRepository",
+    "ExperimentalWorkflowPureActionAuthorizedInputs",
+    "ExperimentalWorkflowPureActionAuthorizedInputsIdentity",
     "ExperimentalWorkflowPureActionAdmittedInputs",
     "ExperimentalWorkflowPureActionAdmittedInputsIdentity",
     "ExperimentalWorkflowPureActionInputAdmissionFactory",
+    "ExperimentalWorkflowPureActionInputAuthorizationResult",
+    "ExperimentalWorkflowPureActionInputAuthorizationService",
+    "ExperimentalWorkflowPureActionInputAuthorizationStatus",
     "ExperimentalWorkflowPureActionInputSourceEvidence",
+    "ExperimentalWorkflowPureActionInputSourceAuthority",
+    "ExperimentalWorkflowPureActionInputSourceAuthorityIdentity",
     "ExperimentalWorkflowPureActionInputSourceEvidenceIdentity",
+    "ExperimentalWorkflowPureActionInputSourceLoadResult",
+    "ExperimentalWorkflowPureActionInputSourceLoadStatus",
+    "ExperimentalWorkflowPureActionInputSourceReference",
+    "ExperimentalWorkflowPureActionInputSourceReferenceIdentity",
+    "ExperimentalWorkflowPureActionInputSourceRepository",
+    "ExperimentalWorkflowPureActionInputSourceRevisionIdentity",
     "ExperimentalWorkflowPureActionCurrentPredecessor",
     "ExperimentalWorkflowPureActionReservation",
     "ExperimentalWorkflowPureActionReservationIdentity",

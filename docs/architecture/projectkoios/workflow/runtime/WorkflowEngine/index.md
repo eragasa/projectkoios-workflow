@@ -28,7 +28,8 @@ firing.
 A bounded experimental reservation candidate now closes one SDK request over
 the exact plan/linking identities, structural selected-binding evidence,
 plan-selected input-source evidence, predecessor coordinates, occurrence, and
-attempt. It accepts no independent raw input tuple. Its nominal
-repository boundary supports atomic reservation and post-owner revalidation;
+attempt. It accepts no independent raw input tuple and re-resolves every source
+through its nominal owner/source repository before reservation. Its nominal
+predecessor-repository boundary supports atomic reservation and post-owner revalidation;
 the supplied in-memory implementation is evidence only, not authoritative
 persistence or complete `WorkflowEngine` conformance.

@@ -37,12 +37,14 @@ the input plan, deployment binding, selected-binding evidence, runtime
 coordinates, source evidence, and resulting SDK request under one identity.
 Workflow does not parse the payload.
 
-This admission is structural evidence, not proof that a durable source
-repository owns the claimed source identity. Direct construction grants no
-runtime authority. The reservation service now accepts only a reconstructed
-admitted-input aggregate, and the version-2 reservation identity includes that
-admission identity. Version-1 reservations without input admission remain
-reconstructable under their original identity domain.
+This admission is structural evidence, not proof that a source repository owns
+the claimed source identity. The input-authorization service resolves only
+opaque references through a nominal owner/source repository and constructs SDK
+inputs from the returned bytes. The reservation service reloads those sources
+and rejects reference, revision, evidence, or payload changes. The current v0
+reservation shape binds the authorization identity; earlier v0 experimental
+shapes remain reconstructable under their original identity domains. No private owner
+locator or owner-storage implementation enters the plan or Workflow persistence.
 
 The output mapping descriptor content identity closes the exact canonical SDK
 transition binding and firer descriptor, mapping version, decoder profile,

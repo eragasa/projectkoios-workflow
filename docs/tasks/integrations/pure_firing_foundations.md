@@ -27,8 +27,10 @@ proposed canonical CPN-bindings contract set.
 - [x] Bind every structurally admitted SDK input to the exact invocation
   candidate and explicit opaque source evidence through a content-identified
   input-mapping descriptor, with
-  [local evidence](pure_action_input_admission_evidence.md). Durable source
-  authority remains incomplete.
+  [local evidence](pure_action_input_admission_evidence.md). A nominal
+  owner/source authority boundary now resolves and revalidates those references,
+  with [local evidence](pure_action_input_authority_evidence.md); a production
+  owner adapter remains incomplete.
 - [x] Prevent the reservation service from independently combining an arbitrary
   selected binding, runtime coordinates, and otherwise valid owner inputs; it
   now accepts only the reconstructed admitted-input aggregate.
@@ -78,11 +80,12 @@ The current
 [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
 its [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
 the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
-the [pure-action reservation evidence](pure_action_reservation_evidence.md), and
-the [pure-action input-admission evidence](pure_action_input_admission_evidence.md)
-are candidate evidence for this task. Together they still do not satisfy durable
-source authority, complete plan closure, durable atomic consumption and firing,
-persistence, or authoritative replay requirements above.
+the [pure-action reservation evidence](pure_action_reservation_evidence.md),
+the [pure-action input-admission evidence](pure_action_input_admission_evidence.md),
+and the [pure-action input-authority evidence](pure_action_input_authority_evidence.md)
+are candidate evidence for this task. Together they still do not supply a
+production owner source adapter, complete plan closure, durable atomic
+consumption and firing, persistence, or authoritative replay requirements above.
 
 ## Exclusions
 

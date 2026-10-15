@@ -65,9 +65,11 @@ repository rejects stale and concurrent conflicting attempts and supports
 post-owner current-state revalidation. An input-extended plan now selects one
 opaque source kind and profile per SDK role; a structural admission aggregate
 binds exact source evidence and request bytes, and the reservation service no
-longer accepts raw input tuples. This does not establish durable source
-authority, and the reservation deliberately exposes no consumption separately
-from the future atomic firing boundary. These candidates
+longer accepts raw input tuples. A nominal owner/source repository now resolves
+opaque references with closed uncertainty outcomes; reservation reloads and
+compares the exact source observation. A production owner adapter remains
+outside Workflow, and the reservation deliberately exposes no consumption
+separately from the future atomic firing boundary. These candidates
 are not the complete authoritative plan or deployment bindings, and no
 persistence or replay evidence exists yet.
 
@@ -90,8 +92,9 @@ inventing the mapping inside the owner adapter.
   [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
   [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
   [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
-  [pure-action reservation evidence](pure_action_reservation_evidence.md), and
-  [pure-action input-admission evidence](pure_action_input_admission_evidence.md).
+  [pure-action reservation evidence](pure_action_reservation_evidence.md),
+  [pure-action input-admission evidence](pure_action_input_admission_evidence.md),
+  and [pure-action input-authority evidence](pure_action_input_authority_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.
