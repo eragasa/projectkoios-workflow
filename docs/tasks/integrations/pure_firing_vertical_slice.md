@@ -62,9 +62,12 @@ plan-selected SDK request and content-identifies its exact plan, deployment,
 selection, request, predecessor, occurrence, and attempt context before
 atomically reserving the current predecessor. Its non-durable in-memory
 repository rejects stale and concurrent conflicting attempts and supports
-post-owner current-state revalidation. It does not establish input-source
-provenance or durable authority, and deliberately does not expose reservation
-consumption separately from the future atomic firing boundary. These candidates
+post-owner current-state revalidation. An input-extended plan now selects one
+opaque source kind and profile per SDK role; a structural admission aggregate
+binds exact source evidence and request bytes, and the reservation service no
+longer accepts raw input tuples. This does not establish durable source
+authority, and the reservation deliberately exposes no consumption separately
+from the future atomic firing boundary. These candidates
 are not the complete authoritative plan or deployment bindings, and no
 persistence or replay evidence exists yet.
 
@@ -87,7 +90,8 @@ inventing the mapping inside the owner adapter.
   [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
   [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
   [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
-  and [pure-action reservation evidence](pure_action_reservation_evidence.md).
+  [pure-action reservation evidence](pure_action_reservation_evidence.md), and
+  [pure-action input-admission evidence](pure_action_input_admission_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

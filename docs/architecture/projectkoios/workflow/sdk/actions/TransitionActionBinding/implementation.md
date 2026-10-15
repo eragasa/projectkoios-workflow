@@ -24,10 +24,27 @@ selected-binding digest. It accepts the selected-binding evidence rather than a
 bare binding, requires its definition, transition, and predecessor marking to
 match the SDK binding and request coordinates, and validates transition/firer
 descriptors, role order, input metadata and bounds, runtime coordinates, and an
-SDK codec round trip. The coordinates and owner inputs are still independently
-supplied pending authoritative reservation and input-provenance records.
+SDK codec round trip.
 
-The mapping descriptor content identity closes the exact canonical SDK
+`ExperimentalWorkflowPureActionInputMappingDescriptor` assigns each ordered SDK
+input role an opaque source kind, source-representation profile, and mapping
+version. The input-extended plan and deployment candidates content-identify the
+ordered descriptor tuple without changing the identity algorithm of previously
+retained plan records. Runtime source evidence binds a path-free opaque source
+identity to exact SDK payload metadata, byte length, and payload SHA-256. The
+admission factory requires exact mapping order and payload contracts and closes
+the input plan, deployment binding, selected-binding evidence, runtime
+coordinates, source evidence, and resulting SDK request under one identity.
+Workflow does not parse the payload.
+
+This admission is structural evidence, not proof that a durable source
+repository owns the claimed source identity. Direct construction grants no
+runtime authority. The reservation service now accepts only a reconstructed
+admitted-input aggregate, and the version-2 reservation identity includes that
+admission identity. Version-1 reservations without input admission remain
+reconstructable under their original identity domain.
+
+The output mapping descriptor content identity closes the exact canonical SDK
 transition binding and firer descriptor, mapping version, decoder profile,
 output role, external variable, and `STRING` value kind.
 
@@ -63,6 +80,7 @@ descriptor and content identity do.
 
 The reviewed Simulations pilot emits `artifact_set_identity` as its sole
 external-state output and retains `artifact_set` as evidence. The experimental
-Workflow mapper does not alter the standalone SDK `0.1.0a1` contract, implement
-`WorkflowExecutionPlan` or `WorkflowExecutionBindings`, revalidate or reserve a
-marking, persist evidence, or invoke the CPN firer.
+Workflow mapper does not alter the standalone SDK `0.1.0a1` contract, claim
+complete `WorkflowExecutionPlan` or `WorkflowExecutionBindings` conformance,
+persist evidence, or invoke the CPN firer. Current-state reservation and
+revalidation remain separate runtime candidates.

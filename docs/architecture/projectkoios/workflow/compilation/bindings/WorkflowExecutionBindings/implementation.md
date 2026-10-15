@@ -26,6 +26,12 @@ and requires exactly one manifest descriptor equal to the plan-selected firer
 descriptor. Its identity closes the exact candidate-plan and manifest
 identities. It does not resolve or retain a live `Firer`.
 
+`ExperimentalWorkflowPureActionInputBindings` links one exact input-extended
+plan to those existing deployment bindings and rejects a substituted base plan.
+The deployment cannot replace plan-selected source kinds, profiles, role order,
+or mapping versions during input admission. The record retains no source
+payload, repository, codec implementation, or callable.
+
 Complete validation must additionally reject stale provider capability digests,
 unsupported protocol versions, reordered bindings, a mapping identity different
 from the execution plan, output-role or variable mismatch, incompatible value

@@ -23,9 +23,12 @@ flowchart TD
 
     P --> X[Experimental pure-action plan candidate]
     A --> X
+    X --> Y[Experimental input-extended plan]
+    S[Ordered input-source mappings] --> Y
 ```
 
-The experimental candidate closes only the selected-binding profile and one
-exact output-mapping descriptor. It is not sufficient to start or replay a
-workflow. The complete plan contains no live runtime objects and remains
-separate from deployment linking.
+The base experimental candidate closes the selected-binding profile and one
+exact output-mapping descriptor. The input-extended wrapper additionally closes
+one source kind, source profile, and mapping version per ordered SDK input role.
+Neither is sufficient to start or replay a workflow. The complete plan contains
+no live runtime objects and remains separate from deployment linking.

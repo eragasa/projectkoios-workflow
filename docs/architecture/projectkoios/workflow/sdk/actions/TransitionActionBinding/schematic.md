@@ -11,6 +11,9 @@ flowchart TD
     K[Bounded canonical binding encoder]
     D[Derived selected-binding SHA-256]
     C[Retained runtime coordinates]
+    IM[Plan-selected input-source mappings]
+    IS[Opaque retained-source evidence]
+    IA[Content-identified admitted inputs]
     Q[Exact SDK firing request]
     M[Content-identified mapping descriptor]
     R[Correlated SDK success]
@@ -26,8 +29,11 @@ flowchart TD
     P --> SE
     SE --> K
     K --> D
-    D --> Q
-    C --> Q
+    D --> IA
+    C --> IA
+    IM --> IA
+    IS --> IA
+    IA --> Q
     Q --> A
     M --> A
     C --> A
@@ -41,9 +47,11 @@ flowchart TD
 ```
 
 The selected-binding evidence prevents a bare arbitrary binding from entering
-request construction, but it does not reserve the predecessor or establish the
-provenance of independently supplied owner inputs. Those remain explicit
-pure-firing foundation gates.
+request construction. The admitted-input aggregate additionally prevents the
+reservation service from independently combining raw owner payloads with that
+selection. The source identity remains opaque structural evidence until a
+durable source repository proves it; predecessor authority remains the separate
+reservation boundary.
 
 For the QE SCF artifact-set direction, the identity branch carries the opaque
 `artifact_set_identity` string and the evidence branch carries the canonical

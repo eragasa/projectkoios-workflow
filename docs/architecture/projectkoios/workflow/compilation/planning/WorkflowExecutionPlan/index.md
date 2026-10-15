@@ -15,10 +15,12 @@ process-local handle. Deployment binding is deliberately separate.
 `ExperimentalWorkflowPureActionExecutionPlan` closes only the currently
 implemented semantics for one pure external action: the exact selected-binding
 representation-profile identity and the exact content-identified output-mapping
-descriptor. The mapping descriptor transitively closes the SDK transition
-binding and firer descriptor.
+descriptor. `ExperimentalWorkflowPureActionInputPlan` extends that unchanged
+base record with one ordered input-source mapping per SDK input role. The
+mapping descriptors transitively close source kind, source profile, and mapping
+version without retaining payloads or live repositories.
 
 This record is an embeddable implementation candidate, not the complete
 `WorkflowExecutionPlan`. It makes no conformance claim for canonical flat CPN
-IR, initial marking, input-source mapping, children, compiler evidence, terminal
+IR, initial marking, durable source authority, children, compiler evidence, terminal
 delivery, or the proposed full CPN-bindings contract set.

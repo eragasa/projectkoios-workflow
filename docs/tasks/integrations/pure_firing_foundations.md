@@ -24,10 +24,14 @@ proposed canonical CPN-bindings contract set.
   transition, enablement/selection evidence, selected binding, SDK request,
   predecessor marking/revision, occurrence, and attempt, with
   [local evidence](pure_action_reservation_evidence.md).
-- [ ] Bind every admitted SDK input to that reserved invocation and to explicit
-  source evidence through a content-identified input-mapping descriptor.
-- [ ] Prevent callers from independently combining an arbitrary selected binding,
-  runtime coordinates, and otherwise valid owner inputs.
+- [x] Bind every structurally admitted SDK input to the exact invocation
+  candidate and explicit opaque source evidence through a content-identified
+  input-mapping descriptor, with
+  [local evidence](pure_action_input_admission_evidence.md). Durable source
+  authority remains incomplete.
+- [x] Prevent the reservation service from independently combining an arbitrary
+  selected binding, runtime coordinates, and otherwise valid owner inputs; it
+  now accepts only the reconstructed admitted-input aggregate.
 - [x] Retain the selected-binding representation profile and owner-result mapping
   descriptor through bounded experimental plan/linking candidates, with
   [local evidence](pure_action_plan_closure_evidence.md).
@@ -44,15 +48,17 @@ proposed canonical CPN-bindings contract set.
 ## Required tests
 
 - [x] Reject a binding not selected by the retained selection result.
-- [ ] Reject owner inputs not correlated with the reserved invocation.
-- [ ] Reject substituted definition, transition, predecessor, occurrence,
-  attempt, mapping, and representation-profile identities.
+- [x] Reject owner inputs not correlated with the reserved invocation candidate.
+- [x] Reject substituted definition, transition, predecessor, occurrence,
+  attempt, mapping, source, and representation-profile identities across the
+  selected-binding, request, input-admission, and reservation candidates.
 - [x] Reject a stale predecessor revision before owner invocation and during
   the bounded post-owner revalidation candidate.
-- [ ] Reject direct reconstruction that substitutes payloads or identities in an
+- [x] Reject direct reconstruction that substitutes payloads or identities in an
   admitted-stage record.
-- [ ] Prove that a behavior-affecting profile mutation cannot reuse the previous
-  authoritative plan identity.
+- [x] Prove that a behavior-affecting input-mapping profile mutation cannot reuse
+  the previous input-extended plan identity. Complete authoritative plan
+  identity remains gated.
 - [x] Demonstrate deterministic request construction from the same retained
   evidence.
 
@@ -72,10 +78,11 @@ The current
 [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
 its [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
 the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
-and the [pure-action reservation evidence](pure_action_reservation_evidence.md)
-are candidate evidence for this task. Together they still do not satisfy
-input-source provenance, complete plan closure, durable atomic consumption and
-firing, persistence, or authoritative replay requirements above.
+the [pure-action reservation evidence](pure_action_reservation_evidence.md), and
+the [pure-action input-admission evidence](pure_action_input_admission_evidence.md)
+are candidate evidence for this task. Together they still do not satisfy durable
+source authority, complete plan closure, durable atomic consumption and firing,
+persistence, or authoritative replay requirements above.
 
 ## Exclusions
 

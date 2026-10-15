@@ -43,7 +43,7 @@ Tests prove that the candidate:
 - allows only one of two concurrent distinct attempts to reserve the same
   predecessor.
 
-Validation from the uncommitted candidate on base Workflow revision `d8f81c5`:
+Validation retained for local Workflow commit `d3c58a3` (based on `d8f81c5`):
 
 - focused reservation tests: `8 passed`;
 - full Workflow suite: `328 passed`;
@@ -62,9 +62,17 @@ Validation from the uncommitted candidate on base Workflow revision `d8f81c5`:
   environment, passed dependency checking, exposed the nominal reservation
   types, and preserved the existing cross-wheel mapping identities.
 
+## Subsequent evolution
+
+The later
+[pure-action input-admission candidate](pure_action_input_admission_evidence.md)
+replaces independently supplied raw inputs at the reservation-service boundary
+and version-identifies the correlated input admission. The validation counts
+and hashes above remain evidence for `d3c58a3`, not the evolved source file.
+
 ## Remaining authority gaps
 
-This candidate does not establish input-source provenance, durable reservation
+This candidate does not establish durable input-source authority or reservation
 storage, owner invocation, result admission, CPN firing, atomic reservation
 consumption, successor-marking persistence, rollback, or replay. Direct record
 construction is structural data only; runtime authority comes from a repository

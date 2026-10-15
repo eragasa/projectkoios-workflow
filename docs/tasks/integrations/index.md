@@ -15,7 +15,8 @@ runtime dependency.
    [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
    [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
    [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
-   and [pure-action reservation evidence](pure_action_reservation_evidence.md)
+   [pure-action reservation evidence](pure_action_reservation_evidence.md),
+   and [pure-action input-admission evidence](pure_action_input_admission_evidence.md)
 4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
 5. [Second owner SDK pilot](second_owner_pilot.md)
 6. [Broader SDK adoption gate](broader_adoption_gate.md)

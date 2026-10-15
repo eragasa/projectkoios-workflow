@@ -36,12 +36,13 @@ or stale outcomes never reach pure CPN firing.
 ## Experimental predecessor-reservation candidate
 
 `ExperimentalWorkflowPureActionReservationService` is a bounded candidate for
-the pre-invocation and post-invocation current-state checks. It constructs the
-SDK request from the exact linked plan, selected-binding evidence, coordinates,
-and inline inputs, then content-identifies a reservation over the plan,
-deployment binding, selection evidence, request, predecessor marking/revision,
-occurrence, and attempt. A nominal repository ABC owns atomic reserve and
-revalidate operations.
+the pre-invocation and post-invocation current-state checks. It accepts only an
+exact reconstructed admitted-input aggregate rather than independently supplied
+raw inputs. It content-identifies a version-2 reservation over the plan,
+deployment binding, selection evidence, input admission, request, predecessor
+marking/revision, occurrence, and attempt. Version-1 reservations remain
+reconstructable. A nominal repository ABC owns atomic reserve and revalidate
+operations.
 
 The included in-memory repository is thread-safe, non-durable software evidence.
 It admits at most one distinct reservation per net-instance predecessor, treats

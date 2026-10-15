@@ -9,13 +9,9 @@ from threading import Lock
 from typing import final
 
 from projectkoios.workflow.actions import (
-    ExperimentalWorkflowFiringRequestCoordinates,
-    ExperimentalWorkflowFiringRequestFactory,
-    ExperimentalWorkflowSelectedBindingEvidence,
     ExperimentalWorkflowSelectedBindingEvidenceIdentity,
 )
 from projectkoios.workflow.compilation import (
-    ExperimentalWorkflowPureActionExecutionBindings,
     ExperimentalWorkflowPureActionExecutionBindingsIdentity,
     ExperimentalWorkflowPureActionExecutionPlanIdentity,
 )
@@ -28,10 +24,17 @@ from projectkoios.workflow_sdk.identities import (
     WorkflowNetInstanceIdentity,
     WorkflowOccurrenceIdentity,
 )
-from projectkoios.workflow_sdk.payloads import WorkflowInlinePayload
+
+from .pure_action_inputs import (
+    ExperimentalWorkflowPureActionAdmittedInputs,
+    ExperimentalWorkflowPureActionAdmittedInputsIdentity,
+)
 
 _RESERVATION_IDENTITY_DOMAIN = (
     "projectkoios.workflow.experimental-pure-action-reservation:1"
+)
+_RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN = (
+    "projectkoios.workflow.experimental-pure-action-reservation:2"
 )
 
 
@@ -97,6 +100,9 @@ class ExperimentalWorkflowPureActionReservation:
     occurrence_identity: WorkflowOccurrenceIdentity
     attempt_identity: WorkflowAttemptIdentity
     attempt_ordinal: int
+    input_admission_identity: (
+        ExperimentalWorkflowPureActionAdmittedInputsIdentity | None
+    ) = None
 
     def __post_init__(self) -> None:
         expected = (
@@ -150,23 +156,36 @@ class ExperimentalWorkflowPureActionReservation:
                 raise TypeError(f"{name} must be an integer")
             if value < 0:
                 raise ValueError(f"{name} must be nonnegative")
+        if (
+            self.input_admission_identity is not None
+            and type(self.input_admission_identity)
+            is not ExperimentalWorkflowPureActionAdmittedInputsIdentity
+        ):
+            raise TypeError(
+                "input_admission_identity must be "
+                "ExperimentalWorkflowPureActionAdmittedInputsIdentity or None"
+            )
+        parts: tuple[object, ...] = (
+            self.execution_plan_identity.value,
+            self.execution_bindings_identity.value,
+            self.selected_binding_evidence_identity.value,
+            self.request_identity.value,
+            self.net_instance_identity.value,
+            self.predecessor_marking_identity.value,
+            self.predecessor_revision,
+            self.occurrence_identity.value,
+            self.attempt_identity.value,
+            self.attempt_ordinal,
+        )
+        domain = _RESERVATION_IDENTITY_DOMAIN
+        if self.input_admission_identity is not None:
+            domain = _RESERVATION_WITH_INPUTS_IDENTITY_DOMAIN
+            parts += (self.input_admission_identity.value,)
         object.__setattr__(
             self,
             "identity",
             ExperimentalWorkflowPureActionReservationIdentity(
-                stable_identity(
-                    _RESERVATION_IDENTITY_DOMAIN,
-                    self.execution_plan_identity.value,
-                    self.execution_bindings_identity.value,
-                    self.selected_binding_evidence_identity.value,
-                    self.request_identity.value,
-                    self.net_instance_identity.value,
-                    self.predecessor_marking_identity.value,
-                    self.predecessor_revision,
-                    self.occurrence_identity.value,
-                    self.attempt_identity.value,
-                    self.attempt_ordinal,
-                )
+                stable_identity(domain, *parts)
             ),
         )
 
@@ -393,45 +412,13 @@ class ExperimentalWorkflowPureActionReservationService:
     def reserve(
         self,
         *,
-        execution_bindings: ExperimentalWorkflowPureActionExecutionBindings,
-        selected_binding_evidence: ExperimentalWorkflowSelectedBindingEvidence,
-        coordinates: ExperimentalWorkflowFiringRequestCoordinates,
-        inputs: tuple[WorkflowInlinePayload, ...],
+        admitted_inputs: ExperimentalWorkflowPureActionAdmittedInputs,
     ) -> ExperimentalWorkflowPureActionReservationResult:
-        """Build the plan-selected request and reserve its predecessor."""
-        if type(execution_bindings) is not (
-            ExperimentalWorkflowPureActionExecutionBindings
-        ):
-            raise TypeError(
-                "execution_bindings must be "
-                "ExperimentalWorkflowPureActionExecutionBindings"
-            )
-        bindings = ExperimentalWorkflowPureActionExecutionBindings(
-            execution_plan=execution_bindings.execution_plan,
-            integration_manifest=execution_bindings.integration_manifest,
-        )
-        if bindings != execution_bindings:
-            raise ValueError("execution bindings differ after validation")
-        if type(selected_binding_evidence) is not (
-            ExperimentalWorkflowSelectedBindingEvidence
-        ):
-            raise TypeError(
-                "selected_binding_evidence must be "
-                "ExperimentalWorkflowSelectedBindingEvidence"
-            )
-        if (
-            selected_binding_evidence.profile_identity
-            != bindings.execution_plan.selected_binding_profile_identity
-        ):
-            raise ValueError("selected-binding profile differs from the plan")
-        mapping = bindings.execution_plan.output_mapping_descriptor
-        request = ExperimentalWorkflowFiringRequestFactory().execute(
-            transition_binding=mapping.transition_binding,
-            firer_descriptor=mapping.firer_descriptor,
-            selected_binding_evidence=selected_binding_evidence,
-            coordinates=coordinates,
-            inputs=inputs,
-        )
+        """Reserve only a source-correlated, plan-selected SDK request."""
+        admitted = _reconstruct_admitted_inputs(admitted_inputs)
+        bindings = admitted.input_bindings.execution_bindings
+        selected_binding_evidence = admitted.selected_binding_evidence
+        request = admitted.request
         context = request.context
         reservation = ExperimentalWorkflowPureActionReservation(
             execution_plan_identity=bindings.execution_plan.identity,
@@ -444,6 +431,7 @@ class ExperimentalWorkflowPureActionReservationService:
             occurrence_identity=context.occurrence_identity,
             attempt_identity=context.attempt_identity,
             attempt_ordinal=context.attempt_ordinal,
+            input_admission_identity=admitted.identity,
         )
         status = self._repository.reserve(reservation)
         if status in {
@@ -469,6 +457,26 @@ class ExperimentalWorkflowPureActionReservationService:
         return self._repository.revalidate(reservation)
 
 
+def _reconstruct_admitted_inputs(
+    value: ExperimentalWorkflowPureActionAdmittedInputs,
+) -> ExperimentalWorkflowPureActionAdmittedInputs:
+    if type(value) is not ExperimentalWorkflowPureActionAdmittedInputs:
+        raise TypeError(
+            "admitted_inputs must be "
+            "ExperimentalWorkflowPureActionAdmittedInputs"
+        )
+    reconstructed = ExperimentalWorkflowPureActionAdmittedInputs(
+        input_bindings=value.input_bindings,
+        selected_binding_evidence=value.selected_binding_evidence,
+        coordinates=value.coordinates,
+        source_evidence=value.source_evidence,
+        request=value.request,
+    )
+    if reconstructed != value:
+        raise ValueError("admitted inputs differ after validation")
+    return reconstructed
+
+
 def _reconstruct_reservation(
     value: ExperimentalWorkflowPureActionReservation,
 ) -> ExperimentalWorkflowPureActionReservation:
@@ -489,6 +497,7 @@ def _reconstruct_reservation(
         occurrence_identity=value.occurrence_identity,
         attempt_identity=value.attempt_identity,
         attempt_ordinal=value.attempt_ordinal,
+        input_admission_identity=value.input_admission_identity,
     )
     if validated != value:
         raise ValueError("reservation differs after validation")

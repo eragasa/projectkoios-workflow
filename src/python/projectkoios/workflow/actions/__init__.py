@@ -1,5 +1,10 @@
-"""Experimental Workflow-owned pure action-result mapping boundaries."""
+"""Experimental Workflow-owned pure action mapping boundaries."""
 
+from ._input_mapping import (
+    ExperimentalWorkflowInputSourceProfileIdentity,
+    ExperimentalWorkflowPureActionInputMappingDescriptor,
+    ExperimentalWorkflowPureActionInputMappingDescriptorIdentity,
+)
 from .mapping import (
     ExperimentalWorkflowActionResultMappingIdentity,
     ExperimentalWorkflowAsciiOutputMapper,
@@ -20,8 +25,11 @@ __all__ = [
     "ExperimentalWorkflowAsciiOutputMappingDescriptor",
     "ExperimentalWorkflowFiringRequestCoordinates",
     "ExperimentalWorkflowFiringRequestFactory",
+    "ExperimentalWorkflowInputSourceProfileIdentity",
     "ExperimentalWorkflowMappedActionResult",
     "ExperimentalWorkflowMappedActionResultIdentity",
+    "ExperimentalWorkflowPureActionInputMappingDescriptor",
+    "ExperimentalWorkflowPureActionInputMappingDescriptorIdentity",
     "ExperimentalWorkflowSelectedBindingEncoder",
     "ExperimentalWorkflowSelectedBindingEvidence",
     "ExperimentalWorkflowSelectedBindingEvidenceIdentity",

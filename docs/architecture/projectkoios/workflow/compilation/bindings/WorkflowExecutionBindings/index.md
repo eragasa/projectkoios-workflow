@@ -33,6 +33,9 @@ pure-action plan candidate to one canonical SDK integration manifest. It
 requires the manifest to contain the plan's exact firer descriptor, retains the
 plan-selected output-mapping identity without substituting it, and derives a new
 content identity when either the plan or manifest changes.
+`ExperimentalWorkflowPureActionInputBindings` additionally requires one exact
+input-extended plan to contain that same base plan, preventing deployment from
+substituting input-source semantics.
 
 This candidate contains no live worker, provider, environment, resolver, or
 route handle and is not the complete `WorkflowExecutionBindings` artifact.

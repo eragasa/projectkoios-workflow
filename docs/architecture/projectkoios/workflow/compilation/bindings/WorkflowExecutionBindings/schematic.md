@@ -15,6 +15,8 @@ flowchart TD
     X[Experimental pure-action plan candidate]
     I[Canonical SDK integration manifest]
     Y[Experimental pure-action execution bindings]
+    S[Input-extended plan]
+    Z[Experimental input bindings]
 
     P --> T
     T --> A
@@ -28,6 +30,8 @@ flowchart TD
     N --> B
     X --> Y
     I --> Y
+    Y --> Z
+    S --> Z
 ```
 
 The pure result-mapping descriptor fixes the correspondence among owner logical
@@ -35,9 +39,11 @@ output roles, evidence roles, and declared CPN external variables. For the QE
 SCF artifact-set direction it distinguishes `artifact_set_identity` output from
 canonical `artifact_set` evidence.
 
-The experimental path verifies only that the manifest contains the exact firer
-descriptor already selected by the bounded plan candidate. It cannot substitute
-the plan's selected-binding profile or output mapping.
+The experimental base path verifies only that the manifest contains the exact
+firer descriptor already selected by the bounded plan candidate. The
+input-binding wrapper additionally requires the input-extended plan to retain
+that exact base plan. Deployment can substitute neither the selected-binding
+profile, output mapping, nor input-source mappings.
 
 Complete mappings are ordered and content-bound. Changing the provider, identity
 codec, mapping revision, or environment produces another binding artifact; it

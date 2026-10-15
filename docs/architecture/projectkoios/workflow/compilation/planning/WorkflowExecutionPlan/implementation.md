@@ -18,6 +18,14 @@ worker, codec, provider, or repository object. Canonical serialization and
 complete plan closure remain unimplemented and must not be inferred from this
 subset.
 
+`ExperimentalWorkflowPureActionInputPlan` extends that unchanged base-plan
+identity with an ordered, content-identified input-source mapping for every SDK
+input role. It rejects missing, duplicate, reordered, or contract-incompatible
+roles. Behavior-affecting source kind, source profile, or mapping-version
+changes produce a different input-plan identity. The wrapper preserves
+reconstruction of plans retained before input mapping was introduced. It
+remains an experimental subset rather than the canonical complete plan.
+
 DEFECT00003 conformance must demonstrate that changing any original Workflow,
 Task, adapter, or provider object after plan construction cannot change the
 complete plan, its serialized bytes, or its identity.
