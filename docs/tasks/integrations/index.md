@@ -17,7 +17,11 @@ runtime dependency.
    [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
    [pure-action reservation evidence](pure_action_reservation_evidence.md),
    [pure-action input-admission evidence](pure_action_input_admission_evidence.md),
-   and [pure-action input-authority evidence](pure_action_input_authority_evidence.md)
+   [pure-action input-authority evidence](pure_action_input_authority_evidence.md),
+   [pure-action invocation evidence](pure_action_invocation_evidence.md),
+   [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
+   [pure-action CPN firing evidence](pure_action_firing_evidence.md),
+   and [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md)
 4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
 5. [Second owner SDK pilot](second_owner_pilot.md)
 6. [Broader SDK adoption gate](broader_adoption_gate.md)

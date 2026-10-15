@@ -13,6 +13,7 @@ not authorize unrelated refactoring or change contract status.
   after an accepted SDK alpha surface exists.
 - [Consolidate pure-action validation](consolidate_pure_action_validation.md)
   after admission-stage records stabilize or before the path enters a runtime
-  hot loop.
+  hot loop. The completed internal-organization slice has separate
+  [evidence](pure_action_internal_organization_evidence.md).
 - [Retire the experimental pure-action surface](retire_experimental_action_surface.md)
   before broader SDK adoption or supported pure external firing.

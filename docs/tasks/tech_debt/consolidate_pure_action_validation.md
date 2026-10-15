@@ -36,3 +36,35 @@ whichever occurs first.
 
 This task does not weaken canonical decoding or combine runtime admission with
 owner-domain semantics.
+
+## Completed organization slice
+
+The [retained evidence](pure_action_internal_organization_evidence.md) records
+validation results and artifact digests for this slice.
+
+The current pure-firing vertical slice completed the bounded organization work
+that had become actionable:
+
+- execution-side reconstruction and successful-reservation correlation are
+  centralized in `projectkoios.workflow.execution._validation`;
+- invocation and firing outcomes are reconstructed by their defining phase
+  modules and reused by later phases;
+- the former monolithic reservation verification module is split into shared
+  fixtures plus input, reservation, invocation, CPN firing, and commit modules;
+- canonical CPN definition representation identity and encoding are separated
+  from the plan/profile models in `pure_action_cpn_representation`.
+
+Validation ownership for this slice is retained as follows:
+
+| Boundary record | Reconstruction owner |
+| --- | --- |
+| authorized inputs | `execution._validation` |
+| successful reservation plus canonical request copy | `execution._validation` |
+| CPN plan | `execution._validation` |
+| invocation outcome and mapped result | `execution.pure_action_invocation` |
+| firing outcome | `execution.pure_action_firing` |
+| CPN definition representation bytes | `compilation.pure_action_cpn_representation` |
+
+The broader admitted transition/firer-contract and serialization-count actions
+above remain open. This completed slice does not claim those later hot-loop
+optimizations or canonical CPN decoding.

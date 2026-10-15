@@ -37,6 +37,20 @@ proposed canonical CPN-bindings contract set.
 - [x] Retain the selected-binding representation profile and owner-result mapping
   descriptor through bounded experimental plan/linking candidates, with
   [local evidence](pure_action_plan_closure_evidence.md).
+- [x] Invoke only the exact manifest-validated SDK firer after pre-invocation
+  revalidation, revalidate again afterward, and map only a current success, with
+  [local evidence](pure_action_invocation_evidence.md).
+- [x] Bind canonical flat-definition bytes and a candidate execution profile to
+  the input plan and reservation, with
+  [local evidence](pure_action_cpn_plan_evidence.md).
+- [x] Correlate a mapped outcome to that CPN plan, its exact selected-binding
+  evidence, supplied predecessor marking, and reservation, then compute a pure
+  CPN successor candidate with output-color validation, with
+  [local evidence](pure_action_firing_evidence.md).
+- [x] Atomically retain a compact commit identity, consume the reservation, and
+  advance the current marking coordinate in the in-memory reference repository,
+  with [local evidence](pure_action_atomic_commit_evidence.md). Durable evidence
+  persistence remains incomplete.
 - [ ] Embed those candidates in the complete authoritative
   `WorkflowExecutionPlan`.
 - [ ] Require complete `WorkflowExecutionBindings` to verify the exact
@@ -63,6 +77,8 @@ proposed canonical CPN-bindings contract set.
   identity remains gated.
 - [x] Demonstrate deterministic request construction from the same retained
   evidence.
+- [x] Preserve owner rejection, owner failure, worker mismatch, invocation
+  exception, post-invocation staleness, and mapping rejection without firing.
 
 ## Completion evidence
 
@@ -82,7 +98,11 @@ its [selected-binding evidence follow-up](selected_binding_evidence_followup.md)
 the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
 the [pure-action reservation evidence](pure_action_reservation_evidence.md),
 the [pure-action input-admission evidence](pure_action_input_admission_evidence.md),
-and the [pure-action input-authority evidence](pure_action_input_authority_evidence.md)
+the [pure-action input-authority evidence](pure_action_input_authority_evidence.md),
+the [pure-action invocation evidence](pure_action_invocation_evidence.md),
+the [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
+the [pure-action CPN firing evidence](pure_action_firing_evidence.md),
+and the [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md)
 are candidate evidence for this task. Together they still do not supply a
 production owner source adapter, complete plan closure, durable atomic
 consumption and firing, persistence, or authoritative replay requirements above.

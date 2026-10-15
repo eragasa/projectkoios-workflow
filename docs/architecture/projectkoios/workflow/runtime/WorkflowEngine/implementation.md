@@ -11,14 +11,15 @@ pure external action it must:
 
 1. load the exact predecessor marking, selected binding, reservation,
    transition-firer binding, and result-mapping descriptor;
-2. validate SDK descriptor, occurrence, attempt, request, result variant, role,
-   codec, representation, bounds, and complete request/result correlation;
-3. invoke the mapping as a pure operation and validate its candidate external
-   variable against the compiled transition;
-4. revalidate the predecessor revision, marking identity, selected CPN binding,
-   and reservation immediately before firing;
-5. call `ColoredPetriNetTransitionFirer` only for admitted success; and
-6. atomically retain SDK request/result/evidence, mapping identity, external
+2. re-resolve authoritative inputs, revalidate the predecessor, and validate the
+   live nominal worker integration against the retained SDK manifest;
+3. invoke the exact SDK firer, contain provider exceptions, canonically admit a
+   closed correlated result, and revalidate inputs and predecessor again;
+4. invoke the mapping only for a current success and validate its candidate
+   external variable against the compiled transition;
+5. revalidate the reservation immediately before firing;
+6. call `ColoredPetriNetTransitionFirer` only for admitted success; and
+7. atomically retain SDK request/result/evidence, mapping identity, external
    binding, firing audit, successor marking, and occurrence history.
 
 For a canonical ASCII logical-identity output, admission rejects whitespace,
@@ -43,8 +44,8 @@ each opaque source reference and compares its source-owner revision, evidence,
 and exact payload. It content-identifies the current v0 reservation shape over
 the plan, deployment binding, selection evidence, input admission, source
 authorization, request, predecessor marking/revision, occurrence, and attempt.
-Earlier v0 experimental reservation shapes remain reconstructable. A nominal repository ABC owns
-atomic predecessor reserve and revalidate operations.
+Earlier v0 experimental reservation shapes remain reconstructable. A nominal
+repository ABC owns atomic predecessor reserve and revalidate operations.
 
 The included in-memory repository is thread-safe, non-durable software evidence.
 It admits at most one distinct reservation per net-instance predecessor, treats
@@ -52,8 +53,93 @@ an exact replay as idempotent, and rejects stale, conflicting, absent, or known
 consumed reservations. Its whole-predecessor lock granularity is deliberately
 conservative. A separate nominal source-repository ABC preserves owner storage
 ownership and closed uncertainty outcomes; Workflow retains only bounded
-references and content identities. A production owner adapter, owner invocation, CPN
-firing, atomic reservation consumption, successor persistence, and replay remain
-outside this candidate. In particular, the candidate exposes no standalone
-consume operation: reservation consumption must later share the accepted atomic
-boundary with CPN firing and persistence.
+references and content identities. A production owner adapter, CPN firing,
+atomic reservation consumption, successor persistence, and replay remain outside
+this candidate. In particular, the candidate exposes no standalone consume
+operation: reservation consumption must later share the accepted atomic boundary
+with CPN firing and persistence.
+
+## Experimental owner-invocation candidate
+
+`ExperimentalWorkflowPureActionInvocationService` bounds the next phase. It
+accepts only the exact repository-authorized aggregate and successful
+reservation result. Before invoking an owner it reloads all source observations,
+revalidates the predecessor, validates the nominal worker integration against
+its retained manifest, resolves the exact request-selected firer, and repeats
+both current-state checks after that live integration lookup.
+
+The service invokes the SDK's concrete `Firer.fire()` boundary, canonically
+round-trips the closed result, contains worker and provider exceptions, and
+repeats source and predecessor revalidation after every owner call, including a
+call that raises. The owner receives a separate canonical request copy, and an
+attempt to mutate it is contained as an invocation error. Owner rejection,
+owner failure, pre-invocation staleness,
+post-invocation staleness, worker rejection, invocation error, mapping rejection,
+and current mapped success remain distinct content-identified outcomes. Only a
+current SDK success reaches the exact plan-selected output mapper.
+
+This v0 invocation candidate produces a candidate external CPN binding only. It
+does not claim invocation durability or exactly-once dispatch. The compiled
+transition is still supplied to the service and must be closed authoritatively
+by the eventual complete execution plan.
+
+## Experimental pure-CPN-firing candidate
+
+`ExperimentalWorkflowPureActionFiringService` correlates a mapped invocation
+outcome with the exact authorized inputs, active reservation, selected-binding
+evidence, supplied flat definition, and supplied predecessor marking. It repeats
+source and predecessor revalidation before constructing
+`ColoredPetriNetFiringInput`, invokes the provenance-bound pure
+`ColoredPetriNetTransitionFirer`, and revalidates again after computation.
+
+The CPN firer remains authoritative for definition and marking validation,
+enablement and selection replay, external-output assignment and color
+validation, token-occurrence reconstruction, output evaluation, audit, and
+successor derivation. A CPN rejection, unexpected firing exception,
+pre-computation stale state, post-computation stale state, and current candidate
+success remain distinct outcomes. Direct outcome reconstruction replays the pure
+firing and requires an exact result.
+
+This candidate does not consume the reservation or advance an authoritative
+marking. A bounded CPN plan extension now binds canonical flat-definition bytes,
+their profile and digest, and an exact candidate execution-profile identity; the
+reservation binds that CPN-plan identity and firing verifies the supplied
+definition byte-for-byte. The candidate profile still omits several
+representations and semantic sections required by the complete umbrella
+contract, and the predecessor marking remains a correlated runtime argument.
+Durable persistence, committed replay, and complete plan closure remain future
+work.
+
+## Experimental atomic-commit candidate
+
+`ExperimentalWorkflowPureActionCommitService` constructs one compact,
+content-identified commit from the exact CPN plan, repository-authorized source
+observations, reservation, mapped owner result, pure CPN firing result, and
+predecessor/successor marking coordinates. It retains identities only and does
+not move inline owner payload bodies or private locators into commit state.
+
+The nominal reservation repository owns one atomic `commit` operation. The
+in-memory reference implementation uses the reservation lock to verify the
+active current predecessor, retain the commit identity and marking coordinates,
+consume the reservation, and advance the current marking revision together.
+Exact replay is idempotent, a distinct commit conflicts, and stale state cannot
+commit. State is prepared on copies and swapped only at the final commit point,
+so a pre-swap exception leaves repository state unchanged. No standalone consume
+operation exists.
+
+This is non-durable software evidence. A production implementation must persist
+the complete compact commit record and separately admitted evidence references
+under the same transaction, prove crash recovery, and support committed replay.
+Source resolution and predecessor commit also remain sequential across nominal
+repositories rather than one distributed transaction; production source
+revision immutability must close that remaining observation race.
+
+## Internal validation ownership
+
+The execution package's private `_validation` module owns reconstruction of
+repository-authorized inputs, successful-reservation correlation, canonical SDK
+request cloning at execution trust boundaries, and CPN-plan reconstruction.
+Invocation and firing outcome reconstruction remain with their defining phase
+modules. Invocation, firing, and commit reuse these helpers; they do not carry
+phase-local copies of the same reservation and plan checks. This organization
+changes neither identity preimages nor public experimental records.

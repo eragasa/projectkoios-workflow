@@ -51,10 +51,10 @@ state. An experimental Workflow-owned selected-binding evidence record now
 requires an exact successful enablement and selection pair, proves membership of
 the selected binding in the enabled set, and retains the adapter-profile
 identity, canonical bytes, and derived digest. The request factory consumes that
-evidence rather than a bare binding, validates independently supplied request
-inputs and runtime coordinates, and constructs the SDK request without accepting
-a claimed digest. It does not prove that the coordinates came from a current
-reservation or that the owner inputs were admitted from the selected occurrence.
+evidence rather than a bare binding and constructs the SDK request without
+accepting a claimed digest. The later authority and reservation candidates now
+require request inputs to come from the exact owner/source repository
+observations selected by the retained plan.
 Bounded experimental plan/linking candidates now retain the representation
 profile and output mapping and verify the exact firer against an SDK integration
 manifest. A bounded experimental reservation candidate now constructs the
@@ -69,9 +69,20 @@ longer accepts raw input tuples. A nominal owner/source repository now resolves
 opaque references with closed uncertainty outcomes; reservation reloads and
 compares the exact source observation. A production owner adapter remains
 outside Workflow, and the reservation deliberately exposes no consumption
-separately from the future atomic firing boundary. These candidates
-are not the complete authoritative plan or deployment bindings, and no
-persistence or replay evidence exists yet.
+separately from the future atomic firing boundary. A bounded v0 invocation
+candidate now performs both revalidation phases, validates the live worker
+against the retained manifest, invokes the exact SDK firer, preserves closed
+non-success and exceptional outcomes, and maps only a current SDK success. A
+bounded v0 CPN plan extension now binds canonical definition bytes and an exact
+candidate execution profile into the reservation. The CPN firing candidate
+correlates the mapped outcome with that plan, the exact selection, supplied
+byte-equal definition, supplied predecessor marking, and active reservation; the
+provenance-bound pure firer validates output color and computes a candidate
+successor and audit. A bounded in-memory atomic-commit candidate now consumes
+that exact reservation and advances the authoritative marking coordinate under
+one lock while retaining a compact content commitment. These candidates are not
+the complete authoritative plan or deployment bindings, and durable evidence
+persistence or committed replay does not exist yet.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -94,7 +105,11 @@ inventing the mapping inside the owner adapter.
   [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
   [pure-action reservation evidence](pure_action_reservation_evidence.md),
   [pure-action input-admission evidence](pure_action_input_admission_evidence.md),
-  and [pure-action input-authority evidence](pure_action_input_authority_evidence.md).
+  [pure-action input-authority evidence](pure_action_input_authority_evidence.md),
+  [pure-action invocation evidence](pure_action_invocation_evidence.md),
+  [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
+  [pure-action CPN firing evidence](pure_action_firing_evidence.md),
+  and [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

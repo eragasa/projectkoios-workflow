@@ -1,0 +1,395 @@
+"""Experimental atomic commit of one pure-action firing candidate."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import final
+
+from projectkoios.workflow.actions import (
+    ExperimentalWorkflowMappedActionResultIdentity,
+)
+from projectkoios.workflow.compilation import (
+    ExperimentalWorkflowPureActionCpnPlan,
+    ExperimentalWorkflowPureActionCpnPlanIdentity,
+)
+from projectkoios.workflow.core.identities import stable_identity
+from projectkoios.workflow.petrinet.colored import (
+    ColoredPetriNetFiringOutcomeKind,
+    ColoredPetriNetFiringResultIdentity,
+)
+from projectkoios.workflow.runtime import (
+    ExperimentalWorkflowPureActionAuthorizedInputs,
+    ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+    ExperimentalWorkflowPureActionCommitCoordinates,
+    ExperimentalWorkflowPureActionCommitIdentity,
+    ExperimentalWorkflowPureActionCommitStatus,
+    ExperimentalWorkflowPureActionInputSourceAuthorityIdentity,
+    ExperimentalWorkflowPureActionReservation,
+    ExperimentalWorkflowPureActionReservationIdentity,
+    ExperimentalWorkflowPureActionReservationResult,
+    ExperimentalWorkflowPureActionReservationService,
+)
+from projectkoios.workflow_sdk.identities import (
+    WorkflowFiringRequestIdentity,
+    WorkflowFiringResultIdentity,
+    WorkflowMarkingIdentity,
+)
+
+from ._validation import (
+    reconstruct_authorized_inputs,
+    reconstruct_cpn_plan,
+    reconstruct_successful_reservation,
+)
+from .pure_action_firing import (
+    ExperimentalWorkflowPureActionFiringOutcome,
+    ExperimentalWorkflowPureActionFiringOutcomeIdentity,
+    ExperimentalWorkflowPureActionFiringStatus,
+    _reconstruct_firing_outcome,
+)
+from .pure_action_invocation import (
+    ExperimentalWorkflowPureActionInvocationOutcome,
+    ExperimentalWorkflowPureActionInvocationOutcomeIdentity,
+    ExperimentalWorkflowPureActionInvocationStatus,
+    _reconstruct_invocation_outcome,
+)
+
+_COMMIT_DOMAIN = "projectkoios.workflow.experimental-pure-action-commit:0"
+
+
+@dataclass(frozen=True, slots=True)
+class ExperimentalWorkflowPureActionCommit:
+    """Compact identity-only evidence for one atomic pure-action commit."""
+
+    identity: ExperimentalWorkflowPureActionCommitIdentity = field(init=False)
+    cpn_plan_identity: ExperimentalWorkflowPureActionCpnPlanIdentity
+    reservation_identity: ExperimentalWorkflowPureActionReservationIdentity
+    input_authorization_identity: (
+        ExperimentalWorkflowPureActionAuthorizedInputsIdentity
+    )
+    source_authority_identities: tuple[
+        ExperimentalWorkflowPureActionInputSourceAuthorityIdentity, ...
+    ]
+    invocation_outcome_identity: (
+        ExperimentalWorkflowPureActionInvocationOutcomeIdentity
+    )
+    request_identity: WorkflowFiringRequestIdentity
+    owner_result_identity: WorkflowFiringResultIdentity
+    mapped_result_identity: ExperimentalWorkflowMappedActionResultIdentity
+    firing_outcome_identity: ExperimentalWorkflowPureActionFiringOutcomeIdentity
+    cpn_firing_result_identity: ColoredPetriNetFiringResultIdentity
+    predecessor_marking_identity: WorkflowMarkingIdentity
+    predecessor_revision: int
+    successor_marking_identity: WorkflowMarkingIdentity
+    successor_revision: int
+
+    def __post_init__(self) -> None:
+        expected = (
+            (
+                self.cpn_plan_identity,
+                ExperimentalWorkflowPureActionCpnPlanIdentity,
+                "cpn_plan_identity",
+            ),
+            (
+                self.reservation_identity,
+                ExperimentalWorkflowPureActionReservationIdentity,
+                "reservation_identity",
+            ),
+            (
+                self.input_authorization_identity,
+                ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+                "input_authorization_identity",
+            ),
+            (
+                self.invocation_outcome_identity,
+                ExperimentalWorkflowPureActionInvocationOutcomeIdentity,
+                "invocation_outcome_identity",
+            ),
+            (
+                self.request_identity,
+                WorkflowFiringRequestIdentity,
+                "request_identity",
+            ),
+            (
+                self.owner_result_identity,
+                WorkflowFiringResultIdentity,
+                "owner_result_identity",
+            ),
+            (
+                self.mapped_result_identity,
+                ExperimentalWorkflowMappedActionResultIdentity,
+                "mapped_result_identity",
+            ),
+            (
+                self.firing_outcome_identity,
+                ExperimentalWorkflowPureActionFiringOutcomeIdentity,
+                "firing_outcome_identity",
+            ),
+            (
+                self.cpn_firing_result_identity,
+                ColoredPetriNetFiringResultIdentity,
+                "cpn_firing_result_identity",
+            ),
+            (
+                self.predecessor_marking_identity,
+                WorkflowMarkingIdentity,
+                "predecessor_marking_identity",
+            ),
+            (
+                self.successor_marking_identity,
+                WorkflowMarkingIdentity,
+                "successor_marking_identity",
+            ),
+        )
+        for value, nominal_type, label in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{label} must be {nominal_type.__name__}")
+        if type(self.source_authority_identities) is not tuple or any(
+            type(item)
+            is not ExperimentalWorkflowPureActionInputSourceAuthorityIdentity
+            for item in self.source_authority_identities
+        ):
+            raise TypeError(
+                "source_authority_identities must contain "
+                "ExperimentalWorkflowPureActionInputSourceAuthorityIdentity"
+            )
+        for label in ("predecessor_revision", "successor_revision"):
+            value = getattr(self, label)
+            if type(value) is not int:
+                raise TypeError(f"{label} must be an integer")
+            if value < 0:
+                raise ValueError(f"{label} must be nonnegative")
+        if self.successor_revision != self.predecessor_revision + 1:
+            raise ValueError(
+                "successor revision must immediately follow predecessor"
+            )
+        if self.successor_marking_identity == self.predecessor_marking_identity:
+            raise ValueError("successor marking must differ from predecessor")
+        object.__setattr__(
+            self,
+            "identity",
+            ExperimentalWorkflowPureActionCommitIdentity(
+                stable_identity(
+                    _COMMIT_DOMAIN,
+                    self.cpn_plan_identity.value,
+                    self.reservation_identity.value,
+                    self.input_authorization_identity.value,
+                    tuple(
+                        item.value for item in self.source_authority_identities
+                    ),
+                    self.invocation_outcome_identity.value,
+                    self.request_identity.value,
+                    self.owner_result_identity.value,
+                    self.mapped_result_identity.value,
+                    self.firing_outcome_identity.value,
+                    self.cpn_firing_result_identity.value,
+                    self.predecessor_marking_identity.value,
+                    self.predecessor_revision,
+                    self.successor_marking_identity.value,
+                    self.successor_revision,
+                )
+            ),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class ExperimentalWorkflowPureActionCommitResult:
+    """Closed result of attempting one atomic pure-action commit."""
+
+    status: ExperimentalWorkflowPureActionCommitStatus
+    commit: ExperimentalWorkflowPureActionCommit | None
+    diagnostics: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if type(self.status) is not ExperimentalWorkflowPureActionCommitStatus:
+            raise TypeError(
+                "status must be ExperimentalWorkflowPureActionCommitStatus"
+            )
+        successful = self.status in {
+            ExperimentalWorkflowPureActionCommitStatus.COMMITTED,
+            ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
+        }
+        if successful:
+            if type(self.commit) is not ExperimentalWorkflowPureActionCommit:
+                raise TypeError("successful commit result requires commit")
+            if self.diagnostics:
+                raise ValueError(
+                    "successful commit result prohibits diagnostics"
+                )
+        else:
+            if self.commit is not None:
+                raise ValueError("failed commit result prohibits commit")
+            if not self.diagnostics:
+                raise ValueError("failed commit result requires diagnostics")
+        if type(self.diagnostics) is not tuple or any(
+            type(item) is not str or not item or len(item) > 128
+            for item in self.diagnostics
+        ):
+            raise TypeError("diagnostics must contain bounded nonempty strings")
+
+
+@final
+class ExperimentalWorkflowPureActionCommitService:
+    """Atomically commit one current successful pure CPN firing candidate."""
+
+    __slots__ = ("_reservation_service",)
+
+    def __init__(
+        self,
+        reservation_service: ExperimentalWorkflowPureActionReservationService,
+    ) -> None:
+        if type(reservation_service) is not (
+            ExperimentalWorkflowPureActionReservationService
+        ):
+            raise TypeError(
+                "reservation_service must be "
+                "ExperimentalWorkflowPureActionReservationService"
+            )
+        self._reservation_service = reservation_service
+
+    def __init_subclass__(cls, **kwargs: object) -> None:
+        del kwargs
+        raise TypeError(
+            "ExperimentalWorkflowPureActionCommitService is not subclassable"
+        )
+
+    def execute(
+        self,
+        *,
+        authorized_inputs: ExperimentalWorkflowPureActionAuthorizedInputs,
+        reservation_result: ExperimentalWorkflowPureActionReservationResult,
+        cpn_plan: ExperimentalWorkflowPureActionCpnPlan,
+        invocation_outcome: ExperimentalWorkflowPureActionInvocationOutcome,
+        firing_outcome: ExperimentalWorkflowPureActionFiringOutcome,
+    ) -> ExperimentalWorkflowPureActionCommitResult:
+        """Revalidate sources and enter the atomic marking commit boundary."""
+        authorized = reconstruct_authorized_inputs(authorized_inputs)
+        reservation, _ = reconstruct_successful_reservation(
+            reservation_result,
+            authorized,
+            operation="commit",
+        )
+        plan = reconstruct_cpn_plan(cpn_plan)
+        invocation = _reconstruct_invocation_outcome(invocation_outcome)
+        firing = _reconstruct_firing_outcome(firing_outcome)
+        commit = _construct_commit(
+            authorized=authorized,
+            reservation=reservation,
+            plan=plan,
+            invocation=invocation,
+            firing=firing,
+        )
+        coordinates = ExperimentalWorkflowPureActionCommitCoordinates(
+            commit_identity=commit.identity,
+            reservation_identity=commit.reservation_identity,
+            net_instance_identity=reservation.net_instance_identity,
+            predecessor_marking_identity=commit.predecessor_marking_identity,
+            predecessor_revision=commit.predecessor_revision,
+            successor_marking_identity=commit.successor_marking_identity,
+            successor_revision=commit.successor_revision,
+        )
+        existing = self._reservation_service.load_commit(reservation.identity)
+        if existing is not None:
+            if existing == coordinates:
+                return ExperimentalWorkflowPureActionCommitResult(
+                    status=ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
+                    commit=commit,
+                    diagnostics=(),
+                )
+            return ExperimentalWorkflowPureActionCommitResult(
+                status=ExperimentalWorkflowPureActionCommitStatus.CONFLICT,
+                commit=None,
+                diagnostics=("conflict",),
+            )
+        source_status = self._reservation_service.revalidate_sources(authorized)
+        if source_status is not None:
+            return ExperimentalWorkflowPureActionCommitResult(
+                status=ExperimentalWorkflowPureActionCommitStatus.STALE,
+                commit=None,
+                diagnostics=(source_status.value,),
+            )
+        status = self._reservation_service.commit(reservation, coordinates)
+        if status in {
+            ExperimentalWorkflowPureActionCommitStatus.COMMITTED,
+            ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
+        }:
+            return ExperimentalWorkflowPureActionCommitResult(
+                status=status,
+                commit=commit,
+                diagnostics=(),
+            )
+        return ExperimentalWorkflowPureActionCommitResult(
+            status=status,
+            commit=None,
+            diagnostics=(status.value,),
+        )
+
+
+def _construct_commit(
+    *,
+    authorized: ExperimentalWorkflowPureActionAuthorizedInputs,
+    reservation: ExperimentalWorkflowPureActionReservation,
+    plan: ExperimentalWorkflowPureActionCpnPlan,
+    invocation: ExperimentalWorkflowPureActionInvocationOutcome,
+    firing: ExperimentalWorkflowPureActionFiringOutcome,
+) -> ExperimentalWorkflowPureActionCommit:
+    if reservation.cpn_plan_identity != plan.identity:
+        raise ValueError("reservation differs from CPN plan")
+    if (
+        invocation.status
+        is not ExperimentalWorkflowPureActionInvocationStatus.MAPPED
+        or invocation.reservation_identity != reservation.identity
+        or invocation.input_authorization_identity != authorized.identity
+        or invocation.result is None
+        or invocation.mapped_result is None
+    ):
+        raise ValueError("invocation is not an admitted mapped success")
+    if (
+        firing.status
+        is not ExperimentalWorkflowPureActionFiringStatus.FIRED_CANDIDATE
+        or firing.cpn_plan_identity != plan.identity
+        or firing.invocation_outcome_identity != invocation.identity
+        or firing.firing_result is None
+        or firing.firing_result.outcome
+        is not ColoredPetriNetFiringOutcomeKind.SUCCESS
+        or firing.firing_result.successor_marking is None
+    ):
+        raise ValueError("firing is not a current successful candidate")
+    firing_input = firing.firing_result.firing_input
+    context = invocation.request.context
+    if (
+        invocation.request != authorized.admitted_inputs.request
+        or firing_input.predecessor_marking.identity.value
+        != context.predecessor_marking_identity.value
+        or reservation.predecessor_marking_identity
+        != context.predecessor_marking_identity
+        or reservation.predecessor_revision != context.predecessor_revision
+    ):
+        raise ValueError("commit state differs from retained predecessor")
+    successor = firing.firing_result.successor_marking
+    return ExperimentalWorkflowPureActionCommit(
+        cpn_plan_identity=plan.identity,
+        reservation_identity=reservation.identity,
+        input_authorization_identity=authorized.identity,
+        source_authority_identities=tuple(
+            item.identity for item in authorized.source_authorities
+        ),
+        invocation_outcome_identity=invocation.identity,
+        request_identity=invocation.request.identity,
+        owner_result_identity=invocation.result.identity,
+        mapped_result_identity=invocation.mapped_result.identity,
+        firing_outcome_identity=firing.identity,
+        cpn_firing_result_identity=firing.firing_result.identity,
+        predecessor_marking_identity=context.predecessor_marking_identity,
+        predecessor_revision=context.predecessor_revision,
+        successor_marking_identity=WorkflowMarkingIdentity(
+            successor.identity.value
+        ),
+        successor_revision=context.predecessor_revision + 1,
+    )
+
+
+__all__ = [
+    "ExperimentalWorkflowPureActionCommit",
+    "ExperimentalWorkflowPureActionCommitResult",
+    "ExperimentalWorkflowPureActionCommitService",
+]

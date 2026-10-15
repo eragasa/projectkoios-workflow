@@ -30,6 +30,20 @@ the exact plan/linking identities, structural selected-binding evidence,
 plan-selected input-source evidence, predecessor coordinates, occurrence, and
 attempt. It accepts no independent raw input tuple and re-resolves every source
 through its nominal owner/source repository before reservation. Its nominal
-predecessor-repository boundary supports atomic reservation and post-owner revalidation;
-the supplied in-memory implementation is evidence only, not authoritative
-persistence or complete `WorkflowEngine` conformance.
+predecessor-repository boundary supports atomic reservation and post-owner
+revalidation; the supplied in-memory implementation is evidence only, not
+authoritative persistence or complete `WorkflowEngine` conformance.
+
+A bounded v0 invocation candidate now validates an exact live worker against the
+retained manifest, invokes the SDK firer, canonically admits its closed result,
+and revalidates the source observations and predecessor afterward. Only a
+current success is mapped to a candidate external CPN binding. This remains
+followed by a bounded pure-firing candidate that asks the provenance-bound CPN
+firer to validate the mapped output and compute a successor and audit. A bounded
+in-memory atomic-commit candidate then retains a compact commit identity,
+consumes the reservation, and advances the marking coordinate under the same
+lock. A bounded CPN plan closes the supplied definition bytes and candidate
+execution-profile identity, but not every semantic section required by the
+complete execution plan. Durable evidence persistence, crash recovery, and
+committed replay remain absent, so these components do not complete
+`WorkflowEngine` conformance.

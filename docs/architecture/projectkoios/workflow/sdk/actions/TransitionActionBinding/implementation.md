@@ -43,8 +43,9 @@ opaque references through a nominal owner/source repository and constructs SDK
 inputs from the returned bytes. The reservation service reloads those sources
 and rejects reference, revision, evidence, or payload changes. The current v0
 reservation shape binds the authorization identity; earlier v0 experimental
-shapes remain reconstructable under their original identity domains. No private owner
-locator or owner-storage implementation enters the plan or Workflow persistence.
+shapes remain reconstructable under their original identity domains. No private
+owner locator or owner-storage implementation enters the plan or Workflow
+persistence.
 
 The output mapping descriptor content identity closes the exact canonical SDK
 transition binding and firer descriptor, mapping version, decoder profile,
@@ -55,8 +56,11 @@ digest and predecessor revision, by exact equality; request, result, occurrence,
 attempt, firer, definition, transition, and binding correlation; canonical SDK
 round trips; schema and codec identity; representation; media type; exact role
 order; collection limits; payload digests; and byte bounds before producing a
-candidate external binding. Equality with the retained context is not current
-predecessor revalidation; that remains a `WorkflowEngine` responsibility.
+candidate external binding. Equality with the retained context is not current predecessor revalidation;
+that remains a `WorkflowEngine` responsibility. The experimental invocation
+service now performs source and predecessor revalidation before and after owner
+invocation and calls this mapper only for a canonically admitted current SDK
+success.
 
 A logical-identity scalar mapping must be explicit rather than inferred from an
 arbitrary owner document. For the QE SCF artifact-set direction, the accepted
@@ -84,5 +88,7 @@ The reviewed Simulations pilot emits `artifact_set_identity` as its sole
 external-state output and retains `artifact_set` as evidence. The experimental
 Workflow mapper does not alter the standalone SDK `0.1.0a1` contract, claim
 complete `WorkflowExecutionPlan` or `WorkflowExecutionBindings` conformance,
-persist evidence, or invoke the CPN firer. Current-state reservation and
-revalidation remain separate runtime candidates.
+persist evidence or authorize a committed CPN firing. A separate bounded
+Workflow execution candidate now correlates the mapped result with supplied CPN
+state and invokes the pure CPN firer, while reservation consumption and atomic
+persistence remain absent.

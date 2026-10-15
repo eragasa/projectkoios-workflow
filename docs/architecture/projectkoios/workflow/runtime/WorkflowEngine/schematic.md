@@ -12,14 +12,16 @@ flowchart TD
     SR[Owner source repository]
     U[Repository-authorized SDK inputs]
     R[Durable reservation]
-    V[Post-owner revalidation]
+    Q[Pre-owner source and predecessor revalidation]
+    V[Post-owner source and predecessor revalidation]
     E[WorkflowEngine]
     W[Isolated worker invocation]
     O[Correlated SDK result]
     A[Pure result mapping]
     X[Candidate external-output binding]
     F[ColoredPetriNetTransitionFirer]
-    C[Atomic evidence and marking commit]
+    K[In-memory compact atomic commit candidate]
+    C[Durable evidence and marking commit]
 
     P --> E
     B --> E
@@ -29,7 +31,10 @@ flowchart TD
     SR --> U
     U --> E
     R --> E
-    E --> W
+    E --> Q
+    U --> Q
+    R --> Q
+    Q --> W
     W --> O
     O --> E
     E --> V
@@ -38,7 +43,8 @@ flowchart TD
     A --> X
     X --> E
     E --> F
-    F --> C
+    F --> K
+    K -. future durable implementation .-> C
 ```
 
 The engine admits the candidate external binding only after rechecking result
@@ -48,7 +54,12 @@ firing. The current experimental authority candidate resolves opaque input
 references without importing owner storage or locators, and reservation reloads
 the exact source observation. The reservation candidate covers request closure,
 atomic in-memory reservation, and revalidation only; the durable reservation
-and atomic firing commit shown here remain future work.
+and atomic firing commit shown here remain future work. The v0 invocation
+candidate implements the worker/result/mapping path plus both revalidation
+phases. The later pure-firing candidate traverses `F` and computes a successor
+and audit. The in-memory commit candidate reaches `K`, where the reservation and
+marking coordinate change atomically with a compact commit identity. No candidate
+durably claims dispatch or reaches `C`.
 
 For the artifact-set direction, the external binding carries the owner logical
 identity string. The SDK request, result, canonical artifact-set evidence,

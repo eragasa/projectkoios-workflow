@@ -25,10 +25,15 @@ flowchart TD
     A --> X
     X --> Y[Experimental input-extended plan]
     S[Ordered input-source mappings] --> Y
+    Y --> Z[Experimental CPN-closed plan]
+    C --> Z
+    R[Candidate CPN execution profile] --> Z
 ```
 
 The base experimental candidate closes the selected-binding profile and one
 exact output-mapping descriptor. The input-extended wrapper additionally closes
 one source kind, source profile, and mapping version per ordered SDK input role.
-Neither is sufficient to start or replay a workflow. The complete plan contains
-no live runtime objects and remains separate from deployment linking.
+The CPN-closed candidate additionally binds exact canonical definition bytes and
+a candidate execution profile. None is sufficient to start or replay a workflow
+under the complete contract. The complete plan contains no live runtime objects
+and remains separate from deployment linking.

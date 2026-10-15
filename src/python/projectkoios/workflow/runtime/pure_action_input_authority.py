@@ -275,11 +275,26 @@ class ExperimentalWorkflowPureActionInputAuthorizationService:
         sources = []
         authorities = []
         for reference in references:
-            loaded = self._repository.load(reference)
+            try:
+                loaded = self._repository.load(reference)
+            except Exception:
+                return ExperimentalWorkflowPureActionInputAuthorizationResult(
+                    status=(
+                        ExperimentalWorkflowPureActionInputAuthorizationStatus.ERROR
+                    ),
+                    authorized_inputs=None,
+                    diagnostics=("source_repository_error",),
+                )
             if type(loaded) is not (
                 ExperimentalWorkflowPureActionInputSourceLoadResult
             ):
-                raise TypeError("source repository returned an invalid result")
+                return ExperimentalWorkflowPureActionInputAuthorizationResult(
+                    status=(
+                        ExperimentalWorkflowPureActionInputAuthorizationStatus.ERROR
+                    ),
+                    authorized_inputs=None,
+                    diagnostics=("source_repository_invalid_result",),
+                )
             if loaded.status is not (
                 ExperimentalWorkflowPureActionInputSourceLoadStatus.LOADED
             ):
