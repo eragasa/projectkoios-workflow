@@ -66,7 +66,9 @@ proposed canonical CPN-bindings contract set.
   that nominal type membership or direct construction grants no admission
   authority.
 - [ ] Bind every behavior-affecting bound, decoder rule, and representation rule
-  to a retained profile identity.
+  to a retained profile identity. Bounded definition and marking reconstruction
+  primitives now have [local evidence](canonical_cpn_representation_decoding_evidence.md),
+  but the complete execution-profile closure remains incomplete.
 
 ## Required tests
 
@@ -111,10 +113,12 @@ the [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
 the [pure-action CPN firing evidence](pure_action_firing_evidence.md),
 the [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
 the [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
-and the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md)
+the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
+and the [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md)
 are candidate evidence for this task. Together they still do not supply a
 production owner source adapter, complete plan closure, retained CPN
-representation decoding, or authoritative complete replay requirements above.
+representation-bundle persistence, or authoritative complete replay requirements
+above.
 
 ## Exclusions
 

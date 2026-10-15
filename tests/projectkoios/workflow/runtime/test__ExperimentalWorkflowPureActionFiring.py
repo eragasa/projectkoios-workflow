@@ -23,6 +23,7 @@ from projectkoios.workflow.execution import (
     ExperimentalWorkflowPureActionFiringStatus,
 )
 from projectkoios.workflow.petrinet.colored import (
+    ColoredPetriNetColorIdentity,
     ColoredPetriNetSelectionPolicy,
     ColoredPetriNetValueKind,
 )
@@ -66,9 +67,33 @@ def test_cpn_plan_closes_definition_bytes_and_execution_profile() -> None:
         plan.definition_bytes
         == ExperimentalWorkflowCpnDefinitionEncoder().encode(definition)
     )
+    assert plan.definition_sha256 == (
+        "1344efeb8246cdef7d0bf720dd1ac06f08663ff9ca95bc93d88fe380a0d42234"
+    )
+    assert plan.identity.value == (
+        "ccfe9ca78f04da9167ef8237d81ccf048d1f09cf6765b8b8210ca7774f16b982"
+    )
     assert plan.definition_sha256 != changed_definition_plan.definition_sha256
     assert plan.identity != changed_definition_plan.identity
     assert plan.identity != changed_profile_plan.identity
+    invalid_definition = replace(
+        definition,
+        places=(
+            replace(
+                definition.places[0],
+                allowed_color_identities=(
+                    ColoredPetriNetColorIdentity("unknown.color"),
+                ),
+            ),
+        ),
+    )
+    with pytest.raises(ValueError, match="invalid CPN definition"):
+        replace(
+            plan,
+            definition_bytes=ExperimentalWorkflowCpnDefinitionEncoder().encode(
+                invalid_definition
+            ),
+        )
     authorized = _authorized()
     reservation_service, _ = _service(_source())
     with pytest.raises(ValueError, match="execution profile is unsupported"):

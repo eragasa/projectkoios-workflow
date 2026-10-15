@@ -76,11 +76,15 @@ Deterministic successful fixture identities:
 
 ## Remaining gaps
 
-This candidate does not yet define canonical decode/reconstruction for retained
-definition bytes, canonical initial-marking or CPN firing-result
-representations, every profile component required by the proposed umbrella
-contract, payload-color bindings, routes, child bindings, terminal delivery, or
-compiler descriptors. It therefore cannot claim complete
+This original candidate did not define canonical decode/reconstruction for
+retained definition bytes or a canonical semantic-marking representation. The
+later [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md)
+adds those bounded reconstruction primitives without changing this candidate's
+identity vectors. Canonical CPN firing-result representation, retained
+representation-bundle persistence, every profile component required by the
+proposed umbrella contract, payload-color bindings, routes, child bindings,
+terminal delivery, and compiler descriptors remain incomplete. It therefore
+cannot claim complete
 `WorkflowExecutionPlan`, `WorkflowExecutionBindings`, replay, or
 `projectkoios.workflow.cpn-bindings` conformance.
 

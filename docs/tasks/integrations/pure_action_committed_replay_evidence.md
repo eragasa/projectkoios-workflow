@@ -88,9 +88,10 @@ The replayed compact commit identity remains
 
 ## Remaining gaps
 
-Complete replay requires canonical retained CPN definition and marking decoding,
-retained execution-profile support validation, pure CPN refiring, audit and
-successor comparison, complete request/result/evidence history, and runtime
-safety-state reconstruction. Missing retained representations must continue to
-fail closed; this structural replay must not be relabeled as complete semantic
-or CPN replay.
+A later bounded follow-up now provides canonical CPN definition and semantic
+marking decoding, but complete replay still requires retention and loading of
+the exact representation bundle, retained execution-profile support validation,
+pure CPN refiring, audit and successor comparison, complete
+request/result/evidence history, and runtime safety-state reconstruction.
+Missing retained representations must continue to fail closed; this structural
+replay must not be relabeled as complete semantic or CPN replay.

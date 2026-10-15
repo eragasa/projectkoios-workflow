@@ -23,7 +23,8 @@ runtime dependency.
    [pure-action CPN firing evidence](pure_action_firing_evidence.md),
    [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
    [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
-   and [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md)
+   [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
+   and [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md)
 4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
 5. [Second owner SDK pilot](second_owner_pilot.md)
 6. [Broader SDK adoption gate](broader_adoption_gate.md)

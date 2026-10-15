@@ -15,6 +15,7 @@ from projectkoios.workflow.petrinet.colored import (
 
 from .pure_action_cpn_representation import (
     _DEFINITION_PROFILE,
+    ExperimentalWorkflowCpnDefinitionDecoder,
     ExperimentalWorkflowCpnDefinitionEncoder,
     ExperimentalWorkflowCpnDefinitionRepresentationProfileIdentity,
     _inspect_definition_representation,
@@ -307,6 +308,7 @@ def _validate_sha256(value: str, label: str) -> None:
 
 
 __all__ = [
+    "ExperimentalWorkflowCpnDefinitionDecoder",
     "ExperimentalWorkflowCpnDefinitionEncoder",
     "ExperimentalWorkflowCpnDefinitionRepresentationProfileIdentity",
     "ExperimentalWorkflowCpnExecutionProfile",
