@@ -12,6 +12,9 @@ flowchart TD
     E[External lifecycle provider]
     N[Exact nested definition]
     B[Immutable execution bindings]
+    X[Experimental pure-action plan candidate]
+    I[Canonical SDK integration manifest]
+    Y[Experimental pure-action execution bindings]
 
     P --> T
     T --> A
@@ -23,6 +26,8 @@ flowchart TD
     W --> B
     E --> B
     N --> B
+    X --> Y
+    I --> Y
 ```
 
 The pure result-mapping descriptor fixes the correspondence among owner logical
@@ -30,6 +35,10 @@ output roles, evidence roles, and declared CPN external variables. For the QE
 SCF artifact-set direction it distinguishes `artifact_set_identity` output from
 canonical `artifact_set` evidence.
 
-All mappings are complete, ordered, and content-bound. Changing the provider,
-identity codec, mapping revision, or environment produces another binding
-artifact; it never mutates the compiled plan or reinterprets retained evidence.
+The experimental path verifies only that the manifest contains the exact firer
+descriptor already selected by the bounded plan candidate. It cannot substitute
+the plan's selected-binding profile or output mapping.
+
+Complete mappings are ordered and content-bound. Changing the provider, identity
+codec, mapping revision, or environment produces another binding artifact; it
+never mutates the compiled plan or reinterprets retained evidence.

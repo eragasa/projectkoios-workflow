@@ -27,10 +27,13 @@ proposed canonical CPN-bindings contract set.
   source evidence through a content-identified input-mapping descriptor.
 - [ ] Prevent callers from independently combining an arbitrary selected binding,
   runtime coordinates, and otherwise valid owner inputs.
-- [ ] Retain the selected-binding representation profile and owner-result mapping
-  descriptor through the authoritative `WorkflowExecutionPlan`.
-- [ ] Require `WorkflowExecutionBindings` to verify the exact plan-selected
-  identities without substituting semantic choices.
+- [x] Retain the selected-binding representation profile and owner-result mapping
+  descriptor through bounded experimental plan/linking candidates, with
+  [local evidence](pure_action_plan_closure_evidence.md).
+- [ ] Embed those candidates in the complete authoritative
+  `WorkflowExecutionPlan`.
+- [ ] Require complete `WorkflowExecutionBindings` to verify the exact
+  plan-selected identities without substituting semantic choices.
 - [ ] Distinguish candidate, admitted, mapped, and committed runtime records so
   that nominal type membership or direct construction grants no admission
   authority.
@@ -65,11 +68,11 @@ proposed canonical CPN-bindings contract set.
   runtime chain.
 
 The current
-[experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
-and its
-[selected-binding evidence follow-up](selected_binding_evidence_followup.md)
+[experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
+its [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
+and the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md)
 are candidate evidence for this task. They do not satisfy the reservation,
-input-provenance, plan-closure, persistence, or authoritative replay
+input-provenance, complete plan closure, persistence, or authoritative replay
 requirements above.
 
 ## Exclusions

@@ -20,9 +20,15 @@ external variable and one bounded canonical `artifact_set` evidence document.
 The linker rejects a mapping that substitutes the evidence payload SHA-256 for
 the owner logical identity.
 
-Validation must reject stale provider capability digests, unsupported protocol
-versions, reordered bindings, a mapping identity different from the execution
-plan, output-role or variable mismatch, incompatible value kinds, missing
-evidence metadata, route mismatch, missing reconciliation guarantees, and
-nested-child disagreement. Provider unavailability is runtime status, not
-removal from this artifact.
+The current `ExperimentalWorkflowPureActionExecutionBindings` performs a strict
+canonical SDK manifest round trip, reconstructs the experimental plan candidate,
+and requires exactly one manifest descriptor equal to the plan-selected firer
+descriptor. Its identity closes the exact candidate-plan and manifest
+identities. It does not resolve or retain a live `Firer`.
+
+Complete validation must additionally reject stale provider capability digests,
+unsupported protocol versions, reordered bindings, a mapping identity different
+from the execution plan, output-role or variable mismatch, incompatible value
+kinds, missing evidence metadata, route mismatch, missing reconciliation
+guarantees, and nested-child disagreement. Provider unavailability is runtime
+status, not removal from this artifact.

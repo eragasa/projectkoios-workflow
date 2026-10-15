@@ -2,17 +2,30 @@
 
 ## Responsibility
 
-```text
-WorkflowExecutionPlan
-├── source definition closure
-├── flat ColoredPetriNetDefinition
-├── initial-marking contract
-├── transition/action mapping
-├── exact nested targets
-├── fragment/composition evidence
-└── plan identity and compiler version
+```mermaid
+flowchart TD
+    D[Source definition closure]
+    C[Canonical flat CPN IR]
+    I[Initial-marking contract]
+    P[Selected-binding representation profile]
+    A[Transition and action mappings]
+    N[Exact nested targets]
+    E[Compiler and composition evidence]
+    W[Complete WorkflowExecutionPlan]
 
-(no live runtime objects)
+    D --> W
+    C --> W
+    I --> W
+    P --> W
+    A --> W
+    N --> W
+    E --> W
+
+    P --> X[Experimental pure-action plan candidate]
+    A --> X
 ```
 
-The plan is sufficient for structural validation and replay interpretation but not sufficient to dispatch work until linked to an exact deployment.
+The experimental candidate closes only the selected-binding profile and one
+exact output-mapping descriptor. It is not sufficient to start or replay a
+workflow. The complete plan contains no live runtime objects and remains
+separate from deployment linking.

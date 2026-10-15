@@ -55,8 +55,10 @@ evidence rather than a bare binding, validates independently supplied request
 inputs and runtime coordinates, and constructs the SDK request without accepting
 a claimed digest. It does not prove that the coordinates came from a current
 reservation or that the owner inputs were admitted from the selected occurrence.
-The representation-profile identity is not yet retained with authoritative plan,
-persistence, and replay evidence.
+Bounded experimental plan/linking candidates now retain the representation
+profile and output mapping and verify the exact firer against an SDK integration
+manifest. They are not the complete authoritative plan or deployment bindings,
+and no persistence or replay evidence exists yet.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -74,8 +76,9 @@ inventing the mapping inside the owner adapter.
 ## Completion evidence
 
 - [x] Record the isolated candidate
-  [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md)
-  and [selected-binding evidence follow-up](selected_binding_evidence_followup.md).
+  [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
+  [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
+  and [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.
