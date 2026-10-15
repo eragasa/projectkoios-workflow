@@ -155,6 +155,10 @@ successor. Unsupported but internally consistent retained profiles remain
 `INCOMPATIBLE`; transcript corruption remains distinct from unexpected replay
 errors.
 
+Replay-bundle records and construction, canonical transcript serialization, and
+pure refiring orchestration are implemented in separate execution modules. The
+public experimental imports and canonical transcript bytes remain unchanged.
+
 The transcript is not yet durably retained or atomically linked to the compact
 commit. Complete request/result history, reservation lifecycle, runtime
 safety-state reconstruction, and complete CPN-bindings replay remain

@@ -22,29 +22,32 @@ step after the in-memory CPN refiring candidate.
 
 ## Action
 
-- [ ] Inventory exact path, ownership, no-follow, connection, pragma, timeout,
+- [x] Inventory exact path, ownership, no-follow, connection, pragma, timeout,
   transaction, rollback, and close behavior in both SQLite adapters.
-- [ ] Extract one internal private-database path and connection policy without
+- [x] Extract one internal private-database path and connection policy without
   weakening either adapter's existing rejection behavior.
-- [ ] Separate pure-action SQLite row decoding and integrity classification from
+- [x] Separate pure-action SQLite row decoding and integrity classification from
   transaction orchestration.
-- [ ] Split CPN replay bundle models, canonical serialization, and refiring
+- [x] Split CPN replay bundle models, canonical serialization, and refiring
   orchestration before adding durable transcript rows.
-- [ ] Preserve existing public repository ABCs, identity domains, canonical
+- [x] Preserve existing public repository ABCs, identity domains, canonical
   bytes, corruption outcomes, and deterministic vectors.
 - [ ] Add the durable replay-evidence schema only as a later separately reviewed
   slice.
 
 ## Required evidence
 
-- [ ] Existing SQLite and replay tests remain unchanged or stronger.
-- [ ] Symlink, permissions, incompatible-version, corruption, rollback, reopen,
+- [x] Existing SQLite and replay tests remain unchanged or stronger.
+- [x] Symlink, permissions, incompatible-version, corruption, rollback, reopen,
   crash, and concurrency evidence remains passing.
-- [ ] Row corruption remains distinguishable from database operational errors.
-- [ ] No owner payload, artifact document, private locator, CPN definition, or
+- [x] Row corruption remains distinguishable from database operational errors.
+- [x] No owner payload, artifact document, private locator, CPN definition, or
   marking body enters the compact commit event.
-- [ ] Ruff, formatting, strict mypy, full tests, architecture boundaries,
+- [x] Ruff, formatting, strict mypy, full tests, architecture boundaries,
   provenance, reproducible build, and clean-wheel import checks pass.
 
 This task authorizes organization and policy consolidation only. It does not
 itself authorize a schema migration or claim durable complete replay.
+
+The completed organization slice has separate
+[validation evidence](sqlite_private_boundary_consolidation_evidence.md).

@@ -3,13 +3,21 @@
 from __future__ import annotations
 
 import hashlib
-import os
 import sqlite3
-import stat
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
+from ._sqlite_private import (
+    SQLiteStoreFault as _StoreFault,
+)
+from ._sqlite_private import (
+    canonical_database_path,
+    connect_private_database,
+    prepare_store_schema,
+    rollback_quietly,
+    validate_busy_timeout,
+)
 from .store import (
     Revision,
     RevisionCommit,
@@ -46,12 +54,6 @@ _SCHEMA_SQL_BY_TABLE = {
     "revisions": _SCHEMA[1],
     "heads": _SCHEMA[2],
 }
-
-
-class _StoreFault(Exception):
-    def __init__(self, code: str) -> None:
-        super().__init__(code)
-        self.code = code
 
 
 def _frame(value: bytes | None) -> bytes:
@@ -131,24 +133,16 @@ class SQLiteAtomicRevisionStore:
     max_payload_bytes: int = 1_048_576
 
     def __post_init__(self) -> None:
-        if not isinstance(self.database_path, Path):
-            raise TypeError("database_path must be pathlib.Path")
-        if not self.database_path.is_absolute():
-            raise ValueError("database_path must be absolute")
-        canonical_parent = self.database_path.parent.resolve(strict=False)
         object.__setattr__(
             self,
             "database_path",
-            canonical_parent / self.database_path.name,
+            canonical_database_path(self.database_path),
         )
-        for name, value, minimum in (
-            ("busy_timeout_ms", self.busy_timeout_ms, 0),
-            ("max_payload_bytes", self.max_payload_bytes, 1),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in int")
-            if not minimum <= value <= 2_147_483_647:
-                raise ValueError(f"{name} is outside its bound")
+        validate_busy_timeout(self.busy_timeout_ms)
+        if type(self.max_payload_bytes) is not int:
+            raise TypeError("max_payload_bytes must be a built-in int")
+        if not 1 <= self.max_payload_bytes <= 2_147_483_647:
+            raise ValueError("max_payload_bytes is outside its bound")
 
     def read(self, request: RevisionReadRequest) -> RevisionReadResult:
         """Read one revision without guessing through failures."""
@@ -365,130 +359,26 @@ class SQLiteAtomicRevisionStore:
         finally:
             if connection is not None:
                 if transaction_open:
-                    try:
-                        connection.execute("ROLLBACK")
-                    except sqlite3.Error:
-                        pass
+                    rollback_quietly(connection)
                 connection.close()
 
     def _connect(self) -> sqlite3.Connection:
-        self._prepare_path()
-        uri = f"{self.database_path.as_uri()}?mode=rwc&nofollow=1"
-        connection = sqlite3.connect(
-            uri,
-            timeout=self.busy_timeout_ms / 1_000,
-            isolation_level=None,
-            uri=True,
+        return connect_private_database(
+            self.database_path,
+            self.busy_timeout_ms,
         )
-        connection.execute(f"PRAGMA busy_timeout = {self.busy_timeout_ms}")
-        connection.execute("PRAGMA foreign_keys = ON")
-        connection.execute("PRAGMA synchronous = FULL")
-        mode = connection.execute("PRAGMA journal_mode = DELETE").fetchone()
-        if mode != ("delete",):
-            connection.close()
-            raise _StoreFault("unsupported_journal_mode")
-        return connection
-
-    def _prepare_path(self) -> None:
-        nofollow = getattr(os, "O_NOFOLLOW", None)
-        if type(nofollow) is not int:
-            raise _StoreFault("nofollow_unavailable")
-        parent = self.database_path.parent
-        missing: list[Path] = []
-        cursor = parent
-        while True:
-            try:
-                metadata = cursor.stat(follow_symlinks=False)
-            except FileNotFoundError:
-                missing.append(cursor)
-                if cursor == cursor.parent:
-                    raise _StoreFault("database_parent_missing") from None
-                cursor = cursor.parent
-                continue
-            if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(
-                metadata.st_mode
-            ):
-                raise _StoreFault("unsafe_database_ancestor")
-            break
-        for directory in reversed(missing):
-            try:
-                directory.mkdir(mode=0o700)
-            except FileExistsError:
-                pass
-            metadata = directory.stat(follow_symlinks=False)
-            if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(
-                metadata.st_mode
-            ):
-                raise _StoreFault("unsafe_database_ancestor")
-        for ancestor in parent.parents:
-            metadata = ancestor.stat(follow_symlinks=False)
-            if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(
-                metadata.st_mode
-            ):
-                raise _StoreFault("unsafe_database_ancestor")
-        metadata = parent.stat(follow_symlinks=False)
-        if hasattr(os, "geteuid") and metadata.st_uid != os.geteuid():
-            raise _StoreFault("database_parent_not_owned")
-        if stat.S_IMODE(metadata.st_mode) & 0o077:
-            raise _StoreFault("database_parent_not_private")
-        flags = os.O_CREAT | os.O_EXCL | os.O_RDWR | nofollow
-        try:
-            descriptor = os.open(self.database_path, flags, 0o600)
-        except FileExistsError:
-            descriptor = None
-        if descriptor is not None:
-            os.close(descriptor)
-        file_metadata = self.database_path.stat(follow_symlinks=False)
-        if stat.S_ISLNK(file_metadata.st_mode) or not stat.S_ISREG(
-            file_metadata.st_mode
-        ):
-            raise _StoreFault("unsafe_database_file")
-        if hasattr(os, "geteuid") and file_metadata.st_uid != os.geteuid():
-            raise _StoreFault("database_file_not_owned")
-        if file_metadata.st_nlink != 1:
-            raise _StoreFault("database_file_has_links")
-        if stat.S_IMODE(file_metadata.st_mode) & 0o077:
-            raise _StoreFault("database_file_not_private")
 
     @staticmethod
     def _prepare(connection: sqlite3.Connection) -> None:
         connection.execute("BEGIN IMMEDIATE")
-        tables = tuple(
-            row[0]
-            for row in connection.execute(
-                "SELECT name FROM sqlite_master "
-                "WHERE type = 'table' ORDER BY name"
-            ).fetchall()
+        prepare_store_schema(
+            connection,
+            schema=_SCHEMA,
+            tables=_TABLES,
+            schema_sql_by_table=_SCHEMA_SQL_BY_TABLE,
+            format_identity=_FORMAT,
+            format_version=_FORMAT_VERSION,
         )
-        if not tables:
-            for statement in _SCHEMA:
-                connection.execute(statement)
-            connection.execute(
-                "INSERT INTO store_format VALUES (?, ?)",
-                (_FORMAT, _FORMAT_VERSION),
-            )
-        else:
-            if tables != _TABLES:
-                raise _StoreFault("unrecognized_store_schema")
-            definitions = dict(
-                connection.execute(
-                    "SELECT name, sql FROM sqlite_master "
-                    "WHERE type = 'table' ORDER BY name"
-                ).fetchall()
-            )
-            if definitions != _SCHEMA_SQL_BY_TABLE:
-                raise _StoreFault("unrecognized_store_schema")
-            metadata = connection.execute(
-                "SELECT identity, version FROM store_format"
-            ).fetchall()
-            if metadata != [(_FORMAT, _FORMAT_VERSION)]:
-                raise _StoreFault("unsupported_store_version")
-            unexpected = connection.execute(
-                "SELECT name FROM sqlite_master "
-                "WHERE type IN ('trigger', 'view') LIMIT 1"
-            ).fetchone()
-            if unexpected is not None:
-                raise _StoreFault("unrecognized_store_objects")
         connection.execute("COMMIT")
 
     @staticmethod

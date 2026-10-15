@@ -92,6 +92,6 @@ CPN-bindings conformance.
 
 Before adding a SQLite replay-evidence schema or another SQLite adapter, the
 [private SQLite boundary consolidation task](../tech_debt/consolidate_sqlite_private_database_boundary.md)
-reaches its revisit condition. Durable replay work should perform that
-extraction first, then retain a content-addressed bundle reference without
+reached its revisit condition and now has completed organization evidence.
+Durable replay work may next retain a content-addressed bundle reference without
 embedding CPN definitions or marking bodies in the compact commit event.

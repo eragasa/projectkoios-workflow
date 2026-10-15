@@ -19,14 +19,21 @@ source-authority reference/revision/evidence identities. It stores no SDK
 payload body, owner artifact, machine path, private locator, live repository,
 CPN definition, or marking body.
 
-Reservation and commit use `BEGIN IMMEDIATE`, `PRAGMA synchronous = FULL`,
-foreign keys, a bounded busy timeout, and rollback-journal mode. One commit
+Both SQLite adapters now use one internal private-database boundary for absolute
+path normalization, no-follow creation, ancestor/file type checks, ownership and
+mode enforcement, hard-link rejection, connection setup, bounded busy timeout,
+foreign keys, `PRAGMA synchronous = FULL`, and rollback-journal enforcement.
+Adapter-specific schemas and transactions remain separately owned.
+
+Reservation and commit use `BEGIN IMMEDIATE`. One commit
 transaction verifies the exact active reservation and predecessor, inserts the
 compact commit and ordered evidence references, marks the reservation consumed,
 deletes the active reservation, and advances the marking coordinate. Exact
 replay is idempotent and distinct replay conflicts. Commit and predecessor
-record digests detect corruption before reconstruction. The private database
-path rejects symlinks, links, non-private modes, and foreign ownership.
+record digests detect corruption before reconstruction. Pure-action row
+encoding, nominal reconstruction, digest verification, and correlation checks
+are separated from repository transaction orchestration; their existing closed
+fault codes remain unchanged.
 
 A process-crash test leaves an uncommitted marking update in a separate process
 and proves that reopening recovers the prior current reservation. A precommit
