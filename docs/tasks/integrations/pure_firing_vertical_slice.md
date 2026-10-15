@@ -88,8 +88,9 @@ durable transaction, with reopen, process-crash, rollback, corruption, and
 concurrency evidence. These candidates are not the complete authoritative plan
 or deployment bindings. Canonical identity-only event bytes and compact
 read-only reconstruction now exist. Bounded canonical definition and semantic
-marking reconstruction primitives also exist, but retained representation-bundle
-persistence, CPN/profile refiring, and full runtime safety-state replay do not.
+marking reconstruction primitives also exist. A canonical in-memory transcript
+now proves exact retained-profile CPN refiring, but durable transcript linkage
+and full runtime safety-state replay do not.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -119,7 +120,8 @@ inventing the mapping inside the owner adapter.
   [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
   [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
   [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
-  and [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md).
+  [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
+  and [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

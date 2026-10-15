@@ -57,7 +57,10 @@ proposed canonical CPN-bindings contract set.
 - [x] Retain strict canonical identity-only committed-event bytes and reconstruct
   the compact commit and coordinates read-only without owner or CPN invocation,
   with [local evidence](pure_action_committed_replay_evidence.md). Complete CPN
-  and runtime safety-state replay remains incomplete.
+  and runtime safety-state replay remains incomplete. A bounded canonical
+  transcript can now reconstruct and refire the pure CPN state in memory, with
+  [local evidence](pure_action_cpn_refiring_evidence.md), but it is not yet
+  durably linked to the compact commit.
 - [ ] Embed those candidates in the complete authoritative
   `WorkflowExecutionPlan`.
 - [ ] Require complete `WorkflowExecutionBindings` to verify the exact
@@ -114,7 +117,8 @@ the [pure-action CPN firing evidence](pure_action_firing_evidence.md),
 the [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
 the [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
 the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
-and the [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md)
+the [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
+and the [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md)
 are candidate evidence for this task. Together they still do not supply a
 production owner source adapter, complete plan closure, retained CPN
 representation-bundle persistence, or authoritative complete replay requirements

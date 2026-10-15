@@ -20,8 +20,12 @@ flowchart TD
     A[Pure result mapping]
     X[Candidate external-output binding]
     F[ColoredPetriNetTransitionFirer]
-    K[In-memory compact atomic commit candidate]
-    C[Durable evidence and marking commit]
+    K[In-memory compact atomic commit]
+    C[Durable compact commit and marking coordinate]
+    CS[Read-only compact structural replay]
+    T[Canonical in-memory CPN replay transcript]
+    RF[Pure CPN refiring and successor comparison]
+    D[Future durable transcript linkage]
 
     P --> E
     B --> E
@@ -44,24 +48,29 @@ flowchart TD
     X --> E
     E --> F
     F --> K
-    K -. future durable implementation .-> C
+    K --> C
+    C --> CS
+    F --> T
+    P --> T
+    T --> RF
+    C -. future atomic reference .-> D
+    T -. future durable retention .-> D
 ```
 
 The engine admits the candidate external binding only after rechecking result
 correlation, descriptor and mapping identities, the exact predecessor revision,
 the selected binding, and its reservation. Failure at any check prevents CPN
-firing. The current experimental authority candidate resolves opaque input
-references without importing owner storage or locators, and reservation reloads
-the exact source observation. The reservation candidate covers request closure,
-atomic in-memory reservation, and revalidation only; the durable reservation
-and atomic firing commit shown here remain future work. The v0 invocation
-candidate implements the worker/result/mapping path plus both revalidation
-phases. The later pure-firing candidate traverses `F` and computes a successor
-and audit. The in-memory commit candidate reaches `K`, where the reservation and
-marking coordinate change atomically with a compact commit identity. No candidate
-durably claims dispatch or reaches `C`.
+firing. Authoritative input resolution does not import owner storage or private
+locators. The durable compact commit consumes the reservation and advances the
+marking coordinate atomically while retaining identity-only event bytes.
 
-For the artifact-set direction, the external binding carries the owner logical
-identity string. The SDK request, result, canonical artifact-set evidence,
-payload digests, candidate binding, firing result, successor marking, and
-occurrence history enter the same accepted persistence boundary.
+Compact structural replay does not invoke the CPN. The separate bounded
+transcript reconstructs canonical CPN state and proves pure refiring under the
+exact supported retained profile without invoking the owner. It is currently
+in-memory only; durable transcript retention and atomic linkage to the compact
+commit remain future work.
+
+For the artifact-set direction, the external binding carries only the opaque
+owner logical-identity string. Owner payload bodies, canonical artifact-set
+evidence documents, private locators, and native files do not enter the CPN
+transcript or compact commit event.

@@ -86,11 +86,12 @@ The canonical fixture marking representation SHA-256 is
 
 ## Status and remaining gaps
 
-These codecs are candidate reconstruction primitives only. Complete committed
-CPN replay still requires a separately retained representation bundle for exact
-predecessor and successor markings, exact selected-binding and external-output
-evidence, accepted execution-profile support, pure refiring, audit and
-successor comparison, and complete runtime safety-state reconstruction.
+These codecs are candidate reconstruction primitives only. A later bounded
+[in-memory CPN refiring candidate](pure_action_cpn_refiring_evidence.md) now
+combines them with selected-binding, external-output, retained-profile,
+pure-refiring, result-identity, and successor comparison evidence. Complete
+committed replay still requires durable atomic transcript linkage and complete
+runtime safety-state reconstruction.
 
 Compact commit events continue to retain identities and admitted evidence
 references only. They do not embed definitions, marking bodies, owner payloads,

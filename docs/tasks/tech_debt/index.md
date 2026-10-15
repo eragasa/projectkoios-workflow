@@ -15,5 +15,8 @@ not authorize unrelated refactoring or change contract status.
   after admission-stage records stabilize or before the path enters a runtime
   hot loop. The completed internal-organization slice has separate
   [evidence](pure_action_internal_organization_evidence.md).
+- [Consolidate the private SQLite persistence boundary](consolidate_sqlite_private_database_boundary.md)
+  before adding durable CPN replay transcripts, another SQLite adapter, or a
+  schema migration.
 - [Retire the experimental pure-action surface](retire_experimental_action_surface.md)
   before broader SDK adoption or supported pure external firing.

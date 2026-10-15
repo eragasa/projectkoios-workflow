@@ -66,5 +66,6 @@ Validation ownership for this slice is retained as follows:
 | CPN definition representation bytes | `compilation.pure_action_cpn_representation` |
 
 The broader admitted transition/firer-contract and serialization-count actions
-above remain open. This completed slice does not claim those later hot-loop
-optimizations or canonical CPN decoding.
+above remain open. This completed slice did not claim those later hot-loop
+optimizations or canonical CPN decoding; subsequent bounded representation and
+refiring evidence covers decoding without changing this task's remaining scope.

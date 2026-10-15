@@ -141,10 +141,25 @@ snapshot read returns coordinates, record, and exact bytes atomically while
 preserving absent, incompatible, corrupt, and error outcomes. A read-only replay
 service verifies the snapshot, reconstructs the compact commit and full
 coordinates, and does not call an owner firer, source repository, owner codec,
-or CPN firer. This is bounded
-structural replay only: retained definition/marking decoding, execution-profile
-replay, pure CPN refiring, full runtime safety-state reconstruction, and complete
-CPN-bindings replay remain unimplemented.
+or CPN firer. This remains bounded structural replay only.
+
+A separate in-memory `ExperimentalWorkflowPureActionCpnReplayBundle` now binds
+one exact candidate CPN plan and retained execution profile to canonical
+definition, predecessor-marking, and successor-marking bytes, selected and
+external-output bindings, directed-selection identity or absence, and the
+expected firing-result identity. Its strict canonical codec verifies the
+complete candidate plan identity and exact bytes. The pure replay service
+rebuilds enablement and selection, invokes only
+`ColoredPetriNetTransitionFirer`, and compares the complete result identity and
+successor. Unsupported but internally consistent retained profiles remain
+`INCOMPATIBLE`; transcript corruption remains distinct from unexpected replay
+errors.
+
+The transcript is not yet durably retained or atomically linked to the compact
+commit. Complete request/result history, reservation lifecycle, runtime
+safety-state reconstruction, and complete CPN-bindings replay remain
+unimplemented. Definitions and marking bodies remain absent from the compact
+commit event.
 
 Source resolution and predecessor commit also remain sequential across nominal
 repositories rather than one distributed transaction; production source
