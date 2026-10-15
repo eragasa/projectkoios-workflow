@@ -24,3 +24,10 @@ The engine performs no discovery, registry lookup, plan inference, provider
 selection, owner-domain import, or scientific interpretation. Rejected, failed,
 or stale provider outcomes preserve evidence without fabricating a domain
 firing.
+
+A bounded experimental reservation candidate now closes one SDK request over
+the exact plan/linking identities, structural selected-binding evidence,
+predecessor coordinates, occurrence, attempt, and request inputs. Its nominal
+repository boundary supports atomic reservation and post-owner revalidation;
+the supplied in-memory implementation is evidence only, not authoritative
+persistence or complete `WorkflowEngine` conformance.

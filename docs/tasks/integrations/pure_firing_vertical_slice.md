@@ -57,8 +57,16 @@ a claimed digest. It does not prove that the coordinates came from a current
 reservation or that the owner inputs were admitted from the selected occurrence.
 Bounded experimental plan/linking candidates now retain the representation
 profile and output mapping and verify the exact firer against an SDK integration
-manifest. They are not the complete authoritative plan or deployment bindings,
-and no persistence or replay evidence exists yet.
+manifest. A bounded experimental reservation candidate now constructs the
+plan-selected SDK request and content-identifies its exact plan, deployment,
+selection, request, predecessor, occurrence, and attempt context before
+atomically reserving the current predecessor. Its non-durable in-memory
+repository rejects stale and concurrent conflicting attempts and supports
+post-owner current-state revalidation. It does not establish input-source
+provenance or durable authority, and deliberately does not expose reservation
+consumption separately from the future atomic firing boundary. These candidates
+are not the complete authoritative plan or deployment bindings, and no
+persistence or replay evidence exists yet.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -78,7 +86,8 @@ inventing the mapping inside the owner adapter.
 - [x] Record the isolated candidate
   [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
   [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
-  and [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md).
+  [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
+  and [pure-action reservation evidence](pure_action_reservation_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

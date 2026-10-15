@@ -32,3 +32,23 @@ recomputes an identity to repair missing evidence. Pure actions, external
 effects, and nested routes retain distinct lifecycles. Uncaught provider
 exceptions are contained by the worker boundary; rejected, failed, ambiguous,
 or stale outcomes never reach pure CPN firing.
+
+## Experimental predecessor-reservation candidate
+
+`ExperimentalWorkflowPureActionReservationService` is a bounded candidate for
+the pre-invocation and post-invocation current-state checks. It constructs the
+SDK request from the exact linked plan, selected-binding evidence, coordinates,
+and inline inputs, then content-identifies a reservation over the plan,
+deployment binding, selection evidence, request, predecessor marking/revision,
+occurrence, and attempt. A nominal repository ABC owns atomic reserve and
+revalidate operations.
+
+The included in-memory repository is thread-safe, non-durable software evidence.
+It admits at most one distinct reservation per net-instance predecessor, treats
+an exact replay as idempotent, and rejects stale, conflicting, absent, or known
+consumed reservations. Its whole-predecessor lock granularity is deliberately
+conservative. Durable storage, input-source provenance, owner invocation, CPN
+firing, atomic reservation consumption, successor persistence, and replay remain
+outside this candidate. In particular, the candidate exposes no standalone
+consume operation: reservation consumption must later share the accepted atomic
+boundary with CPN firing and persistence.

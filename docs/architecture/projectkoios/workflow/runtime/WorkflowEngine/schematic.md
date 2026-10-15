@@ -9,6 +9,7 @@ flowchart TD
     S[Selected CPN binding]
     M[Enabling marking revision]
     R[Durable reservation]
+    V[Post-owner revalidation]
     E[WorkflowEngine]
     W[Isolated worker invocation]
     O[Correlated SDK result]
@@ -25,7 +26,9 @@ flowchart TD
     E --> W
     W --> O
     O --> E
-    E --> A
+    E --> V
+    R --> V
+    V --> A
     A --> X
     X --> E
     E --> F
@@ -35,7 +38,9 @@ flowchart TD
 The engine admits the candidate external binding only after rechecking result
 correlation, descriptor and mapping identities, the exact predecessor revision,
 the selected binding, and its reservation. Failure at any check prevents CPN
-firing.
+firing. The current experimental reservation candidate covers request closure,
+atomic reservation, and revalidation only; the durable reservation and atomic
+firing commit shown here remain future work.
 
 For the artifact-set direction, the external binding carries the owner logical
 identity string. The SDK request, result, canonical artifact-set evidence,

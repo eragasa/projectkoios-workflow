@@ -19,10 +19,11 @@ proposed canonical CPN-bindings contract set.
 - [x] Treat the shadow kernel's internal identity preimages as provenance-bound
   backend evidence, not as public representations to duplicate or silently
   rewrite.
-- [ ] Define an immutable reserved pure-action invocation, or equivalent accepted
-  records, that binds the exact definition, transition, enablement result,
-  selection result, predecessor marking and revision, selected binding,
-  occurrence, and attempt.
+- [x] Define an immutable experimental reserved pure-action invocation that
+  transitively binds the exact plan, deployment binding, definition,
+  transition, enablement/selection evidence, selected binding, SDK request,
+  predecessor marking/revision, occurrence, and attempt, with
+  [local evidence](pure_action_reservation_evidence.md).
 - [ ] Bind every admitted SDK input to that reserved invocation and to explicit
   source evidence through a content-identified input-mapping descriptor.
 - [ ] Prevent callers from independently combining an arbitrary selected binding,
@@ -46,8 +47,8 @@ proposed canonical CPN-bindings contract set.
 - [ ] Reject owner inputs not correlated with the reserved invocation.
 - [ ] Reject substituted definition, transition, predecessor, occurrence,
   attempt, mapping, and representation-profile identities.
-- [ ] Reject a stale predecessor revision before owner invocation and after an
-  owner result returns.
+- [x] Reject a stale predecessor revision before owner invocation and during
+  the bounded post-owner revalidation candidate.
 - [ ] Reject direct reconstruction that substitutes payloads or identities in an
   admitted-stage record.
 - [ ] Prove that a behavior-affecting profile mutation cannot reuse the previous
@@ -70,10 +71,11 @@ proposed canonical CPN-bindings contract set.
 The current
 [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
 its [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
-and the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md)
-are candidate evidence for this task. They do not satisfy the reservation,
-input-provenance, complete plan closure, persistence, or authoritative replay
-requirements above.
+the [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
+and the [pure-action reservation evidence](pure_action_reservation_evidence.md)
+are candidate evidence for this task. Together they still do not satisfy
+input-source provenance, complete plan closure, durable atomic consumption and
+firing, persistence, or authoritative replay requirements above.
 
 ## Exclusions
 
