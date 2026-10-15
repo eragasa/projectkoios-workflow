@@ -18,6 +18,9 @@ from projectkoios.workflow.compilation import (
     ExperimentalWorkflowPureActionExecutionBindingsIdentity,
     ExperimentalWorkflowPureActionExecutionPlanIdentity,
 )
+from projectkoios.workflow.runtime.pure_action_commit_serialization import (
+    ExperimentalWorkflowPureActionCommitEventJsonCodec,
+)
 from projectkoios.workflow.runtime.pure_action_input_authority import (
     ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
     ExperimentalWorkflowPureActionInputSourceAuthority,
@@ -30,8 +33,11 @@ from projectkoios.workflow.runtime.pure_action_inputs import (
 from projectkoios.workflow.runtime.pure_action_reservation import (
     ExperimentalWorkflowPureActionCommitCoordinates,
     ExperimentalWorkflowPureActionCommitIdentity,
+    ExperimentalWorkflowPureActionCommitReadResult,
+    ExperimentalWorkflowPureActionCommitReadStatus,
     ExperimentalWorkflowPureActionCommitRecord,
     ExperimentalWorkflowPureActionCommitStatus,
+    ExperimentalWorkflowPureActionCommittedSnapshot,
     ExperimentalWorkflowPureActionCurrentPredecessor,
     ExperimentalWorkflowPureActionReservation,
     ExperimentalWorkflowPureActionReservationIdentity,
@@ -53,7 +59,7 @@ from projectkoios.workflow_sdk.identities import (
 )
 
 _FORMAT = "projectkoios.workflow.experimental-pure-action-store"
-_FORMAT_VERSION = 1
+_FORMAT_VERSION = 2
 _SCHEMA = (
     "CREATE TABLE store_format ("
     "identity TEXT NOT NULL, version INTEGER NOT NULL)",
@@ -92,7 +98,8 @@ _SCHEMA = (
     "predecessor_marking_identity TEXT NOT NULL, "
     "predecessor_revision INTEGER NOT NULL, "
     "successor_marking_identity TEXT NOT NULL, "
-    "successor_revision INTEGER NOT NULL, record_digest BLOB NOT NULL)",
+    "successor_revision INTEGER NOT NULL, event_bytes BLOB NOT NULL, "
+    "record_digest BLOB NOT NULL)",
     "CREATE TABLE commit_source_authorities ("
     "commit_identity TEXT NOT NULL, ordinal INTEGER NOT NULL, "
     "authority_identity TEXT NOT NULL, reference_identity TEXT NOT NULL, "
@@ -311,7 +318,13 @@ class ExperimentalSQLitePureActionReservationRepository(
             if existing is not None:
                 _rollback(connection)
                 transaction_open = False
-                if existing == (validated_coordinates, validated_record):
+                if existing == (
+                    validated_coordinates,
+                    validated_record,
+                    ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
+                        validated_record
+                    ),
+                ):
                     return ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
             collision = connection.execute(
@@ -341,7 +354,7 @@ class ExperimentalSQLitePureActionReservationRepository(
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
             connection.execute(
                 "INSERT INTO commits VALUES "
-                "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 _commit_values(
                     validated_coordinates,
                     validated_record,
@@ -412,6 +425,58 @@ class ExperimentalSQLitePureActionReservationRepository(
                     _rollback_quietly(connection)
                 connection.close()
 
+    def load_committed_snapshot(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitReadResult:
+        """Atomically load and classify one durable committed snapshot."""
+        if type(reservation_identity) is not (
+            ExperimentalWorkflowPureActionReservationIdentity
+        ):
+            raise TypeError(
+                "reservation_identity must be "
+                "ExperimentalWorkflowPureActionReservationIdentity"
+            )
+        connection: sqlite3.Connection | None = None
+        try:
+            connection = self._connect()
+            self._prepare(connection)
+            loaded = _load_commit_pair(connection, reservation_identity)
+            if loaded is None:
+                return _commit_read_failure(
+                    ExperimentalWorkflowPureActionCommitReadStatus.ABSENT,
+                    "commit_absent",
+                )
+            coordinates, record, event = loaded
+            snapshot = ExperimentalWorkflowPureActionCommittedSnapshot(
+                coordinates=coordinates,
+                record=record,
+                event_bytes=event,
+            )
+            return ExperimentalWorkflowPureActionCommitReadResult(
+                status=ExperimentalWorkflowPureActionCommitReadStatus.FOUND,
+                snapshot=snapshot,
+                diagnostics=(),
+            )
+        except TypeError, ValueError:
+            return _commit_read_failure(
+                ExperimentalWorkflowPureActionCommitReadStatus.CORRUPT,
+                "commit_snapshot_invalid",
+            )
+        except _StoreFault as error:
+            return _commit_read_failure(
+                _commit_read_fault_status(error.code),
+                error.code,
+            )
+        except OSError, sqlite3.Error:
+            return _commit_read_failure(
+                ExperimentalWorkflowPureActionCommitReadStatus.ERROR,
+                "sqlite_read_failed",
+            )
+        finally:
+            if connection is not None:
+                connection.close()
+
     def load_commit(
         self,
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
@@ -427,6 +492,22 @@ class ExperimentalSQLitePureActionReservationRepository(
         """Load the verified complete compact durable commit record."""
         loaded = self._load_commit(reservation_identity)
         return None if loaded is None else loaded[1]
+
+    def load_commit_event(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> bytes | None:
+        """Load exact verified canonical committed-event bytes."""
+        loaded = self._load_commit(reservation_identity)
+        if loaded is None:
+            return None
+        _, record, event = loaded
+        if (
+            ExperimentalWorkflowPureActionCommitEventJsonCodec().decode(event)
+            != record
+        ):
+            raise RuntimeError("commit_event_record_mismatch")
+        return event
 
     def current_predecessor(
         self,
@@ -468,31 +549,27 @@ class ExperimentalSQLitePureActionReservationRepository(
         tuple[
             ExperimentalWorkflowPureActionCommitCoordinates,
             ExperimentalWorkflowPureActionCommitRecord,
+            bytes,
         ]
         | None
     ):
-        if type(reservation_identity) is not (
-            ExperimentalWorkflowPureActionReservationIdentity
+        result = self.load_committed_snapshot(reservation_identity)
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.ABSENT
         ):
-            raise TypeError(
-                "reservation_identity must be "
-                "ExperimentalWorkflowPureActionReservationIdentity"
-            )
-        connection: sqlite3.Connection | None = None
-        try:
-            connection = self._connect()
-            self._prepare(connection)
-            return _load_commit_pair(connection, reservation_identity)
-        except (OSError, sqlite3.Error, _StoreFault) as error:
-            code = (
-                error.code
-                if isinstance(error, _StoreFault)
-                else "sqlite_read_failed"
-            )
-            raise RuntimeError(code) from error
-        finally:
-            if connection is not None:
-                connection.close()
+            return None
+        if (
+            result.status
+            is not ExperimentalWorkflowPureActionCommitReadStatus.FOUND
+        ):
+            raise RuntimeError(result.diagnostics[0])
+        assert result.snapshot is not None
+        return (
+            result.snapshot.coordinates,
+            result.snapshot.record,
+            result.snapshot.event_bytes,
+        )
 
     def _connect(self) -> sqlite3.Connection:
         self._prepare_path()
@@ -655,6 +732,35 @@ class ExperimentalSQLitePureActionReservationRepository(
                 _rollback_quietly(connection)
 
 
+def _commit_read_failure(
+    status: ExperimentalWorkflowPureActionCommitReadStatus,
+    diagnostic: str,
+) -> ExperimentalWorkflowPureActionCommitReadResult:
+    return ExperimentalWorkflowPureActionCommitReadResult(
+        status=status,
+        snapshot=None,
+        diagnostics=(diagnostic,),
+    )
+
+
+def _commit_read_fault_status(
+    code: str,
+) -> ExperimentalWorkflowPureActionCommitReadStatus:
+    if code in {
+        "unrecognized_store_objects",
+        "unrecognized_store_schema",
+        "unsupported_store_version",
+    }:
+        return ExperimentalWorkflowPureActionCommitReadStatus.INCOMPATIBLE
+    if (
+        code.startswith("invalid_")
+        or code.endswith("_mismatch")
+        or code in {"missing_initial_predecessor"}
+    ):
+        return ExperimentalWorkflowPureActionCommitReadStatus.CORRUPT
+    return ExperimentalWorkflowPureActionCommitReadStatus.ERROR
+
+
 def _reconstruct_reservation(
     value: ExperimentalWorkflowPureActionReservation,
 ) -> ExperimentalWorkflowPureActionReservation:
@@ -715,6 +821,7 @@ def _reconstruct_record(
         commit_identity=value.commit_identity,
         cpn_plan_identity=value.cpn_plan_identity,
         reservation_identity=value.reservation_identity,
+        net_instance_identity=value.net_instance_identity,
         input_authorization_identity=value.input_authorization_identity,
         source_authorities=value.source_authorities,
         invocation_outcome_identity=value.invocation_outcome_identity,
@@ -747,6 +854,8 @@ def _validate_commit_correlations(
         or coordinates.predecessor_revision != reservation.predecessor_revision
         or record.commit_identity != coordinates.commit_identity
         or record.reservation_identity != reservation.identity
+        or record.net_instance_identity != reservation.net_instance_identity
+        or record.net_instance_identity != coordinates.net_instance_identity
         or record.cpn_plan_identity != reservation.cpn_plan_identity
         or record.input_authorization_identity
         != reservation.input_authorization_identity
@@ -872,6 +981,7 @@ def _commit_values(
         coordinates.predecessor_revision,
         coordinates.successor_marking_identity.value,
         coordinates.successor_revision,
+        ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(record),
         _record_digest(record, net_instance_identity),
     )
 
@@ -883,6 +993,7 @@ def _load_commit_pair(
     tuple[
         ExperimentalWorkflowPureActionCommitCoordinates,
         ExperimentalWorkflowPureActionCommitRecord,
+        bytes,
     ]
     | None
 ):
@@ -892,7 +1003,7 @@ def _load_commit_pair(
     ).fetchone()
     if row is None:
         return None
-    if len(row) != 16:
+    if len(row) != 17:
         raise _StoreFault("invalid_commit_shape")
     commit_identity = _required_text(row[1], "commit_identity")
     authority_rows = connection.execute(
@@ -907,6 +1018,9 @@ def _load_commit_pair(
         for expected_ordinal, authority_row in enumerate(authority_rows)
     )
     try:
+        net_instance = WorkflowNetInstanceIdentity(
+            _required_text(row[2], "net_instance_identity")
+        )
         record = ExperimentalWorkflowPureActionCommitRecord(
             commit_identity=ExperimentalWorkflowPureActionCommitIdentity(
                 commit_identity
@@ -917,6 +1031,7 @@ def _load_commit_pair(
             reservation_identity=ExperimentalWorkflowPureActionReservationIdentity(
                 _required_text(row[0], "reservation_identity")
             ),
+            net_instance_identity=net_instance,
             input_authorization_identity=ExperimentalWorkflowPureActionAuthorizedInputsIdentity(
                 _required_text(row[4], "input_authorization_identity")
             ),
@@ -948,9 +1063,6 @@ def _load_commit_pair(
             ),
             successor_revision=_required_int(row[14], "successor_revision"),
         )
-        net_instance = WorkflowNetInstanceIdentity(
-            _required_text(row[2], "net_instance_identity")
-        )
         coordinates = ExperimentalWorkflowPureActionCommitCoordinates(
             commit_identity=record.commit_identity,
             reservation_identity=record.reservation_identity,
@@ -962,14 +1074,25 @@ def _load_commit_pair(
         )
     except (TypeError, ValueError) as error:
         raise _StoreFault("invalid_commit") from error
-    digest = row[15]
+    event = row[15]
+    digest = row[16]
+    if type(event) is not bytes:
+        raise _StoreFault("invalid_commit_event")
+    try:
+        decoded_event = (
+            ExperimentalWorkflowPureActionCommitEventJsonCodec().decode(event)
+        )
+    except (TypeError, ValueError) as error:
+        raise _StoreFault("invalid_commit_event") from error
+    if decoded_event != record:
+        raise _StoreFault("commit_event_record_mismatch")
     if type(digest) is not bytes or digest != _record_digest(
         record, net_instance
     ):
         raise _StoreFault("commit_record_digest_mismatch")
     if record.reservation_identity != reservation_identity:
         raise _StoreFault("commit_reservation_mismatch")
-    return coordinates, record
+    return coordinates, record, event
 
 
 def _authority_from_row(

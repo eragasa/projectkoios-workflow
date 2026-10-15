@@ -14,9 +14,10 @@ quiescent, schema-aware operation; state history is never rolled back.
 pure-action reservation repository with a purpose-built private SQLite schema.
 It persists immutable initial predecessor coordinates, current predecessor
 coordinates, active reservations, consumed reservation identities, complete
-compact commit fields, and ordered source-authority reference/revision/evidence
-identities. It stores no SDK payload body, owner artifact, machine path, private
-locator, live repository, CPN definition, or marking body.
+compact commit fields, exact canonical commit-event bytes, and ordered
+source-authority reference/revision/evidence identities. It stores no SDK
+payload body, owner artifact, machine path, private locator, live repository,
+CPN definition, or marking body.
 
 Reservation and commit use `BEGIN IMMEDIATE`, `PRAGMA synchronous = FULL`,
 foreign keys, a bounded busy timeout, and rollback-journal mode. One commit
@@ -33,8 +34,20 @@ fault-injection seam proves that commit rows, evidence references, reservation
 consumption, and marking advancement roll back together. Reopening reconstructs
 both the compact commit and its source-authority references.
 
-This remains a v0 candidate. Canonical committed-event serialization,
-read-only semantic replay, backups, migrations, operational monitoring, and a
-closed result type for every read failure remain incomplete. Source
-revalidation and SQLite commit are sequential across nominal repositories;
-production source revision immutability must close that observation race.
+`ExperimentalWorkflowPureActionCommitEventJsonCodec` supplies a strict closed
+canonical JSON encoding for that identity-only event, including its exact net
+instance. The durable repository retains and verifies the exact bytes against
+its typed columns. One closed snapshot read returns coordinates, compact record,
+and exact event bytes from one observation and distinguishes found, absent,
+incompatible, corrupt, and error outcomes.
+`ExperimentalWorkflowPureActionCommittedReplayService` consumes that snapshot,
+reconstructs the compact commit identity and full coordinates, and never invokes
+an owner, source repository, codec owned by an integration, or CPN firer.
+
+This remains a v0 candidate. Replay of retained definitions, markings, execution
+profiles, CPN firing, and full runtime safety state remains incomplete; this
+compact structural replay does not claim complete CPN-bindings replay. Backups,
+migrations, operational monitoring, and closed read results outside the compact
+commit snapshot also remain incomplete. Source revalidation and SQLite commit are
+sequential across nominal repositories; production source revision immutability
+must close that observation race.

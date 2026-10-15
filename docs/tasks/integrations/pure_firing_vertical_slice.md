@@ -86,8 +86,9 @@ candidate now retains the complete compact commit fields, ordered source
 authority references, reservation consumption, and successor coordinate in one
 durable transaction, with reopen, process-crash, rollback, corruption, and
 concurrency evidence. These candidates are not the complete authoritative plan
-or deployment bindings, and canonical committed-event replay does not exist
-yet.
+or deployment bindings. Canonical identity-only event bytes and compact
+read-only reconstruction now exist, but retained CPN/profile refiring and full
+runtime safety-state replay do not.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -115,7 +116,8 @@ inventing the mapping inside the owner adapter.
   [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
   [pure-action CPN firing evidence](pure_action_firing_evidence.md),
   [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
-  and [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md).
+  [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
+  and [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

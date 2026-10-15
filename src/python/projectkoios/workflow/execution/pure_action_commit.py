@@ -409,6 +409,7 @@ def _construct_commit_record(
         commit_identity=commit.identity,
         cpn_plan_identity=commit.cpn_plan_identity,
         reservation_identity=commit.reservation_identity,
+        net_instance_identity=authorized.admitted_inputs.request.context.net_instance_identity,
         input_authorization_identity=commit.input_authorization_identity,
         source_authorities=authorized.source_authorities,
         invocation_outcome_identity=commit.invocation_outcome_identity.value,

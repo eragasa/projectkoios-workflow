@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import sqlite3
 import subprocess
@@ -21,15 +22,21 @@ from projectkoios.workflow.compilation import (
     ExperimentalWorkflowPureActionExecutionBindingsIdentity,
     ExperimentalWorkflowPureActionExecutionPlanIdentity,
 )
+from projectkoios.workflow.execution import (
+    ExperimentalWorkflowPureActionCommittedReplayService,
+    ExperimentalWorkflowPureActionCommittedReplayStatus,
+)
 from projectkoios.workflow.persistence import (
     ExperimentalSQLitePureActionReservationRepository,
 )
 from projectkoios.workflow.runtime import (
     ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
     ExperimentalWorkflowPureActionCommitCoordinates,
+    ExperimentalWorkflowPureActionCommitEventJsonCodec,
     ExperimentalWorkflowPureActionCommitIdentity,
     ExperimentalWorkflowPureActionCommitRecord,
     ExperimentalWorkflowPureActionCommitStatus,
+    ExperimentalWorkflowPureActionCommittedSnapshot,
     ExperimentalWorkflowPureActionCurrentPredecessor,
     ExperimentalWorkflowPureActionInputSourceAuthority,
     ExperimentalWorkflowPureActionInputSourceEvidenceIdentity,
@@ -138,6 +145,7 @@ def _commit_state(
         commit_identity=commit_identity,
         cpn_plan_identity=reservation.cpn_plan_identity,
         reservation_identity=reservation.identity,
+        net_instance_identity=reservation.net_instance_identity,
         input_authorization_identity=reservation.input_authorization_identity,
         source_authorities=(_authority(),),
         invocation_outcome_identity=_digest("d"),
@@ -187,6 +195,9 @@ def test_durable_commit_reopens_complete_record_and_current_state(
     reopened = _repository(tmp_path, bootstrap=False)
     assert reopened.load_commit(reservation.identity) == coordinates
     assert reopened.load_commit_record(reservation.identity) == record
+    assert reopened.load_commit_event(reservation.identity) == (
+        ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(record)
+    )
     assert reopened.current_predecessor(reservation.net_instance_identity) == (
         ExperimentalWorkflowPureActionCurrentPredecessor(
             net_instance_identity=reservation.net_instance_identity,
@@ -206,6 +217,69 @@ def test_durable_commit_reopens_complete_record_and_current_state(
     assert repository.database_path.stat().st_mode & 0o777 == 0o600
     assert not Path(f"{repository.database_path}-wal").exists()
     assert not Path(f"{repository.database_path}-shm").exists()
+
+
+def test_commit_event_codec_is_strict_canonical_and_identity_only() -> None:
+    _, record = _commit_state()
+    codec = ExperimentalWorkflowPureActionCommitEventJsonCodec()
+
+    encoded = codec.encode(record)
+
+    assert codec.encode(record) == encoded
+    assert codec.decode(encoded) == record
+    assert b"payload" not in encoded
+    assert b"locator" not in encoded
+    with pytest.raises(ValueError, match="canonical JSON"):
+        codec.decode(b" " + encoded)
+    parsed = json.loads(encoded)
+    assert (
+        parsed["commit"]["net_instance_identity"]
+        == record.net_instance_identity.value
+    )
+    parsed["unexpected"] = True
+    unknown = json.dumps(
+        parsed,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode()
+    with pytest.raises(ValueError, match="closed schema"):
+        codec.decode(unknown)
+
+
+def test_committed_snapshot_rejects_cross_net_coordinates() -> None:
+    coordinates, record = _commit_state()
+    changed = replace(
+        record,
+        net_instance_identity=WorkflowNetInstanceIdentity("net:other"),
+    )
+
+    with pytest.raises(ValueError, match="coordinates differ"):
+        ExperimentalWorkflowPureActionCommittedSnapshot(
+            coordinates=coordinates,
+            record=changed,
+            event_bytes=(
+                ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
+                    changed
+                )
+            ),
+        )
+
+
+def test_commit_event_codec_rejects_changed_source_authority_identity() -> None:
+    _, record = _commit_state()
+    codec = ExperimentalWorkflowPureActionCommitEventJsonCodec()
+    parsed = json.loads(codec.encode(record))
+    parsed["commit"]["source_authorities"][0]["authority_identity"] = _digest(
+        "f"
+    )
+    changed = json.dumps(
+        parsed,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode()
+
+    with pytest.raises(ValueError, match="differs from its fields"):
+        codec.decode(changed)
 
 
 def test_precommit_failure_rolls_back_every_durable_write(
@@ -366,8 +440,36 @@ def test_commit_record_corruption_fails_closed(tmp_path: Path) -> None:
             (_digest("2"),),
         )
 
-    with pytest.raises(RuntimeError, match="commit_record_digest_mismatch"):
+    replayed = ExperimentalWorkflowPureActionCommittedReplayService(
+        repository
+    ).execute(reservation.identity)
+    assert (
+        replayed.status
+        is ExperimentalWorkflowPureActionCommittedReplayStatus.CORRUPT
+    )
+    assert replayed.diagnostics == ("commit_event_record_mismatch",)
+    with pytest.raises(RuntimeError, match="commit_event_record_mismatch"):
         repository.load_commit_record(reservation.identity)
+
+
+def test_incompatible_store_version_has_closed_replay_outcome(
+    tmp_path: Path,
+) -> None:
+    repository = _repository(tmp_path)
+    reservation = _reservation()
+    repository.current_predecessor(reservation.net_instance_identity)
+    with sqlite3.connect(repository.database_path) as connection:
+        connection.execute("UPDATE store_format SET version = 999")
+
+    replayed = ExperimentalWorkflowPureActionCommittedReplayService(
+        repository
+    ).execute(reservation.identity)
+
+    assert (
+        replayed.status
+        is ExperimentalWorkflowPureActionCommittedReplayStatus.INCOMPATIBLE
+    )
+    assert replayed.diagnostics == ("unsupported_store_version",)
 
 
 def test_current_predecessor_corruption_fails_closed(tmp_path: Path) -> None:

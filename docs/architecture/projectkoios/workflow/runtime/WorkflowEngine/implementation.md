@@ -135,11 +135,20 @@ single-winner commit, injected precommit rollback, and recovery from a separate
 process exiting with an uncommitted marking update. Owner payload bodies and
 private locators do not enter its schema.
 
-Canonical committed-event serialization and read-only semantic replay remain
-unimplemented. Source resolution and predecessor commit also remain sequential
-across nominal repositories rather than one distributed transaction;
-production source revision immutability must close that remaining observation
-race.
+A strict canonical JSON codec now retains exact identity-only committed-event
+bytes, including net instance, beside the typed compact columns. One closed
+snapshot read returns coordinates, record, and exact bytes atomically while
+preserving absent, incompatible, corrupt, and error outcomes. A read-only replay
+service verifies the snapshot, reconstructs the compact commit and full
+coordinates, and does not call an owner firer, source repository, owner codec,
+or CPN firer. This is bounded
+structural replay only: retained definition/marking decoding, execution-profile
+replay, pure CPN refiring, full runtime safety-state reconstruction, and complete
+CPN-bindings replay remain unimplemented.
+
+Source resolution and predecessor commit also remain sequential across nominal
+repositories rather than one distributed transaction; production source
+revision immutability must close that remaining observation race.
 
 ## Internal validation ownership
 

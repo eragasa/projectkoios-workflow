@@ -13,6 +13,8 @@ from _pure_action_fixtures import (
 )
 from projectkoios.workflow.execution import (
     ExperimentalWorkflowPureActionCommitService,
+    ExperimentalWorkflowPureActionCommittedReplayService,
+    ExperimentalWorkflowPureActionCommittedReplayStatus,
 )
 from projectkoios.workflow.persistence import (
     ExperimentalSQLitePureActionReservationRepository,
@@ -143,6 +145,21 @@ def test_atomic_commit_service_persists_complete_record_durably(
     assert retained is not None
     assert retained.commit_identity == committed.commit.identity
     assert retained.source_authorities == fixture.authorized.source_authorities
+    owner_calls = fixture.firer.calls
+    replayed = ExperimentalWorkflowPureActionCommittedReplayService(
+        reopened
+    ).execute(reservation_result.reservation.identity)
+    assert (
+        replayed.status
+        is ExperimentalWorkflowPureActionCommittedReplayStatus.REPLAYED
+    )
+    assert replayed.commit == committed.commit
+    assert replayed.coordinates is not None
+    assert (
+        replayed.coordinates.net_instance_identity
+        == reservation_result.reservation.net_instance_identity
+    )
+    assert fixture.firer.calls == owner_calls
 
 
 def test_atomic_commit_allows_one_concurrent_winner() -> None:

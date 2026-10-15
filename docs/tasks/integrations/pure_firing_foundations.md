@@ -53,8 +53,11 @@ proposed canonical CPN-bindings contract set.
 - [x] Persist the complete compact commit, ordered admitted evidence references,
   reservation consumption, and successor coordinate in one purpose-built SQLite
   transaction, with reopen, rollback, corruption, concurrency, and process-crash
-  [evidence](pure_action_durable_persistence_evidence.md). Canonical committed
-  replay remains incomplete.
+  [evidence](pure_action_durable_persistence_evidence.md).
+- [x] Retain strict canonical identity-only committed-event bytes and reconstruct
+  the compact commit and coordinates read-only without owner or CPN invocation,
+  with [local evidence](pure_action_committed_replay_evidence.md). Complete CPN
+  and runtime safety-state replay remains incomplete.
 - [ ] Embed those candidates in the complete authoritative
   `WorkflowExecutionPlan`.
 - [ ] Require complete `WorkflowExecutionBindings` to verify the exact
@@ -107,10 +110,11 @@ the [pure-action invocation evidence](pure_action_invocation_evidence.md),
 the [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
 the [pure-action CPN firing evidence](pure_action_firing_evidence.md),
 the [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
-and the [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md)
+the [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
+and the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md)
 are candidate evidence for this task. Together they still do not supply a
-production owner source adapter, complete plan closure, canonical committed
-event serialization, or authoritative replay requirements above.
+production owner source adapter, complete plan closure, retained CPN
+representation decoding, or authoritative complete replay requirements above.
 
 ## Exclusions
 

@@ -93,11 +93,14 @@ The successful vertical fixture preserves compact commit identity
 
 ## Remaining gaps
 
-Canonical committed-event serialization and read-only committed replay without
-owner reinvocation remain unimplemented. The repository exposes fail-closed
-exceptions for compact read corruption because the inherited v0 read methods do
-not yet have closed read-result records. Production backup, schema migration,
-monitoring, and recovery operations remain outside this candidate.
+Canonical identity-only event serialization and compact read-only reconstruction
+were added in the later
+[committed-replay evidence](pure_action_committed_replay_evidence.md). Complete
+CPN and runtime safety-state replay remains unimplemented. The repository
+exposes fail-closed exceptions for compact read corruption because the inherited
+v0 read methods do not yet have closed read-result records. Production backup,
+schema migration, monitoring, and recovery operations remain outside this
+candidate.
 
 Source revalidation and SQLite commit remain sequential across nominal
 repositories rather than one distributed transaction. A production owner source

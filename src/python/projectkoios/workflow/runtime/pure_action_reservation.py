@@ -394,6 +394,7 @@ class ExperimentalWorkflowPureActionCommitRecord:
     commit_identity: ExperimentalWorkflowPureActionCommitIdentity
     cpn_plan_identity: ExperimentalWorkflowPureActionCpnPlanIdentity
     reservation_identity: ExperimentalWorkflowPureActionReservationIdentity
+    net_instance_identity: WorkflowNetInstanceIdentity
     input_authorization_identity: (
         ExperimentalWorkflowPureActionAuthorizedInputsIdentity
     )
@@ -429,6 +430,11 @@ class ExperimentalWorkflowPureActionCommitRecord:
                 "reservation_identity",
             ),
             (
+                self.net_instance_identity,
+                WorkflowNetInstanceIdentity,
+                "net_instance_identity",
+            ),
+            (
                 self.input_authorization_identity,
                 ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
                 "input_authorization_identity",
@@ -457,9 +463,14 @@ class ExperimentalWorkflowPureActionCommitRecord:
         for value, nominal_type, label in expected:
             if type(value) is not nominal_type:
                 raise TypeError(f"{label} must be {nominal_type.__name__}")
-        if type(self.source_authorities) is not tuple or any(
-            type(item) is not ExperimentalWorkflowPureActionInputSourceAuthority
-            for item in self.source_authorities
+        if (
+            type(self.source_authorities) is not tuple
+            or len(self.source_authorities) > 1_024
+            or any(
+                type(item)
+                is not ExperimentalWorkflowPureActionInputSourceAuthority
+                for item in self.source_authorities
+            )
         ):
             raise TypeError(
                 "source_authorities must contain "
@@ -489,6 +500,92 @@ class ExperimentalWorkflowPureActionCommitRecord:
             )
         if self.successor_marking_identity == self.predecessor_marking_identity:
             raise ValueError("successor marking must differ from predecessor")
+
+
+@dataclass(frozen=True, slots=True)
+class ExperimentalWorkflowPureActionCommittedSnapshot:
+    """One atomically observed compact commit, coordinates, and event bytes."""
+
+    coordinates: ExperimentalWorkflowPureActionCommitCoordinates
+    record: ExperimentalWorkflowPureActionCommitRecord
+    event_bytes: bytes = field(repr=False)
+
+    def __post_init__(self) -> None:
+        if type(self.coordinates) is not (
+            ExperimentalWorkflowPureActionCommitCoordinates
+        ):
+            raise TypeError(
+                "coordinates must be "
+                "ExperimentalWorkflowPureActionCommitCoordinates"
+            )
+        if type(self.record) is not ExperimentalWorkflowPureActionCommitRecord:
+            raise TypeError(
+                "record must be ExperimentalWorkflowPureActionCommitRecord"
+            )
+        if type(self.event_bytes) is not bytes or not self.event_bytes:
+            raise TypeError("event_bytes must be nonempty bytes")
+        if (
+            self.record.commit_identity != self.coordinates.commit_identity
+            or self.record.reservation_identity
+            != self.coordinates.reservation_identity
+            or self.record.net_instance_identity
+            != self.coordinates.net_instance_identity
+            or self.record.predecessor_marking_identity
+            != self.coordinates.predecessor_marking_identity
+            or self.record.predecessor_revision
+            != self.coordinates.predecessor_revision
+            or self.record.successor_marking_identity
+            != self.coordinates.successor_marking_identity
+            or self.record.successor_revision
+            != self.coordinates.successor_revision
+        ):
+            raise ValueError(
+                "committed snapshot coordinates differ from record"
+            )
+
+
+class ExperimentalWorkflowPureActionCommitReadStatus(StrEnum):
+    """Closed result of atomically reading one retained compact commit."""
+
+    FOUND = "found"
+    ABSENT = "absent"
+    INCOMPATIBLE = "incompatible"
+    CORRUPT = "corrupt"
+    ERROR = "error"
+
+
+@dataclass(frozen=True, slots=True)
+class ExperimentalWorkflowPureActionCommitReadResult:
+    """Expose one compact committed snapshot only after exact validation."""
+
+    status: ExperimentalWorkflowPureActionCommitReadStatus
+    snapshot: ExperimentalWorkflowPureActionCommittedSnapshot | None
+    diagnostics: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.status)
+            is not ExperimentalWorkflowPureActionCommitReadStatus
+        ):
+            raise TypeError(
+                "status must be ExperimentalWorkflowPureActionCommitReadStatus"
+            )
+        if type(self.diagnostics) is not tuple or any(
+            type(item) is not str or not item or len(item) > 128
+            for item in self.diagnostics
+        ):
+            raise TypeError("diagnostics must contain bounded nonempty strings")
+        if self.status is ExperimentalWorkflowPureActionCommitReadStatus.FOUND:
+            if type(self.snapshot) is not (
+                ExperimentalWorkflowPureActionCommittedSnapshot
+            ):
+                raise TypeError("found status requires committed snapshot")
+            if self.diagnostics:
+                raise ValueError("found status prohibits diagnostics")
+        elif self.snapshot is not None:
+            raise ValueError("non-found status prohibits committed snapshot")
+        elif not self.diagnostics:
+            raise ValueError("non-found status requires diagnostics")
 
 
 class ExperimentalWorkflowPureActionCommitStatus(StrEnum):
@@ -531,6 +628,13 @@ class ExperimentalWorkflowPureActionReservationRepository(ABC):
         """Atomically retain a commit, consume, and advance the predecessor."""
 
     @abstractmethod
+    def load_committed_snapshot(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitReadResult:
+        """Atomically load one closed compact committed snapshot result."""
+
+    @abstractmethod
     def load_commit(
         self,
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
@@ -543,6 +647,13 @@ class ExperimentalWorkflowPureActionReservationRepository(ABC):
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
     ) -> ExperimentalWorkflowPureActionCommitRecord | None:
         """Load the complete compact commit record for replay inspection."""
+
+    @abstractmethod
+    def load_commit_event(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> bytes | None:
+        """Load the exact canonical committed-event bytes."""
 
     @abstractmethod
     def current_predecessor(
@@ -797,11 +908,11 @@ class ExperimentalInMemoryPureActionReservationRepository(
             self._commit_records = commit_records
             return ExperimentalWorkflowPureActionCommitStatus.COMMITTED
 
-    def load_commit(
+    def load_committed_snapshot(
         self,
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
-    ) -> ExperimentalWorkflowPureActionCommitCoordinates | None:
-        """Load exact retained coordinates without exposing mutable state."""
+    ) -> ExperimentalWorkflowPureActionCommitReadResult:
+        """Atomically reconstruct one retained in-memory commit snapshot."""
         if type(reservation_identity) is not (
             ExperimentalWorkflowPureActionReservationIdentity
         ):
@@ -810,22 +921,99 @@ class ExperimentalInMemoryPureActionReservationRepository(
                 "ExperimentalWorkflowPureActionReservationIdentity"
             )
         with self._lock:
-            return self._commits.get(reservation_identity)
+            coordinates = self._commits.get(reservation_identity)
+            record = self._commit_records.get(reservation_identity)
+        if coordinates is None and record is None:
+            return _commit_read_failure(
+                ExperimentalWorkflowPureActionCommitReadStatus.ABSENT,
+                "commit_absent",
+            )
+        if coordinates is None or record is None:
+            return _commit_read_failure(
+                ExperimentalWorkflowPureActionCommitReadStatus.CORRUPT,
+                "incomplete_commit_state",
+            )
+        from .pure_action_commit_serialization import (
+            ExperimentalWorkflowPureActionCommitEventJsonCodec,
+        )
+
+        try:
+            snapshot = ExperimentalWorkflowPureActionCommittedSnapshot(
+                coordinates=coordinates,
+                record=record,
+                event_bytes=(
+                    ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
+                        record
+                    )
+                ),
+            )
+        except TypeError, ValueError:
+            return _commit_read_failure(
+                ExperimentalWorkflowPureActionCommitReadStatus.CORRUPT,
+                "commit_snapshot_invalid",
+            )
+        return ExperimentalWorkflowPureActionCommitReadResult(
+            status=ExperimentalWorkflowPureActionCommitReadStatus.FOUND,
+            snapshot=snapshot,
+            diagnostics=(),
+        )
+
+    def load_commit(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitCoordinates | None:
+        """Load exact retained coordinates without exposing mutable state."""
+        result = self.load_committed_snapshot(reservation_identity)
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.FOUND
+        ):
+            assert result.snapshot is not None
+            return result.snapshot.coordinates
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.ABSENT
+        ):
+            return None
+        raise RuntimeError(result.diagnostics[0])
 
     def load_commit_record(
         self,
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
     ) -> ExperimentalWorkflowPureActionCommitRecord | None:
         """Load the complete compact retained commit record."""
-        if type(reservation_identity) is not (
-            ExperimentalWorkflowPureActionReservationIdentity
+        result = self.load_committed_snapshot(reservation_identity)
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.FOUND
         ):
-            raise TypeError(
-                "reservation_identity must be "
-                "ExperimentalWorkflowPureActionReservationIdentity"
-            )
-        with self._lock:
-            return self._commit_records.get(reservation_identity)
+            assert result.snapshot is not None
+            return result.snapshot.record
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.ABSENT
+        ):
+            return None
+        raise RuntimeError(result.diagnostics[0])
+
+    def load_commit_event(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> bytes | None:
+        """Construct canonical event bytes for retained in-memory evidence."""
+        result = self.load_committed_snapshot(reservation_identity)
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.FOUND
+        ):
+            assert result.snapshot is not None
+            return result.snapshot.event_bytes
+        if (
+            result.status
+            is ExperimentalWorkflowPureActionCommitReadStatus.ABSENT
+        ):
+            return None
+        raise RuntimeError(result.diagnostics[0])
 
     def current_predecessor(
         self,
@@ -990,6 +1178,13 @@ class ExperimentalWorkflowPureActionReservationService:
         """Atomically consume and advance through the repository boundary."""
         return self._repository.commit(reservation, coordinates, record)
 
+    def load_committed_snapshot(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitReadResult:
+        """Atomically load one closed compact committed snapshot result."""
+        return self._repository.load_committed_snapshot(reservation_identity)
+
     def load_commit(
         self,
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
@@ -1003,6 +1198,13 @@ class ExperimentalWorkflowPureActionReservationService:
     ) -> ExperimentalWorkflowPureActionCommitRecord | None:
         """Load the complete compact retained commit record."""
         return self._repository.load_commit_record(reservation_identity)
+
+    def load_commit_event(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> bytes | None:
+        """Load exact canonical retained commit-event bytes."""
+        return self._repository.load_commit_event(reservation_identity)
 
     def current_predecessor(
         self,
@@ -1051,6 +1253,17 @@ class ExperimentalWorkflowPureActionReservationService:
         return None
 
 
+def _commit_read_failure(
+    status: ExperimentalWorkflowPureActionCommitReadStatus,
+    diagnostic: str,
+) -> ExperimentalWorkflowPureActionCommitReadResult:
+    return ExperimentalWorkflowPureActionCommitReadResult(
+        status=status,
+        snapshot=None,
+        diagnostics=(diagnostic,),
+    )
+
+
 def _reconstruct_commit_coordinates(
     value: ExperimentalWorkflowPureActionCommitCoordinates,
 ) -> ExperimentalWorkflowPureActionCommitCoordinates:
@@ -1084,6 +1297,7 @@ def _reconstruct_commit_record(
         commit_identity=value.commit_identity,
         cpn_plan_identity=value.cpn_plan_identity,
         reservation_identity=value.reservation_identity,
+        net_instance_identity=value.net_instance_identity,
         input_authorization_identity=value.input_authorization_identity,
         source_authorities=value.source_authorities,
         invocation_outcome_identity=value.invocation_outcome_identity,
@@ -1109,6 +1323,7 @@ def _record_matches_coordinates(
     return (
         record.commit_identity == coordinates.commit_identity
         and record.reservation_identity == coordinates.reservation_identity
+        and record.net_instance_identity == coordinates.net_instance_identity
         and record.predecessor_marking_identity
         == coordinates.predecessor_marking_identity
         and record.predecessor_revision == coordinates.predecessor_revision
@@ -1234,8 +1449,11 @@ __all__ = [
     "ExperimentalInMemoryPureActionReservationRepository",
     "ExperimentalWorkflowPureActionCommitCoordinates",
     "ExperimentalWorkflowPureActionCommitIdentity",
+    "ExperimentalWorkflowPureActionCommitReadResult",
+    "ExperimentalWorkflowPureActionCommitReadStatus",
     "ExperimentalWorkflowPureActionCommitRecord",
     "ExperimentalWorkflowPureActionCommitStatus",
+    "ExperimentalWorkflowPureActionCommittedSnapshot",
     "ExperimentalWorkflowPureActionCurrentPredecessor",
     "ExperimentalWorkflowPureActionReservation",
     "ExperimentalWorkflowPureActionReservationIdentity",
