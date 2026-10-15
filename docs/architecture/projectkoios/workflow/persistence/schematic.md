@@ -2,17 +2,23 @@
 
 ## Responsibility
 
-```text
-service command
-      │ one transaction
-      ├── append immutable event(s)
-      ├── update marking/runtime projections
-      └── append dispatch outbox intent
-                 │
-                 ▼
-worker gateway delivery and acknowledgement
+```mermaid
+flowchart TD
+    Command[Pure-action commit candidate] --> Revalidate[Revalidate source observations]
+    Revalidate --> Tx[SQLite BEGIN IMMEDIATE]
+    Tx --> Check[Verify active reservation and current predecessor]
+    Check --> Commit[Insert compact commit fields]
+    Commit --> References[Insert ordered evidence references]
+    References --> Consume[Consume reservation]
+    Consume --> Advance[Advance marking coordinate]
+    Advance --> Durable[SQLite COMMIT with synchronous FULL]
 
-replay: events + immutable artifacts → rebuilt projections
+    Durable --> Reopen[Reopen database]
+    Reopen --> Inspect[Reconstruct commit record and current coordinate]
+
+    Command -. no owner payload bodies .-> Outside[Owner-controlled storage]
 ```
 
-Outbox intent is durable before an external launch is requested.
+The experimental repository covers durable reservation and compact atomic
+commit only. Canonical committed-event replay and complete workflow history
+remain separate work.

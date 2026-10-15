@@ -127,12 +127,19 @@ commit. State is prepared on copies and swapped only at the final commit point,
 so a pre-swap exception leaves repository state unchanged. No standalone consume
 operation exists.
 
-This is non-durable software evidence. A production implementation must persist
-the complete compact commit record and separately admitted evidence references
-under the same transaction, prove crash recovery, and support committed replay.
-Source resolution and predecessor commit also remain sequential across nominal
-repositories rather than one distributed transaction; production source
-revision immutability must close that remaining observation race.
+A purpose-built experimental SQLite repository now persists the complete compact
+commit record, ordered source-authority reference/revision/evidence identities,
+reservation consumption, and successor coordinate under one transaction. It
+supports exact replay idempotence, reopen reconstruction, concurrent
+single-winner commit, injected precommit rollback, and recovery from a separate
+process exiting with an uncommitted marking update. Owner payload bodies and
+private locators do not enter its schema.
+
+Canonical committed-event serialization and read-only semantic replay remain
+unimplemented. Source resolution and predecessor commit also remain sequential
+across nominal repositories rather than one distributed transaction;
+production source revision immutability must close that remaining observation
+race.
 
 ## Internal validation ownership
 

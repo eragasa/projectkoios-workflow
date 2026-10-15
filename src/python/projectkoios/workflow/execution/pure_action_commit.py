@@ -22,6 +22,7 @@ from projectkoios.workflow.runtime import (
     ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
     ExperimentalWorkflowPureActionCommitCoordinates,
     ExperimentalWorkflowPureActionCommitIdentity,
+    ExperimentalWorkflowPureActionCommitRecord,
     ExperimentalWorkflowPureActionCommitStatus,
     ExperimentalWorkflowPureActionInputSourceAuthorityIdentity,
     ExperimentalWorkflowPureActionReservation,
@@ -307,7 +308,12 @@ class ExperimentalWorkflowPureActionCommitService:
                 commit=None,
                 diagnostics=(source_status.value,),
             )
-        status = self._reservation_service.commit(reservation, coordinates)
+        record = _construct_commit_record(commit, authorized)
+        status = self._reservation_service.commit(
+            reservation,
+            coordinates,
+            record,
+        )
         if status in {
             ExperimentalWorkflowPureActionCommitStatus.COMMITTED,
             ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
@@ -385,6 +391,36 @@ def _construct_commit(
             successor.identity.value
         ),
         successor_revision=context.predecessor_revision + 1,
+    )
+
+
+def _construct_commit_record(
+    commit: ExperimentalWorkflowPureActionCommit,
+    authorized: ExperimentalWorkflowPureActionAuthorizedInputs,
+) -> ExperimentalWorkflowPureActionCommitRecord:
+    if (
+        tuple(item.identity for item in authorized.source_authorities)
+        != commit.source_authority_identities
+    ):
+        raise ValueError(
+            "commit source authorities differ from authorized inputs"
+        )
+    return ExperimentalWorkflowPureActionCommitRecord(
+        commit_identity=commit.identity,
+        cpn_plan_identity=commit.cpn_plan_identity,
+        reservation_identity=commit.reservation_identity,
+        input_authorization_identity=commit.input_authorization_identity,
+        source_authorities=authorized.source_authorities,
+        invocation_outcome_identity=commit.invocation_outcome_identity.value,
+        request_identity=commit.request_identity,
+        owner_result_identity=commit.owner_result_identity,
+        mapped_result_identity=commit.mapped_result_identity.value,
+        firing_outcome_identity=commit.firing_outcome_identity.value,
+        cpn_firing_result_identity=commit.cpn_firing_result_identity.value,
+        predecessor_marking_identity=commit.predecessor_marking_identity,
+        predecessor_revision=commit.predecessor_revision,
+        successor_marking_identity=commit.successor_marking_identity,
+        successor_revision=commit.successor_revision,
     )
 
 

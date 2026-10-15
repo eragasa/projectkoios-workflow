@@ -2,6 +2,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 from _pure_action_fixtures import (
@@ -13,10 +14,14 @@ from _pure_action_fixtures import (
 from projectkoios.workflow.execution import (
     ExperimentalWorkflowPureActionCommitService,
 )
+from projectkoios.workflow.persistence import (
+    ExperimentalSQLitePureActionReservationRepository,
+)
 from projectkoios.workflow.runtime import (
     ExperimentalWorkflowPureActionCommitCoordinates,
     ExperimentalWorkflowPureActionCommitIdentity,
     ExperimentalWorkflowPureActionCommitStatus,
+    ExperimentalWorkflowPureActionReservationService,
     ExperimentalWorkflowPureActionRevalidationStatus,
 )
 from projectkoios.workflow.runtime import (
@@ -70,6 +75,17 @@ def test_atomic_commit_consumes_reservation_and_advances_marking() -> None:
     retained = fixture.reservation_service.load_commit(reservation.identity)
     assert retained is not None
     assert retained.commit_identity == committed.commit.identity
+    record = fixture.reservation_service.load_commit_record(
+        reservation.identity
+    )
+    assert record is not None
+    assert record.commit_identity == committed.commit.identity
+    assert record.source_authorities == fixture.authorized.source_authorities
+    assert (
+        record.invocation_outcome_identity
+        == candidate.invocation.identity.value
+    )
+    assert record.firing_outcome_identity == candidate.firing.identity.value
     current = fixture.reservation_service.current_predecessor(
         reservation.net_instance_identity
     )
@@ -80,6 +96,53 @@ def test_atomic_commit_consumes_reservation_and_advances_marking() -> None:
     assert current.revision == committed.commit.successor_revision
     assert not hasattr(committed.commit, "request")
     assert not hasattr(committed.commit, "result")
+
+
+def test_atomic_commit_service_persists_complete_record_durably(
+    tmp_path: Path,
+) -> None:
+    candidate = _commit_fixture()
+    fixture = candidate.invocation_fixture
+    assert fixture.cpn_plan is not None
+    durable_repository = ExperimentalSQLitePureActionReservationRepository(
+        tmp_path / "private" / "pure-action.sqlite3",
+        predecessors=(_predecessor(),),
+    )
+    reservation_service = ExperimentalWorkflowPureActionReservationService(
+        durable_repository,
+        fixture.source_repository,
+    )
+    reservation_result = reservation_service.reserve(
+        authorized_inputs=fixture.authorized,
+        cpn_plan=fixture.cpn_plan,
+    )
+    assert (
+        reservation_result.reservation == fixture.reservation_result.reservation
+    )
+
+    committed = ExperimentalWorkflowPureActionCommitService(
+        reservation_service
+    ).execute(
+        authorized_inputs=fixture.authorized,
+        reservation_result=reservation_result,
+        cpn_plan=fixture.cpn_plan,
+        invocation_outcome=candidate.invocation,
+        firing_outcome=candidate.firing,
+    )
+
+    assert (
+        committed.status is ExperimentalWorkflowPureActionCommitStatus.COMMITTED
+    )
+    assert committed.commit is not None
+    reopened = ExperimentalSQLitePureActionReservationRepository(
+        durable_repository.database_path
+    )
+    retained = reopened.load_commit_record(
+        reservation_result.reservation.identity
+    )
+    assert retained is not None
+    assert retained.commit_identity == committed.commit.identity
+    assert retained.source_authorities == fixture.authorized.source_authorities
 
 
 def test_atomic_commit_allows_one_concurrent_winner() -> None:

@@ -36,7 +36,8 @@ CPN selected binding
 - [ ] Atomically retain the request, result, mapping, evidence, firing history,
   consumed reservation, and successor marking under the local runtime's accepted
   persistence boundary.
-- [ ] Prove rollback leaves no partially committed occurrence or successor.
+- [x] Prove rollback leaves no partially committed occurrence or successor, with
+  [durable-persistence evidence](pure_action_durable_persistence_evidence.md).
 - [ ] Replay the committed firing using the exact retained behavior profiles.
 
 The first intended consumer fixture is the
@@ -80,9 +81,13 @@ byte-equal definition, supplied predecessor marking, and active reservation; the
 provenance-bound pure firer validates output color and computes a candidate
 successor and audit. A bounded in-memory atomic-commit candidate now consumes
 that exact reservation and advances the authoritative marking coordinate under
-one lock while retaining a compact content commitment. These candidates are not
-the complete authoritative plan or deployment bindings, and durable evidence
-persistence or committed replay does not exist yet.
+one lock while retaining a compact content commitment. A purpose-built SQLite
+candidate now retains the complete compact commit fields, ordered source
+authority references, reservation consumption, and successor coordinate in one
+durable transaction, with reopen, process-crash, rollback, corruption, and
+concurrency evidence. These candidates are not the complete authoritative plan
+or deployment bindings, and canonical committed-event replay does not exist
+yet.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
@@ -109,7 +114,8 @@ inventing the mapping inside the owner adapter.
   [pure-action invocation evidence](pure_action_invocation_evidence.md),
   [pure-action CPN plan-closure evidence](pure_action_cpn_plan_evidence.md),
   [pure-action CPN firing evidence](pure_action_firing_evidence.md),
-  and [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md).
+  [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
+  and [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md).
 - [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
 - [ ] Retain request, result, reservation, profile, binding, firing, and history
   identities.

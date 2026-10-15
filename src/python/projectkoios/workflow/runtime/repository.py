@@ -6,7 +6,7 @@ import hashlib
 from dataclasses import dataclass
 from enum import StrEnum
 
-from projectkoios.workflow.persistence import (
+from projectkoios.workflow.persistence.store import (
     AtomicRevisionStore,
     Revision,
     RevisionCommit,

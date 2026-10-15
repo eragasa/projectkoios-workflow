@@ -23,6 +23,7 @@ from projectkoios.workflow_sdk.firing import WorkflowFiringRequest
 from projectkoios.workflow_sdk.identities import (
     WorkflowAttemptIdentity,
     WorkflowFiringRequestIdentity,
+    WorkflowFiringResultIdentity,
     WorkflowMarkingIdentity,
     WorkflowNetInstanceIdentity,
     WorkflowOccurrenceIdentity,
@@ -31,6 +32,7 @@ from projectkoios.workflow_sdk.identities import (
 from .pure_action_input_authority import (
     ExperimentalWorkflowPureActionAuthorizedInputs,
     ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+    ExperimentalWorkflowPureActionInputSourceAuthority,
 )
 from .pure_action_inputs import (
     ExperimentalWorkflowPureActionAdmittedInputsIdentity,
@@ -263,6 +265,8 @@ class ExperimentalWorkflowPureActionReserveStatus(StrEnum):
     SOURCE_INDETERMINATE = "source_indeterminate"
     SOURCE_ERROR = "source_error"
     SOURCE_CONFLICT = "source_conflict"
+    INDETERMINATE = "indeterminate"
+    ERROR = "error"
 
 
 class ExperimentalWorkflowPureActionRevalidationStatus(StrEnum):
@@ -272,6 +276,8 @@ class ExperimentalWorkflowPureActionRevalidationStatus(StrEnum):
     ABSENT = "absent"
     STALE = "stale"
     CONSUMED = "consumed"
+    INDETERMINATE = "indeterminate"
+    ERROR = "error"
 
 
 @dataclass(frozen=True, slots=True)
@@ -381,6 +387,110 @@ class ExperimentalWorkflowPureActionCommitCoordinates:
             raise ValueError("successor marking must differ from predecessor")
 
 
+@dataclass(frozen=True, slots=True)
+class ExperimentalWorkflowPureActionCommitRecord:
+    """Complete compact commit and admitted source-reference evidence."""
+
+    commit_identity: ExperimentalWorkflowPureActionCommitIdentity
+    cpn_plan_identity: ExperimentalWorkflowPureActionCpnPlanIdentity
+    reservation_identity: ExperimentalWorkflowPureActionReservationIdentity
+    input_authorization_identity: (
+        ExperimentalWorkflowPureActionAuthorizedInputsIdentity
+    )
+    source_authorities: tuple[
+        ExperimentalWorkflowPureActionInputSourceAuthority, ...
+    ]
+    invocation_outcome_identity: str
+    request_identity: WorkflowFiringRequestIdentity
+    owner_result_identity: WorkflowFiringResultIdentity
+    mapped_result_identity: str
+    firing_outcome_identity: str
+    cpn_firing_result_identity: str
+    predecessor_marking_identity: WorkflowMarkingIdentity
+    predecessor_revision: int
+    successor_marking_identity: WorkflowMarkingIdentity
+    successor_revision: int
+
+    def __post_init__(self) -> None:
+        expected = (
+            (
+                self.commit_identity,
+                ExperimentalWorkflowPureActionCommitIdentity,
+                "commit_identity",
+            ),
+            (
+                self.cpn_plan_identity,
+                ExperimentalWorkflowPureActionCpnPlanIdentity,
+                "cpn_plan_identity",
+            ),
+            (
+                self.reservation_identity,
+                ExperimentalWorkflowPureActionReservationIdentity,
+                "reservation_identity",
+            ),
+            (
+                self.input_authorization_identity,
+                ExperimentalWorkflowPureActionAuthorizedInputsIdentity,
+                "input_authorization_identity",
+            ),
+            (
+                self.request_identity,
+                WorkflowFiringRequestIdentity,
+                "request_identity",
+            ),
+            (
+                self.owner_result_identity,
+                WorkflowFiringResultIdentity,
+                "owner_result_identity",
+            ),
+            (
+                self.predecessor_marking_identity,
+                WorkflowMarkingIdentity,
+                "predecessor_marking_identity",
+            ),
+            (
+                self.successor_marking_identity,
+                WorkflowMarkingIdentity,
+                "successor_marking_identity",
+            ),
+        )
+        for value, nominal_type, label in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{label} must be {nominal_type.__name__}")
+        if type(self.source_authorities) is not tuple or any(
+            type(item) is not ExperimentalWorkflowPureActionInputSourceAuthority
+            for item in self.source_authorities
+        ):
+            raise TypeError(
+                "source_authorities must contain "
+                "ExperimentalWorkflowPureActionInputSourceAuthority"
+            )
+        authority_identities = tuple(
+            item.identity for item in self.source_authorities
+        )
+        if len(authority_identities) != len(set(authority_identities)):
+            raise ValueError("source authority identities must be unique")
+        for label in (
+            "invocation_outcome_identity",
+            "mapped_result_identity",
+            "firing_outcome_identity",
+            "cpn_firing_result_identity",
+        ):
+            _validate_sha256(getattr(self, label), label)
+        for label in ("predecessor_revision", "successor_revision"):
+            value = getattr(self, label)
+            if type(value) is not int:
+                raise TypeError(f"{label} must be an integer")
+            if value < 0:
+                raise ValueError(f"{label} must be nonnegative")
+        if self.successor_revision != self.predecessor_revision + 1:
+            raise ValueError(
+                "successor revision must immediately follow predecessor"
+            )
+        if self.successor_marking_identity == self.predecessor_marking_identity:
+            raise ValueError("successor marking must differ from predecessor")
+
+
 class ExperimentalWorkflowPureActionCommitStatus(StrEnum):
     """Closed atomic commit result for one reserved predecessor."""
 
@@ -388,6 +498,8 @@ class ExperimentalWorkflowPureActionCommitStatus(StrEnum):
     IDEMPOTENT = "idempotent"
     STALE = "stale"
     CONFLICT = "conflict"
+    INDETERMINATE = "indeterminate"
+    ERROR = "error"
 
 
 class ExperimentalWorkflowPureActionReservationRepository(ABC):
@@ -414,6 +526,7 @@ class ExperimentalWorkflowPureActionReservationRepository(ABC):
         self,
         reservation: ExperimentalWorkflowPureActionReservation,
         coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+        record: ExperimentalWorkflowPureActionCommitRecord | None = None,
     ) -> ExperimentalWorkflowPureActionCommitStatus:
         """Atomically retain a commit, consume, and advance the predecessor."""
 
@@ -423,6 +536,13 @@ class ExperimentalWorkflowPureActionReservationRepository(ABC):
         reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
     ) -> ExperimentalWorkflowPureActionCommitCoordinates | None:
         """Load compact committed coordinates for exact replay inspection."""
+
+    @abstractmethod
+    def load_commit_record(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitRecord | None:
+        """Load the complete compact commit record for replay inspection."""
 
     @abstractmethod
     def current_predecessor(
@@ -438,7 +558,14 @@ class ExperimentalInMemoryPureActionReservationRepository(
 ):
     """Thread-safe non-durable reference used as software evidence."""
 
-    __slots__ = ("_active", "_commits", "_consumed", "_current", "_lock")
+    __slots__ = (
+        "_active",
+        "_commit_records",
+        "_commits",
+        "_consumed",
+        "_current",
+        "_lock",
+    )
 
     def __init__(
         self,
@@ -451,6 +578,9 @@ class ExperimentalInMemoryPureActionReservationRepository(
         ] = (),
         committed_coordinates: tuple[
             ExperimentalWorkflowPureActionCommitCoordinates, ...
+        ] = (),
+        committed_records: tuple[
+            ExperimentalWorkflowPureActionCommitRecord, ...
         ] = (),
     ) -> None:
         if type(predecessors) is not tuple or any(
@@ -475,6 +605,14 @@ class ExperimentalInMemoryPureActionReservationRepository(
             raise TypeError(
                 "committed_coordinates must contain "
                 "ExperimentalWorkflowPureActionCommitCoordinates"
+            )
+        if type(committed_records) is not tuple or any(
+            type(item) is not ExperimentalWorkflowPureActionCommitRecord
+            for item in committed_records
+        ):
+            raise TypeError(
+                "committed_records must contain "
+                "ExperimentalWorkflowPureActionCommitRecord"
             )
         identities = tuple(item.net_instance_identity for item in predecessors)
         if len(identities) != len(set(identities)):
@@ -503,6 +641,24 @@ class ExperimentalInMemoryPureActionReservationRepository(
         self._commits = {
             item.reservation_identity: item for item in committed_coordinates
         }
+        record_reservations = tuple(
+            item.reservation_identity for item in committed_records
+        )
+        if len(record_reservations) != len(set(record_reservations)):
+            raise ValueError(
+                "commit record reservation identities must be unique"
+            )
+        self._commit_records = {
+            item.reservation_identity: item for item in committed_records
+        }
+        for reservation_identity, record in self._commit_records.items():
+            coordinates = self._commits.get(reservation_identity)
+            if coordinates is None or not _record_matches_coordinates(
+                record, coordinates
+            ):
+                raise ValueError(
+                    "commit records must exactly match committed coordinates"
+                )
         self._consumed = set(consumed_reservation_identities) | set(
             commit_reservations
         )
@@ -553,10 +709,14 @@ class ExperimentalInMemoryPureActionReservationRepository(
         self,
         reservation: ExperimentalWorkflowPureActionReservation,
         coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+        record: ExperimentalWorkflowPureActionCommitRecord | None = None,
     ) -> ExperimentalWorkflowPureActionCommitStatus:
         """Atomically retain compact commit state and advance the marking."""
         validated_reservation = _reconstruct_reservation(reservation)
         validated_coordinates = _reconstruct_commit_coordinates(coordinates)
+        validated_record = (
+            None if record is None else _reconstruct_commit_record(record)
+        )
         if (
             validated_coordinates.reservation_identity
             != validated_reservation.identity
@@ -568,10 +728,24 @@ class ExperimentalInMemoryPureActionReservationRepository(
             != validated_reservation.predecessor_revision
         ):
             raise ValueError("commit coordinates differ from reservation")
+        if validated_record is not None and (
+            validated_record.reservation_identity
+            != validated_reservation.identity
+            or not _record_matches_coordinates(
+                validated_record, validated_coordinates
+            )
+        ):
+            raise ValueError("commit record differs from commit coordinates")
         with self._lock:
             existing = self._commits.get(validated_reservation.identity)
             if existing is not None:
-                if existing == validated_coordinates:
+                existing_record = self._commit_records.get(
+                    validated_reservation.identity
+                )
+                if existing == validated_coordinates and (
+                    validated_record is None
+                    or existing_record == validated_record
+                ):
                     return ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
             if any(
@@ -591,9 +765,14 @@ class ExperimentalInMemoryPureActionReservationRepository(
             current = dict(self._current)
             consumed = set(self._consumed)
             commits = dict(self._commits)
+            commit_records = dict(self._commit_records)
             del active[validated_reservation.net_instance_identity]
             consumed.add(validated_reservation.identity)
             commits[validated_reservation.identity] = validated_coordinates
+            if validated_record is not None:
+                commit_records[validated_reservation.identity] = (
+                    validated_record
+                )
             current[validated_reservation.net_instance_identity] = (
                 ExperimentalWorkflowPureActionCurrentPredecessor(
                     net_instance_identity=(
@@ -615,6 +794,7 @@ class ExperimentalInMemoryPureActionReservationRepository(
             self._current = current
             self._consumed = consumed
             self._commits = commits
+            self._commit_records = commit_records
             return ExperimentalWorkflowPureActionCommitStatus.COMMITTED
 
     def load_commit(
@@ -631,6 +811,21 @@ class ExperimentalInMemoryPureActionReservationRepository(
             )
         with self._lock:
             return self._commits.get(reservation_identity)
+
+    def load_commit_record(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitRecord | None:
+        """Load the complete compact retained commit record."""
+        if type(reservation_identity) is not (
+            ExperimentalWorkflowPureActionReservationIdentity
+        ):
+            raise TypeError(
+                "reservation_identity must be "
+                "ExperimentalWorkflowPureActionReservationIdentity"
+            )
+        with self._lock:
+            return self._commit_records.get(reservation_identity)
 
     def current_predecessor(
         self,
@@ -790,9 +985,10 @@ class ExperimentalWorkflowPureActionReservationService:
         self,
         reservation: ExperimentalWorkflowPureActionReservation,
         coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+        record: ExperimentalWorkflowPureActionCommitRecord | None = None,
     ) -> ExperimentalWorkflowPureActionCommitStatus:
         """Atomically consume and advance through the repository boundary."""
-        return self._repository.commit(reservation, coordinates)
+        return self._repository.commit(reservation, coordinates, record)
 
     def load_commit(
         self,
@@ -800,6 +996,13 @@ class ExperimentalWorkflowPureActionReservationService:
     ) -> ExperimentalWorkflowPureActionCommitCoordinates | None:
         """Load compact retained commit coordinates."""
         return self._repository.load_commit(reservation_identity)
+
+    def load_commit_record(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionCommitRecord | None:
+        """Load the complete compact retained commit record."""
+        return self._repository.load_commit_record(reservation_identity)
 
     def current_predecessor(
         self,
@@ -868,6 +1071,62 @@ def _reconstruct_commit_coordinates(
     if reconstructed != value:
         raise ValueError("commit coordinates differ after validation")
     return reconstructed
+
+
+def _reconstruct_commit_record(
+    value: ExperimentalWorkflowPureActionCommitRecord,
+) -> ExperimentalWorkflowPureActionCommitRecord:
+    if type(value) is not ExperimentalWorkflowPureActionCommitRecord:
+        raise TypeError(
+            "record must be ExperimentalWorkflowPureActionCommitRecord"
+        )
+    reconstructed = ExperimentalWorkflowPureActionCommitRecord(
+        commit_identity=value.commit_identity,
+        cpn_plan_identity=value.cpn_plan_identity,
+        reservation_identity=value.reservation_identity,
+        input_authorization_identity=value.input_authorization_identity,
+        source_authorities=value.source_authorities,
+        invocation_outcome_identity=value.invocation_outcome_identity,
+        request_identity=value.request_identity,
+        owner_result_identity=value.owner_result_identity,
+        mapped_result_identity=value.mapped_result_identity,
+        firing_outcome_identity=value.firing_outcome_identity,
+        cpn_firing_result_identity=value.cpn_firing_result_identity,
+        predecessor_marking_identity=value.predecessor_marking_identity,
+        predecessor_revision=value.predecessor_revision,
+        successor_marking_identity=value.successor_marking_identity,
+        successor_revision=value.successor_revision,
+    )
+    if reconstructed != value:
+        raise ValueError("commit record differs after validation")
+    return reconstructed
+
+
+def _record_matches_coordinates(
+    record: ExperimentalWorkflowPureActionCommitRecord,
+    coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+) -> bool:
+    return (
+        record.commit_identity == coordinates.commit_identity
+        and record.reservation_identity == coordinates.reservation_identity
+        and record.predecessor_marking_identity
+        == coordinates.predecessor_marking_identity
+        and record.predecessor_revision == coordinates.predecessor_revision
+        and record.successor_marking_identity
+        == coordinates.successor_marking_identity
+        and record.successor_revision == coordinates.successor_revision
+    )
+
+
+def _validate_sha256(value: str, label: str) -> None:
+    if type(value) is not str:
+        raise TypeError(f"{label} must be a string")
+    if (
+        len(value) != 64
+        or value != value.lower()
+        or any(character not in "0123456789abcdef" for character in value)
+    ):
+        raise ValueError(f"{label} must be a lowercase SHA-256 digest")
 
 
 def _finalize_commit_state(
@@ -975,6 +1234,7 @@ __all__ = [
     "ExperimentalInMemoryPureActionReservationRepository",
     "ExperimentalWorkflowPureActionCommitCoordinates",
     "ExperimentalWorkflowPureActionCommitIdentity",
+    "ExperimentalWorkflowPureActionCommitRecord",
     "ExperimentalWorkflowPureActionCommitStatus",
     "ExperimentalWorkflowPureActionCurrentPredecessor",
     "ExperimentalWorkflowPureActionReservation",
