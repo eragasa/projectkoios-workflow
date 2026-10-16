@@ -1,7 +1,18 @@
 # `AbstractWorkflow`
 
+> **Status: iteration-2 target; exact public name unaccepted.**
+
 ## Responsibility
 
-`AbstractWorkflow` is the nominal external owner of one workflow source definition. A subclass declares a stable identity and immutable composition using SDK fragment, connection, action, and target records.
+`AbstractWorkflow` is the nominal composite specialization of `AbstractTask`.
+It declares a stable identity, immutable ordered Task-instance composition, and
+explicit input/export contracts.
 
-Its final definition property constructs a generic `WorkflowDefinition`; subclasses do not define bespoke serialized workflow schemas. The class performs no discovery, persistence, scheduling, enablement, firing, or effect execution.
+A parent invokes a Workflow through one Task position. Runtime then creates a
+distinct child Workflow run with its own plan, marking, occurrences, attempts,
+history, replay, and terminal delivery. The parent never embeds or directly
+advances the child's CPN.
+
+The source class performs no discovery, persistence, scheduling, enablement,
+firing, provider execution, or child-run creation. Its final definition property
+constructs one generic immutable `WorkflowDefinition`.

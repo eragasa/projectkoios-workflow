@@ -2,12 +2,27 @@
 
 ## Responsibility
 
-```text
-AbstractWorkflow ──final property──▶ WorkflowDefinition
-AbstractTask ──────final property──▶ TaskDefinition
-                                      │
-                                      ▼
-                         WorkflowExecutionPlanConstructor
+```mermaid
+classDiagram
+    class TaskDefinition {
+      +task identity
+      +definition kind
+      +contract version
+    }
+    class AtomicTaskDefinition {
+      +pure or effectful route descriptor
+    }
+    class WorkflowDefinition {
+      +ordered Task instances
+      +composition
+      +input/export contracts
+    }
+    TaskDefinition <|-- AtomicTaskDefinition
+    TaskDefinition <|-- WorkflowDefinition
+
+    class WorkflowExecutionPlanConstructor
+    TaskDefinition --> WorkflowExecutionPlanConstructor
 ```
 
-Definition equality is structural and content-bound. A later change to a source owner creates another definition identity rather than mutating the retained definition.
+Definition equality is structural and content-bound. A source-owner change
+creates another definition identity rather than mutating retained state.

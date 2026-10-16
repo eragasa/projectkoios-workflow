@@ -1,58 +1,53 @@
 # `WorkflowEngine`
 
-> **Status: provisional architecture candidate.**
+> **Status: provisional architecture iteration 2.** One durable pure atomic Task
+> route is implemented experimentally. Effectful and workflow-backed Task routes
+> remain architecture candidates.
 
 ## Responsibility
 
-`WorkflowEngine` coordinates one already compiled and linked plan against an
-exact net instance. It accepts an exact selected binding or activation, derives
-occurrence and attempt context, dispatches through the linked route, admits a
-successful result, and requests atomic pure firing.
+`WorkflowEngine` coordinates one compiled and linked Workflow plan against an
+exact Workflow run. It selects one run-scoped Task instance through the
+correlated CPN binding and dispatches exactly one compatible execution route:
 
-External-output admission is a Workflow runtime phase, not an SDK subsystem.
-The engine obtains the pure candidate mapping from the linked
-`TransitionActionBinding`, independently checks the exact SDK result and
-retained deployment binding, revalidates the reserved predecessor and selected
-CPN binding, and only then calls `ColoredPetriNetTransitionFirer`.
+- pure atomic Task through the SDK `Firer` boundary;
+- effectful atomic Task through an accepted lifecycle handler; or
+- workflow-backed Task through a distinct child Workflow run.
 
-For the QE SCF artifact-set direction, the admitted CPN string is the opaque
-Simulations-owned `artifact_set_identity`. The canonical `artifact_set` document
-and its payload SHA-256 are retained as evidence and never substituted for that
-logical identity.
+The engine does not confuse Task with transition, action, event, handler, or
+provider. It derives and retains separate Task invocation, occurrence, attempt,
+and run identities. A workflow-backed Task does not inline its child graph or
+reuse the parent run; only an admitted terminal child delivery can become its
+parent-visible result.
 
-The engine performs no discovery, registry lookup, plan inference, provider
-selection, owner-domain import, or scientific interpretation. Rejected, failed,
-or stale provider outcomes preserve evidence without fabricating a domain
-firing.
+For a pure atomic Task, external-output admission is a Workflow runtime phase.
+The engine obtains the plan-selected mapping, validates the exact SDK result and
+deployment binding, revalidates authoritative sources, reservation, predecessor,
+and selected CPN binding, and only then calls
+`ColoredPetriNetTransitionFirer`.
 
-A bounded experimental reservation candidate now closes one SDK request over
-the exact plan/linking identities, structural selected-binding evidence,
-plan-selected input-source evidence, predecessor coordinates, occurrence, and
-attempt. It accepts no independent raw input tuple and re-resolves every source
-through its nominal owner/source repository before reservation. Its nominal
-predecessor-repository boundary supports atomic reservation and post-owner
-revalidation; the supplied in-memory implementation is evidence only, not
-authoritative persistence or complete `WorkflowEngine` conformance.
+For the QE saved-state candidate, the admitted CPN string is the opaque
+Simulations-owned `artifact_set_identity`. Canonical artifact-set bytes and their
+payload SHA-256 remain owner evidence and are never substituted for that logical
+identity. The same generic Task model must preserve VASP as a different owner
+specialization without assuming QE saved-state semantics.
 
-A bounded v0 invocation candidate now validates an exact live worker against the
-retained manifest, invokes the SDK firer, canonically admits its closed result,
-and revalidates the source observations and predecessor afterward. Only a
-current success is mapped to a candidate external CPN binding. This is followed
-by a bounded pure-firing candidate that asks the provenance-bound CPN firer to
-validate the mapped output and compute a successor and audit.
+The engine performs no discovery, plan inference, owner-domain import, provider
+selection, or scientific interpretation. Rejected, failed, ambiguous, stale,
+cancelled, or unadmitted child outcomes preserve evidence without fabricating a
+Task result or CPN firing.
 
-The canonical experimental write direction uses
-`ExperimentalWorkflowPureActionDurableCpnCommitService`. Compact commit, CPN
-replay evidence, lifecycle transition, reservation consumption, and marking
-advancement share one SQLite transaction. Reopen, rollback, corruption,
-concurrency, and crash behavior have retained evidence; compact replay, exact
-CPN refiring, lifecycle replay, and bounded safety-state reconstruction are
-available without owner reinvocation. The compact-only service remains a
-compatibility writer for legacy evidence and has no production execution
-callers.
+## Implemented bounded route
 
-A bounded CPN plan closes the supplied definition bytes and candidate
-execution-profile identity, but not every semantic section required by the
-complete execution plan. These components therefore demonstrate one durable
-pure-action path without claiming complete `WorkflowEngine`, global scheduler,
-or CPN-bindings conformance.
+The existing experimental chain closes one pure atomic Task over exact plan and
+binding identities, selected-binding evidence, repository-authorized inputs,
+predecessor coordinates, occurrence, and attempt. It validates a live worker,
+invokes the SDK firer, admits and maps only a current success, invokes the pure
+CPN firer, and commits compact state, CPN replay evidence, lifecycle transition,
+reservation consumption, and marking advancement in one SQLite transaction.
+
+Compact replay, exact CPN refiring, lifecycle replay, and bounded safety-state
+reconstruction invoke no owner. The compact-only writer remains compatibility
+behavior. These components do not implement the complete Task/Workflow model,
+effect lifecycle, child-run orchestration, global scheduler, or full
+CPN-bindings conformance.

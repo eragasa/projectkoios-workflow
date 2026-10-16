@@ -2,17 +2,17 @@
 
 ## Responsibility
 
-```text
-exact plan + proposed binding descriptors
-                  │
-                  ├── membership/order equality
-                  ├── definition/version equality
-                  ├── route/effect compatibility
-                  ├── capability/protocol compatibility
-                  └── nested-target equality
-                  │
-                  ▼
- complete bindings | closed findings
+```mermaid
+flowchart TD
+    I[Exact plan plus proposed descriptors]
+    M[Membership and order equality]
+    D[Definition and version equality]
+    K[Task kind and route compatibility]
+    P[Capability and protocol compatibility]
+    C[Child-plan deployment equality]
+    O[Complete bindings or closed findings]
+
+    I --> M --> D --> K --> P --> C --> O
 ```
 
-The engine accepts only the completed aggregate and therefore needs no registry access.
+The engine accepts only the complete aggregate; runtime needs no registry or child-target discovery.

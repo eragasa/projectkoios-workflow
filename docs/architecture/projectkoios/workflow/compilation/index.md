@@ -2,6 +2,15 @@
 
 ## Responsibility
 
-Compilation converts external source-owner definitions into an immutable, complete, content-addressed execution plan and separately links that plan to one exact deployment. It is the boundary that prevents mutable adapters, providers, and runtime objects from entering declarative workflow state.
+Compilation converts external immutable Task/Workflow definitions into complete
+content-addressed execution plans and separately links those plans to exact
+deployments. It prevents mutable owners, handlers, providers, and runtime
+objects from entering declarative state.
 
-The compiler lowers fragment composition to canonical flat CPN IR. The linker proves that provider and nested-target bindings exactly match the compiled plan. Neither phase fires a transition or performs a domain effect.
+A Workflow compiles to one flat canonical CPN plan. Atomic Task instances map to
+pure or lifecycle transition routes. Workflow-backed Task instances retain exact
+references to separately compiled child plans and terminal-delivery contracts;
+child topology is never flattened into the parent net.
+
+Compilation and linking fire no transition, create no run, invoke no Task, and
+perform no owner effect.

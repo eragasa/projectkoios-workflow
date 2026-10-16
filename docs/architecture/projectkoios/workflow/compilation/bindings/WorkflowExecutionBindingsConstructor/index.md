@@ -2,6 +2,10 @@
 
 ## Responsibility
 
-`WorkflowExecutionBindingsConstructor` proves that a proposed deployment completely and exactly implements one compiled execution plan. It is the final validation boundary before a plan can be started in an environment.
+`WorkflowExecutionBindingsConstructor` proves that one proposed deployment
+completely and exactly implements a compiled Workflow plan. It binds atomic
+Tasks to exact firer or lifecycle descriptors and workflow-backed Tasks to exact
+child-plan deployments.
 
-It does not discover plugins, call provider code, start a run, or compensate for an incomplete plan.
+It does not discover plugins, call handlers, start parent or child runs, or
+compensate for an incomplete plan.

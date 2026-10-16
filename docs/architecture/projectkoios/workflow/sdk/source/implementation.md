@@ -2,6 +2,22 @@
 
 ## Responsibility
 
-Adapt the source-owner pattern from historical `ksdft2effmass/workflows/tasks.py` at commit `5210b760c6c13f9f5980a649f0a85362a26b5d2d`, blob `eb9b37542f0ab17cc2b33881b3882fc42c3ef8fd`.
+Provide nominal runtime-enforced source ABCs, not structural protocols. The
+candidate relationship is `AbstractWorkflow(AbstractTask)`: every Workflow can
+occupy one Task position in a parent composition, while an atomic Task cannot
+claim Workflow composition behavior.
 
-The target may rename historical execution kinds, but it must preserve the distinction among pure typed actions, external lifecycle effects, and nested-net targets. Source definitions must be independent of mutable owner state after construction. Tests must mutate an owner after compilation and prove that the compiled plan is unchanged.
+A final definition constructor validates exact built-in fields, immutable Task
+instance order, unique identities, route closure, and child definition
+references. It returns frozen generic definitions and retains no owner object,
+callable, handler, firer, repository, provider, path, or payload body.
+
+Atomic Task declarations distinguish pure `Firer` execution from effectful
+lifecycle execution. Workflow declarations instead provide composition and
+child export contracts. They do not pretend that a complete child Workflow is
+an atomic provider call. Direct and indirect self-nesting are rejected.
+
+Historical `ksdft2effmass` Task/Workflow source patterns are migration evidence,
+not a class layout to copy. Simulations' nominal QE/VASP Task records and
+handlers are provider-specialization evidence. Exact APIs are accepted only
+after both owner shapes pass adapters and dependency checks.

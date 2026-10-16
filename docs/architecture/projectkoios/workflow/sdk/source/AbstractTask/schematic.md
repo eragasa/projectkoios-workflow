@@ -2,17 +2,27 @@
 
 ## Responsibility
 
-```text
-AbstractTask subclass
-   ├── pure typed action route
-   ├── external lifecycle route
-   └── nested-net route
-             │ final definition property
-             ▼
-       TaskSourceDefinition
-             │ compile-time mapping
-             ▼
- CPN transition/action binding
+```mermaid
+flowchart TD
+    T[AbstractTask nominal source owner]
+    A[Atomic Task]
+    W[Workflow composite Task]
+    P[Pure Firer descriptor]
+    E[Effect lifecycle descriptor]
+    C[Ordered child Task instances]
+    TD[Immutable TaskDefinition]
+    WD[Immutable WorkflowDefinition]
+
+    T --> A
+    T --> W
+    A --> P
+    A --> E
+    W --> C
+    A --> TD
+    W --> WD
+    WD --> TD
 ```
 
-Only one route is admitted. Route choice controls linking and invocation behavior but never replaces CPN enablement or firing semantics.
+Exactly one specialization shape is admitted. Route and composition declarations
+control compilation and linking but never replace CPN enablement, selection, or
+firing semantics.

@@ -2,6 +2,15 @@
 
 ## Responsibility
 
-Construct only through the final `AbstractWorkflow.definition` path or strict deserialization. Validate content identity on construction and deserialization. Reject arbitrary subclasses so a retained plan has one closed representation.
+Construct through the final Workflow source-definition path or strict canonical
+deserialization. Validate exact Task-instance order, unique identities,
+composition connections, input/export contracts, and content identity.
 
-Tests must prove byte-stable canonicalization, owner mutation independence, version mismatch rejection, and inability to embed runtime adapters or callables.
+Reject arbitrary subclasses, live Task or provider objects, direct self-targets,
+and indirect child-definition cycles. A child Workflow reference carries exact
+identity and contract closure only; its graph remains separately compiled.
+
+Tests prove byte-stable canonicalization, owner mutation independence, version
+mismatch rejection, parent substitution through the Task-definition root,
+parent/child identity separation, and inability to embed runtime adapters or
+callables.

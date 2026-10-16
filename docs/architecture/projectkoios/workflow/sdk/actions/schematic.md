@@ -2,31 +2,34 @@
 
 ## Responsibility
 
-```text
-owner request/result + action descriptor
-                 │ explicit source-definition connection
-                 ▼
-          compiler action mapping
-        ┌────────┴─────────┐
-        ▼                  ▼
- pure classification   effectful classification
- pure transition       lifecycle fragment
-        │                  │
-        └────────┬─────────┘
-                 ▼
-OccurrenceContext + SelectedBinding
-                 │
-                 ▼
-       TransitionActionBinding
-                 │ request mapping
-                 ▼
- DataObjectActionRequest → Actionizer → Result
-                 │ result mapping
-                 ▼
-       ExternalOutputBinding
-                 │ engine validation
-                 ▼
-          admitted CPN firing
+```mermaid
+flowchart TD
+    TD[Pure atomic Task definition]
+    FD[Exact Firer descriptor]
+    CM[Explicit compiler mapping]
+    OC[Occurrence and attempt context]
+    SB[Selected CPN binding]
+    RQ[Canonical SDK request]
+    FR[Validated owner Firer]
+    RS[Closed correlated result]
+    OM[Pure output mapping]
+    EB[Candidate external binding]
+    EN[WorkflowEngine admission]
+    CF[Pure CPN firing]
+
+    TD --> FD
+    FD --> CM
+    OC --> RQ
+    SB --> RQ
+    CM --> RQ
+    RQ --> FR
+    FR --> RS
+    RS --> OM
+    OM --> EB
+    EB --> EN
+    EN --> CF
 ```
 
-Failure, rejection, cancellation, and ambiguity are attempt outcomes; they do not masquerade as a successful firing. Descriptor metadata constrains lowering but never supplies topology or wiring implicitly.
+The action/firer performs one pure atomic Task operation. It is not the durable
+Task definition, an effect lifecycle, a workflow-backed Task, or the CPN firer.
+Rejection and failure never masquerade as successful CPN firing.

@@ -1,12 +1,25 @@
 # `projectkoios.workflow.sdk.actions` architecture
 
-> **Status: provisional architecture candidate.** This boundary expresses an
-> authoring principle, not authorization to refactor owner packages.
+> **Status:** the implemented SDK exposes pure firing records and `Firer`; the
+> broader iteration-2 Task source model remains proposed.
 
 ## Responsibility
 
-The actions module defines the adapter boundary between a reserved selected CPN binding and an external owner's typed action. It maps tokens to a `DataObjectActionRequest` and a successful typed result to an identified `ExternalOutputBinding`.
+The actions module defines the adapter boundary between one reserved selected
+CPN binding and an external owner's pure atomic Task implementation. It maps
+admitted owner inputs to a firing request and maps a successful correlated owner
+result to identified external variables plus separately retained evidence.
 
-Explicit action descriptors are compiler inputs. Request and result contracts declare candidate typed ports and token colors; stable action identity binds transition behavior; pure/effectful classification selects pure-transition or lifecycle-fragment lowering; authority, idempotency, and evidence contracts declare required operational tokens. An owner-owned atomic composite action remains one transition boundary.
+An action is execution behavior or a typed command; it is not the durable Task
+definition. The future Task definition names the exact action/firer descriptor,
+while the run-scoped Task invocation, occurrence, and attempt retain execution
+identity.
 
-Action adapters cannot inspect or mutate the authoritative marking. They receive immutable occurrence context and bounded typed envelopes. The engine alone validates output colors and commits a firing. The compiler never infers scientific topology, guards, concurrency, retry, or acceptance from Python signatures, and it never reflectively auto-wires actions. Workflow source definitions connect every action explicitly.
+Explicit descriptors are compiler inputs. Request/result contracts declare
+bounded typed ports; stable firer identity binds behavior; pure classification
+selects the pure route. Effect lifecycle and workflow-backed Task execution use
+separate contracts and must not be hidden behind `Firer`.
+
+Adapters cannot inspect or mutate authoritative markings. The engine alone
+validates output colors and commits firing. The compiler never infers topology,
+retry, concurrency, acceptance, or child behavior from Python signatures.

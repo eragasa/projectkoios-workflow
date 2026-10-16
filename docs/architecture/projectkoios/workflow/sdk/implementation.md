@@ -2,36 +2,36 @@
 
 ## Responsibility
 
-Build the SDK as a separately installable distribution from `sdk/` in this
-repository. The distribution is `projectkoios-workflow-sdk`, its non-overlapping
-public import root is `projectkoios.workflow_sdk`, and its first target version
-is `0.1.0a1`. The alpha has only Python standard-library runtime dependencies.
-The existing `projectkoios-workflow` service distribution depends inward on the
-SDK; the SDK never imports service, persistence, compiler, CPN-kernel
-implementation, or owner-package modules.
+Build the SDK as a separately installable standard-library-only distribution
+from `sdk/`. The service distribution depends inward on the SDK; the SDK never
+imports service, persistence, compiler, CPN implementation, or owner packages.
+
+The implemented `0.1.0a1` surface is deliberately narrow. `Firer.fire()` is a
+concrete non-overridable validating template method, and consumer integrations
+implement `_fire()`. It represents one pure atomic Task invocation but does not
+currently expose public `Task` or `Workflow` source classes. Prepare, stage,
+start, observe, reconcile, cancel, collect, claims, leases, effects, and child
+runs remain excluded.
+
+Architecture iteration 2 may add nominal source ABCs only after two owner shapes
+converge. The expected semantic relation is `Workflow(Task)`, with final
+immutable-definition construction and no runtime behavior in the source owner.
+Task execution remains separate through `Firer`, effect lifecycle handlers, or a
+child-run service. Exact API names, fields, generics, serialization, and version
+remain undecided.
 
 Public records are frozen and slotted, reject unbounded or noncanonical data,
-and carry explicit contract versions. Runtime extension boundaries use nominal
-ABCs and explicit validation; static generic parameters cannot substitute for
-runtime enforcement. ABCs have no hidden discovery or storage behavior.
+and carry explicit contract versions. Nominal ABCs enforce runtime membership;
+static generic parameters cannot replace validation. ABCs have no hidden
+discovery, storage, authority, or execution behavior.
 
-The first alpha implements exactly the authorized inventory in
-[`public_api.md`](public_api.md) and the canonical encodings in
-[`serialization.md`](serialization.md), limited to the minimum pure-firing
-surface needed for an end-to-end consumer fixture. `Firer.fire()` is a concrete validated
-template method; `Firer.__init_subclass__()` rejects subclasses that replace it,
-and consumer integrations implement the abstract `_fire()` hook. Prepare,
-stage, start, observe, reconcile, cancel, collect, claims, leases, and effect
-dispatch remain excluded until their separate architecture gates pass.
+Owner adoption should begin through outward adapters. Simulations must retain
+its calculator-neutral SCF lifecycle and QE/VASP Task records. Numerical
+experiments must retain typed Definition-to-Result APIs and owner-controlled
+arrays/evidence. Direct inheritance from future SDK source ABCs is considered
+only after adapter parity and dependency tests pass.
 
-Authorized owner refactors in Ingestion, References, Simulations, Applications,
-and `ksdft2effmass` are independent work. They should produce runtime-neutral
-typed owner actions and evidence under their own accepted contracts, not import
-provisional Workflow types. Architecture review should compare those converging
-shapes before freezing SDK abstractions. Later compatibility may use direct
-implementation, an owner adapter, or a generated/declared descriptor; no
-reflective auto-wiring is implied.
-
-Reusable bases may calculate content identities, validate inheritance chains, enforce request/result types, and construct closed outcome records. They must not implement scientific policy, mint authority, launch executables, retry effects, or mutate CPN state.
-
-Any accepted SDK would require contract tests against pinned owner fixtures before owner packages adopt it.
+Reusable bases may calculate content identities, validate inheritance, enforce
+request/result types, and construct closed outcomes. They must not implement
+scientific policy, mint authority, launch executables, retry effects, create
+child runs, or mutate CPN state.

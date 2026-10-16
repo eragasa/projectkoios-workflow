@@ -2,33 +2,43 @@
 
 ## Responsibility
 
-```text
-projectkoios-workflow-sdk (`projectkoios.workflow_sdk`)
-├── source       immutable external definition inputs
-├── cpn          fragment-template authoring contracts
-├── actions      Workflow Firer ABC and explicit transition bindings
-├── runtime      bounded occurrence/request/result correlation
-├── registry     immutable integration manifests
-└── worker       nominal worker-loaded integration boundary
+```mermaid
+flowchart TD
+    subgraph A[Implemented SDK 0.1.0a1]
+        F[Firer nominal ABC<br/>pure atomic Task boundary]
+        M[Immutable manifest and descriptors]
+        Q[Canonical request/result/evidence records]
+    end
 
-consumer package ──encapsulates──▶ consumer-owned integration ABC
-                                         │ extends
-                                         ▼
-                                Workflow Firer ABC
-                                         │ loaded only by
-                                         ▼
-                                  isolated worker
-                                         │ emits
-                                         ▼
-                               typed result and evidence
-                                         │ validated by
-                                         ▼
-                                  Workflow service
-                                         │ admitted to
-                                         ▼
-                         ColoredPetriNetTransitionFirer
+    subgraph O[Owner repository]
+        TA[Typed owner Task API]
+        QE[Provider-specific implementation<br/>for example QE or VASP]
+        OA[Owner integration ABC]
+    end
+
+    subgraph S[Workflow service]
+        WK[Validated worker]
+        EN[Durable pure Task execution]
+        CPN[ColoredPetriNetTransitionFirer]
+    end
+
+    subgraph V[Iteration-2 future source model]
+        T[Task nominal source contract]
+        W[Workflow composite Task]
+    end
+
+    TA --> OA
+    QE --> OA
+    OA --> F
+    M --> WK
+    F --> WK
+    Q --> WK
+    WK --> EN
+    EN --> CPN
+    T -. proposed .-> W
+    W -. proposed immutable definitions .-> S
 ```
 
-The `0.1.0a1` alpha omits the effectful lifecycle module. The SDK points outward
-only through immutable records and nominal ABCs. It does not import service
-internals, owner packages, or the CPN kernel implementation.
+The implemented SDK points outward only through immutable records and nominal
+ABCs. The proposed Task/Workflow source model is not part of `0.1.0a1` and does
+not authorize effects or owner migration.

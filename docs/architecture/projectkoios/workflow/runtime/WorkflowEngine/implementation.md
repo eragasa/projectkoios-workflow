@@ -6,8 +6,26 @@ Adapt the invocation invariants of historical `workflows/engine.py`, blob
 `cd39ac8e9684ff08ba012d8dda50bc089293969f`, while generalizing beyond
 synchronous in-process execution.
 
-The engine accepts the exact binding aggregate produced by the linker. For one
-pure external action it must:
+The engine accepts the exact binding aggregate produced by the linker. In
+architecture iteration 2, the selected binding identifies one run-scoped Task
+instance and exactly one execution route. A pure atomic Task uses the existing
+SDK invocation chain; an effectful atomic Task uses the separately gated
+lifecycle; a workflow-backed Task creates and correlates a distinct child
+Workflow run. The engine never treats an action, event, CPN transition, handler,
+or provider as a substitute for Task identity.
+
+For a workflow-backed Task, the engine must retain child-creation intent before
+creation, use an exact idempotency identity, bind a separately compiled child
+plan and run, and admit only an explicit correlated terminal delivery. The child
+has its own marking, occurrences, attempts, history, replay, cancellation, and
+quiescence. Parent and child commits remain separate; unresolved child state can
+never fabricate a parent result.
+
+The effectful and workflow-backed routes remain unimplemented. The implemented
+experimental path below is the candidate executor for one pure atomic Task and
+retains its existing `pure-action` compatibility names.
+
+For one pure atomic Task it must:
 
 1. load the exact predecessor marking, selected binding, reservation,
    transition-firer binding, and result-mapping descriptor;
@@ -29,10 +47,17 @@ identity. Workflow treats the accepted string as opaque and imports no owner
 class or codec implementation.
 
 Replay rehydrates the retained records and never reinvokes the owner firer or
-recomputes an identity to repair missing evidence. Pure actions, external
-effects, and nested routes retain distinct lifecycles. Uncaught provider
+recomputes an identity to repair missing evidence. Pure atomic Tasks, effectful
+Tasks, and workflow-backed Tasks retain distinct lifecycles. Uncaught provider
 exceptions are contained by the worker boundary; rejected, failed, ambiguous,
-or stale outcomes never reach pure CPN firing.
+stale, cancelled, or unadmitted child outcomes never reach parent pure CPN
+firing.
+
+Owner-specific Task resources remain outside the engine. Simulations may bind QE
+and VASP implementations to one calculator-neutral Task role, but executables,
+working directories, pseudopotentials, native execution requests, and live
+handlers do not enter plans or compact state. Numerical owners likewise retain
+arrays, matrices, spectra, and private evidence stores outside Workflow.
 
 ## Experimental predecessor-reservation candidate
 

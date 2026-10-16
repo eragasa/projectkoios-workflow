@@ -2,17 +2,17 @@
 
 ## Responsibility
 
-```text
-resolved immutable inputs
-          │
-          ├── validate identity/order/membership
-          ├── close nested targets
-          ├── compose fragments deterministically
-          ├── flatten and validate CPN
-          └── close transition/action mappings
-          │
-          ▼
-complete plan | closed findings
+```mermaid
+flowchart TD
+    I[Resolved immutable Workflow and Task inputs]
+    V[Validate identity, kind, order, and membership]
+    C[Close workflow-backed Task child targets]
+    F[Compose fragments deterministically]
+    N[Flatten and validate parent CPN]
+    M[Close atomic and child Task mappings]
+    O[Complete plan or closed findings]
+
+    I --> V --> C --> F --> N --> M --> O
 ```
 
-No intermediate partial plan crosses the constructor boundary.
+No partial plan crosses the constructor boundary, and no child graph is embedded in the parent plan.

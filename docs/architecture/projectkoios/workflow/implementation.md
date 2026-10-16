@@ -1,47 +1,99 @@
 # `projectkoios.workflow` implementation
 
-> **Status: provisional architecture candidate.** This file compares possible
-> implementation boundaries; it is not an implementation sequence or approval.
+> **Status: provisional architecture iteration 2.** This file describes target
+> boundaries and evidence gates; it is not an implementation or migration
+> authorization.
 
 ## Responsibility
 
-The current candidate separates a stable SDK surface from service internals. The SDK would contain frozen records, ABCs, and validating bases; service internals would contain the compiler, kernel, registry, runtime, persistence, scheduler, and transports. Whether these become separate distributions, one distribution with enforced import boundaries, or staged packages is unresolved.
+The implementation separates a standard-library SDK surface from service
+internals. The SDK owns frozen records, nominal ABCs, and validating template
+methods. Service internals own compilation, the CPN kernel, deployment linking,
+runtime coordination, persistence, scheduling, and transports.
 
-Primary migration evidence is the compiler/plan/binding architecture at `ksdft2effmass` commit `5210b760c6c13f9f5980a649f0a85362a26b5d2d`, adapted to canonical CPN IR. Frankenstein commit `3eb562f2d6167ec20d6f2c892c517509a7abf283` supplies fragment-template, deterministic composition, and visualization design evidence. The current `projectkoios.workflow.petrinet.colored` package supplies kernel conformance evidence with its own recorded provenance. Evidence constrains semantics but does not require copying historical class layouts.
+The central iteration-2 distinction is between Task definition and Task
+execution:
 
-## Alternatives retained
+- a Task definition is immutable parent-visible declarative state;
+- a Task instance is one run-scoped member of a Workflow composition;
+- a pure atomic Task is executed through an SDK `Firer`;
+- an effectful atomic Task is executed through an accepted lifecycle handler;
+- a Workflow is a composite Task whose invocation creates a distinct child run;
+  and
+- actions, events, lifecycle commands, CPN transitions, handlers, and providers
+  remain separate types.
 
-- **Packaging:** separate SDK/service/worker distributions, or one distribution with mechanically enforced dependency layers.
-- **Compiler hosting:** isolated definition exporter, administrative compiler worker, or effect-free control-plane operation.
-- **Link timing:** deployment activation, run admission, or an explicitly versioned prelinked bundle.
-- **Operational lifecycle:** one composed flat operational/domain CPN, or a separately compiled companion CPN correlated to the domain occurrence; either must preserve one authoritative CPN semantics and prevent failed effects from fabricating domain firing.
-- **Reservation representation:** keep domain inputs in the predecessor marking plus an engine reservation record until success, or let an explicit `begin_occurrence` transition consume them into a lossless occurrence token. The latter makes operational ownership visible in the marking but decomposes one logical effect into a lifecycle subnet. In both candidates, `commit_occurrence` may realize the reserved logical/domain transition only for admitted success. Failure, rejection, cancellation, loss, or ambiguity cannot masquerade as that firing.
-- **Worker dispatch:** worker pull claims or authenticated control-plane push, with identical lease and ambiguity guarantees.
-- **Local supervision:** generic durable supervisor or provider-owned launch ledger; bare child-process ownership is insufficient.
-- **Persistence:** hardened SQLite for the laptop deployment or another transactional store if concurrency and backup evidence require it.
+The target source boundary uses nominal runtime-enforced interfaces. The exact
+future API remains gated on two owner shapes; it is not added retroactively to
+SDK `0.1.0a1`. A validating `Workflow(Task)` source base should construct a
+closed immutable definition through non-overridable template behavior, but it
+must not execute Tasks, inspect markings, discover providers, or own a run.
 
-## Sequencing options, not commitments
+## Owner evidence
 
-1. Harden and accept the pure CPN kernel before compiler work.
-2. Transfer the DEFECT00003 compiler/linker invariants first against a stub CPN IR.
-3. Build a thin end-to-end conformance skeleton and then deepen kernel, compiler, and provider guarantees in parallel.
-4. Use the 1,158-identity Ingestion corpus only after shared cross-family protocol fixtures pass, or use its non-executing fixture plan earlier as a compiler stress case.
+Simulations demonstrates provider specialization without workflow-topology
+duplication: `PwDftScfHandlerTask` retains common correlation,
+`QePwDftScfTask` and `VaspPwDftScfTask` retain backend-specific resources, and
+separate handlers produce common SCF events for one calculator-neutral
+lifecycle. The generic architecture must preserve that split without storing
+paths, executables, pseudopotentials, execution requests, or live handlers in a
+plan.
 
-Architecture review should select or combine these approaches using risk and evidence. None is authorized by its presence here.
+`ksdft2effmass/experiments/` demonstrates typed deterministic numerical Actions,
+composite workflows, refinement families, and potential fan-out/fan-in. The
+retained single-band Fourier-reduction experiment is the preferred independent
+pure owner fixture after a clean revision is pinned. Task extraction is
+justified only by reuse, durable evidence, replay, authority, failure isolation,
+or scheduling. Private numerical helpers remain ordinary owner implementation.
+
+## Compilation and execution boundaries
+
+Each Workflow compiles to one flat canonical CPN plan. A workflow-backed Task
+retains an exact child definition/plan reference and route contract; it does not
+inline the child graph. Runtime creates the child run, correlates it with the
+parent Task invocation, and delivers only an admitted terminal export to the
+parent transition. Parent and child commits remain separate.
+
+Plans and deployment bindings retain only bounded immutable descriptors and
+identities. Live owner objects and implementations stay in isolated owner or
+worker processes. Compact Workflow state retains identities and admitted
+evidence references, never owner payload bodies or private locators.
+
+The implemented `ExperimentalWorkflowPureAction*` chain is the candidate pure
+atomic Task executor. Its names, identities, schemas, canonical bytes, and
+rejection behavior remain unchanged until a separately accepted compatibility
+migration introduces supported pure-Task terminology.
+
+## Modular-monolith direction
+
+Iteration 2 first targets a modular monolith. Cohesive Task contracts, immutable
+inputs/results, explicit composition, and independent tests are required before
+any process or service split. Distribution is justified later by operational
+needs; it is not inferred from Task membership.
+
+An owner operation becomes a Task only when it needs at least one independent
+reuse, durable identity/evidence, retry or authority scope, replay/cache/restart,
+fan-out/fan-in, or separately testable contract. Parameterization and method
+size alone are insufficient.
 
 ## Common evidence gates
 
 - Immutable plan independence from live owners and providers.
-- Exact CPN enablement, selection, reservation, external-output admission, and firing equivalence under both reservation candidates.
-- Explicit failure-evidence routing: a domain failure token requires a separate guarded domain transition; provider failure alone never fires the reserved domain transition.
-- Crash-before/after-launch, ambiguity, reconciliation, cancellation, and restart tests.
-- Same-store replay and independent rebuild without effect re-execution.
-- Authority separation and private-data redaction.
-- Cross-owner provider conformance and exact registry/link resolution.
-- Migration equivalence before any script, façade, or historical engine retires.
-
-The existing core and local runtime remain prototypes. Supersession, reuse, or retirement is an architecture-review decision followed by separately authorized implementation and migration work.
+- Exact separation of Task definition, Task instance, invocation, occurrence,
+  attempt, result, handler, and Workflow run.
+- Parent/child identity correlation without topology or history flattening.
+- Provider-specialized Task parity without generic provider-field growth.
+- Exact CPN enablement, selection, reservation, output admission, and firing.
+- Crash, ambiguity, reconciliation, cancellation, and restart evidence before
+  any effectful Task migration.
+- Same-store replay and independent rebuild without owner effect re-execution.
+- Owner payload and private-data exclusion from compact state.
+- Cross-owner conformance before accepting SDK Task/Workflow APIs.
+- Migration equivalence before retiring any façade, SNAKES runtime, script, or
+  historical engine.
 
 ## Issue register
 
-Stable Workflow-local questions and external dependency gates are retained in the [provisional issue register](issues/). Module documents should reference those identities rather than copying mutable status. Cross-repository product decisions and external-owner defects remain authoritative in their owning repositories.
+Stable Workflow-local questions and external dependency gates remain in the
+[provisional issue register](issues/). Cross-repository product decisions and
+owner defects remain authoritative in their owning repositories.

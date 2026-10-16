@@ -2,6 +2,16 @@
 
 ## Responsibility
 
-Adapt historical `planning.py`, blob `9a5117aeedcdbc1cbd6fb799c5b39e9dbbc425a4`, and Frankenstein composition rules. The constructor must return either one complete plan or closed findings; it must never return a plan with unresolved ports, targets, mappings, or priorities.
+The constructor returns either one complete plan or closed findings. It never
+returns a plan with unresolved Task instances, ports, routes, mappings,
+priorities, child targets, or export contracts.
 
-Plans are serialized canonically and content-addressed. Live source owners and provider bindings are forbidden fields and must be detected by construction-time type closure rather than convention alone.
+Plans are canonically serialized and content-addressed. Parent plans retain
+exact child-plan references and route contracts, not embedded child graphs. Live
+source owners, configured owner Tasks, handlers, firers, providers, repositories,
+paths, and payloads are forbidden fields and must be excluded by closed record
+types rather than convention.
+
+Compilation rejects direct or indirect Workflow cycles, a Task definition used
+under the wrong specialization, missing child inputs/exports, and parent mapping
+that depends on unadmitted child state.

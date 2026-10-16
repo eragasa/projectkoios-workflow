@@ -2,6 +2,12 @@
 
 ## Responsibility
 
-The definitions module owns frozen generic snapshots produced from external source owners. It erases live Python ownership while retaining exact workflow identity, task/action identity, route kind, fragment declarations, and contract references required for compilation.
+The definitions module owns frozen generic snapshots produced from external
+Task source owners. It erases live Python ownership while retaining exact Task
+identity, specialization, contracts, composition, and compiler inputs.
 
-Definitions are compiler inputs, not executable markings and not deployment bindings. They contain no provider object, authority, repository, run, result, or callable.
+`TaskDefinition` is the parent-visible definition root. An atomic variant names
+one pure or effectful execution route. `WorkflowDefinition` is the composite
+Task variant and retains ordered Task instances plus explicit child input/export
+contracts. Definitions are compiler inputs, not markings, runs, deployment
+bindings, handlers, or providers.

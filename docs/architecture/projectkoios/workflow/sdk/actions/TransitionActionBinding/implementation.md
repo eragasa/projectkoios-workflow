@@ -86,9 +86,10 @@ descriptor and content identity do.
 
 The reviewed Simulations pilot emits `artifact_set_identity` as its sole
 external-state output and retains `artifact_set` as evidence. The experimental
-Workflow mapper does not alter the standalone SDK `0.1.0a1` contract, claim
-complete `WorkflowExecutionPlan` or `WorkflowExecutionBindings` conformance,
-persist evidence or authorize a committed CPN firing. A separate bounded
-Workflow execution candidate now correlates the mapped result with supplied CPN
-state and invokes the pure CPN firer, while reservation consumption and atomic
-persistence remain absent.
+Workflow mapper does not alter the standalone SDK `0.1.0a1` contract or claim
+complete `WorkflowExecutionPlan`, `WorkflowExecutionBindings`, Task/Workflow,
+or CPN-bindings conformance. The bounded execution chain now correlates the
+mapped result with exact CPN state, invokes the pure CPN firer, and atomically
+retains compact commit, CPN replay evidence, lifecycle transition, reservation
+consumption, and marking advancement. Those later phases remain WorkflowEngine
+responsibilities rather than mapping authority.

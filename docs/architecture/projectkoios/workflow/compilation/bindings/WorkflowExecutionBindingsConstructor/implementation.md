@@ -2,6 +2,11 @@
 
 ## Responsibility
 
-Expose linking as a typed service action. Resolve catalog compatibility before calling the constructor; pass exact selected descriptor snapshots rather than lookup queries.
+Expose linking as a typed pure service operation. Resolve catalogs before
+construction and pass exact descriptor snapshots rather than lookup queries.
 
-DEFECT00003 tests must cover missing, extra, reordered, mutable, identity-colliding, route-incompatible, and nested-definition-incompatible bindings. Already compiled plans must remain byte-identical before and after linking.
+Tests cover missing, extra, reordered, mutable, identity-colliding, wrong
+Task-kind, route-incompatible, provider-incompatible, and child-plan-incompatible
+bindings. A workflow-backed binding must preserve its plan-selected child target
+and terminal-delivery contract. Already compiled plans remain byte-identical
+before and after linking.

@@ -2,6 +2,19 @@
 
 ## Responsibility
 
-Adapt the nominal route-root behavior of historical `AbstractTask` without restoring its earlier executable graph as the runtime truth. The base must reject ambiguous or inherited conflicting route declarations and construct a frozen generic definition.
+Use a nominal ABC with non-overridable definition construction and explicit
+subclass validation. Reject a subclass that supplies both atomic route state and
+Workflow composition, inherits conflicting route declarations, or replaces the
+validated definition template method.
 
-Pure actions should still execute in isolated workers rather than the orchestrator process. External effects require lifecycle bindings. Nested targets require exact definition closure. Tests cover route inheritance, identity consistency, prohibited effect shapes, and definition stability.
+Atomic Task definitions retain bounded identities and exact route descriptors.
+Pure routes name an SDK firer descriptor; effectful routes name a separately
+accepted lifecycle descriptor. Neither retains a live implementation. Provider
+specialization remains owner-controlled: QE and VASP may derive different owner
+Task records from one common owner Task role without adding backend fields to
+this generic source contract.
+
+Workflow specialization is defined by `AbstractWorkflow`; nesting creates a
+separate child run at runtime. Tests must cover nominal membership, final-method
+enforcement, immutable-definition stability, ambiguous route rejection, live
+object exclusion, and owner mutation after definition construction.

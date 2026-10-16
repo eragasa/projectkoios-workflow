@@ -2,6 +2,12 @@
 
 ## Responsibility
 
-The bindings module links one exact compiled execution plan to one complete, route-compatible deployment. It verifies action providers, lifecycle providers, worker environments, nested targets, and capability guarantees without modifying the plan.
+The bindings module links one exact compiled Workflow plan to one complete
+route-compatible deployment. It verifies pure firers, effect lifecycle handlers,
+worker environments, and separately deployed child Workflow plans without
+modifying plan semantics.
 
-Binding is distinct from registry discovery and from engine invocation. Its result prevents the engine from performing a second lookup or silently selecting another provider.
+Atomic Tasks link to exact owner execution descriptors. Workflow-backed Tasks
+link to exact child-plan deployments and child-run services. Binding is distinct
+from discovery and invocation; runtime receives a complete artifact and never
+silently chooses another provider or child definition.

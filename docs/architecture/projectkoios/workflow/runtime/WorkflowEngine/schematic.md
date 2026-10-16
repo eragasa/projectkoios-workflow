@@ -6,71 +6,66 @@
 flowchart TD
     P[WorkflowExecutionPlan]
     B[WorkflowExecutionBindings]
-    S[Selected CPN binding]
-    M[Enabling marking revision]
-    I[Opaque input-source references]
-    SR[Owner source repository]
-    U[Repository-authorized SDK inputs]
-    R[Durable reservation]
-    Q[Pre-owner source and predecessor revalidation]
-    V[Post-owner source and predecessor revalidation]
+    S[Selected Task instance and CPN binding]
     E[WorkflowEngine]
-    W[Isolated worker invocation]
-    O[Correlated SDK result]
-    A[Pure result mapping]
-    X[Candidate external-output binding]
+    K{Execution route}
+
+    I[Pure atomic Task]
+    SR[Owner source repository]
+    R[Durable reservation]
+    W[Validated SDK Firer]
+    O[Admitted owner result]
+    M[Pure output mapping]
+
+    FX[Effectful atomic Task]
+    EL[Durable effect lifecycle<br/>future gated]
+
+    WT[Workflow-backed Task]
+    CI[Durable child-creation intent<br/>future]
+    CR[Distinct child Workflow run<br/>future]
+    CD[Admitted terminal delivery<br/>future]
+
     F[ColoredPetriNetTransitionFirer]
-    K[In-memory compact atomic commit]
-    C[Durable compact commit and marking coordinate]
-    CS[Read-only compact structural replay]
-    T[Canonical in-memory CPN replay transcript]
-    RF[Pure CPN refiring and successor comparison]
-    D[Future durable transcript linkage]
+    C[Atomic compact commit + CPN evidence<br/>lifecycle + reservation + marking]
+    RP[Owner-independent compact/lifecycle/safety replay]
+    RF[Bounded pure CPN refiring]
 
     P --> E
     B --> E
     S --> E
-    M --> E
+    E --> K
+    K --> I
+    K --> FX
+    K --> WT
+
     I --> SR
-    SR --> U
-    U --> E
-    R --> E
-    E --> Q
-    U --> Q
-    R --> Q
-    Q --> W
+    SR --> R
+    R --> W
     W --> O
-    O --> E
-    E --> V
-    R --> V
-    V --> A
-    A --> X
-    X --> E
-    E --> F
-    F --> K
-    K --> C
-    C --> CS
-    F --> T
-    P --> T
-    T --> RF
-    C -. future atomic reference .-> D
-    T -. future durable retention .-> D
+    O --> M
+    M --> F
+
+    FX --> EL
+    EL -. admitted terminal result .-> F
+
+    WT --> CI
+    CI --> CR
+    CR --> CD
+    CD -. admitted child result .-> F
+
+    F --> C
+    C --> RP
+    C --> RF
 ```
 
-The engine admits the candidate external binding only after rechecking result
-correlation, descriptor and mapping identities, the exact predecessor revision,
-the selected binding, and its reservation. Failure at any check prevents CPN
-firing. Authoritative input resolution does not import owner storage or private
-locators. The durable compact commit consumes the reservation and advances the
-marking coordinate atomically while retaining identity-only event bytes.
+Only the pure atomic Task route is implemented by the current bounded
+experimental chain. It repeatedly validates source and predecessor authority,
+admits only a correlated SDK success, invokes the pure CPN firer, and commits
+compact state plus canonical CPN replay evidence atomically.
 
-Compact structural replay does not invoke the CPN. The separate bounded
-transcript reconstructs canonical CPN state and proves pure refiring under the
-exact supported retained profile without invoking the owner. It is currently
-in-memory only; durable transcript retention and atomic linkage to the compact
-commit remain future work.
+Effect lifecycle and child-run orchestration remain future gated routes. Neither
+may be hidden behind `Firer`. A child Workflow remains separately compiled and
+persisted; only its admitted terminal delivery reaches the parent firing.
 
-For the artifact-set direction, the external binding carries only the opaque
-owner logical-identity string. Owner payload bodies, canonical artifact-set
-evidence documents, private locators, and native files do not enter the CPN
-transcript or compact commit event.
+Owner payload bodies, native files, numerical arrays, private locators, and
+provider resources do not enter the compact commit or CPN transcript.

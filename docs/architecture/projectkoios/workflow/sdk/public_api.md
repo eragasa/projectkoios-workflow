@@ -289,7 +289,8 @@ The public inventory contains no types for:
 - retention references or private operational locators;
 - schedulers, worker daemons, registry databases, or service clients;
 - mutable markings;
-- `AbstractTask`;
+- `Task`, `Workflow`, `AbstractTask`, or `AbstractWorkflow` source contracts;
+- workflow-backed Task or child-run contracts;
 - generic class registries;
 - class-object dispatch; or
 - consumer-domain identities and scientific policy.

@@ -2,8 +2,22 @@
 
 ## Responsibility
 
-Provide a generic ABC and a validating base that enforce exact request/result types, action descriptor identity, occurrence correlation, schema bounds, and output-binding identity. The base may convert known provider protocol failures to closed records but must not translate arbitrary domain failures into success.
+Provide the nominal `Firer` ABC and immutable records that enforce exact
+request/result types, descriptor identity, occurrence correlation, bounds, and
+closed outcomes for one pure atomic Task.
 
-The compiler consumes explicit descriptor records and explicit source-definition connections. It may validate port/color compatibility and select a registered lowering template from the declared effect class. It must not inspect Python annotations or method bodies to invent places, arcs, guards, joins, retry, concurrency, acceptance, or child behavior. Reflection may locate a declared manifest in an isolated exporter; it is never workflow authoring.
+`Firer.fire()` remains a non-overridable validating template method. Consumer
+integrations implement `_fire()` and may delegate to typed owner Actions. The
+Firer is execution behavior, not the durable Task definition and not the CPN
+transition firer.
 
-The wire representation uses content-addressed typed envelopes. Large or private data remains in owner storage and is represented only by bounded symbolic evidence references. Domain owners may refactor internal helpers into one atomic composite action when their consistency boundary requires it; Workflow treats that declared action as one transition rather than splitting its transaction.
+The compiler consumes explicit descriptors and explicit source connections. It
+may validate port/color compatibility but must not inspect annotations or method
+bodies to invent places, arcs, guards, joins, retries, concurrency, acceptance,
+or child topology. Reflection may locate an explicitly declared manifest in an
+isolated worker; it is never workflow authoring.
+
+Large or private owner data remains in owner storage and crosses the SDK boundary
+only under the accepted bounded transport. Workflow compact state retains
+identities and evidence references, not numerical arrays, native artifacts,
+provider resources, or private locators.
