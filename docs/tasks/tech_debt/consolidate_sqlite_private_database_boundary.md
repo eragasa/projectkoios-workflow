@@ -32,8 +32,9 @@ step after the in-memory CPN refiring candidate.
   orchestration before adding durable transcript rows.
 - [x] Preserve existing public repository ABCs, identity domains, canonical
   bytes, corruption outcomes, and deterministic vectors.
-- [ ] Add the durable replay-evidence schema only as a later separately reviewed
-  slice.
+- [x] Add the durable replay-evidence schema only as a later separately reviewed
+  slice; see the separately authorized
+  [durable CPN replay task](../integrations/pure_action_durable_cpn_replay_evidence.md).
 
 ## Required evidence
 

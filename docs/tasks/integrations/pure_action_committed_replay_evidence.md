@@ -91,8 +91,9 @@ The replayed compact commit identity remains
 A later bounded follow-up now provides canonical CPN definition and semantic
 marking decoding. A subsequent in-memory transcript now also validates retained
 execution-profile support, pure CPN refiring, result identity, and successor
-comparison. Complete committed replay still requires durable atomic linkage and
-loading of that exact transcript, complete request/result/evidence history, and
-runtime safety-state reconstruction.
-Missing retained representations must continue to fail closed; this structural
-replay must not be relabeled as complete semantic or CPN replay.
+comparison. A further bounded follow-up now provides durable atomic transcript
+linkage and pure refiring. Complete committed replay still requires complete
+request/result/evidence history, reservation-lifecycle reconstruction, and
+runtime safety-state reconstruction. Missing retained representations must
+continue to fail closed; this structural replay must not be relabeled as complete
+semantic or CPN-bindings replay.

@@ -4,8 +4,8 @@
 
 This record covers one bounded, in-memory, canonical pure-CPN replay transcript
 and exact refiring verifier. It extends compact structural replay with semantic
-CPN reconstruction while remaining separate from durable history retention and
-complete runtime safety-state replay.
+CPN reconstruction. Durable retention was a separate follow-up and complete
+runtime safety-state replay remains excluded.
 
 ## Implemented boundary
 
@@ -84,14 +84,9 @@ Artifact SHA-256 values:
 
 ## Remaining gaps
 
-The replay bundle is not durably retained or atomically linked to the compact
-commit. It does not reconstruct SDK request/result history, source-authority
-observations, reservation lifecycle, or the complete runtime safety state. It
-therefore must not be described as complete committed replay or complete
-CPN-bindings conformance.
-
-Before adding a SQLite replay-evidence schema or another SQLite adapter, the
-[private SQLite boundary consolidation task](../tech_debt/consolidate_sqlite_private_database_boundary.md)
-reached its revisit condition and now has completed organization evidence.
-Durable replay work may next retain a content-addressed bundle reference without
-embedding CPN definitions or marking bodies in the compact commit event.
+Durable, atomically linked retention is now covered by the separate
+[durable CPN replay evidence](pure_action_durable_cpn_replay_evidence.md). The
+pure refiring transcript still does not reconstruct SDK request/result history,
+source-authority observations, reservation lifecycle, or complete runtime safety
+state. It therefore must not be described as complete committed replay or
+complete CPN-bindings conformance.

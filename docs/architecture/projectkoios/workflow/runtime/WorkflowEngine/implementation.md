@@ -159,11 +159,18 @@ Replay-bundle records and construction, canonical transcript serialization, and
 pure refiring orchestration are implemented in separate execution modules. The
 public experimental imports and canonical transcript bytes remain unchanged.
 
-The transcript is not yet durably retained or atomically linked to the compact
-commit. Complete request/result history, reservation lifecycle, runtime
-safety-state reconstruction, and complete CPN-bindings replay remain
-unimplemented. Definitions and marking bodies remain absent from the compact
-commit event.
+The SQLite format-version-3 candidate durably retains the canonical transcript
+in a content-addressed table and links it to the compact commit in the same
+reservation-consuming transaction. Its nominal evidence port admits only a
+bundle already correlated with the compact commit. Atomic reads verify bundle
+and association digests and recheck plan, firing-result, predecessor, and
+successor identities against the compact row before pure refiring. Legacy
+version-2 commits migrate without fabricated links and return a closed absent
+evidence outcome. Definitions and marking bodies remain absent from the compact
+commit event itself.
+
+Complete request/result history, reservation lifecycle, runtime safety-state
+reconstruction, and complete CPN-bindings replay remain unimplemented.
 
 Source resolution and predecessor commit also remain sequential across nominal
 repositories rather than one distributed transaction; production source

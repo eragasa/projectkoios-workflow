@@ -2,16 +2,31 @@
 
 from __future__ import annotations
 
+import hashlib
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 from typing import final
 
+from projectkoios.workflow.compilation import (
+    ExperimentalWorkflowPureActionCpnPlanIdentity,
+)
+from projectkoios.workflow.execution.pure_action_cpn_replay_bundle import (
+    ExperimentalWorkflowPureActionCpnReplayBundleIdentity,
+)
+from projectkoios.workflow.execution.pure_action_cpn_replay_persistence import (
+    ExperimentalWorkflowPureActionCpnReplayEvidence,
+    ExperimentalWorkflowPureActionCpnReplayEvidenceIdentity,
+    ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult,
+    ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus,
+    ExperimentalWorkflowPureActionCpnReplayEvidenceRepository,
+)
 from projectkoios.workflow.runtime.pure_action_commit_serialization import (
     ExperimentalWorkflowPureActionCommitEventJsonCodec,
 )
 from projectkoios.workflow.runtime.pure_action_reservation import (
     ExperimentalWorkflowPureActionCommitCoordinates,
+    ExperimentalWorkflowPureActionCommitIdentity,
     ExperimentalWorkflowPureActionCommitReadResult,
     ExperimentalWorkflowPureActionCommitReadStatus,
     ExperimentalWorkflowPureActionCommitRecord,
@@ -25,6 +40,7 @@ from projectkoios.workflow.runtime.pure_action_reservation import (
     ExperimentalWorkflowPureActionRevalidationStatus,
 )
 from projectkoios.workflow_sdk.identities import (
+    WorkflowMarkingIdentity,
     WorkflowNetInstanceIdentity,
 )
 
@@ -55,7 +71,7 @@ from ._sqlite_private import (
 )
 
 _FORMAT = "projectkoios.workflow.experimental-pure-action-store"
-_FORMAT_VERSION = 2
+_FORMAT_VERSION = 3
 _SCHEMA = (
     "CREATE TABLE store_format ("
     "identity TEXT NOT NULL, version INTEGER NOT NULL)",
@@ -102,12 +118,46 @@ _SCHEMA = (
     "revision_identity TEXT NOT NULL, evidence_identity TEXT NOT NULL, "
     "PRIMARY KEY (commit_identity, ordinal), "
     "FOREIGN KEY (commit_identity) REFERENCES commits (commit_identity))",
+    "CREATE TABLE cpn_replay_bundles ("
+    "bundle_identity TEXT PRIMARY KEY NOT NULL, event_bytes BLOB NOT NULL, "
+    "event_digest BLOB NOT NULL)",
+    "CREATE TABLE commit_cpn_replay_evidence ("
+    "commit_identity TEXT PRIMARY KEY NOT NULL, "
+    "evidence_identity TEXT UNIQUE NOT NULL, bundle_identity TEXT NOT NULL, "
+    "cpn_plan_identity TEXT NOT NULL, "
+    "cpn_firing_result_identity TEXT NOT NULL, "
+    "predecessor_marking_identity TEXT NOT NULL, "
+    "successor_marking_identity TEXT NOT NULL, evidence_digest BLOB NOT NULL, "
+    "FOREIGN KEY (commit_identity) REFERENCES commits (commit_identity), "
+    "FOREIGN KEY (bundle_identity) REFERENCES cpn_replay_bundles "
+    "(bundle_identity))",
 )
-_TABLES = (
+_SCHEMA_V2 = _SCHEMA[:7]
+_TABLES_V2 = (
     "active_reservations",
     "commit_source_authorities",
     "commits",
     "consumed_reservations",
+    "current_predecessors",
+    "initial_predecessors",
+    "store_format",
+)
+_SCHEMA_V2_SQL_BY_TABLE = {
+    "store_format": _SCHEMA_V2[0],
+    "initial_predecessors": _SCHEMA_V2[1],
+    "current_predecessors": _SCHEMA_V2[2],
+    "active_reservations": _SCHEMA_V2[3],
+    "consumed_reservations": _SCHEMA_V2[4],
+    "commits": _SCHEMA_V2[5],
+    "commit_source_authorities": _SCHEMA_V2[6],
+}
+_TABLES = (
+    "active_reservations",
+    "commit_cpn_replay_evidence",
+    "commit_source_authorities",
+    "commits",
+    "consumed_reservations",
+    "cpn_replay_bundles",
     "current_predecessors",
     "initial_predecessors",
     "store_format",
@@ -120,6 +170,8 @@ _SCHEMA_SQL_BY_TABLE = {
     "consumed_reservations": _SCHEMA[4],
     "commits": _SCHEMA[5],
     "commit_source_authorities": _SCHEMA[6],
+    "cpn_replay_bundles": _SCHEMA[7],
+    "commit_cpn_replay_evidence": _SCHEMA[8],
 }
 
 
@@ -134,7 +186,8 @@ def _before_transaction_commit(
 @final
 @dataclass(frozen=True, slots=True)
 class ExperimentalSQLitePureActionReservationRepository(
-    ExperimentalWorkflowPureActionReservationRepository
+    ExperimentalWorkflowPureActionReservationRepository,
+    ExperimentalWorkflowPureActionCpnReplayEvidenceRepository,
 ):
     """Purpose-built durable repository for pure-action predecessor commits."""
 
@@ -270,6 +323,34 @@ class ExperimentalSQLitePureActionReservationRepository(
         coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
         record: ExperimentalWorkflowPureActionCommitRecord | None = None,
     ) -> ExperimentalWorkflowPureActionCommitStatus:
+        """Retain a legacy compact commit without CPN replay evidence."""
+        return self._commit(reservation, coordinates, record, None)
+
+    def commit_with_cpn_replay(
+        self,
+        reservation: ExperimentalWorkflowPureActionReservation,
+        coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+        record: ExperimentalWorkflowPureActionCommitRecord,
+        evidence: ExperimentalWorkflowPureActionCpnReplayEvidence,
+    ) -> ExperimentalWorkflowPureActionCommitStatus:
+        """Atomically retain compact commit state and exact replay evidence."""
+        if (
+            type(evidence)
+            is not ExperimentalWorkflowPureActionCpnReplayEvidence
+        ):
+            raise TypeError(
+                "evidence must be "
+                "ExperimentalWorkflowPureActionCpnReplayEvidence"
+            )
+        return self._commit(reservation, coordinates, record, evidence)
+
+    def _commit(
+        self,
+        reservation: ExperimentalWorkflowPureActionReservation,
+        coordinates: ExperimentalWorkflowPureActionCommitCoordinates,
+        record: ExperimentalWorkflowPureActionCommitRecord | None,
+        evidence: ExperimentalWorkflowPureActionCpnReplayEvidence | None,
+    ) -> ExperimentalWorkflowPureActionCommitStatus:
         """Retain, consume, and advance in one durable transaction."""
         validated_reservation = _reconstruct_reservation(reservation)
         validated_coordinates = _reconstruct_coordinates(coordinates)
@@ -283,6 +364,22 @@ class ExperimentalSQLitePureActionReservationRepository(
             validated_coordinates,
             validated_record,
         )
+        validated_evidence = (
+            None if evidence is None else _reconstruct_replay_evidence(evidence)
+        )
+        if validated_evidence is not None and (
+            validated_evidence.commit_identity
+            != validated_record.commit_identity
+            or validated_evidence.cpn_plan_identity
+            != validated_record.cpn_plan_identity
+            or validated_evidence.cpn_firing_result_identity
+            != validated_record.cpn_firing_result_identity
+            or validated_evidence.predecessor_marking_identity
+            != validated_record.predecessor_marking_identity
+            or validated_evidence.successor_marking_identity
+            != validated_record.successor_marking_identity
+        ):
+            raise ValueError("CPN replay evidence differs from compact commit")
         connection: sqlite3.Connection | None = None
         transaction_open = False
         phase = "open"
@@ -306,6 +403,13 @@ class ExperimentalSQLitePureActionReservationRepository(
                     ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
                         validated_record
                     ),
+                ) and (
+                    validated_evidence is None
+                    or _load_replay_evidence_pair(
+                        connection,
+                        validated_record.commit_identity,
+                    )
+                    == validated_evidence
                 ):
                     return ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
@@ -358,6 +462,8 @@ class ExperimentalSQLitePureActionReservationRepository(
                         authority.evidence_identity.value,
                     ),
                 )
+            if validated_evidence is not None:
+                _insert_replay_evidence(connection, validated_evidence)
             connection.execute(
                 "INSERT INTO consumed_reservations VALUES (?)",
                 (validated_reservation.identity.value,),
@@ -491,6 +597,61 @@ class ExperimentalSQLitePureActionReservationRepository(
             raise RuntimeError("commit_event_record_mismatch")
         return event
 
+    def load_cpn_replay_evidence(
+        self,
+        commit_identity: ExperimentalWorkflowPureActionCommitIdentity,
+    ) -> ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult:
+        """Atomically load and classify exact durable CPN replay evidence."""
+        if (
+            type(commit_identity)
+            is not ExperimentalWorkflowPureActionCommitIdentity
+        ):
+            raise TypeError(
+                "commit_identity must be "
+                "ExperimentalWorkflowPureActionCommitIdentity"
+            )
+        connection: sqlite3.Connection | None = None
+        try:
+            connection = self._connect()
+            self._prepare(connection)
+            evidence = _load_replay_evidence_pair(connection, commit_identity)
+            if evidence is None:
+                return _replay_read_failure(
+                    ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus.ABSENT,
+                    "cpn_replay_evidence_absent",
+                )
+            return ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult(
+                status=ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus.FOUND,
+                evidence=evidence,
+                diagnostics=(),
+            )
+        except _StoreFault as error:
+            read_status = (
+                ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus
+            )
+            if error.code == "unsupported_store_version":
+                status = read_status.INCOMPATIBLE
+            elif error.code.startswith("invalid_") or error.code.endswith(
+                "_mismatch"
+            ):
+                status = read_status.CORRUPT
+            else:
+                status = read_status.ERROR
+            return _replay_read_failure(status, error.code)
+        except TypeError, ValueError:
+            return _replay_read_failure(
+                ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus.CORRUPT,
+                "cpn_replay_evidence_invalid",
+            )
+        except OSError, sqlite3.Error:
+            return _replay_read_failure(
+                ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus.ERROR,
+                "sqlite_read_failed",
+            )
+        finally:
+            if connection is not None:
+                connection.close()
+
     def current_predecessor(
         self,
         net_instance_identity: WorkflowNetInstanceIdentity,
@@ -563,6 +724,7 @@ class ExperimentalSQLitePureActionReservationRepository(
         connection.execute("BEGIN IMMEDIATE")
         transaction_open = True
         try:
+            _migrate_v2_store(connection)
             prepare_store_schema(
                 connection,
                 schema=_SCHEMA,
@@ -611,6 +773,201 @@ class ExperimentalSQLitePureActionReservationRepository(
         finally:
             if transaction_open:
                 _rollback_quietly(connection)
+
+
+def _migrate_v2_store(connection: sqlite3.Connection) -> None:
+    tables = tuple(
+        row[0]
+        for row in connection.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name"
+        ).fetchall()
+    )
+    if tables != _TABLES_V2:
+        return
+    definitions = dict(
+        connection.execute(
+            "SELECT name, sql FROM sqlite_master "
+            "WHERE type = 'table' ORDER BY name"
+        ).fetchall()
+    )
+    metadata = connection.execute(
+        "SELECT identity, version FROM store_format"
+    ).fetchall()
+    unexpected = connection.execute(
+        "SELECT name FROM sqlite_master "
+        "WHERE type IN ('trigger', 'view') LIMIT 1"
+    ).fetchone()
+    if (
+        definitions != _SCHEMA_V2_SQL_BY_TABLE
+        or metadata != [(_FORMAT, 2)]
+        or unexpected is not None
+    ):
+        return
+    for statement in _SCHEMA[7:]:
+        connection.execute(statement)
+    connection.execute(
+        "UPDATE store_format SET version = ?", (_FORMAT_VERSION,)
+    )
+
+
+def _reconstruct_replay_evidence(
+    value: ExperimentalWorkflowPureActionCpnReplayEvidence,
+) -> ExperimentalWorkflowPureActionCpnReplayEvidence:
+    if type(value) is not ExperimentalWorkflowPureActionCpnReplayEvidence:
+        raise TypeError(
+            "value must be ExperimentalWorkflowPureActionCpnReplayEvidence"
+        )
+    reconstructed = ExperimentalWorkflowPureActionCpnReplayEvidence(
+        commit_identity=value.commit_identity,
+        bundle_identity=value.bundle_identity,
+        cpn_plan_identity=value.cpn_plan_identity,
+        cpn_firing_result_identity=value.cpn_firing_result_identity,
+        predecessor_marking_identity=value.predecessor_marking_identity,
+        successor_marking_identity=value.successor_marking_identity,
+        bundle_bytes=value.bundle_bytes,
+    )
+    if reconstructed != value:
+        raise ValueError("CPN replay evidence differs after reconstruction")
+    return reconstructed
+
+
+def _insert_replay_evidence(
+    connection: sqlite3.Connection,
+    evidence: ExperimentalWorkflowPureActionCpnReplayEvidence,
+) -> None:
+    existing = connection.execute(
+        "SELECT event_bytes, event_digest FROM cpn_replay_bundles "
+        "WHERE bundle_identity = ?",
+        (evidence.bundle_identity.value,),
+    ).fetchone()
+    bundle_digest = hashlib.sha256(evidence.bundle_bytes).digest()
+    if existing is None:
+        connection.execute(
+            "INSERT INTO cpn_replay_bundles VALUES (?, ?, ?)",
+            (
+                evidence.bundle_identity.value,
+                evidence.bundle_bytes,
+                bundle_digest,
+            ),
+        )
+    elif tuple(existing) != (evidence.bundle_bytes, bundle_digest):
+        raise _StoreFault("cpn_replay_bundle_identity_mismatch")
+    connection.execute(
+        "INSERT INTO commit_cpn_replay_evidence VALUES "
+        "(?, ?, ?, ?, ?, ?, ?, ?)",
+        (
+            evidence.commit_identity.value,
+            evidence.identity.value,
+            evidence.bundle_identity.value,
+            evidence.cpn_plan_identity.value,
+            evidence.cpn_firing_result_identity,
+            evidence.predecessor_marking_identity.value,
+            evidence.successor_marking_identity.value,
+            _replay_evidence_digest(evidence),
+        ),
+    )
+
+
+def _load_replay_evidence_pair(
+    connection: sqlite3.Connection,
+    commit_identity: ExperimentalWorkflowPureActionCommitIdentity,
+) -> ExperimentalWorkflowPureActionCpnReplayEvidence | None:
+    row = connection.execute(
+        "SELECT e.evidence_identity, e.bundle_identity, e.cpn_plan_identity, "
+        "e.cpn_firing_result_identity, e.predecessor_marking_identity, "
+        "e.successor_marking_identity, e.evidence_digest, "
+        "b.event_bytes, b.event_digest, c.cpn_plan_identity, "
+        "c.cpn_firing_result_identity, c.predecessor_marking_identity, "
+        "c.successor_marking_identity "
+        "FROM commit_cpn_replay_evidence e LEFT JOIN cpn_replay_bundles b "
+        "ON b.bundle_identity = e.bundle_identity LEFT JOIN commits c "
+        "ON c.commit_identity = e.commit_identity WHERE e.commit_identity = ?",
+        (commit_identity.value,),
+    ).fetchone()
+    if row is None:
+        return None
+    if len(row) != 13:
+        raise _StoreFault("invalid_cpn_replay_evidence_shape")
+    if tuple(row[2:6]) != tuple(row[9:13]):
+        raise _StoreFault("cpn_replay_commit_correlation_mismatch")
+    bundle_bytes, bundle_digest = row[7], row[8]
+    if type(bundle_bytes) is not bytes or type(bundle_digest) is not bytes:
+        raise _StoreFault("invalid_cpn_replay_bundle")
+    if hashlib.sha256(bundle_bytes).digest() != bundle_digest:
+        raise _StoreFault("cpn_replay_bundle_digest_mismatch")
+    try:
+        evidence = ExperimentalWorkflowPureActionCpnReplayEvidence(
+            commit_identity=commit_identity,
+            bundle_identity=ExperimentalWorkflowPureActionCpnReplayBundleIdentity(
+                _required_replay_text(row[1], "bundle_identity")
+            ),
+            cpn_plan_identity=ExperimentalWorkflowPureActionCpnPlanIdentity(
+                _required_replay_text(row[2], "cpn_plan_identity")
+            ),
+            cpn_firing_result_identity=_required_replay_text(
+                row[3], "cpn_firing_result_identity"
+            ),
+            predecessor_marking_identity=WorkflowMarkingIdentity(
+                _required_replay_text(row[4], "predecessor_marking_identity")
+            ),
+            successor_marking_identity=WorkflowMarkingIdentity(
+                _required_replay_text(row[5], "successor_marking_identity")
+            ),
+            bundle_bytes=bundle_bytes,
+        )
+        retained_identity = (
+            ExperimentalWorkflowPureActionCpnReplayEvidenceIdentity(
+                _required_replay_text(row[0], "evidence_identity")
+            )
+        )
+    except (TypeError, ValueError) as error:
+        raise _StoreFault("invalid_cpn_replay_evidence") from error
+    if evidence.identity != retained_identity:
+        raise _StoreFault("cpn_replay_evidence_identity_mismatch")
+    digest = row[6]
+    if type(digest) is not bytes or digest != _replay_evidence_digest(evidence):
+        raise _StoreFault("cpn_replay_evidence_digest_mismatch")
+    return evidence
+
+
+def _replay_evidence_digest(
+    evidence: ExperimentalWorkflowPureActionCpnReplayEvidence,
+) -> bytes:
+    digest = hashlib.sha256(
+        b"projectkoios.workflow.experimental-pure-action-cpn-replay-row:0\x00"
+    )
+    for value in (
+        evidence.identity.value,
+        evidence.commit_identity.value,
+        evidence.bundle_identity.value,
+        evidence.cpn_plan_identity.value,
+        evidence.cpn_firing_result_identity,
+        evidence.predecessor_marking_identity.value,
+        evidence.successor_marking_identity.value,
+        str(len(evidence.bundle_bytes)),
+        hashlib.sha256(evidence.bundle_bytes).hexdigest(),
+    ):
+        encoded = value.encode("utf-8")
+        digest.update(len(encoded).to_bytes(8, "big"))
+        digest.update(encoded)
+    return digest.digest()
+
+
+def _required_replay_text(value: object, field: str) -> str:
+    if type(value) is not str or not value:
+        raise _StoreFault(f"invalid_{field}")
+    return value
+
+
+def _replay_read_failure(
+    status: ExperimentalWorkflowPureActionCpnReplayEvidenceReadStatus,
+    diagnostic: str,
+) -> ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult:
+    return ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult(
+        status=status,
+        evidence=None,
+        diagnostics=(diagnostic,),
+    )
 
 
 def _commit_read_failure(

@@ -16,20 +16,25 @@ flowchart TD
     Tx --> Check[Verify active reservation and current predecessor]
     Check --> Commit[Insert compact fields and exact event bytes]
     Commit --> References[Insert ordered evidence references]
-    References --> Consume[Consume reservation]
+    References --> Bundle[Retain content-addressed CPN replay bundle and link]
+    Bundle --> Consume[Consume reservation]
     Consume --> Advance[Advance marking coordinate]
     Advance --> Durable[SQLite COMMIT with synchronous FULL]
 
     Durable --> Reopen[Reopen database]
     Reopen --> Inspect[Verify event bytes, typed fields, and coordinates]
     Inspect --> Replay[Read-only compact commit reconstruction]
+    Inspect --> Correlate[Correlate commit and replay evidence]
+    Correlate --> Refire[Pure CPN refiring]
 
     Command -. no owner payload bodies .-> Outside[Owner-controlled storage]
     Replay -. no owner or CPN invocation .-> Done[Replayed compact evidence]
+    Refire -. no owner or source invocation .-> CpnDone[Replayed CPN result]
 ```
 
 Both SQLite adapters share private-file and connection security policy while
 retaining separate schemas and transaction orchestration. The experimental
-pure-action repository and replay service cover durable reservation, compact
-atomic commit, and structural identity-chain replay only. Complete durable CPN
-and runtime safety-state replay remains separate work.
+pure-action repository and replay services cover durable reservation, compact
+atomic commit, structural identity-chain replay, and bounded pure-CPN transcript
+refiring. Complete request/result history, reservation lifecycle, and runtime
+safety-state replay remain separate work.
