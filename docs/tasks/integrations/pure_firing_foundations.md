@@ -10,6 +10,14 @@ This task makes the existing experimental request and output mapping candidates
 usable as part of an exact runtime chain. It does not by itself accept the
 proposed canonical CPN-bindings contract set.
 
+## Priority after the QE comparison
+
+The bounded chain is sufficient for current QE value evidence. Remaining
+complete-plan and profile work is not immediate infrastructure work; close only
+the gaps required by the canonical durable path, a second owner, or an accepted
+supported-release target. It is not a prerequisite for preserving Simulations'
+existing domain workflow architecture.
+
 ## Required work
 
 - [x] Establish one versioned Workflow-owned selected-binding adapter profile for
@@ -29,8 +37,10 @@ proposed canonical CPN-bindings contract set.
   input-mapping descriptor, with
   [local evidence](pure_action_input_admission_evidence.md). A nominal
   owner/source authority boundary now resolves and revalidates those references,
-  with [local evidence](pure_action_input_authority_evidence.md); a production
-  owner adapter remains incomplete.
+  with [local evidence](pure_action_input_authority_evidence.md). Simulations now
+  supplies an outward content-addressed adapter candidate with
+  [real-owner evidence](simulations/qe_artifact_set_durable_vertical_slice_evidence.md);
+  release packaging and a production authority guarantee remain incomplete.
 - [x] Prevent the reservation service from independently combining an arbitrary
   selected binding, runtime coordinates, and otherwise valid owner inputs; it
   now accepts only the reconstructed admitted-input aggregate.
@@ -56,11 +66,15 @@ proposed canonical CPN-bindings contract set.
   [evidence](pure_action_durable_persistence_evidence.md).
 - [x] Retain strict canonical identity-only committed-event bytes and reconstruct
   the compact commit and coordinates read-only without owner or CPN invocation,
-  with [local evidence](pure_action_committed_replay_evidence.md). Complete CPN
-  and runtime safety-state replay remains incomplete. A bounded canonical
-  transcript can now reconstruct and refire the pure CPN state in memory, with
-  [local evidence](pure_action_cpn_refiring_evidence.md), but it is not yet
-  durably linked to the compact commit.
+  with [local evidence](pure_action_committed_replay_evidence.md). A bounded
+  canonical transcript is now atomically and durably linked to the compact
+  commit, supports exact CPN refiring, reconstructs reservation lifecycle, and
+  reconstructs bounded committed safety state, with
+  [durable replay](pure_action_durable_cpn_replay_evidence.md),
+  [commit orchestration](pure_action_durable_cpn_commit_orchestration_evidence.md),
+  [lifecycle](pure_action_reservation_lifecycle_evidence.md), and
+  [safety-state](pure_action_safety_state_replay_evidence.md) evidence. Complete
+  global scheduler and runtime replay remain incomplete.
 - [ ] Embed those candidates in the complete authoritative
   `WorkflowExecutionPlan`.
 - [ ] Require complete `WorkflowExecutionBindings` to verify the exact
@@ -118,11 +132,11 @@ the [pure-action atomic-commit evidence](pure_action_atomic_commit_evidence.md),
 the [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
 the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
 the [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
-and the [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md)
-are candidate evidence for this task. Together they still do not supply a
-production owner source adapter, complete plan closure, retained CPN
-representation-bundle persistence, or authoritative complete replay requirements
-above.
+the [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md),
+and the [real-owner QE durable vertical slice](simulations/qe_artifact_set_durable_vertical_slice_evidence.md)
+are candidate evidence for this task. Together they still do not supply complete
+plan/profile closure, released owner/runtime packaging, a structurally
+independent second owner, or authoritative global replay.
 
 ## Exclusions
 
@@ -132,6 +146,7 @@ must not change that source merely to fit the adapter profile; replacing or
 migrating the shadow requires separate accepted ownership and provenance
 evidence.
 
-This task does not fire a CPN transition, mutate a marking, implement effects,
-perform owner-domain parsing, accept the complete proposed CPN-bindings contract
-set, replace the provenance-bound shadow, or authorize production use.
+The foundations task does not itself authorize effects, owner-domain parsing by
+Workflow, acceptance of the complete proposed CPN-bindings contract set,
+replacement of the provenance-bound shadow, or production use. Its candidates
+are exercised by a separately recorded bounded pure-firing vertical slice.

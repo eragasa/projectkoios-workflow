@@ -4,6 +4,9 @@
 
 Prevent calculator execution, schedulers, OCR processes, remote services, and
 other external effects from adopting an incomplete Workflow lifecycle boundary.
+This gate is deferred until an owner requests durable effect orchestration; the
+existing Simulations typed SCF lifecycle remains the current architecture in the
+meantime.
 
 ## Gate
 
@@ -37,4 +40,6 @@ At least one isolated provider fixture must complete this checklist:
 ## Exclusions
 
 Passing a pure SDK pilot does not satisfy this gate. An effectful owner action
-must not be hidden behind the pure firing path.
+must not be hidden behind the pure firing path. Registration, submission,
+cancellation, and other existing owner lifecycle operations must not be migrated
+to Workflow merely because a pure projection pilot succeeded.

@@ -18,30 +18,35 @@ CPN selected binding
 ## Required work
 
 - [ ] Pass the [pure-firing foundations gate](pure_firing_foundations.md).
-- [ ] Compile or construct one exact transition-to-firer binding from the
-  authoritative execution plan.
-- [ ] Reserve the exact selected occurrence against the current predecessor
+- [x] Construct one exact transition-to-firer binding through the bounded
+  experimental execution-plan candidate.
+- [x] Reserve the exact selected occurrence against the current predecessor
   marking and revision.
-- [ ] Create the firing request only from the reserved invocation and its admitted
+- [x] Create the firing request only from the reserved invocation and its admitted
   owner inputs.
-- [ ] Invoke a consumer-owned integration through the SDK `Firer` ABC.
-- [ ] Revalidate and consume the reservation exactly once after the owner result
+- [x] Invoke a consumer-owned integration through the SDK `Firer` ABC.
+- [x] Revalidate and consume the reservation exactly once after the owner result
   returns.
-- [ ] Reject changed occurrence, attempt, binding, request, descriptor, result,
+- [x] Reject changed occurrence, attempt, binding, request, descriptor, result,
   predecessor, profile, or input-provenance correlation.
-- [ ] Map admitted owner output to an explicit external-output binding.
-- [ ] Validate the mapped external value against the transition output color.
-- [ ] Invoke the pure CPN transition firer only after current-state result
+- [x] Map admitted owner output to an explicit external-output binding.
+- [x] Validate the mapped external value against the transition output color.
+- [x] Invoke the pure CPN transition firer only after current-state result
   admission.
-- [ ] Atomically retain the request, result, mapping, evidence, firing history,
-  consumed reservation, and successor marking under the local runtime's accepted
-  persistence boundary.
+- [x] Atomically retain compact commit identities, admitted evidence references,
+  CPN replay evidence, lifecycle transition, consumed reservation, and successor
+  marking without retaining owner payload bodies or private locators.
 - [x] Prove rollback leaves no partially committed occurrence or successor, with
   [durable-persistence evidence](pure_action_durable_persistence_evidence.md).
-- [ ] Replay the committed firing using the exact retained behavior profiles.
+- [x] Replay the committed firing through the retained experimental CPN profile;
+  complete global behavior-profile closure remains a foundations gate.
 
 The first intended consumer fixture is the
 [Simulations QE artifact-set pilot](simulations/qe_artifact_set_sdk_pilot.md).
+The bounded path now proves selective durability value; it does not justify
+replacing Simulations' typed SCF facade or local SNAKES lifecycle. That adoption
+boundary is tracked explicitly in
+[selective runtime adoption](simulations/selective_runtime_adoption.md).
 Its owner-side SDK boundary and isolated cross-wheel firing now pass, but it
 correctly stops at a correlated SDK result. The SDK
 [transition action binding](../../architecture/projectkoios/workflow/sdk/actions/TransitionActionBinding/)
@@ -68,9 +73,10 @@ opaque source kind and profile per SDK role; a structural admission aggregate
 binds exact source evidence and request bytes, and the reservation service no
 longer accepts raw input tuples. A nominal owner/source repository now resolves
 opaque references with closed uncertainty outcomes; reservation reloads and
-compares the exact source observation. A production owner adapter remains
-outside Workflow, and the reservation deliberately exposes no consumption
-separately from the future atomic firing boundary. A bounded v0 invocation
+compares the exact source observation. Simulations now supplies an outward
+content-addressed owner adapter candidate, while release packaging and its
+production authority guarantee remain open. Reservation consumption is exposed
+only inside the accepted atomic firing boundary. A bounded v0 invocation
 candidate now performs both revalidation phases, validates the live worker
 against the retained manifest, invokes the exact SDK firer, preserves closed
 non-success and exceptional outcomes, and maps only a current SDK success. A
@@ -88,22 +94,23 @@ durable transaction, with reopen, process-crash, rollback, corruption, and
 concurrency evidence. These candidates are not the complete authoritative plan
 or deployment bindings. Canonical identity-only event bytes and compact
 read-only reconstruction now exist. Bounded canonical definition and semantic
-marking reconstruction primitives also exist. A canonical in-memory transcript
-now proves exact retained-profile CPN refiring, but durable transcript linkage
-and full runtime safety-state replay do not.
+marking reconstruction primitives also exist. Canonical CPN transcript evidence
+is durably linked within the same commit, exact refiring is available, lifecycle
+history is reconstructable, and bounded committed safety-state replay correlates
+both markings without owner invocation.
 
 The paired mapper validates the exact SDK descriptors, retained context, result
 metadata, canonical ASCII identity, and evidence order, then constructs one
 declared candidate shadow-CPN `STRING` binding. Neither component expands the
 standalone SDK, grants runtime admission authority, or claims the proposed full
 CPN-bindings contract. The
-[pure-firing foundations task](pure_firing_foundations.md) must close selection,
-reservation, input-provenance, representation-profile, and execution-plan
-semantics before these candidates enter the authoritative runtime path.
-[`WorkflowEngine`](../../architecture/projectkoios/workflow/runtime/WorkflowEngine/)
-must then perform current predecessor revalidation and result admission, invoke
-pure firing, and atomically retain firing evidence. No SDK record authorizes
-inventing the mapping inside the owner adapter.
+[pure-firing foundations task](pure_firing_foundations.md) must still close the
+complete representation-profile and execution-plan semantics before this
+bounded path can claim the authoritative global runtime or CPN-bindings
+contract. The current Workflow-owned execution services already perform
+predecessor/source revalidation, result admission, pure firing, and atomic
+retention for this slice. No SDK record authorizes inventing the mapping inside
+the owner adapter.
 
 ## Completion evidence
 
@@ -121,15 +128,18 @@ inventing the mapping inside the owner adapter.
   [pure-action durable-persistence evidence](pure_action_durable_persistence_evidence.md),
   [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
   [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
-  and [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md).
-- [ ] Record exact SDK, Workflow, and consumer revisions for the complete slice.
-- [ ] Retain request, result, reservation, profile, binding, firing, and history
+  [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md), and
+  [real-owner QE durable vertical-slice evidence](simulations/qe_artifact_set_durable_vertical_slice_evidence.md).
+- [x] Record exact committed SDK, Workflow runtime, and consumer revisions for
+  the complete bounded slice, including reproducible wheel digests.
+- [x] Retain request, result, reservation, profile, binding, firing, and history
   identities.
-- [ ] Retain deterministic replay evidence.
-- [ ] Retain negative test results for stale and mismatched results, stale
+- [x] Retain deterministic replay evidence.
+- [x] Retain negative test results for stale and mismatched results, stale
   reservations, invalid input provenance, partial-write rollback, and replay
   profile substitution.
-- [ ] Prove that the consumer firer cannot access or mutate the Workflow marking.
+- [x] Prove the consumer firer receives only the canonical SDK request copy, not
+  the Workflow marking object, and cannot mutate authoritative marking state.
 
 ## Exclusions
 

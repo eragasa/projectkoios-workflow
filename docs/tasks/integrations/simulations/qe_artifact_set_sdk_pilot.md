@@ -38,11 +38,12 @@ The operator selected the
   evidence and must not substitute for the owner logical identity; and
 - Workflow must not import Simulations types or parse its domain document.
 
-The revised pilot emits `artifact_set_identity` as its sole external-state
-output, retains `artifact_set` as evidence, and stops before CPN admission.
-Workflow now has an experimental shadow-kernel mapping candidate; retaining it
-in an authoritative execution plan and integrating runtime admission remain
-separately gated work.
+The original owner-side pilot emits `artifact_set_identity` as its sole
+external-state output and retains `artifact_set` as evidence without granting
+CPN admission. The separately composed
+[durable vertical slice](qe_artifact_set_durable_vertical_slice_evidence.md) now
+exercises Workflow-owned admission, pure CPN firing, atomic persistence, and
+bounded replay while preserving that authority boundary.
 
 ### Follow-up work
 
@@ -55,11 +56,14 @@ separately gated work.
 
 ## Workflow-owned work
 
-- [ ] Construct the SDK firing request from an exact selected CPN binding.
-- [ ] Invoke the integration in an isolated worker environment.
-- [ ] Reject descriptor, occurrence, attempt, binding, and request/result mismatch.
-- [ ] Admit the returned output through an explicit external-output binding.
-- [ ] Complete and retain the pure CPN firing and replay evidence.
+- [x] Construct the SDK firing request from an exact selected CPN binding.
+- [ ] Invoke the integration in an isolated OS-process worker environment. The
+  current candidate validates the nominal worker composition and canonical copy
+  boundary in-process only.
+- [x] Reject descriptor, occurrence, attempt, binding, and request/result mismatch.
+- [x] Admit the returned output through an explicit external-output binding.
+- [x] Complete and retain the pure CPN firing and replay evidence, with
+  [real-owner durable evidence](qe_artifact_set_durable_vertical_slice_evidence.md).
 
 ## Completion evidence
 
@@ -67,7 +71,7 @@ separately gated work.
   [pilot evidence](qe_artifact_set_sdk_pilot_evidence.md).
 - [x] Retain isolated-installation evidence for Workflow SDK plus the Simulations
   integration.
-- [ ] Retain positive end-to-end firing and replay evidence.
+- [x] Retain positive end-to-end firing and replay evidence.
 - [x] Retain adversarial mismatch and bound test results.
 - [x] Prove the existing QE candidate source/schema remains unchanged unless
   separately authorized by its owner.

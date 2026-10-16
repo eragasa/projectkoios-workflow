@@ -9,8 +9,10 @@ future caller could mistake for runtime admission evidence.
 
 ## Activation condition
 
-Complete this task before broader SDK adoption or before declaring the pure
-external-firing path supported, whichever occurs first.
+Do not activate this cleanup before the second-owner pilot establishes which
+abstractions genuinely generalize. Complete it after that result and before
+broader SDK adoption or before declaring the pure external-firing path
+supported, whichever occurs first.
 
 ## Action
 

@@ -9,9 +9,19 @@ runtime dependency.
 
 ## Integration sequence
 
-1. [Workflow SDK alpha consumption readiness](sdk_alpha_readiness.md)
-2. [Simulations owner-side SDK pilot](simulations/)
-3. [Pure-firing foundations](pure_firing_foundations.md), informed by the
+Completed evidence establishes the standalone SDK, the Simulations owner
+boundary, and one bounded durable real-owner path. Current work should now
+prioritize demonstrated value over further infrastructure.
+
+1. Preserve the
+   [selective Simulations adoption boundary](simulations/selective_runtime_adoption.md).
+2. Complete the
+   [canonical durable pure-action path](canonical_durable_pure_action_path.md).
+3. Run the [second owner SDK pilot](second_owner_pilot.md) as an owner-side
+   generality test.
+4. Close the remaining [pure-firing foundations](pure_firing_foundations.md)
+   only to the extent required for a supported two-owner pure path, informed by
+   the
    [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
    [selected-binding evidence follow-up](selected_binding_evidence_followup.md),
    [pure-action plan-closure evidence](pure_action_plan_closure_evidence.md),
@@ -29,14 +39,17 @@ runtime dependency.
    [durable CPN replay evidence](pure_action_durable_cpn_replay_evidence.md),
    [durable CPN commit orchestration evidence](pure_action_durable_cpn_commit_orchestration_evidence.md),
    [reservation lifecycle evidence](pure_action_reservation_lifecycle_evidence.md),
-   and [committed safety-state replay evidence](pure_action_safety_state_replay_evidence.md)
-4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
-5. [Second owner SDK pilot](second_owner_pilot.md)
-6. [Broader SDK adoption gate](broader_adoption_gate.md)
-7. [Effectful integration gate](effectful_integration_gate.md)
+   and [committed safety-state replay evidence](pure_action_safety_state_replay_evidence.md).
+5. Complete the remaining
+   [pure-firing vertical-slice](pure_firing_vertical_slice.md) release and
+   isolation gates; the bounded runtime path is already exercised by the
+   [QE durable vertical-slice evidence](simulations/qe_artifact_set_durable_vertical_slice_evidence.md).
+6. Pass the [broader SDK adoption gate](broader_adoption_gate.md).
+7. Address the [effectful integration gate](effectful_integration_gate.md) only
+   when an owner requests durable effect orchestration.
 
-The first two tasks establish a usable SDK boundary and one owner fixture. The
-foundations task closes representation, reservation, input-provenance, and plan
-semantics before the vertical slice claims one authoritative pure CPN path. The
-second owner then tests generality. Broader adoption and external effects remain
-separately gated.
+The existing Simulations lifecycle remains its current owner architecture.
+Workflow's bounded QE path is an additive durability mechanism for one pure
+action, not a general replacement. Global scheduler replay, additional replay
+variants, and effect infrastructure remain deferred until owner evidence makes
+them necessary.

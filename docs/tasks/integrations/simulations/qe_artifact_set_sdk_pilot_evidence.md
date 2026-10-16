@@ -2,10 +2,13 @@
 
 ## Scope
 
-This record covers the Simulations-owned pure SDK boundary only. It does not
-claim an isolated Workflow worker, an authoritative selected or reserved CPN
-binding, external-output admission, predecessor revalidation, CPN firing,
-retention, calculator execution, or scientific acceptance.
+This record covers the original Simulations-owned pure SDK boundary and its
+historical isolated cross-wheel evidence. The later authoritative runtime path
+is recorded separately in the
+[QE durable vertical-slice evidence](qe_artifact_set_durable_vertical_slice_evidence.md).
+Neither record claims calculator execution, scientific acceptance, an
+OS-process worker sandbox, full scheduler replay, or production release
+readiness.
 
 ## Repositories and artifacts
 
@@ -121,7 +124,7 @@ Retained identities from that run:
 The output and evidence hashes are distinct. The decoded evidence contained four
 artifact members. All 23 installed packages were compatible.
 
-## Remaining Workflow gate
+## Historical Workflow gate and current status
 
 The revised owner boundary now supplies the selected long-term state shape:
 canonical `artifact_set_identity` output plus the complete `artifact_set`
@@ -134,8 +137,11 @@ mapper independently validates retained context, SDK correlation, metadata,
 roles, bounds, payload digests, evidence order, and path-free ASCII encoding; it
 does not import Simulations or parse the artifact-set evidence document.
 
-The pilot still stops before authoritative CPN admission. Workflow must retain
-the mapping through a complete execution plan, link it through deployment
-bindings, revalidate the current predecessor reservation, invoke pure firing,
-and atomically retain history and replay evidence before the vertical slice can
-complete.
+This original isolated-wheel run stopped before authoritative CPN admission.
+The later bounded candidate now retains the mapping through experimental
+input/CPN plan records, revalidates source and predecessor state, invokes the
+real owner projector, performs pure CPN firing, and atomically retains compact,
+CPN, lifecycle, and marking evidence. Compact replay, durable CPN refiring,
+lifecycle replay, and safety-state reconstruction succeed without owner
+reinvocation. See the linked durable vertical-slice evidence for exact revisions,
+identities, privacy checks, and remaining gates.

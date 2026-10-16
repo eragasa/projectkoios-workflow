@@ -36,9 +36,12 @@ external owner repository imports it as a runtime dependency.
   private duplicate public-contract types.
 - [x] Validate installation and imports in an isolated environment containing only
   declared runtime dependencies.
-- [ ] Complete the
-  [pure-firing foundations](pure_firing_foundations.md).
-- [ ] Complete the [pure-firing vertical slice](pure_firing_vertical_slice.md).
+- [ ] Complete the remaining
+  [pure-firing foundations](pure_firing_foundations.md) before declaring a
+  supported full-runtime pure path; this is no longer an owner-side SDK alpha
+  prerequisite.
+- [x] Retain a bounded real-owner
+  [pure-firing vertical slice](pure_firing_vertical_slice.md).
 - [x] Publish an alpha contract statement identifying unstable surfaces,
   unsupported operations, compatibility limits, and prohibited production uses.
 
@@ -52,11 +55,11 @@ external owner repository imports it as a runtime dependency.
 - [x] Retain isolated-install test output.
 - [x] Prove that Workflow imports the installed SDK surface in the
   [self-consumption evidence](sdk_alpha_self_consumption_evidence.md).
-- [ ] Retain pure vertical-slice evidence.
+- [x] Retain pure vertical-slice evidence.
 - [x] Retain the versioned alpha compatibility statement.
 
 ## Exclusions
 
-This task does not authorize an external owner dependency, effectful execution,
-calculator launch, consumer migration, production deployment, or compatibility
-beyond the recorded alpha contract.
+This task does not authorize broader owner adoption, effectful execution,
+calculator launch, replacement of an owner workflow architecture, production
+deployment, or compatibility beyond the recorded alpha contract.
