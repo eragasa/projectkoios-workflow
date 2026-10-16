@@ -8,7 +8,9 @@ Workflow sees only Tasks. A Workflow is itself a composite Task and therefore
 may be invoked by a parent while retaining a distinct child Workflow run.
 
 This task selects terminology and semantic boundaries before selecting a final
-Python API. It does not add `Task` or `Workflow` to the released SDK alpha.
+Python API. It does not add `Task` or `Workflow` to the released SDK alpha. The
+current owner shapes and provisional boundary conclusions are recorded in the
+[two-owner inventory](task_workflow_owner_inventory.md).
 
 ## Owner evidence
 
@@ -79,12 +81,14 @@ methods or owner Actions. Parameterization alone does not create a Task.
 
 ## Required owner evidence
 
-- [ ] Inventory the common Simulations SCF lifecycle and exact QE/VASP Task
+- [x] Inventory the common Simulations SCF lifecycle and exact QE/VASP Task
   variation points without changing the owner implementation.
-- [ ] Prove that a generic Task model does not flatten QE and VASP resources into
-  one universal provider record.
+- [x] Establish that a generic Task model must not flatten QE and VASP resources
+  into one universal provider record.
 - [ ] Pin one clean retained `ksdft2effmass/experiments/` revision.
-- [ ] Identify cohesive Task boundaries in the retained single-band experiment.
+- [x] Identify provisional cohesive Task boundaries in the retained single-band
+  experiment, subject to revalidation against the future owner-authorized source
+  revision.
 - [ ] Preserve its typed Definition-to-Result API while adapting execution.
 - [ ] Demonstrate one atomic pure Task and one workflow-backed Task.
 - [ ] Demonstrate parent/child identity separation and owner-independent replay.

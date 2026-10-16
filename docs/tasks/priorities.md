@@ -43,16 +43,19 @@ explicit compatibility migration.
 
 1. Complete the
    [Task and Workflow composition model](integrations/task_workflow_composition_model.md).
-2. Inventory Simulations' calculator-neutral SCF topology, common task
-   correlation, QE/VASP Task specializations, and matching handlers without
-   changing the owner implementation.
+2. Review the completed
+   [two-owner Task and Workflow inventory](integrations/task_workflow_owner_inventory.md),
+   including Simulations' calculator-neutral SCF topology, common task
+   correlation, QE/VASP Task specializations, and matching handlers.
 3. Preserve the
    [selective Simulations adoption boundary](integrations/simulations/selective_runtime_adoption.md)
    while documenting that the SCF Workflow contains backend-specialized Task
    work and may later be exposed as a Task to a parent.
-4. Pin a clean immutable revision of the retained
+4. Pin an owner-supplied and authorized clean immutable revision of the retained
    `ksdft2effmass/experiments/periodic-reduction/single-band-fourier-reduction/periodic1d`
-   experiment after coordinating with its active experiment refactor.
+   experiment after the active refactor yields one. Coordination found an exact
+   content-addressed retained package for provisional inventory, but the owner
+   reports no clean repository revision that may yet be pinned.
 5. Keep the completed
    [canonical durable pure-action path](integrations/canonical_durable_pure_action_path.md)
    unchanged as enabling evidence.

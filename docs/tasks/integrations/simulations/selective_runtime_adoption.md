@@ -74,13 +74,15 @@ because they occur inside the Workflow.
   replacing the owner lifecycle architecture.
 - [ ] Retain dependency tests that fail if protected core or reusable owner
   workflow code imports the full Workflow runtime.
-- [ ] Inventory the exact common and backend-specific fields of
-  `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask`.
+- [x] Inventory the exact common and backend-specific fields of
+  `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask` in the
+  [two-owner inventory](../task_workflow_owner_inventory.md).
 - [ ] Prove a future generic Task descriptor can retain opaque owner identities
   without copying executables, paths, working directories, pseudopotentials,
   native execution requests, or provider objects into Workflow state.
-- [ ] Map common actions and events to Task lifecycle evidence without
-  reclassifying them as independent Tasks by name alone.
+- [x] Map common actions and events to candidate Task lifecycle evidence without
+  reclassifying them as independent Tasks by name alone, while preserving raised
+  boundary errors separately from retained failure events.
 
 ## Future composition and migration gate
 

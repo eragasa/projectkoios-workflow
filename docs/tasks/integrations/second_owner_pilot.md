@@ -24,7 +24,26 @@ retained experiment version and evidence, exposes a typed
 Definition-to-Result operation, and composes reusable scientific Actions. The
 actively changing model-adequacy experiments may later supply refinement,
 fan-out, and fan-in evidence, but they are not the initial compatibility
-baseline.
+baseline. The provisional Task boundaries and evidence-authority limits are
+recorded in the [two-owner inventory](task_workflow_owner_inventory.md).
+
+## Coordination status
+
+The owner reports that its active experiment refactor is heavily dirty and has
+not authorized a clean immutable repository revision. No live source revision
+may therefore be used as pilot evidence yet.
+
+Read-only inspection is limited to retained run
+`ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z`
+at the current dimension-last experiment path. Its evidence-package identity is
+`sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377`.
+The package was produced from a dirty worktree, so its recorded Git head is not
+a clean source pin. A possible family-first layout remains a pending owner
+direction and must not be described as present authority.
+
+The content-addressed package supports provisional boundary inventory only. It
+does not open the implementation, parity, or adoption gates below. Any future
+fixture exercise must occur outside the immutable retained-run directory.
 
 ## Entry gates
 
@@ -36,8 +55,9 @@ baseline.
   clean immutable source revision.
 - [ ] Confirm the retained experiment version and fixtures can be exercised
   without external calculator execution or a scientific-validation claim.
-- [ ] Identify proposed Task boundaries using reuse, replay, evidence, authority,
-  failure-isolation, or fan-out/fan-in needs.
+- [x] Identify provisional Task boundaries using reuse, replay, evidence,
+  authority, failure-isolation, or fan-out/fan-in needs; revalidate them against
+  the future owner-authorized source revision before implementation.
 - [ ] Confirm no proposed mapping requires reusable experiment code to import
   Workflow service, compiler, persistence, or CPN runtime implementations.
 
@@ -56,7 +76,9 @@ baseline.
 - [ ] Demonstrate one workflow-backed Task or multi-Task composition with
   distinct parent Task invocation and child Workflow-run identities.
 - [ ] Compare direct owner execution with Workflow-backed execution and retain
-  exact deterministic parity evidence within the owner's declared tolerances.
+  owner-declared numerical parity evidence within the declared tolerances.
+  Demonstrate exact payload-digest equality separately; do not infer it from
+  tolerance-bounded numerical parity.
 - [ ] Retain negative correlation, bound, malformed-payload, stale-source, and
   replay tests.
 - [ ] Record every SDK, plan, binding, runtime, and persistence change required

@@ -11,13 +11,14 @@ from runtime adoption.
    [Task and Workflow composition model](task_workflow_composition_model.md): a
    parent contains Tasks, a Workflow is a composite Task, and a workflow-backed
    Task creates a distinct child run.
-2. Preserve the
-   [selective Simulations adoption boundary](simulations/selective_runtime_adoption.md)
-   while inventorying its calculator-neutral SCF lifecycle, shared Task
-   correlation, and QE/VASP Task specializations.
+2. Use the
+   [two-owner Task and Workflow inventory](task_workflow_owner_inventory.md) to
+   constrain the common model while preserving the
+   [selective Simulations adoption boundary](simulations/selective_runtime_adoption.md).
 3. Use the revised [second owner SDK pilot](second_owner_pilot.md) to test pure
    Task decomposition and workflow-backed composition in the retained
-   `ksdft2effmass` single-band experiment.
+   `ksdft2effmass` single-band experiment after its owner authorizes a clean
+   immutable source revision.
 4. Treat the completed
    [canonical durable pure-action path](canonical_durable_pure_action_path.md) as
    the implementation candidate for pure atomic Task execution. Preserve its
