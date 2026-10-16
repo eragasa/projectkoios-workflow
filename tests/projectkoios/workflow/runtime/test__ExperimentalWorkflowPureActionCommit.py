@@ -27,7 +27,7 @@ from projectkoios.workflow.runtime import (
     ExperimentalWorkflowPureActionRevalidationStatus,
 )
 from projectkoios.workflow.runtime import (
-    pure_action_reservation as reservation_module,
+    _pure_action_reservation_repository as reservation_module,
 )
 from projectkoios.workflow_sdk.identities import (
     WorkflowMarkingIdentity,

@@ -155,9 +155,12 @@ successor. Unsupported but internally consistent retained profiles remain
 `INCOMPATIBLE`; transcript corruption remains distinct from unexpected replay
 errors.
 
-Replay-bundle records and construction, canonical transcript serialization, and
-pure refiring orchestration are implemented in separate execution modules. The
-public experimental imports and canonical transcript bytes remain unchanged.
+Replay-bundle records and construction, canonical transcript serialization,
+evidence records/factory, the nominal durable repository port, and pure/durable
+refiring orchestration are implemented in separate execution modules. Runtime
+reservation records, the nominal repository port, in-memory implementation, and
+service orchestration are likewise separated behind their existing compatibility
+exports. The public experimental imports and canonical bytes remain unchanged.
 
 The SQLite format-version-3 candidate durably retains the canonical transcript
 in a content-addressed table and links it to the compact commit in the same

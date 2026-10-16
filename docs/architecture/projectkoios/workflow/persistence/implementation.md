@@ -33,10 +33,11 @@ transaction verifies the exact active reservation and predecessor, inserts the
 compact commit and ordered evidence references, marks the reservation consumed,
 deletes the active reservation, and advances the marking coordinate. Exact
 replay is idempotent and distinct replay conflicts. Commit and predecessor
-record digests detect corruption before reconstruction. Pure-action row
-encoding, nominal reconstruction, digest verification, and correlation checks
-are separated from repository transaction orchestration; their existing closed
-fault codes remain unchanged.
+record digests detect corruption before reconstruction. Compact commit and CPN
+replay-evidence row encoding, nominal reconstruction, digest verification, and
+correlation checks are separated into focused internal row-codec modules;
+repository query ordering, schema migration, and transaction orchestration
+remain in the adapter. Existing closed fault codes remain unchanged.
 
 A process-crash test leaves an uncommitted marking update in a separate process
 and proves that reopening recovers the prior current reservation. A precommit

@@ -19,5 +19,8 @@ not authorize unrelated refactoring or change contract status.
   before adding durable CPN replay transcripts, another SQLite adapter, or a
   schema migration. The completed organization slice has separate
   [evidence](sqlite_private_boundary_consolidation_evidence.md).
+- [Durable-history internal organization evidence](durable_history_internal_organization_evidence.md)
+  records the prerequisite completed before adding complete request/result and
+  reservation-lifecycle history.
 - [Retire the experimental pure-action surface](retire_experimental_action_surface.md)
   before broader SDK adoption or supported pure external firing.
