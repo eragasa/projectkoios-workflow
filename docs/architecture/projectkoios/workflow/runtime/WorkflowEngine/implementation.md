@@ -162,7 +162,13 @@ public experimental imports and canonical transcript bytes remain unchanged.
 The SQLite format-version-3 candidate durably retains the canonical transcript
 in a content-addressed table and links it to the compact commit in the same
 reservation-consuming transaction. Its nominal evidence port admits only a
-bundle already correlated with the compact commit. Atomic reads verify bundle
+bundle already correlated with the compact commit. The dedicated durable CPN
+commit service constructs that bundle internally from the reconstructed plan
+and successful CPN firing result, requires the reservation service and evidence
+port to own the same repository instance, revalidates source observations, and
+then calls the single atomic operation. It exposes no caller-supplied transcript
+parameter and cannot attach evidence after an earlier compact-only commit.
+Atomic reads verify bundle
 and association digests and recheck plan, firing-result, predecessor, and
 successor identities against the compact row before pure refiring. Legacy
 version-2 commits migrate without fabricated links and return a closed absent

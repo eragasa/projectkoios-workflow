@@ -1095,6 +1095,10 @@ class ExperimentalWorkflowPureActionReservationService:
             "is not subclassable"
         )
 
+    def owns_repository(self, repository: object) -> bool:
+        """Return whether this service owns the exact repository instance."""
+        return repository is self._repository
+
     def reserve(
         self,
         *,

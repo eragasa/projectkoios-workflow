@@ -228,6 +228,18 @@ class ExperimentalWorkflowPureActionCommitResult:
             raise TypeError("diagnostics must contain bounded nonempty strings")
 
 
+@dataclass(frozen=True, slots=True)
+class _PreparedCommitCandidate:
+    authorized: ExperimentalWorkflowPureActionAuthorizedInputs
+    reservation: ExperimentalWorkflowPureActionReservation
+    plan: ExperimentalWorkflowPureActionCpnPlan
+    invocation: ExperimentalWorkflowPureActionInvocationOutcome
+    firing: ExperimentalWorkflowPureActionFiringOutcome
+    commit: ExperimentalWorkflowPureActionCommit
+    coordinates: ExperimentalWorkflowPureActionCommitCoordinates
+    record: ExperimentalWorkflowPureActionCommitRecord
+
+
 @final
 class ExperimentalWorkflowPureActionCommitService:
     """Atomically commit one current successful pure CPN firing candidate."""
@@ -263,37 +275,21 @@ class ExperimentalWorkflowPureActionCommitService:
         firing_outcome: ExperimentalWorkflowPureActionFiringOutcome,
     ) -> ExperimentalWorkflowPureActionCommitResult:
         """Revalidate sources and enter the atomic marking commit boundary."""
-        authorized = reconstruct_authorized_inputs(authorized_inputs)
-        reservation, _ = reconstruct_successful_reservation(
-            reservation_result,
-            authorized,
-            operation="commit",
+        candidate = _prepare_commit_candidate(
+            authorized_inputs=authorized_inputs,
+            reservation_result=reservation_result,
+            cpn_plan=cpn_plan,
+            invocation_outcome=invocation_outcome,
+            firing_outcome=firing_outcome,
         )
-        plan = reconstruct_cpn_plan(cpn_plan)
-        invocation = _reconstruct_invocation_outcome(invocation_outcome)
-        firing = _reconstruct_firing_outcome(firing_outcome)
-        commit = _construct_commit(
-            authorized=authorized,
-            reservation=reservation,
-            plan=plan,
-            invocation=invocation,
-            firing=firing,
+        existing = self._reservation_service.load_commit(
+            candidate.reservation.identity
         )
-        coordinates = ExperimentalWorkflowPureActionCommitCoordinates(
-            commit_identity=commit.identity,
-            reservation_identity=commit.reservation_identity,
-            net_instance_identity=reservation.net_instance_identity,
-            predecessor_marking_identity=commit.predecessor_marking_identity,
-            predecessor_revision=commit.predecessor_revision,
-            successor_marking_identity=commit.successor_marking_identity,
-            successor_revision=commit.successor_revision,
-        )
-        existing = self._reservation_service.load_commit(reservation.identity)
         if existing is not None:
-            if existing == coordinates:
+            if existing == candidate.coordinates:
                 return ExperimentalWorkflowPureActionCommitResult(
                     status=ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
-                    commit=commit,
+                    commit=candidate.commit,
                     diagnostics=(),
                 )
             return ExperimentalWorkflowPureActionCommitResult(
@@ -301,33 +297,86 @@ class ExperimentalWorkflowPureActionCommitService:
                 commit=None,
                 diagnostics=("conflict",),
             )
-        source_status = self._reservation_service.revalidate_sources(authorized)
+        source_status = self._reservation_service.revalidate_sources(
+            candidate.authorized
+        )
         if source_status is not None:
             return ExperimentalWorkflowPureActionCommitResult(
                 status=ExperimentalWorkflowPureActionCommitStatus.STALE,
                 commit=None,
                 diagnostics=(source_status.value,),
             )
-        record = _construct_commit_record(commit, authorized)
         status = self._reservation_service.commit(
-            reservation,
-            coordinates,
-            record,
+            candidate.reservation,
+            candidate.coordinates,
+            candidate.record,
         )
-        if status in {
-            ExperimentalWorkflowPureActionCommitStatus.COMMITTED,
-            ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
-        }:
-            return ExperimentalWorkflowPureActionCommitResult(
-                status=status,
-                commit=commit,
-                diagnostics=(),
-            )
+        return _commit_result(candidate.commit, status)
+
+
+def _prepare_commit_candidate(
+    *,
+    authorized_inputs: ExperimentalWorkflowPureActionAuthorizedInputs,
+    reservation_result: ExperimentalWorkflowPureActionReservationResult,
+    cpn_plan: ExperimentalWorkflowPureActionCpnPlan,
+    invocation_outcome: ExperimentalWorkflowPureActionInvocationOutcome,
+    firing_outcome: ExperimentalWorkflowPureActionFiringOutcome,
+) -> _PreparedCommitCandidate:
+    authorized = reconstruct_authorized_inputs(authorized_inputs)
+    reservation, _ = reconstruct_successful_reservation(
+        reservation_result,
+        authorized,
+        operation="commit",
+    )
+    plan = reconstruct_cpn_plan(cpn_plan)
+    invocation = _reconstruct_invocation_outcome(invocation_outcome)
+    firing = _reconstruct_firing_outcome(firing_outcome)
+    commit = _construct_commit(
+        authorized=authorized,
+        reservation=reservation,
+        plan=plan,
+        invocation=invocation,
+        firing=firing,
+    )
+    coordinates = ExperimentalWorkflowPureActionCommitCoordinates(
+        commit_identity=commit.identity,
+        reservation_identity=commit.reservation_identity,
+        net_instance_identity=reservation.net_instance_identity,
+        predecessor_marking_identity=commit.predecessor_marking_identity,
+        predecessor_revision=commit.predecessor_revision,
+        successor_marking_identity=commit.successor_marking_identity,
+        successor_revision=commit.successor_revision,
+    )
+    return _PreparedCommitCandidate(
+        authorized=authorized,
+        reservation=reservation,
+        plan=plan,
+        invocation=invocation,
+        firing=firing,
+        commit=commit,
+        coordinates=coordinates,
+        record=_construct_commit_record(commit, authorized),
+    )
+
+
+def _commit_result(
+    commit: ExperimentalWorkflowPureActionCommit,
+    status: ExperimentalWorkflowPureActionCommitStatus,
+) -> ExperimentalWorkflowPureActionCommitResult:
+    if status in {
+        ExperimentalWorkflowPureActionCommitStatus.COMMITTED,
+        ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT,
+    }:
         return ExperimentalWorkflowPureActionCommitResult(
             status=status,
-            commit=None,
-            diagnostics=(status.value,),
+            commit=commit,
+            diagnostics=(),
         )
+    return ExperimentalWorkflowPureActionCommitResult(
+        status=status,
+        commit=None,
+        diagnostics=(status.value,),
+    )
 
 
 def _construct_commit(

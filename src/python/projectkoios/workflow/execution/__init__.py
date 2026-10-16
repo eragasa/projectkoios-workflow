@@ -29,6 +29,9 @@ from .pure_action_cpn_replay_persistence import (
 from .pure_action_cpn_replay_serialization import (
     ExperimentalWorkflowPureActionCpnReplayBundleJsonCodec,
 )
+from .pure_action_durable_cpn_commit import (
+    ExperimentalWorkflowPureActionDurableCpnCommitService,
+)
 from .pure_action_firing import (
     ExperimentalWorkflowPureActionFiringOutcome,
     ExperimentalWorkflowPureActionFiringOutcomeIdentity,
@@ -59,6 +62,7 @@ __all__ = [
     "ExperimentalWorkflowPureActionCpnReplayBundleIdentity",
     "ExperimentalWorkflowPureActionCpnReplayBundleJsonCodec",
     "ExperimentalWorkflowPureActionCpnReplayEvidence",
+    "ExperimentalWorkflowPureActionDurableCpnCommitService",
     "ExperimentalWorkflowPureActionDurableCpnReplayResult",
     "ExperimentalWorkflowPureActionDurableCpnReplayService",
     "ExperimentalWorkflowPureActionDurableCpnReplayStatus",

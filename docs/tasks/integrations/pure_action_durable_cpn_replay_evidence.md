@@ -20,6 +20,13 @@ Implemented as a bounded v0 experimental candidate.
 - [x] Cover reopen, idempotence, concurrency, rollback, migration rollback,
   legacy history, and corruption.
 
+## Follow-up orchestration
+
+The separately reviewed
+[durable CPN commit orchestration](pure_action_durable_cpn_commit_orchestration_evidence.md)
+now constructs evidence internally from an exact firing candidate and invokes
+this atomic port through the authoritative commit path.
+
 ## Exclusions
 
 This does not reconstruct complete SDK request/result/evidence history,
