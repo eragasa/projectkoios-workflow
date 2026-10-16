@@ -69,6 +69,13 @@ complete reserved histories; consumed version-3 reservations are classified as
 legacy partial without fabricated fields. Atomic lifecycle reads verify event
 bytes, digests, sequence, and compact-commit correlation.
 
+A bounded committed safety-state read observes initial/current predecessor
+coordinates, reservation lifecycle, compact commit, CPN replay evidence, and
+canonical predecessor/successor markings under one read transaction. It
+rechecks their identities and returns closed found, partial, absent,
+incompatible, corrupt, or error outcomes without executing an owner, source
+repository, or CPN.
+
 The separate durable replay-evidence read verifies its row and bundle digests,
 correlates CPN-plan, firing-result, predecessor, and successor identities with
 the referenced compact commit in one database observation, and distinguishes

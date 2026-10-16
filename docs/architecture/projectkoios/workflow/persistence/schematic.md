@@ -26,12 +26,14 @@ flowchart TD
     Reopen --> Inspect[Verify event bytes, typed fields, and coordinates]
     Inspect --> Replay[Read-only compact commit reconstruction]
     Inspect --> History[Reconstruct identity-only reservation lifecycle]
+    Inspect --> Safety[Correlate bounded committed safety-state snapshot]
     Inspect --> Correlate[Correlate commit and replay evidence]
     Correlate --> Refire[Pure CPN refiring]
 
     Command -. no owner payload bodies .-> Outside[Owner-controlled storage]
     Replay -. no owner or CPN invocation .-> Done[Replayed compact evidence]
     History -. no owner, source, or CPN invocation .-> Done
+    Safety -. decode markings without firing .-> Done
     Refire -. no owner or source invocation .-> CpnDone[Replayed CPN result]
 ```
 

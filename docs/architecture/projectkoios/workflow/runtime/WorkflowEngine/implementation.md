@@ -182,7 +182,12 @@ version-2 commits migrate without fabricated links and return a closed absent
 evidence outcome. Definitions and marking bodies remain absent from the compact
 commit event itself.
 
-Complete request/result history, reservation lifecycle, runtime safety-state
+A bounded committed safety-state replay now correlates durable predecessor
+coordinates, complete reservation lifecycle, compact commit, CPN transcript,
+and decoded predecessor/successor markings from one database observation. It is
+structural and invokes no owner, source repository, or CPN firer.
+
+Complete request/result payload history, multi-occurrence scheduler-state
 reconstruction, and complete CPN-bindings replay remain unimplemented.
 
 Source resolution and predecessor commit also remain sequential across nominal

@@ -7,6 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import final
 
+from projectkoios.workflow.compilation import (
+    ExperimentalWorkflowCpnMarkingDecoder,
+)
 from projectkoios.workflow.execution.pure_action_cpn_replay_evidence import (
     ExperimentalWorkflowPureActionCpnReplayEvidence,
     ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult,
@@ -14,6 +17,12 @@ from projectkoios.workflow.execution.pure_action_cpn_replay_evidence import (
 )
 from projectkoios.workflow.execution.pure_action_cpn_replay_repository import (
     ExperimentalWorkflowPureActionCpnReplayEvidenceRepository,
+)
+from projectkoios.workflow.execution.pure_action_safety_replay import (
+    ExperimentalWorkflowPureActionSafetyStateReadResult,
+    ExperimentalWorkflowPureActionSafetyStateReadStatus,
+    ExperimentalWorkflowPureActionSafetyStateRepository,
+    ExperimentalWorkflowPureActionSafetyStateSnapshot,
 )
 from projectkoios.workflow.runtime.pure_action_commit_serialization import (
     ExperimentalWorkflowPureActionCommitEventJsonCodec,
@@ -44,6 +53,9 @@ from projectkoios.workflow_sdk.identities import (
     WorkflowNetInstanceIdentity,
 )
 
+from ..execution.pure_action_cpn_replay_serialization import (
+    ExperimentalWorkflowPureActionCpnReplayBundleJsonCodec,
+)
 from ._pure_action_cpn_replay_sqlite_rows import (
     _insert_replay_evidence,
     _load_replay_evidence_pair,
@@ -103,6 +115,7 @@ class ExperimentalSQLitePureActionReservationRepository(
     ExperimentalWorkflowPureActionReservationRepository,
     ExperimentalWorkflowPureActionCpnReplayEvidenceRepository,
     ExperimentalWorkflowPureActionReservationLifecycleRepository,
+    ExperimentalWorkflowPureActionSafetyStateRepository,
 ):
     """Purpose-built durable repository for pure-action predecessor commits."""
 
@@ -636,19 +649,9 @@ class ExperimentalSQLitePureActionReservationRepository(
                     events=events,
                     diagnostics=(),
                 )
-            partial = connection.execute(
-                "SELECT commit_identity FROM legacy_partial_reservations "
-                "WHERE reservation_identity = ?",
-                (reservation_identity.value,),
-            ).fetchone()
-            if partial is not None:
-                commit = connection.execute(
-                    "SELECT commit_identity FROM commits "
-                    "WHERE reservation_identity = ?",
-                    (reservation_identity.value,),
-                ).fetchone()
-                if partial[0] is None or partial != commit:
-                    raise _StoreFault("reservation_lifecycle_commit_mismatch")
+            if _has_valid_legacy_partial(
+                connection, reservation_identity.value
+            ):
                 return _lifecycle_read_failure(
                     ExperimentalWorkflowPureActionReservationLifecycleReadStatus.LEGACY_PARTIAL,
                     "legacy_partial_reservation",
@@ -678,6 +681,128 @@ class ExperimentalSQLitePureActionReservationRepository(
         except OSError, sqlite3.Error:
             return _lifecycle_read_failure(
                 ExperimentalWorkflowPureActionReservationLifecycleReadStatus.ERROR,
+                "sqlite_read_failed",
+            )
+        finally:
+            if connection is not None:
+                connection.close()
+
+    def load_committed_safety_state(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionSafetyStateReadResult:
+        """Atomically reconstruct bounded committed safety state."""
+        if (
+            type(reservation_identity)
+            is not ExperimentalWorkflowPureActionReservationIdentity
+        ):
+            raise TypeError(
+                "reservation_identity must be "
+                "ExperimentalWorkflowPureActionReservationIdentity"
+            )
+        connection: sqlite3.Connection | None = None
+        try:
+            connection = self._connect()
+            self._prepare(connection)
+            connection.execute("BEGIN")
+            events = _load_lifecycle_events(
+                connection, reservation_identity.value
+            )
+            if not events:
+                partial = _has_valid_legacy_partial(
+                    connection, reservation_identity.value
+                )
+                read_status = (
+                    ExperimentalWorkflowPureActionSafetyStateReadStatus
+                )
+                return _safety_read_failure(
+                    read_status.LEGACY_PARTIAL
+                    if partial
+                    else read_status.ABSENT,
+                    "legacy_partial_reservation"
+                    if partial
+                    else "committed_safety_state_absent",
+                )
+            if len(events) != 2:
+                return _safety_read_failure(
+                    ExperimentalWorkflowPureActionSafetyStateReadStatus.ABSENT,
+                    "reservation_not_committed",
+                )
+            committed = _load_commit_pair(connection, reservation_identity)
+            if committed is None:
+                raise _StoreFault("reservation_lifecycle_commit_mismatch")
+            coordinates, record, event_bytes = committed
+            evidence = _load_replay_evidence_pair(
+                connection, record.commit_identity
+            )
+            if evidence is None:
+                return _safety_read_failure(
+                    ExperimentalWorkflowPureActionSafetyStateReadStatus.LEGACY_PARTIAL,
+                    "cpn_replay_evidence_absent",
+                )
+            initial_row = connection.execute(
+                "SELECT net_instance_identity, marking_identity, revision, "
+                "coordinate_digest FROM initial_predecessors "
+                "WHERE net_instance_identity = ?",
+                (record.net_instance_identity.value,),
+            ).fetchone()
+            current_row = connection.execute(
+                "SELECT net_instance_identity, marking_identity, revision, "
+                "coordinate_digest FROM current_predecessors "
+                "WHERE net_instance_identity = ?",
+                (record.net_instance_identity.value,),
+            ).fetchone()
+            if initial_row is None or current_row is None:
+                raise _StoreFault("missing_safety_state_predecessor")
+            bundle = (
+                ExperimentalWorkflowPureActionCpnReplayBundleJsonCodec().decode(
+                    evidence.bundle_bytes
+                )
+            )
+            marking_decoder = ExperimentalWorkflowCpnMarkingDecoder()
+            snapshot = ExperimentalWorkflowPureActionSafetyStateSnapshot(
+                initial_predecessor=_predecessor_from_row(tuple(initial_row)),
+                current_predecessor=_predecessor_from_row(tuple(current_row)),
+                lifecycle=events,
+                committed_snapshot=ExperimentalWorkflowPureActionCommittedSnapshot(
+                    coordinates=coordinates,
+                    record=record,
+                    event_bytes=event_bytes,
+                ),
+                replay_evidence=evidence,
+                predecessor_marking=marking_decoder.decode(
+                    bundle.predecessor_marking_bytes
+                ),
+                successor_marking=marking_decoder.decode(
+                    bundle.successor_marking_bytes
+                ),
+            )
+            return ExperimentalWorkflowPureActionSafetyStateReadResult(
+                status=ExperimentalWorkflowPureActionSafetyStateReadStatus.FOUND,
+                snapshot=snapshot,
+                diagnostics=(),
+            )
+        except _StoreFault as error:
+            read_status = ExperimentalWorkflowPureActionSafetyStateReadStatus
+            if error.code == "unsupported_store_version":
+                status = read_status.INCOMPATIBLE
+            elif (
+                error.code.startswith("invalid_")
+                or error.code.endswith("_mismatch")
+                or error.code.startswith("missing_")
+            ):
+                status = read_status.CORRUPT
+            else:
+                status = read_status.ERROR
+            return _safety_read_failure(status, error.code)
+        except TypeError, ValueError:
+            return _safety_read_failure(
+                ExperimentalWorkflowPureActionSafetyStateReadStatus.CORRUPT,
+                "committed_safety_state_invalid",
+            )
+        except OSError, sqlite3.Error:
+            return _safety_read_failure(
+                ExperimentalWorkflowPureActionSafetyStateReadStatus.ERROR,
                 "sqlite_read_failed",
             )
         finally:
@@ -808,6 +933,26 @@ class ExperimentalSQLitePureActionReservationRepository(
                 _rollback_quietly(connection)
 
 
+def _has_valid_legacy_partial(
+    connection: sqlite3.Connection,
+    reservation_identity: str,
+) -> bool:
+    partial = connection.execute(
+        "SELECT commit_identity FROM legacy_partial_reservations "
+        "WHERE reservation_identity = ?",
+        (reservation_identity,),
+    ).fetchone()
+    if partial is None:
+        return False
+    commit = connection.execute(
+        "SELECT commit_identity FROM commits WHERE reservation_identity = ?",
+        (reservation_identity,),
+    ).fetchone()
+    if partial[0] is None or partial != commit:
+        raise _StoreFault("reservation_lifecycle_commit_mismatch")
+    return True
+
+
 def _lifecycle_matches_commit(
     connection: sqlite3.Connection,
     reservation: ExperimentalWorkflowPureActionReservation,
@@ -841,6 +986,17 @@ def _expected_lifecycle(
             state=ExperimentalWorkflowPureActionReservationLifecycleState.COMMITTED,
             commit_identity=commit_identity,
         ),
+    )
+
+
+def _safety_read_failure(
+    status: ExperimentalWorkflowPureActionSafetyStateReadStatus,
+    diagnostic: str,
+) -> ExperimentalWorkflowPureActionSafetyStateReadResult:
+    return ExperimentalWorkflowPureActionSafetyStateReadResult(
+        status=status,
+        snapshot=None,
+        diagnostics=(diagnostic,),
     )
 
 
