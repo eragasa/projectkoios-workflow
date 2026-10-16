@@ -35,8 +35,8 @@ jobs:
           python-version: "3.14"
           enable-cache: false
 
-      - name: Synchronize locked environment
-        run: uv sync --locked --all-extras
+      - name: Synchronize locked workspace
+        run: uv sync --locked --all-packages --all-extras
 
       - name: Check owned Python formatting
         run: >-
@@ -52,18 +52,24 @@ jobs:
           tests/projectkoios/workflow/reference_review
           tests/projectkoios/workflow/runtime
           tests/test__ColoredPetriNetShadowProvenance.py
+          sdk/src/python
+          sdk/tests
 
       - name: Lint all Python
-        run: .venv/bin/python -m ruff check src/python tests
+        run: .venv/bin/python -m ruff check src/python tests sdk/src/python sdk/tests
 
       - name: Type-check all production source
-        run: .venv/bin/python -m mypy src/python
+        run: |
+          .venv/bin/python -m mypy src/python
+          (cd sdk && ../.venv/bin/python -m mypy)
 
-      - name: Run full test suite
-        run: .venv/bin/python -m pytest -q
+      - name: Run full test suites
+        run: |
+          .venv/bin/python -m pytest -q
+          .venv/bin/python -m pytest -q sdk/tests
 
       - name: Build source and wheel distributions
-        run: uv build --out-dir dist
+        run: uv build --all-packages --out-dir dist
 
       - name: Verify clean wheel installation
         run: |
@@ -77,6 +83,8 @@ jobs:
               ReferenceReviewWorkflow,
           )
           from projectkoios.workflow.runtime import LocalWorkflowRuntime
+          from projectkoios.workflow_sdk import WORKFLOW_SDK_VERSION
+          assert WORKFLOW_SDK_VERSION == "0.1.0a1"
           assert CourseReviewWorkflow is not None
           assert IngestionClaimCandidateReference is not None
           assert ReferenceReviewWorkflow is not None

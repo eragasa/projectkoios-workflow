@@ -6,7 +6,10 @@ The service distribution pins the separately built
 `projectkoios-workflow-sdk==0.1.0a1` runtime dependency from this repository's
 `sdk/` build root. The alpha is not released for external owner consumption;
 local service environments must build and install that SDK wheel before
-installing the service wheel.
+installing the service wheel. Repository development resolves the unpublished
+SDK through the local uv workspace: use
+`uv sync --locked --all-packages --all-extras` to synchronize both projects and
+`uv build --all-packages` to build both distributions.
 
 The repository currently contains a non-authoritative colored-Petri-net shadow-conformance pilot under `projectkoios.workflow.petrinet.colored`. Its production source is byte-identical to the generic kernel in `ksdft2effmass` at revision `be70e856911456402ea2b2562cd2508d0963e4d9`; source and transformation evidence is recorded in [`provenance/colored-petri-net-shadow.json`](provenance/colored-petri-net-shadow.json).
 

@@ -10,6 +10,12 @@ authors = [
 ]
 dependencies = ["projectkoios-workflow-sdk==0.1.0a1"]
 
+[tool.uv.sources]
+projectkoios-workflow-sdk = { workspace = true }
+
+[tool.uv.workspace]
+members = ["sdk"]
+
 [build-system]
 requires = ["setuptools==84.0.0"]
 build-backend = "setuptools.build_meta"
@@ -44,7 +50,7 @@ indent-style = "space"
 
 [tool.mypy]
 python_version = "3.14"
-mypy_path = "src/python"
+mypy_path = ["src/python", "sdk/src/python"]
 namespace_packages = true
 explicit_package_bases = true
 files = ["src/python"]
