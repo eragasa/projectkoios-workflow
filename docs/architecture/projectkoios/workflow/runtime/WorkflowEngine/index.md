@@ -37,13 +37,22 @@ authoritative persistence or complete `WorkflowEngine` conformance.
 A bounded v0 invocation candidate now validates an exact live worker against the
 retained manifest, invokes the SDK firer, canonically admits its closed result,
 and revalidates the source observations and predecessor afterward. Only a
-current success is mapped to a candidate external CPN binding. This remains
-followed by a bounded pure-firing candidate that asks the provenance-bound CPN
-firer to validate the mapped output and compute a successor and audit. A bounded
-in-memory atomic-commit candidate then retains a compact commit identity,
-consumes the reservation, and advances the marking coordinate under the same
-lock. A bounded CPN plan closes the supplied definition bytes and candidate
+current success is mapped to a candidate external CPN binding. This is followed
+by a bounded pure-firing candidate that asks the provenance-bound CPN firer to
+validate the mapped output and compute a successor and audit.
+
+The canonical experimental write direction uses
+`ExperimentalWorkflowPureActionDurableCpnCommitService`. Compact commit, CPN
+replay evidence, lifecycle transition, reservation consumption, and marking
+advancement share one SQLite transaction. Reopen, rollback, corruption,
+concurrency, and crash behavior have retained evidence; compact replay, exact
+CPN refiring, lifecycle replay, and bounded safety-state reconstruction are
+available without owner reinvocation. The compact-only service remains a
+compatibility writer for legacy evidence and has no production execution
+callers.
+
+A bounded CPN plan closes the supplied definition bytes and candidate
 execution-profile identity, but not every semantic section required by the
-complete execution plan. Durable evidence persistence, crash recovery, and
-committed replay remain absent, so these components do not complete
-`WorkflowEngine` conformance.
+complete execution plan. These components therefore demonstrate one durable
+pure-action path without claiming complete `WorkflowEngine`, global scheduler,
+or CPN-bindings conformance.

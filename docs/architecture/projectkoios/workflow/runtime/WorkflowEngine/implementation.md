@@ -107,16 +107,28 @@ reservation binds that CPN-plan identity and firing verifies the supplied
 definition byte-for-byte. The candidate profile still omits several
 representations and semantic sections required by the complete umbrella
 contract, and the predecessor marking remains a correlated runtime argument.
-Durable persistence, committed replay, and complete plan closure remain future
-work.
+Durable persistence, compact replay, CPN refiring, lifecycle replay, and bounded
+committed safety-state reconstruction now exist. Complete plan/profile closure
+and global scheduler replay remain future work.
 
 ## Experimental atomic-commit candidate
 
-`ExperimentalWorkflowPureActionCommitService` constructs one compact,
-content-identified commit from the exact CPN plan, repository-authorized source
-observations, reservation, mapped owner result, pure CPN firing result, and
-predecessor/successor marking coordinates. It retains identities only and does
-not move inline owner payload bodies or private locators into commit state.
+`ExperimentalWorkflowPureActionDurableCpnCommitService` is the canonical write
+path for new supported experimental pure-action commits. It constructs the
+compact content commitment and canonical CPN replay bundle internally, then
+atomically retains compact state, replay evidence, lifecycle transition,
+reservation consumption, and marking advancement through one repository.
+
+`ExperimentalWorkflowPureActionCommitService` is a compact-only compatibility
+writer retained for legacy-history, migration, and conflict evidence. No
+production execution module calls it. It must not be selected by new supported
+orchestration and cannot be used to attach replay evidence after commit.
+
+Both paths construct the same compact, content-identified commit from the exact
+CPN plan, repository-authorized source observations, reservation, mapped owner
+result, pure CPN firing result, and predecessor/successor marking coordinates.
+Compact state retains identities only and does not move inline owner payload
+bodies or private locators across the persistence boundary.
 
 The nominal reservation repository owns one atomic `commit` operation. The
 in-memory reference implementation uses the reservation lock to verify the

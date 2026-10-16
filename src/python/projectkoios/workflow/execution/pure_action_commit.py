@@ -1,4 +1,10 @@
-"""Experimental atomic commit of one pure-action firing candidate."""
+"""Compatibility compact-only commit for pure-action firing candidates.
+
+New supported experimental writes use the durable CPN commit service so compact
+state, replay evidence, lifecycle, reservation consumption, and marking advance
+share one atomic boundary. This module retains compact record construction and
+the legacy writer for compatibility and migration evidence.
+"""
 
 from __future__ import annotations
 
@@ -242,7 +248,14 @@ class _PreparedCommitCandidate:
 
 @final
 class ExperimentalWorkflowPureActionCommitService:
-    """Atomically commit one current successful pure CPN firing candidate."""
+    """Compatibility writer for a compact-only pure CPN commit.
+
+    New supported orchestration must use
+    ``ExperimentalWorkflowPureActionDurableCpnCommitService``. This service
+    remains public only for legacy-history, migration, and compatibility
+    evidence until the experimental surface retirement task determines its
+    removal path.
+    """
 
     __slots__ = ("_reservation_service",)
 
@@ -274,7 +287,7 @@ class ExperimentalWorkflowPureActionCommitService:
         invocation_outcome: ExperimentalWorkflowPureActionInvocationOutcome,
         firing_outcome: ExperimentalWorkflowPureActionFiringOutcome,
     ) -> ExperimentalWorkflowPureActionCommitResult:
-        """Revalidate sources and enter the atomic marking commit boundary."""
+        """Write legacy compact-only state after source revalidation."""
         candidate = _prepare_commit_candidate(
             authorized_inputs=authorized_inputs,
             reservation_result=reservation_result,
