@@ -17,10 +17,12 @@ coordinates, active reservations, consumed reservation identities, complete
 compact commit fields, exact canonical commit-event bytes, and ordered
 source-authority reference/revision/evidence identities. Compact commit state
 stores no SDK payload body, owner artifact, machine path, private locator, live
-repository, CPN definition, or marking body. Format version 3 separately stores
+repository, CPN definition, or marking body. Format version 3 separately stored
 content-addressed canonical CPN replay bundles and commit-to-bundle evidence
 links; those transcript rows contain the bounded definition and marking bytes
-needed for pure refiring.
+needed for pure refiring. Format version 4 adds ordered, identity-only canonical
+reservation-lifecycle events and explicit partial markers for older consumed
+reservations whose complete reservation fields cannot be reconstructed.
 
 Both SQLite adapters now use one internal private-database boundary for absolute
 path normalization, no-follow creation, ancestor/file type checks, ownership and
@@ -35,9 +37,10 @@ deletes the active reservation, and advances the marking coordinate. Exact
 replay is idempotent and distinct replay conflicts. Commit and predecessor
 record digests detect corruption before reconstruction. Compact commit and CPN
 replay-evidence row encoding, nominal reconstruction, digest verification, and
-correlation checks are separated into focused internal row-codec modules;
-repository query ordering, schema migration, and transaction orchestration
-remain in the adapter. Existing closed fault codes remain unchanged.
+correlation checks are separated into focused internal row-codec modules. Exact
+schema declarations and the transactional v2-to-v3-to-v4 migrations are also
+isolated from repository query ordering and transaction orchestration. Existing
+closed fault codes remain unchanged.
 
 A process-crash test leaves an uncommitted marking update in a separate process
 and proves that reopening recovers the prior current reservation. A precommit
@@ -57,6 +60,14 @@ incompatible, corrupt, and error outcomes.
 `ExperimentalWorkflowPureActionCommittedReplayService` consumes that snapshot,
 reconstructs the compact commit identity and full coordinates, and never invokes
 an owner, source repository, codec owned by an integration, or CPN firer.
+
+Reservation acceptance retains its complete canonical reserved event in the
+same transaction. Commit acceptance appends its commit-bound lifecycle event in
+the transaction that retains compact state and CPN evidence, consumes the
+reservation, and advances the marking. Version-3 active reservations migrate to
+complete reserved histories; consumed version-3 reservations are classified as
+legacy partial without fabricated fields. Atomic lifecycle reads verify event
+bytes, digests, sequence, and compact-commit correlation.
 
 The separate durable replay-evidence read verifies its row and bundle digests,
 correlates CPN-plan, firing-result, predecessor, and successor identities with

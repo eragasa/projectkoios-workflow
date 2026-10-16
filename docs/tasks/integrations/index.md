@@ -27,7 +27,8 @@ runtime dependency.
    [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
    [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md),
    [durable CPN replay evidence](pure_action_durable_cpn_replay_evidence.md),
-   and [durable CPN commit orchestration evidence](pure_action_durable_cpn_commit_orchestration_evidence.md)
+   [durable CPN commit orchestration evidence](pure_action_durable_cpn_commit_orchestration_evidence.md),
+   and [reservation lifecycle evidence](pure_action_reservation_lifecycle_evidence.md)
 4. [Pure-firing vertical slice](pure_firing_vertical_slice.md)
 5. [Second owner SDK pilot](second_owner_pilot.md)
 6. [Broader SDK adoption gate](broader_adoption_gate.md)

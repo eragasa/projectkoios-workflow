@@ -132,8 +132,12 @@ commit record, ordered source-authority reference/revision/evidence identities,
 reservation consumption, and successor coordinate under one transaction. It
 supports exact replay idempotence, reopen reconstruction, concurrent
 single-winner commit, injected precommit rollback, and recovery from a separate
-process exiting with an uncommitted marking update. Owner payload bodies and
-private locators do not enter its schema.
+process exiting with an uncommitted marking update. Format version 4 also
+retains canonical identity-only reserved and committed lifecycle events at their
+respective atomic boundaries. Structural lifecycle replay reconstructs the full
+reservation for new histories without invoking owners, sources, or the CPN
+firer; older consumed histories remain explicitly partial. Owner payload bodies
+and private locators do not enter its schema.
 
 A strict canonical JSON codec now retains exact identity-only committed-event
 bytes, including net instance, beside the typed compact columns. One closed

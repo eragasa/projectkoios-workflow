@@ -18,6 +18,8 @@ from projectkoios.workflow.persistence import (
 )
 from projectkoios.workflow.runtime import (
     ExperimentalWorkflowPureActionCommitStatus,
+    ExperimentalWorkflowPureActionReservationLifecycleReadStatus,
+    ExperimentalWorkflowPureActionReservationLifecycleState,
 )
 from projectkoios.workflow_sdk.identities import WorkflowMarkingIdentity
 
@@ -102,6 +104,14 @@ def test_authoritative_commit_rolls_back_every_row_on_precommit_failure(
     assert reservation is not None
     assert repository.load_commit(reservation.identity) is None
     assert repository.revalidate(reservation).value == "current"
+    lifecycle = repository.load_reservation_lifecycle(reservation.identity)
+    assert (
+        lifecycle.status
+        is ExperimentalWorkflowPureActionReservationLifecycleReadStatus.FOUND
+    )
+    assert tuple(event.state for event in lifecycle.events) == (
+        ExperimentalWorkflowPureActionReservationLifecycleState.RESERVED,
+    )
     connection = sqlite3.connect(repository.database_path)
     try:
         assert connection.execute(

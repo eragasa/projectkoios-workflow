@@ -160,6 +160,8 @@ def test_v2_store_migrates_transactionally_and_preserves_legacy_commit(
     )
     connection = sqlite3.connect(repository.database_path)
     try:
+        connection.execute("DROP TABLE reservation_lifecycle_events")
+        connection.execute("DROP TABLE legacy_partial_reservations")
         connection.execute("DROP TABLE commit_cpn_replay_evidence")
         connection.execute("DROP TABLE cpn_replay_bundles")
         connection.execute("UPDATE store_format SET version = 2")
@@ -180,7 +182,7 @@ def test_v2_store_migrates_transactionally_and_preserves_legacy_commit(
     try:
         assert connection.execute(
             "SELECT version FROM store_format"
-        ).fetchone() == (3,)
+        ).fetchone() == (4,)
     finally:
         connection.close()
 
@@ -192,6 +194,8 @@ def test_failed_v2_migration_rolls_back_schema_and_version(
     repository, _, _, record, _ = _candidate(tmp_path)
     connection = sqlite3.connect(repository.database_path)
     try:
+        connection.execute("DROP TABLE reservation_lifecycle_events")
+        connection.execute("DROP TABLE legacy_partial_reservations")
         connection.execute("DROP TABLE commit_cpn_replay_evidence")
         connection.execute("DROP TABLE cpn_replay_bundles")
         connection.execute("UPDATE store_format SET version = 2")

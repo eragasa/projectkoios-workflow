@@ -33,6 +33,13 @@ from projectkoios.workflow.runtime.pure_action_reservation import (
     ExperimentalWorkflowPureActionReserveStatus,
     ExperimentalWorkflowPureActionRevalidationStatus,
 )
+from projectkoios.workflow.runtime.pure_action_reservation_lifecycle import (
+    ExperimentalWorkflowPureActionReservationLifecycleEvent,
+    ExperimentalWorkflowPureActionReservationLifecycleReadResult,
+    ExperimentalWorkflowPureActionReservationLifecycleReadStatus,
+    ExperimentalWorkflowPureActionReservationLifecycleRepository,
+    ExperimentalWorkflowPureActionReservationLifecycleState,
+)
 from projectkoios.workflow_sdk.identities import (
     WorkflowNetInstanceIdentity,
 )
@@ -41,6 +48,10 @@ from ._pure_action_cpn_replay_sqlite_rows import (
     _insert_replay_evidence,
     _load_replay_evidence_pair,
     _reconstruct_replay_evidence,
+)
+from ._pure_action_reservation_lifecycle_sqlite_rows import (
+    _insert_lifecycle_event,
+    _load_lifecycle_events,
 )
 from ._pure_action_sqlite_rows import (
     _commit_from_rows,
@@ -55,6 +66,15 @@ from ._pure_action_sqlite_rows import (
     _reservation_values,
     _validate_commit_correlations,
 )
+from ._pure_action_sqlite_schema import (
+    _FORMAT,
+    _FORMAT_VERSION,
+    _SCHEMA,
+    _SCHEMA_SQL_BY_TABLE,
+    _TABLES,
+    _migrate_v2_store,
+    _migrate_v3_store,
+)
 from ._sqlite_private import (
     SQLiteStoreFault as _StoreFault,
 )
@@ -67,110 +87,6 @@ from ._sqlite_private import (
 from ._sqlite_private import (
     rollback_quietly as _rollback_quietly,
 )
-
-_FORMAT = "projectkoios.workflow.experimental-pure-action-store"
-_FORMAT_VERSION = 3
-_SCHEMA = (
-    "CREATE TABLE store_format ("
-    "identity TEXT NOT NULL, version INTEGER NOT NULL)",
-    "CREATE TABLE initial_predecessors ("
-    "net_instance_identity TEXT PRIMARY KEY NOT NULL, "
-    "marking_identity TEXT NOT NULL, revision INTEGER NOT NULL, "
-    "coordinate_digest BLOB NOT NULL)",
-    "CREATE TABLE current_predecessors ("
-    "net_instance_identity TEXT PRIMARY KEY NOT NULL, "
-    "marking_identity TEXT NOT NULL, revision INTEGER NOT NULL, "
-    "coordinate_digest BLOB NOT NULL)",
-    "CREATE TABLE active_reservations ("
-    "reservation_identity TEXT PRIMARY KEY NOT NULL, "
-    "execution_plan_identity TEXT NOT NULL, "
-    "execution_bindings_identity TEXT NOT NULL, "
-    "selected_binding_evidence_identity TEXT NOT NULL, "
-    "request_identity TEXT NOT NULL, "
-    "net_instance_identity TEXT UNIQUE NOT NULL, "
-    "predecessor_marking_identity TEXT NOT NULL, "
-    "predecessor_revision INTEGER NOT NULL, "
-    "occurrence_identity TEXT NOT NULL, attempt_identity TEXT NOT NULL, "
-    "attempt_ordinal INTEGER NOT NULL, input_admission_identity TEXT, "
-    "input_authorization_identity TEXT, cpn_plan_identity TEXT)",
-    "CREATE TABLE consumed_reservations ("
-    "reservation_identity TEXT PRIMARY KEY NOT NULL)",
-    "CREATE TABLE commits ("
-    "reservation_identity TEXT PRIMARY KEY NOT NULL, "
-    "commit_identity TEXT UNIQUE NOT NULL, "
-    "net_instance_identity TEXT NOT NULL, cpn_plan_identity TEXT NOT NULL, "
-    "input_authorization_identity TEXT NOT NULL, "
-    "invocation_outcome_identity TEXT NOT NULL, "
-    "request_identity TEXT NOT NULL, owner_result_identity TEXT NOT NULL, "
-    "mapped_result_identity TEXT NOT NULL, "
-    "firing_outcome_identity TEXT NOT NULL, "
-    "cpn_firing_result_identity TEXT NOT NULL, "
-    "predecessor_marking_identity TEXT NOT NULL, "
-    "predecessor_revision INTEGER NOT NULL, "
-    "successor_marking_identity TEXT NOT NULL, "
-    "successor_revision INTEGER NOT NULL, event_bytes BLOB NOT NULL, "
-    "record_digest BLOB NOT NULL)",
-    "CREATE TABLE commit_source_authorities ("
-    "commit_identity TEXT NOT NULL, ordinal INTEGER NOT NULL, "
-    "authority_identity TEXT NOT NULL, reference_identity TEXT NOT NULL, "
-    "revision_identity TEXT NOT NULL, evidence_identity TEXT NOT NULL, "
-    "PRIMARY KEY (commit_identity, ordinal), "
-    "FOREIGN KEY (commit_identity) REFERENCES commits (commit_identity))",
-    "CREATE TABLE cpn_replay_bundles ("
-    "bundle_identity TEXT PRIMARY KEY NOT NULL, event_bytes BLOB NOT NULL, "
-    "event_digest BLOB NOT NULL)",
-    "CREATE TABLE commit_cpn_replay_evidence ("
-    "commit_identity TEXT PRIMARY KEY NOT NULL, "
-    "evidence_identity TEXT UNIQUE NOT NULL, bundle_identity TEXT NOT NULL, "
-    "cpn_plan_identity TEXT NOT NULL, "
-    "cpn_firing_result_identity TEXT NOT NULL, "
-    "predecessor_marking_identity TEXT NOT NULL, "
-    "successor_marking_identity TEXT NOT NULL, evidence_digest BLOB NOT NULL, "
-    "FOREIGN KEY (commit_identity) REFERENCES commits (commit_identity), "
-    "FOREIGN KEY (bundle_identity) REFERENCES cpn_replay_bundles "
-    "(bundle_identity))",
-)
-_SCHEMA_V2 = _SCHEMA[:7]
-_TABLES_V2 = (
-    "active_reservations",
-    "commit_source_authorities",
-    "commits",
-    "consumed_reservations",
-    "current_predecessors",
-    "initial_predecessors",
-    "store_format",
-)
-_SCHEMA_V2_SQL_BY_TABLE = {
-    "store_format": _SCHEMA_V2[0],
-    "initial_predecessors": _SCHEMA_V2[1],
-    "current_predecessors": _SCHEMA_V2[2],
-    "active_reservations": _SCHEMA_V2[3],
-    "consumed_reservations": _SCHEMA_V2[4],
-    "commits": _SCHEMA_V2[5],
-    "commit_source_authorities": _SCHEMA_V2[6],
-}
-_TABLES = (
-    "active_reservations",
-    "commit_cpn_replay_evidence",
-    "commit_source_authorities",
-    "commits",
-    "consumed_reservations",
-    "cpn_replay_bundles",
-    "current_predecessors",
-    "initial_predecessors",
-    "store_format",
-)
-_SCHEMA_SQL_BY_TABLE = {
-    "store_format": _SCHEMA[0],
-    "initial_predecessors": _SCHEMA[1],
-    "current_predecessors": _SCHEMA[2],
-    "active_reservations": _SCHEMA[3],
-    "consumed_reservations": _SCHEMA[4],
-    "commits": _SCHEMA[5],
-    "commit_source_authorities": _SCHEMA[6],
-    "cpn_replay_bundles": _SCHEMA[7],
-    "commit_cpn_replay_evidence": _SCHEMA[8],
-}
 
 
 def _before_transaction_commit(
@@ -186,6 +102,7 @@ def _before_transaction_commit(
 class ExperimentalSQLitePureActionReservationRepository(
     ExperimentalWorkflowPureActionReservationRepository,
     ExperimentalWorkflowPureActionCpnReplayEvidenceRepository,
+    ExperimentalWorkflowPureActionReservationLifecycleRepository,
 ):
     """Purpose-built durable repository for pure-action predecessor commits."""
 
@@ -242,6 +159,11 @@ class ExperimentalSQLitePureActionReservationRepository(
             ).fetchone()
             if row is not None:
                 existing = _reservation_from_row(tuple(row))
+                lifecycle = _load_lifecycle_events(
+                    connection, validated.identity.value
+                )
+                if lifecycle != _expected_lifecycle(validated):
+                    raise _StoreFault("reservation_lifecycle_row_mismatch")
                 _rollback(connection)
                 transaction_open = False
                 if existing == validated:
@@ -262,6 +184,14 @@ class ExperimentalSQLitePureActionReservationRepository(
                 "INSERT INTO active_reservations VALUES "
                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 _reservation_values(validated),
+            )
+            _insert_lifecycle_event(
+                connection,
+                ExperimentalWorkflowPureActionReservationLifecycleEvent(
+                    reservation=validated,
+                    state=ExperimentalWorkflowPureActionReservationLifecycleState.RESERVED,
+                ),
+                0,
             )
             phase = "precommit"
             _before_transaction_commit("reserve", connection)
@@ -395,19 +325,28 @@ class ExperimentalSQLitePureActionReservationRepository(
             if existing is not None:
                 _rollback(connection)
                 transaction_open = False
-                if existing == (
-                    validated_coordinates,
-                    validated_record,
-                    ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
-                        validated_record
-                    ),
-                ) and (
-                    validated_evidence is None
-                    or _load_replay_evidence_pair(
+                if (
+                    existing
+                    == (
+                        validated_coordinates,
+                        validated_record,
+                        ExperimentalWorkflowPureActionCommitEventJsonCodec().encode(
+                            validated_record
+                        ),
+                    )
+                    and (
+                        validated_evidence is None
+                        or _load_replay_evidence_pair(
+                            connection,
+                            validated_record.commit_identity,
+                        )
+                        == validated_evidence
+                    )
+                    and _lifecycle_matches_commit(
                         connection,
+                        validated_reservation,
                         validated_record.commit_identity,
                     )
-                    == validated_evidence
                 ):
                     return ExperimentalWorkflowPureActionCommitStatus.IDEMPOTENT
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
@@ -436,6 +375,11 @@ class ExperimentalSQLitePureActionReservationRepository(
                 _rollback(connection)
                 transaction_open = False
                 return ExperimentalWorkflowPureActionCommitStatus.CONFLICT
+            lifecycle = _load_lifecycle_events(
+                connection, validated_reservation.identity.value
+            )
+            if lifecycle != _expected_lifecycle(validated_reservation):
+                raise _StoreFault("reservation_lifecycle_row_mismatch")
             connection.execute(
                 "INSERT INTO commits VALUES "
                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -462,6 +406,15 @@ class ExperimentalSQLitePureActionReservationRepository(
                 )
             if validated_evidence is not None:
                 _insert_replay_evidence(connection, validated_evidence)
+            _insert_lifecycle_event(
+                connection,
+                ExperimentalWorkflowPureActionReservationLifecycleEvent(
+                    reservation=validated_reservation,
+                    state=ExperimentalWorkflowPureActionReservationLifecycleState.COMMITTED,
+                    commit_identity=validated_record.commit_identity,
+                ),
+                1,
+            )
             connection.execute(
                 "INSERT INTO consumed_reservations VALUES (?)",
                 (validated_reservation.identity.value,),
@@ -650,6 +603,87 @@ class ExperimentalSQLitePureActionReservationRepository(
             if connection is not None:
                 connection.close()
 
+    def load_reservation_lifecycle(
+        self,
+        reservation_identity: ExperimentalWorkflowPureActionReservationIdentity,
+    ) -> ExperimentalWorkflowPureActionReservationLifecycleReadResult:
+        """Atomically load one canonical reservation lifecycle."""
+        if (
+            type(reservation_identity)
+            is not ExperimentalWorkflowPureActionReservationIdentity
+        ):
+            raise TypeError(
+                "reservation_identity must be "
+                "ExperimentalWorkflowPureActionReservationIdentity"
+            )
+        connection: sqlite3.Connection | None = None
+        try:
+            connection = self._connect()
+            self._prepare(connection)
+            connection.execute("BEGIN")
+            events = _load_lifecycle_events(
+                connection, reservation_identity.value
+            )
+            if events:
+                read_status = (
+                    ExperimentalWorkflowPureActionReservationLifecycleReadStatus
+                )
+                result_type = (
+                    ExperimentalWorkflowPureActionReservationLifecycleReadResult
+                )
+                return result_type(
+                    status=read_status.FOUND,
+                    events=events,
+                    diagnostics=(),
+                )
+            partial = connection.execute(
+                "SELECT commit_identity FROM legacy_partial_reservations "
+                "WHERE reservation_identity = ?",
+                (reservation_identity.value,),
+            ).fetchone()
+            if partial is not None:
+                commit = connection.execute(
+                    "SELECT commit_identity FROM commits "
+                    "WHERE reservation_identity = ?",
+                    (reservation_identity.value,),
+                ).fetchone()
+                if partial[0] is None or partial != commit:
+                    raise _StoreFault("reservation_lifecycle_commit_mismatch")
+                return _lifecycle_read_failure(
+                    ExperimentalWorkflowPureActionReservationLifecycleReadStatus.LEGACY_PARTIAL,
+                    "legacy_partial_reservation",
+                )
+            return _lifecycle_read_failure(
+                ExperimentalWorkflowPureActionReservationLifecycleReadStatus.ABSENT,
+                "reservation_lifecycle_absent",
+            )
+        except _StoreFault as error:
+            read_status = (
+                ExperimentalWorkflowPureActionReservationLifecycleReadStatus
+            )
+            if error.code == "unsupported_store_version":
+                status = read_status.INCOMPATIBLE
+            elif error.code.startswith("invalid_") or error.code.endswith(
+                "_mismatch"
+            ):
+                status = read_status.CORRUPT
+            else:
+                status = read_status.ERROR
+            return _lifecycle_read_failure(status, error.code)
+        except TypeError, ValueError:
+            return _lifecycle_read_failure(
+                ExperimentalWorkflowPureActionReservationLifecycleReadStatus.CORRUPT,
+                "reservation_lifecycle_invalid",
+            )
+        except OSError, sqlite3.Error:
+            return _lifecycle_read_failure(
+                ExperimentalWorkflowPureActionReservationLifecycleReadStatus.ERROR,
+                "sqlite_read_failed",
+            )
+        finally:
+            if connection is not None:
+                connection.close()
+
     def current_predecessor(
         self,
         net_instance_identity: WorkflowNetInstanceIdentity,
@@ -723,6 +757,7 @@ class ExperimentalSQLitePureActionReservationRepository(
         transaction_open = True
         try:
             _migrate_v2_store(connection)
+            _migrate_v3_store(connection)
             prepare_store_schema(
                 connection,
                 schema=_SCHEMA,
@@ -773,38 +808,39 @@ class ExperimentalSQLitePureActionReservationRepository(
                 _rollback_quietly(connection)
 
 
-def _migrate_v2_store(connection: sqlite3.Connection) -> None:
-    tables = tuple(
-        row[0]
-        for row in connection.execute(
-            "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name"
-        ).fetchall()
-    )
-    if tables != _TABLES_V2:
-        return
-    definitions = dict(
-        connection.execute(
-            "SELECT name, sql FROM sqlite_master "
-            "WHERE type = 'table' ORDER BY name"
-        ).fetchall()
-    )
-    metadata = connection.execute(
-        "SELECT identity, version FROM store_format"
-    ).fetchall()
-    unexpected = connection.execute(
-        "SELECT name FROM sqlite_master "
-        "WHERE type IN ('trigger', 'view') LIMIT 1"
+def _lifecycle_matches_commit(
+    connection: sqlite3.Connection,
+    reservation: ExperimentalWorkflowPureActionReservation,
+    commit_identity: ExperimentalWorkflowPureActionCommitIdentity,
+) -> bool:
+    events = _load_lifecycle_events(connection, reservation.identity.value)
+    if events:
+        return events == _expected_lifecycle(reservation, commit_identity)
+    partial = connection.execute(
+        "SELECT commit_identity FROM legacy_partial_reservations "
+        "WHERE reservation_identity = ?",
+        (reservation.identity.value,),
     ).fetchone()
-    if (
-        definitions != _SCHEMA_V2_SQL_BY_TABLE
-        or metadata != [(_FORMAT, 2)]
-        or unexpected is not None
-    ):
-        return
-    for statement in _SCHEMA[7:]:
-        connection.execute(statement)
-    connection.execute(
-        "UPDATE store_format SET version = ?", (_FORMAT_VERSION,)
+    return partial == (commit_identity.value,)
+
+
+def _expected_lifecycle(
+    reservation: ExperimentalWorkflowPureActionReservation,
+    commit_identity: ExperimentalWorkflowPureActionCommitIdentity | None = None,
+) -> tuple[ExperimentalWorkflowPureActionReservationLifecycleEvent, ...]:
+    reserved = ExperimentalWorkflowPureActionReservationLifecycleEvent(
+        reservation=reservation,
+        state=ExperimentalWorkflowPureActionReservationLifecycleState.RESERVED,
+    )
+    if commit_identity is None:
+        return (reserved,)
+    return (
+        reserved,
+        ExperimentalWorkflowPureActionReservationLifecycleEvent(
+            reservation=reservation,
+            state=ExperimentalWorkflowPureActionReservationLifecycleState.COMMITTED,
+            commit_identity=commit_identity,
+        ),
     )
 
 
@@ -815,6 +851,17 @@ def _replay_read_failure(
     return ExperimentalWorkflowPureActionCpnReplayEvidenceReadResult(
         status=status,
         evidence=None,
+        diagnostics=(diagnostic,),
+    )
+
+
+def _lifecycle_read_failure(
+    status: ExperimentalWorkflowPureActionReservationLifecycleReadStatus,
+    diagnostic: str,
+) -> ExperimentalWorkflowPureActionReservationLifecycleReadResult:
+    return ExperimentalWorkflowPureActionReservationLifecycleReadResult(
+        status=status,
+        events=(),
         diagnostics=(diagnostic,),
     )
 
