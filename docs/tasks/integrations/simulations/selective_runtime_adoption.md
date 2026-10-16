@@ -72,8 +72,13 @@ because they occur inside the Workflow.
   QE/VASP backend resources in Simulations.
 - [x] Prove the bounded QE pure operation can commit and replay without
   replacing the owner lifecycle architecture.
-- [ ] Retain dependency tests that fail if protected core or reusable owner
-  workflow code imports the full Workflow runtime.
+- [x] Retain dependency tests that reject standalone SDK and full
+  Workflow-runtime imports from protected core and reusable owner workflow code
+  through absolute and relative import forms. Test-only Simulations commit
+  `b104a4a47ca33b58e06d780365ceb9a6567b0df8` extends the pinned `c69c3fe`
+  baseline with reusable-workflow relative-import scanning and a negative
+  relative-escape assertion. Outward integration and adapter namespaces retain
+  their intentional SDK and optional-runtime imports.
 - [x] Inventory the exact common and backend-specific fields of
   `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask` in the
   [two-owner inventory](../task_workflow_owner_inventory.md).

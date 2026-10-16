@@ -17,10 +17,12 @@ The read-only inventory is pinned to the full immutable Simulations revision:
 `c69c3fe5a949e631c6201f2f7d92297c90a5eb11`
 
 That revision is the owner-confirmed baseline for the calculator-neutral SCF
-lifecycle and the additive durable QE saved-state slice. Mutable branch names
-are not evidence. The inventory does not reinterpret the historical
-Simulations `task_id` as a Workflow Task, occurrence, attempt, effect, or child
-run.
+lifecycle and the additive durable QE saved-state slice. Test-only descendant
+`b104a4a47ca33b58e06d780365ceb9a6567b0df8` hardens dependency-boundary
+enforcement for relative imports without changing the inventoried production
+source. Mutable branch names are not evidence. The inventory does not
+reinterpret the historical Simulations `task_id` as a Workflow Task,
+occurrence, attempt, effect, or child run.
 
 ### `ksdft2effmass`
 
@@ -255,6 +257,20 @@ identities, schema/codec descriptors, exact payload SHA-256 values, invocation
 and occurrence identities, and compact replay correlations. Payload SHA-256
 identifies exact canonical transport bytes; it is not the experiment's semantic
 identity. Workflow compact state must not retain the numerical document bodies.
+
+The retained `184707Z` package provides one bounded transport-feasibility
+observation:
+
+| Owner document | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `input.json` | 8,075 | `5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e` |
+| `result.json` | 71,678 | `472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2` |
+| `verification.json` | 1,287 | `277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4` |
+
+Each exact retained document is below the SDK alpha's 4-MiB inline-payload
+bound. This does not accept those documents as SDK contracts, establish future
+payload-size bounds, prove digest stability across environments, or authorize
+persistence of their bodies.
 
 The current serializers are evidence encoders. The pilot still needs strict
 owner decoders that reconstruct exact typed values, reject unknown fields and
