@@ -2,19 +2,31 @@
 
 ## Objective
 
-Preserve Simulations' domain-focused SCF architecture while using Workflow only
-where the QE pilot demonstrates a concrete need for durable pure-action safety.
+Preserve Simulations' domain-focused, calculator-neutral SCF architecture while
+using Workflow where durable Task execution supplies a concrete safety property.
+The existing SCF Workflow already coordinates backend-specialized Tasks; future
+integration must preserve that structure rather than flattening the lifecycle
+into one opaque provider call.
 
-## Accepted comparison result
+## Accepted owner model
 
-The existing Simulations architecture is better for its current public role:
+The owner-facing SCF Workflow consists of:
 
-- `PwDftScfWorkflowFacade` exposes typed domain actions, events, status, and
+- `PwDftScfWorkflowFacade`, which exposes typed actions, events, status, and
   outcomes;
-- `LocalPwDftScfWorkflow` and `LocalSnakesRun` provide a small engine-hiding local
-  lifecycle; and
-- registration, submission, completion, failure, and analysis remain explicit
-  owner-domain concepts.
+- `LocalPwDftScfWorkflow` and `LocalSnakesRun`, which provide the current local
+  lifecycle;
+- `PwDftScfHandlerTask`, which retains shared task correlation;
+- `QePwDftScfTask` and `VaspPwDftScfTask`, which retain different backend
+  resources behind the same calculator-neutral lifecycle; and
+- `QePwDftScfActionHandler` and `VaspPwDftScfActionHandler`, which execute the
+  common actions and return common events.
+
+The Tasks are configured on the handlers rather than stored as live objects in
+`LocalPwDftScfWorkflow`. The Workflow nevertheless orchestrates their identities
+through registration, submission, completion or failure, and output analysis.
+Registration and submission are lifecycle actions concerning a correlated Task;
+they are not automatically separate Tasks.
 
 The experimental Workflow path is better for a narrower operational role:
 
@@ -24,8 +36,29 @@ The experimental Workflow path is better for a narrower operational role:
 - atomic durable CPN state advancement; and
 - compact, CPN, lifecycle, and safety replay without owner reinvocation.
 
-Accordingly, the QE artifact-set integration is additive. It is not evidence for
-replacing the existing SCF facade or local SNAKES lifecycle.
+Accordingly, the QE artifact-set integration is additive pure Task evidence. It
+is not evidence for replacing the SCF facade, flattening QE and VASP, or routing
+calculator effects through `Firer`.
+
+## Target composition
+
+When an enclosing Workflow invokes SCF, the parent should see one Workflow-backed
+Task. That invocation creates a distinct SCF child Workflow run. Inside the child
+run, the calculator Task remains backend-specialized and its common action/event
+lifecycle remains visible to durable orchestration.
+
+```text
+parent Workflow
+└── SCF Workflow Task
+    └── distinct SCF child Workflow run
+        └── calculator Task
+            ├── QE Task + QE handler
+            └── VASP Task + VASP handler
+```
+
+A separately reusable output-analysis or saved-state projection operation may be
+a pure Task. Pure CPN transitions and lifecycle commands are not Tasks merely
+because they occur inside the Workflow.
 
 ## Current constraints
 
@@ -35,31 +68,49 @@ replacing the existing SCF facade or local SNAKES lifecycle.
   Workflow service, persistence, compiler, and CPN runtime implementations.
 - [x] Place the full-runtime source adapter in the outward
   `projectkoios.adapters` namespace behind an explicit optional dependency.
-- [x] Keep owner requests, results, codecs, identities, and artifact semantics in
-  Simulations.
-- [x] Prove the bounded QE pure action can commit and replay without replacing
-  the owner lifecycle architecture.
-- [ ] Retain dependency tests that fail if the protected core or reusable owner
-  workflow layer begins importing the full Workflow runtime.
+- [x] Keep owner requests, results, codecs, identities, artifact semantics, and
+  QE/VASP backend resources in Simulations.
+- [x] Prove the bounded QE pure operation can commit and replay without
+  replacing the owner lifecycle architecture.
+- [ ] Retain dependency tests that fail if protected core or reusable owner
+  workflow code imports the full Workflow runtime.
+- [ ] Inventory the exact common and backend-specific fields of
+  `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask`.
+- [ ] Prove a future generic Task descriptor can retain opaque owner identities
+  without copying executables, paths, working directories, pseudopotentials,
+  native execution requests, or provider objects into Workflow state.
+- [ ] Map common actions and events to Task lifecycle evidence without
+  reclassifying them as independent Tasks by name alone.
 
-## Future replacement gate
+## Future composition and migration gate
 
-Do not implement a Workflow-backed `PwDftScfWorkflowFacade` unless all of the
-following become true:
+Do not implement a Workflow-backed `PwDftScfWorkflowFacade` or replace the local
+SNAKES runtime unless all of the following become true:
 
+- [ ] the common Task/Workflow composition model is accepted;
+- [ ] the parent Task invocation and child SCF Workflow-run identities are exact,
+  distinct, durable, and replayable;
 - [ ] the effectful integration gate accepts dispatch, ambiguous-outcome,
   reconciliation, cancellation, and restart semantics;
 - [ ] the Workflow implementation passes behavioral-equivalence tests for every
   existing typed action, accepted event, status, terminal outcome, and failure
   path;
+- [ ] equivalence covers both QE and VASP Task specializations and rejects
+  backend substitution;
 - [ ] persistence and replay provide a required operational property that the
   existing local architecture cannot provide acceptably;
 - [ ] the owner explicitly accepts the migration and compatibility policy; and
 - [ ] the local SNAKES implementation has a recorded retention, deprecation, or
   removal decision.
 
+An outward adapter remains the preferred first composition mechanism. Direct
+inheritance from accepted SDK Task/Workflow ABCs may be considered only after
+adapter parity demonstrates that it preserves owner APIs and dependency
+boundaries.
+
 ## Exclusions
 
-This task does not authorize calculator execution, a backend migration, removal
-of SNAKES, provider objects in reusable workflow contracts, or use of the pure
-`Firer` boundary for registration or submission effects.
+This task does not authorize calculator execution, backend migration, removal of
+SNAKES, provider objects in reusable workflow contracts, use of the pure `Firer`
+boundary for registration or submission effects, or an assumption that a VASP
+saved-state result has QE artifact-set semantics.

@@ -6,7 +6,15 @@ Turn the already demonstrated replayable durable CPN commit orchestration into
 the sole supported write direction for experimental pure actions, without
 expanding scope into effects or global scheduler replay.
 
-## Why this is current work
+## Iteration-2 terminology
+
+This completed task retains `pure-action` in filenames, APIs, identities, and
+evidence because that is the implemented prerelease vocabulary. Architecture
+iteration 2 treats this chain as the candidate executor for one pure atomic
+Task. Renaming or promoting it requires an explicit compatibility migration and
+must preserve schemas, identities, canonical bytes, and replay behavior.
+
+## Why this was required
 
 The QE vertical slice used
 `ExperimentalWorkflowPureActionDurableCpnCommitService` successfully and proved

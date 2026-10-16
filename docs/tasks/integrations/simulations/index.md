@@ -4,28 +4,36 @@ This directory indexes bounded integration work between
 `projectkoios-workflow` and `projectkoios-simulations`.
 
 Until an accepted Workflow release exists, base owner integrations remain
-limited to the standalone pinned SDK. Experimental full-runtime adapters must
-stay in outward namespaces, use an explicit optional dependency, and must not be
-treated as compatibility promises by the protected simulation core or reusable
-workflow contracts.
+limited to the standalone pinned SDK. Full-runtime adapters stay in outward
+namespaces behind an explicit optional dependency and are not compatibility
+promises for protected simulation core or reusable workflow contracts.
 
-## Priority
+## Iteration-2 owner evidence
 
-Preserve Simulations' existing typed SCF facade and local SNAKES lifecycle.
-Adopt Workflow selectively for pure actions requiring durable authorization,
-atomic state advancement, and owner-independent replay. See
-[selective runtime adoption](selective_runtime_adoption.md).
+Simulations already demonstrates one calculator-neutral Workflow coordinating a
+provider-specialized Task role:
+
+- `PwDftScfHandlerTask` retains common correlation;
+- `QePwDftScfTask` and `VaspPwDftScfTask` retain backend-specific resources;
+- matching handlers execute common SCF actions and emit common events; and
+- `LocalPwDftScfWorkflow` retains the backend-neutral SNAKES lifecycle.
+
+Workflow integration must preserve that split. A parent may later see the SCF
+Workflow as one Task and create a distinct SCF child run, but the child must
+retain its internal calculator Task and must not flatten QE and VASP into a
+generic provider record.
 
 ## Tasks
 
-- [Selective Workflow runtime adoption](selective_runtime_adoption.md) — boundary
-  and future replacement gate for the existing SCF architecture.
+- [Selective Workflow runtime adoption](selective_runtime_adoption.md) — owner
+  boundary, QE/VASP Task evidence, and future composition/migration gate.
 - [QE artifact-set Workflow SDK pilot](qe_artifact_set_sdk_pilot.md) — first
   pure consumer fixture and isolated owner-side SDK firing evidence.
 - [QE artifact-set durable vertical-slice evidence](qe_artifact_set_durable_vertical_slice_evidence.md)
-  — real owner source authorization, invocation, pure CPN firing, atomic commit,
-  and owner-independent replay through the experimental Workflow runtime.
+  — source authorization, invocation, pure CPN firing, atomic commit, and replay.
 
-The remaining full-plan and production-readiness gates stay tracked by the
-[pure-firing vertical slice](../pure_firing_vertical_slice.md) and
-[pure-firing foundations](../pure_firing_foundations.md).
+The remaining common composition work is tracked by the
+[Task and Workflow composition model](../task_workflow_composition_model.md).
+Full-plan, release, and isolation gaps remain in the
+[pure-firing foundations](../pure_firing_foundations.md) and
+[pure-firing vertical slice](../pure_firing_vertical_slice.md).

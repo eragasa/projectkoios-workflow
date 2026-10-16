@@ -8,6 +8,15 @@ This gate is deferred until an owner requests durable effect orchestration; the
 existing Simulations typed SCF lifecycle remains the current architecture in the
 meantime.
 
+## Task-model prerequisite
+
+An effectful operation is an atomic Task route, not a special kind of Workflow
+or a call hidden behind the pure SDK `Firer`. Before this gate can activate, the
+common Task model must distinguish immutable Task definition, provider-specific
+owner configuration, handler, invocation, occurrence, attempt, and outcome.
+A workflow-backed Task uses the separate child-run route rather than this effect
+route.
+
 ## Gate
 
 Effectful integration remains blocked until Workflow has accepted and tested:
@@ -26,7 +35,10 @@ Effectful integration remains blocked until Workflow has accepted and tested:
 
 ## Required proof
 
-At least one isolated provider fixture must complete this checklist:
+At least one isolated provider fixture must complete this checklist. Before a
+Simulations SCF migration, equivalent common lifecycle behavior and
+backend-substitution rejection must also be demonstrated for both QE and VASP
+Task specializations:
 
 - [ ] Exercise a crash before possible effect entry.
 - [ ] Exercise a crash after possible effect entry.
