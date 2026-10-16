@@ -17,6 +17,11 @@ CPN-bindings conformance, production release readiness, or effectful semantics.
 - Simulations committed vertical slice:
   `projectkoios-simulations@c69c3fe5a949e631c6201f2f7d92297c90a5eb11`
   (`feat: add durable QE workflow vertical slice`).
+- Published validation descendant:
+  `projectkoios-simulations@c20022fd6624ad364006591fa64ba3e9b58cee18`
+  (`ci: bootstrap unreleased Workflow SDK`). It adds CI, provenance, and
+  repository-policy validation without changing the vertical-slice production
+  source.
 - Simulations predecessor SDK pilot:
   `projectkoios-simulations@d7f46384d34237cb6dba2782dbaaf03027482856`.
 - Candidate Simulations wheel:
@@ -25,14 +30,23 @@ CPN-bindings conformance, production release readiness, or effectful semantics.
   `a7a6a889ad660ab4ad96e452c131ac24cc98a005d36d7526a270da278529c7b9`.
   Two precommit builds and one clean committed-source rebuild with
   `SOURCE_DATE_EPOCH=1791990317` were byte-identical.
-- Workflow SDK contract: `projectkoios-workflow-sdk==0.1.0a1`; installed wheel
-  SHA-256:
+- Workflow SDK contract: `projectkoios-workflow-sdk==0.1.0a1`; retained
+  authorized wheel SHA-256:
   `925f6974c49c8935ebf2f002b18c86d29375e1b11c3ffc17a29d305fb8095ff4`.
+- Owner CI source pin:
+  `projectkoios-workflow@fe600fa1b857cd030832b226a8e21e0a30f4f1b6`.
+  CI built only that revision's `sdk/`; the resulting wheel SHA-256 was
+  `9862adeb141846f2aac95d062ed8691f91bb0a52c793dd93bf72381eb29aeb35`.
+  The distinct archive digest identifies the CI-built wheel; source-file parity
+  must not be misrepresented as archive identity with the retained wheel.
 - Experimental full runtime optional pin: `projectkoios-workflow==0.0.0`;
   reproducible wheel SHA-256:
   `d8974031d1e0018ba88c18a4fa39dac3d5bee3658d58d0a8f98d6dbd4a661aad`.
 
-The Simulations extension was committed locally. No push was performed.
+The Simulations branch is published. Draft, explicitly non-merging pull request
+[16](https://github.com/eragasa/projectkoios-simulations/pull/16) exists to
+exercise pull-request CI; it does not authorize merge, release, tagging, or
+calculator execution.
 
 ## Owner implementation
 
@@ -132,6 +146,23 @@ mypy: success for 231 source files
 wheel build and packaged adapter/typing/runtime-extra inspection: passed
 reproducible wheel comparison: passed
 ```
+
+Pull-request CI run
+[38930434450](https://github.com/eragasa/projectkoios-simulations/actions/runs/38930434450)
+passed at exact head `c20022fd6624ad364006591fa64ba3e9b58cee18` after:
+
+- checkout without persisted credentials and exact assertion of Workflow
+  revision `fe600fa1b857cd030832b226a8e21e0a30f4f1b6`;
+- SDK-only wheel construction and exact-one-wheel admission;
+- one resolver invocation for that wheel plus `.[development]`;
+- a successful `pip check`;
+- `696 passed, 8 skipped, 202 subtests passed`;
+- successful formatting, Ruff, and strict MyPy checks for 231 source files; and
+- two byte-identical Simulations wheel builds within the job, with SHA-256
+  `11e47c1a35e79541bf9e9fb52455ae7c331bdb72dd28fdd4e1cef59e1696993c`.
+
+The CI-built SDK wheel is source-provenance evidence and is not claimed to be
+archive-byte-identical to the retained authorized SDK wheel.
 
 The two runtime-coupled tests are intentionally skipped without the optional
 full Workflow runtime. In the explicitly composed cross-repository environment:

@@ -32,6 +32,9 @@ not a replacement for calculator registration, submission, or reconciliation.
 - Compact-only writing is compatibility behavior with no production execution
   callers.
 - The QE source adapter and durable vertical slice prove one real owner path.
+- Simulations draft pull request 16 proves its unreleased standalone SDK pin can
+  be built from exact public Workflow source and consumed in owner CI without
+  installing the full Workflow runtime.
 - Compact replay, CPN refiring, lifecycle replay, and bounded safety-state
   reconstruction do not reinvoke the owner.
 

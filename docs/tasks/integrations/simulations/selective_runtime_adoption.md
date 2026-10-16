@@ -77,8 +77,11 @@ because they occur inside the Workflow.
   through absolute and relative import forms. Test-only Simulations commit
   `b104a4a47ca33b58e06d780365ceb9a6567b0df8` extends the pinned `c69c3fe`
   baseline with reusable-workflow relative-import scanning and a negative
-  relative-escape assertion. Outward integration and adapter namespaces retain
-  their intentional SDK and optional-runtime imports.
+  relative-escape assertion. Published commit
+  `c20022fd6624ad364006591fa64ba3e9b58cee18` then adds only CI, provenance,
+  and repository-policy changes for the unreleased standalone SDK; it does not
+  alter protected production source. Outward integration and adapter namespaces
+  retain their intentional SDK and optional-runtime imports.
 - [x] Inventory the exact common and backend-specific fields of
   `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask` in the
   [two-owner inventory](../task_workflow_owner_inventory.md).
