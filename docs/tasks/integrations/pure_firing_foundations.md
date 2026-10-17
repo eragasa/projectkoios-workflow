@@ -108,15 +108,18 @@ existing domain workflow architecture.
 
 ## Completion evidence
 
-- [ ] Record exact Workflow and SDK revisions.
+- [x] Record exact Workflow and SDK revisions in the
+  [QE adversarial coverage matrix](simulations/qe_pure_firing_adversarial_matrix.md).
 - [x] Retain canonical selected-binding representation vectors and their profile
   identity in the
   [selected-binding evidence follow-up](selected_binding_evidence_followup.md).
-- [ ] Retain the execution-plan and deployment-binding identities.
-- [ ] Retain adversarial test results for selection, reservation, input
-  provenance, profile, and reconstruction failures.
-- [ ] Document the exact record that crosses each stage of the pure-firing
-  runtime chain.
+- [x] Retain the execution-plan and deployment-binding identities in the
+  reservation lifecycle and assert their exact QE fixture values after reopen.
+- [x] Retain adversarial test results for selection, reservation, input
+  provenance, profile, and reconstruction failures in the
+  [coverage matrix](simulations/qe_pure_firing_adversarial_matrix.md).
+- [x] Document the exact record that crosses each stage of the pure-firing
+  runtime chain in that matrix.
 
 The current
 [experimental request-and-output mapping evidence](experimental_ascii_output_mapping_evidence.md),
@@ -133,7 +136,8 @@ the [pure-action durable-persistence evidence](pure_action_durable_persistence_e
 the [pure-action committed-replay evidence](pure_action_committed_replay_evidence.md),
 the [canonical CPN representation decoding evidence](canonical_cpn_representation_decoding_evidence.md),
 the [pure-action CPN refiring evidence](pure_action_cpn_refiring_evidence.md),
-and the [real-owner QE durable vertical slice](simulations/qe_artifact_set_durable_vertical_slice_evidence.md)
+the [real-owner QE durable vertical slice](simulations/qe_artifact_set_durable_vertical_slice_evidence.md),
+and the [QE adversarial coverage matrix](simulations/qe_pure_firing_adversarial_matrix.md)
 are candidate evidence for this task. Together they still do not supply complete
 plan/profile closure, released owner/runtime packaging, a structurally
 independent second owner, or authoritative global replay.

@@ -17,11 +17,14 @@ CPN-bindings conformance, production release readiness, or effectful semantics.
 - Simulations committed vertical slice:
   `projectkoios-simulations@c69c3fe5a949e631c6201f2f7d92297c90a5eb11`
   (`feat: add durable QE workflow vertical slice`).
-- Published validation descendant:
+- Published CI-bootstrap descendant:
   `projectkoios-simulations@c20022fd6624ad364006591fa64ba3e9b58cee18`
-  (`ci: bootstrap unreleased Workflow SDK`). It adds CI, provenance, and
-  repository-policy validation without changing the vertical-slice production
-  source.
+  (`ci: bootstrap unreleased Workflow SDK`).
+- Published adversarial-evidence descendant:
+  `projectkoios-simulations@4f05789d63f4cb2851c1e4f0ee0d6666e1875a67`
+  (`test: harden QE durable replay evidence`). It adds only exact identity,
+  reopened replay, and post-replay privacy assertions. Neither descendant
+  changes the vertical-slice production source.
 - Simulations predecessor SDK pilot:
   `projectkoios-simulations@d7f46384d34237cb6dba2782dbaaf03027482856`.
 - Candidate Simulations wheel:
@@ -93,11 +96,15 @@ The action is the existing
 `QeScfSavedStateArtifactSetProjector.action(...)`, not a synthetic Workflow
 firer. It performs no calculator or other external effect.
 
-After commit, the test deletes the complete owner source directory. Every replay
-still succeeds and a counting owner firer remains at exactly one call. The exact
-owner request bytes and canonical artifact-set evidence bytes are absent from
-the Workflow SQLite database. The logical artifact-set identity remains in the
-successor CPN marking by design.
+After commit, the test deletes the complete owner source directory, reopens the
+SQLite repository through a new instance, and performs every replay against
+that instance. Every replay still succeeds and a counting owner firer remains
+at exactly one call. Before and after replay, the test proves the exact owner
+request bytes, canonical artifact-set evidence bytes, private source root, and
+all owner retention references are absent from the Workflow SQLite database.
+The logical artifact-set identity remains in the successor CPN marking by
+design. This is exact-byte and current-schema privacy evidence, not a claim
+about arbitrary alternate encodings.
 
 ## Deterministic identities
 
@@ -107,12 +114,24 @@ successor CPN marking by design.
   `03eb0408eb031e2e951b79a265048219d2c3800b3556576026e441341e75ae39`;
 - integration manifest:
   `140197dc0fd386c7c9e433f3ff47c609d5b9ddfef4dd3b3620cecf1d73bf8644`;
+- output mapping:
+  `7a1664a7de8770bc9e068bf09f8e62793c57f5eef5bf4c34c5faf3e331afbd3e`;
+- execution plan:
+  `a0f9aa9d5abd12da4e5099cc60c9f26063505cdd988d00898c3b8f1250a98271`;
+- execution bindings:
+  `a54ebcbbf88998d7fd3215bc00a13c885f514790febcab40364e3b1aea02126f`;
+- input mapping:
+  `0f7d665bb1b2d186c383569e80c4286b65690f92bd69bfa94b31cf66c4348620`;
+- input plan:
+  `efa293c0c860486bc5f1b4741b69beb1181c2509025f8c77aae02dfead770361`;
 - input bindings:
   `ca98772a5cce04065134cdb4d3d57a39712c0c655aab0076b0d75812ca7493e5`;
 - SDK request:
   `417d0d912f96acac7a65ff5d42cc85de670d304805a50b859a01123d2162a64d`;
 - authorized inputs:
   `a69fcf048f90500b0b35ea7153ccd8e15a1b7553ffd36a9aab0e2d53acb09b3d`;
+- CPN execution profile:
+  `3321f8a87314f964af4a8fb1c8cc732e80c2b7686f1f2fbe68329d708d931173`;
 - CPN plan:
   `3ba808794b16953f3fceb20b9f18b204912582ea6dbe3d36100bf321b81b3411`;
 - reservation:
@@ -164,6 +183,23 @@ passed at exact head `c20022fd6624ad364006591fa64ba3e9b58cee18` after:
 The CI-built SDK wheel is source-provenance evidence and is not claimed to be
 archive-byte-identical to the retained authorized SDK wheel.
 
+Follow-up pull-request CI run
+[38996011590](https://github.com/eragasa/projectkoios-simulations/actions/runs/38996011590)
+passed at exact test-only head
+`4f05789d63f4cb2851c1e4f0ee0d6666e1875a67`. It repeated the exact pinned
+SDK checkout, one-wheel admission, joint dependency resolution, `pip check`,
+`696 passed, 8 skipped, 202 subtests passed`, formatting, Ruff, strict MyPy,
+and within-job reproducible Simulations wheel checks. That run's SDK wheel
+SHA-256 was `0f19f17d4687b7b6a857564b345765f620d085f95aaecb9862197caa34b4a920`;
+its Simulations wheel SHA-256 was
+`16fcb2740dcd2605e4973ee8649a363d1ebe045c55e6ba939ab2253a9a43f101`.
+Those run-specific archive identities do not replace the retained authorized
+SDK or committed production-source wheel identities.
+
+A local environment explicitly composed with the optional full Workflow
+runtime additionally passed the updated cross-repository test (`2 passed`) and
+the complete Simulations suite (`698 passed, 7 skipped, 202 subtests passed`).
+
 The two runtime-coupled tests are intentionally skipped without the optional
 full Workflow runtime. In the explicitly composed cross-repository environment:
 
@@ -188,8 +224,11 @@ source is unavailable. It also exposes material adoption cost: one owner action
 currently requires explicit mapping, input-plan, CPN-plan, manifest,
 reservation, invocation, firing, commit, and replay composition.
 
-Further internal infrastructure is not justified by this pilot alone. First
-make the durable CPN commit path canonical, then validate the SDK boundary with
-a structurally independent owner. Close only the packaging, plan/profile,
-source-authority, and worker-isolation gaps those supported owner paths require.
-Effectful lifecycle and global scheduler replay remain deferred.
+Further internal infrastructure is not justified by this pilot alone. The
+[adversarial coverage matrix](qe_pure_firing_adversarial_matrix.md) inventories
+the exact stage records, current negative evidence, and bounded gaps without
+adding another persistence or replay variant. First preserve the canonical
+durable CPN commit path, then validate the SDK boundary with a structurally
+independent owner. Close only the packaging, plan/profile, source-authority, and
+worker-isolation gaps those supported owner paths require. Effectful lifecycle
+and global scheduler replay remain deferred.

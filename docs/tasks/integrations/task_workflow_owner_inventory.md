@@ -18,12 +18,12 @@ The read-only inventory is pinned to the full immutable Simulations revision:
 
 That revision is the owner-confirmed baseline for the calculator-neutral SCF
 lifecycle and the additive durable QE saved-state slice. Published validation
-descendant `c20022fd6624ad364006591fa64ba3e9b58cee18` includes test-only commit
-`b104a4a47ca33b58e06d780365ceb9a6567b0df8`, which hardens dependency-boundary
-enforcement for relative imports, and the CI-only standalone-SDK bootstrap.
-Neither descendant changes the inventoried production source. Draft pull
-request 16 validated that descendant without authorizing merge. Mutable branch
-names are not evidence. The inventory does not reinterpret the historical
+descendant `4f05789d63f4cb2851c1e4f0ee0d6666e1875a67` includes test-only commit
+`b104a4a47ca33b58e06d780365ceb9a6567b0df8`, the CI-only standalone-SDK
+bootstrap at `c20022fd6624ad364006591fa64ba3e9b58cee18`, and test-only exact
+identity, reopened replay, and privacy evidence. None changes the inventoried
+production source. Draft pull request 16 validated that descendant without
+authorizing merge. Mutable branch names are not evidence. The inventory does not reinterpret the historical
 Simulations `task_id` as a Workflow Task, occurrence, attempt, effect, or child
 run.
 

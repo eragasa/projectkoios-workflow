@@ -35,6 +35,9 @@ not a replacement for calculator registration, submission, or reconciliation.
 - Simulations draft pull request 16 proves its unreleased standalone SDK pin can
   be built from exact public Workflow source and consumed in owner CI without
   installing the full Workflow runtime.
+- The QE adversarial matrix now binds exact intermediate identities, maps current
+  negative coverage, and proves reopened post-replay absence of exact owner
+  bytes and private owner values without adding runtime infrastructure.
 - Compact replay, CPN refiring, lifecycle replay, and bounded safety-state
   reconstruction do not reinvoke the owner.
 

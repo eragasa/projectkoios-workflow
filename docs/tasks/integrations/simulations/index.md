@@ -31,6 +31,8 @@ generic provider record.
   pure consumer fixture and isolated owner-side SDK firing evidence.
 - [QE artifact-set durable vertical-slice evidence](qe_artifact_set_durable_vertical_slice_evidence.md)
   — source authorization, invocation, pure CPN firing, atomic commit, and replay.
+- [QE pure-firing adversarial coverage matrix](qe_pure_firing_adversarial_matrix.md)
+  — exact boundary records, existing negative coverage, and bounded remaining gaps.
 
 The remaining common composition work is tracked by the
 [Task and Workflow composition model](../task_workflow_composition_model.md).

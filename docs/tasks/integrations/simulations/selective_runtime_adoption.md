@@ -79,9 +79,11 @@ because they occur inside the Workflow.
   baseline with reusable-workflow relative-import scanning and a negative
   relative-escape assertion. Published commit
   `c20022fd6624ad364006591fa64ba3e9b58cee18` then adds only CI, provenance,
-  and repository-policy changes for the unreleased standalone SDK; it does not
-  alter protected production source. Outward integration and adapter namespaces
-  retain their intentional SDK and optional-runtime imports.
+  and repository-policy changes for the unreleased standalone SDK. Test-only
+  descendant `4f05789d63f4cb2851c1e4f0ee0d6666e1875a67` adds exact identity,
+  reopened replay, and post-replay privacy assertions. Neither alters protected
+  production source. Outward integration and adapter namespaces retain their
+  intentional SDK and optional-runtime imports.
 - [x] Inventory the exact common and backend-specific fields of
   `PwDftScfHandlerTask`, `QePwDftScfTask`, and `VaspPwDftScfTask` in the
   [two-owner inventory](../task_workflow_owner_inventory.md).
