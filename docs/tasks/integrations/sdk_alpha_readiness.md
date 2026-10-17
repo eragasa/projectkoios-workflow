@@ -60,10 +60,11 @@ external owner repository imports it as a runtime dependency.
 - [x] Retain a two-build
   [reproducible non-release artifact candidate](sdk_alpha_reproducible_artifact_candidate.md)
   with exact `RECORD`, source-byte, clean-install, and Simulations compatibility
-  evidence. The historical candidate exposed missing license text; the
-  correction is implemented and locally validated, and the operator selected
-  retaining `0.1.0a1`. Public release remains gated by exact-revision corrected
-  artifact evidence and separate release authorization.
+  evidence. The historical candidate exposed missing license text; exact
+  committed-source correction evidence now includes the license, two identical
+  builds, complete `RECORD` and source checks, isolated installation, and
+  repeated Simulations compatibility. The operator selected retaining
+  `0.1.0a1`. Public-source CI and any release remain separately gated.
 
 ## Exclusions
 

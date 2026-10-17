@@ -40,9 +40,9 @@ pure CPN firing, atomic persistence, compact replay, CPN refiring, lifecycle
 replay, safety-state reconstruction, and the real QE vertical slice. The
 [SDK reproducible artifact candidate](sdk_alpha_reproducible_artifact_candidate.md)
 separately records non-releasing wheel, metadata, installation, and owner
-compatibility evidence. The license-package correction is implemented and the
-operator selected retaining `0.1.0a1`; exact-revision corrected artifact
-evidence and any release authorization remain outstanding.
+compatibility evidence. Exact committed-source evidence now verifies the
+license-package correction, and the operator selected retaining `0.1.0a1`.
+Public-source CI and any release authorization remain outstanding.
 
 That evidence establishes one pure atomic route. It does not establish public
 Task/Workflow SDK contracts, workflow-backed child runs, effect lifecycle,

@@ -11,7 +11,7 @@ not accept a public compatibility policy, release channel, production use,
 complete Task/Workflow API, full Workflow runtime distribution, or worker
 isolation.
 
-## Exact source and builder
+## Historical candidate: exact source and builder
 
 The candidate was built from two independent public clones checked out at exact
 revision:
@@ -53,7 +53,7 @@ SOURCE_DATE_EPOCH=1792155504 PYTHONHASHSEED=0 LC_ALL=C \
   --outdir OUTPUT SOURCE/sdk
 ```
 
-## Reproducible result
+## Historical candidate: reproducible result
 
 Both builds produced byte-identical archives:
 
@@ -70,7 +70,7 @@ Every ZIP entry has the timestamp selected by `SOURCE_DATE_EPOCH`. The result is
 local two-build reproducibility evidence, not yet cross-operating-system release
 reproducibility.
 
-## Source and `RECORD` verification
+## Historical candidate: source and `RECORD` verification
 
 The wheel contains exactly the eight expected SDK package files and four
 `.dist-info` files. Every package file is byte-identical to source at the exact
@@ -117,7 +117,7 @@ Pull-request CI has also produced transient archive identities, including
 builds intentionally proved exact source consumption without fixing a canonical
 wheel epoch. Source parity must not be represented as archive identity.
 
-## Clean installation and compatibility
+## Historical candidate: clean installation and compatibility
 
 A fresh Python 3.14 environment installed only the candidate wheel. It retained
 only `pip` and `projectkoios-workflow-sdk`, passed `pip check`, and imported the
@@ -156,38 +156,108 @@ Public Git and package-index retrieval were used for source and declared test
 dependencies. No QE executable, calculator, scheduler, effect, owner network
 provider, release, or artifact upload was invoked.
 
+## License-corrected reproducible candidate
+
+The correction was committed at exact revision:
+
+`a103687d472ff37d367c150ef565b01d4df23e4a`
+
+Two independent clean local clones were detached at that revision and asserted
+clean before building only `sdk/`. Public-clone retrieval remains pending until
+the commit is pushed. The fixed build inputs matched the historical build except
+for the source-derived epoch:
+
+| Input | Exact value |
+| --- | --- |
+| `SOURCE_DATE_EPOCH` | `1792207647` |
+| Python | `3.14.6` |
+| `build` | `1.6.1` |
+| `setuptools` | `84.0.0` |
+| `packaging` | `26.3` |
+| `pyproject-hooks` | `1.3.3` |
+| `PYTHONHASHSEED` | `0` |
+| locale | `C` |
+| timezone | `UTC` |
+
+Both builds produced this byte-identical wheel:
+
+| Property | Value |
+| --- | --- |
+| Filename | `projectkoios_workflow_sdk-0.1.0a1-py3-none-any.whl` |
+| SHA-256 | `49d6bf1aa4c1fa32ae2385f800d2146af90f70e9d58412e5ce71a2b9e0b7de50` |
+| Size | 22,006 bytes |
+| ZIP entries | 13 unique entries |
+| Wheel tag | `py3-none-any` |
+| Purelib | true |
+
+Exact inspection proved:
+
+- all eight package files are byte-identical to source at the committed
+  revision;
+- exactly one license member exists at
+  `projectkoios_workflow_sdk-0.1.0a1.dist-info/licenses/LICENSE`;
+- that member is 11,357 bytes and byte-identical to both `sdk/LICENSE` and the
+  repository-root `LICENSE`;
+- its SHA-256 is
+  `c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4`;
+- the remaining four members are `METADATA`, `WHEEL`, `top_level.txt`, and
+  `RECORD`;
+- every non-`RECORD` row has the correct URL-safe Base64 SHA-256 and byte
+  length, while the `RECORD` self-row has empty digest and size;
+- no unexpected or duplicate member exists; and
+- metadata retains version `0.1.0a1`, Python `>=3.14`,
+  `License-Expression: Apache-2.0`, no runtime dependency, and development-only
+  test and build requirements.
+
+A fresh candidate-only environment passed `pip check` and imported version
+`0.1.0a1` under `python -I`. A separate installed-wheel environment passed:
+
+```text
+standalone SDK tests: 14 passed
+pip check: no broken requirements
+```
+
+A fresh environment installed the exact corrected wheel and
+`projectkoios-simulations@4f05789d63f4cb2851c1e4f0ee0d6666e1875a67`
+with `.[development]` in one resolver invocation:
+
+```text
+base suite: 696 passed, 8 skipped, 202 subtests passed
+pip check: no broken requirements
+```
+
+The optional full Workflow runtime wheel was then built from the same exact
+Workflow revision. Its SHA-256 was
+`049f706993b63b12cea2a2cb101546f55f591e6b4af67bf9f3ac53d75da68752`.
+After explicitly installing that wheel, compatibility remained intact:
+
+```text
+QE runtime-coupled test: 2 passed
+complete composed suite: 698 passed, 7 skipped, 202 subtests passed
+pip check: no broken requirements
+```
+
+No QE executable, calculator, scheduler, effect, owner network provider,
+release, tag, or artifact upload was invoked.
+
 ## Release-preparation finding
 
-Finding disposition: `SAFE_TO_DEFER`
+Finding disposition: `NO_ACTION_REQUIRED`
 
-Problem: the wheel declares `License-Expression: Apache-2.0` but contains no
-license or notice text. The repository-root `LICENSE` at the source revision is
-11,357 bytes with SHA-256
-`c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4`,
-but it is outside the standalone `sdk/` build root and therefore absent from
-both the retained and reproducible wheels.
+Problem: the historical `925f...` and `7696...` wheels declare
+`License-Expression: Apache-2.0` but contain no license text.
 
-Evidence: exact wheel-member inspection found only the eight SDK package files
-and four `.dist-info` files; no member is a license or notice file.
+Evidence: the corrected exact-revision wheel contains one license member with
+the exact repository license digest, while its package files, metadata,
+`RECORD`, installation, and Simulations compatibility checks all pass.
 
-Consequence: this does not invalidate local integration evidence, but the
-candidate should not become a public release artifact until the standalone
-wheel includes the applicable license text and the complete artifact evidence
-is rebuilt from a new exact revision.
+Consequence: the historical wheels remain non-releasing development evidence
+and are not rewritten. Their defect does not carry into the corrected
+candidate.
 
-Next action: before any release, place byte-identical applicable license text
-inside the SDK build root, configure its inclusion explicitly, add a wheel-policy
-test, and repeat reproducibility, `RECORD`, install, and Simulations
-compatibility checks. Do not rewrite the historical wheel.
-
-The successor source correction copies the root license byte-for-byte into
-`sdk/LICENSE`, explicitly configures `license-files = ["LICENSE"]`, and adds
-source-policy and built-wheel checks. Worktree validation proves the wheel
-contains exactly one `.dist-info/licenses/LICENSE` member matching the root
-license and retains `License-Expression: Apache-2.0`. That validation is not yet
-final artifact evidence: the correction still requires an exact committed
-source revision, two clean reproducible builds, complete `RECORD` and source
-inspection, clean installation, and repeated Simulations compatibility checks.
+Next action: none for this license finding. Public-source retrieval and CI may
+be checked after an authorized push. Canonical-artifact designation, tag,
+upload, and release remain separate unauthorized actions.
 
 ## Version and channel decision
 
@@ -218,6 +288,7 @@ full Workflow runtime experimental and outside this decision.
 Review outcome: `NO_BLOCKING_FINDINGS` for the stated non-releasing artifact
 preparation scope.
 
-Operator request: `AUTHORIZATION_REQUIRED` before committing or pushing the
-validated source correction. A canonical-artifact designation, tag, upload, or
-release remains separately unauthorized.
+Operator request: `AUTHORIZATION_REQUIRED` before committing this exact
+artifact evidence or pushing the correction and evidence commits. A
+canonical-artifact designation, tag, upload, or release remains separately
+unauthorized.
