@@ -47,6 +47,12 @@ not a replacement for calculator registration, submission, or reconciliation.
   authorized.
 - Compact replay, CPN refiring, lifecycle replay, and bounded safety-state
   reconstruction do not reinvoke the owner.
+- The lean
+  [`ksdft2effmass` capability migration](integrations/ksdft2effmass_workflow_capability_migration.md)
+  identifies the byte-identical CPN kernel as the first deduplication slice,
+  keeps scientific contracts downstream, and treats the unconsumed legacy
+  WorkflowRun/control/persistence stack as a deprecation candidate rather than
+  an upstream parity target.
 
 Existing `pure-action` names remain compatibility and evidence names. A future
 accepted surface may use `pure Task execution`; no rename occurs without an

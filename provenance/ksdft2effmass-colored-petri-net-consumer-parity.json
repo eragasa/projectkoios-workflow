@@ -1,0 +1,106 @@
+{
+  "compatibility": {
+    "dependency_pin_change_authorized": false,
+    "identity_domain_prefix": "ksdft2effmass.petrinet.colored",
+    "identity_domain_preserved": true,
+    "legacy_route_reexports": "downstream change not yet authorized",
+    "pickle_compatibility": "not claimed",
+    "production_source": "byte-identical",
+    "public_symbol_inventory": "exact",
+    "python_module_identity": "not preserved by a re-export migration",
+    "release_authorized": false,
+    "wire_format": "not selected"
+  },
+  "destination": {
+    "baseline_revision": "334c6476277d5c9f1d87d44b0ccab37e41c2ec4e",
+    "import_root": "projectkoios.workflow.petrinet.colored",
+    "repository": "https://github.com/eragasa/projectkoios-workflow.git"
+  },
+  "license": {
+    "byte_identical": true,
+    "byte_size": 11357,
+    "destination_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "expression": "Apache-2.0",
+    "source_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "modules": [
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/__init__.py",
+      "sha256": "ecd8bbc2fc646ace4a72c0cc44c236e7a08295b7016f7b5982dace853d3bfeda",
+      "upstream_import": "projectkoios.workflow.petrinet.colored",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/__init__.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.definitions",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/definitions.py",
+      "sha256": "67b645584b163f03264f827ad85839cb5cb599cd9e90136e5c2d5eb113a1b160",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.definitions",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/definitions.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.enablement",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/enablement.py",
+      "sha256": "9e18e90e95a4917bb037a48a5d95a042482547350eab3786aa93c23b2c1e16d8",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.enablement",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/enablement.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.expressions",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/expressions.py",
+      "sha256": "0ae1016093e4a65e15b27da06ab2dae84caf38bf34a4fef0dec1382e34695d32",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.expressions",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/expressions.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.firing",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/firing.py",
+      "sha256": "b0dd53949b6115a40058e5c8e12e5e2ce81db90a0af58f41dee26bc4d71f9978",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.firing",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/firing.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.markings",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/markings.py",
+      "sha256": "c01338792c3fbf8909f0ac7f6d479c2e78b39c00cf0ff0218baae5bd0b4e70c6",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.markings",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/markings.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.selection",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/selection.py",
+      "sha256": "f236c28e086ea1655e1c012bdd0f5a589cb7fe5c7e6fc93c9340f9cc9ed18fb6",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.selection",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/selection.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.validation",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/validation.py",
+      "sha256": "98eff08be2f7c2915bf3eeb50f467b66bf550eadf48f595001e7f8cf15c9486b",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.validation",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/validation.py"
+    },
+    {
+      "legacy_import": "ksdft2effmass.petrinet.colored.values",
+      "legacy_path": "python/src/ksdft2effmass/petrinet/colored/values.py",
+      "sha256": "b6caca30ff13022f1266f2bb17fc5d0ba1a0f339c7d9e9694219599754884613",
+      "upstream_import": "projectkoios.workflow.petrinet.colored.values",
+      "upstream_path": "src/python/projectkoios/workflow/petrinet/colored/values.py"
+    }
+  ],
+  "public_surface": {
+    "canonical_export_list_sha256": "c4fdd25caeb2ffe4d6b0895789d5678a36fb57c5e584a2220de554323b994b68",
+    "export_count": 68
+  },
+  "schema_version": 1,
+  "source": {
+    "bounded_subtrees_clean_at_observation": true,
+    "branch_observed": "work/monograph-current-library-capabilities",
+    "crosswalk_inventory_revision": "2f30d7a37eab8306c7c17da0e2b316d63da8c74c",
+    "implementation_changed_since_crosswalk": false,
+    "repository": "https://github.com/eragasa/ksdft2effmass.git",
+    "revision": "5aaff25b784c7d1bc079a3030a73be387dc11a0f",
+    "whole_worktree_clean_at_observation": false
+  },
+  "status": "read-only consumer migration parity evidence"
+}

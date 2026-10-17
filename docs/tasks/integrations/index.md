@@ -15,21 +15,26 @@ from runtime adoption.
    [two-owner Task and Workflow inventory](task_workflow_owner_inventory.md) to
    constrain the common model while preserving the
    [selective Simulations adoption boundary](simulations/selective_runtime_adoption.md).
-3. Use the revised [second owner SDK pilot](second_owner_pilot.md) to test pure
+3. Follow the lean
+   [`ksdft2effmass` workflow capability migration](ksdft2effmass_workflow_capability_migration.md):
+   deduplicate the already-identical CPN kernel first, retain owner science,
+   archive only evidenced history readers, and deprecate legacy runtime
+   overgrowth rather than porting it wholesale.
+4. Use the revised [second owner SDK pilot](second_owner_pilot.md) to test pure
    Task decomposition and workflow-backed composition in the retained
    `ksdft2effmass` single-band experiment after its owner authorizes a clean
    immutable source revision.
-4. Treat the completed
+5. Treat the completed
    [canonical durable pure-action path](canonical_durable_pure_action_path.md) as
    the implementation candidate for pure atomic Task execution. Preserve its
    current names and bytes until an explicit compatibility migration.
-5. Close remaining [pure-firing foundations](pure_firing_foundations.md) only to
+6. Close remaining [pure-firing foundations](pure_firing_foundations.md) only to
    the extent required by the two-owner Task model and a supported pure route.
-6. Complete remaining
+7. Complete remaining
    [pure-firing vertical-slice](pure_firing_vertical_slice.md) release and
    worker-isolation gates.
-7. Pass the [broader SDK adoption gate](broader_adoption_gate.md).
-8. Address the [effectful integration gate](effectful_integration_gate.md) only
+8. Pass the [broader SDK adoption gate](broader_adoption_gate.md).
+9. Address the [effectful integration gate](effectful_integration_gate.md) only
    when an owner requests durable effect orchestration.
 
 ## Existing evidence

@@ -52,6 +52,7 @@ jobs:
           tests/projectkoios/workflow/reference_review
           tests/projectkoios/workflow/runtime
           tests/test__ColoredPetriNetShadowProvenance.py
+          tests/test__Ksdft2effmassColoredPetriNetConsumerParity.py
           sdk/src/python
           sdk/tests
 
