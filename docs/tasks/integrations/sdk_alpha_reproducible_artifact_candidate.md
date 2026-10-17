@@ -162,10 +162,11 @@ The correction was committed at exact revision:
 
 `a103687d472ff37d367c150ef565b01d4df23e4a`
 
-Two independent clean local clones were detached at that revision and asserted
-clean before building only `sdk/`. Public-clone retrieval remains pending until
-the commit is pushed. The fixed build inputs matched the historical build except
-for the source-derived epoch:
+Two independent clean clones were detached at that revision and asserted clean
+before building only `sdk/`. After the commit was pushed, the complete build was
+repeated from two independent public clones; both public-clone wheels matched
+each other and the retained exact-revision candidate byte-for-byte. The fixed
+build inputs matched the historical build except for the source-derived epoch:
 
 | Input | Exact value |
 | --- | --- |
@@ -255,9 +256,9 @@ Consequence: the historical wheels remain non-releasing development evidence
 and are not rewritten. Their defect does not carry into the corrected
 candidate.
 
-Next action: none for this license finding. Public-source retrieval and CI may
-be checked after an authorized push. Canonical-artifact designation, tag,
-upload, and release remain separate unauthorized actions.
+Next action: none for this license finding. Public-source retrieval and CI both
+passed. Canonical-artifact designation, tag, upload, and release remain separate
+unauthorized actions.
 
 ## Version and channel decision
 
@@ -283,12 +284,20 @@ If contrary evidence later shows that an external consumer treated an earlier
 rather than publishing different contents under an accepted version. Keep the
 full Workflow runtime experimental and outside this decision.
 
+## Public CI confirmation
+
+Workflow CI run
+[`38999286323`](https://github.com/eragasa/projectkoios-workflow/actions/runs/38999286323)
+passed at evidence revision `388881d0c1eca846b3dc521c0545e196e14808ba`.
+The run checked formatting, Ruff, strict MyPy, both test suites, source and wheel
+construction, exact bundled-license policy, clean wheel installation,
+`pip check`, isolated imports, and patch whitespace.
+
 ## Current outcome
 
 Review outcome: `NO_BLOCKING_FINDINGS` for the stated non-releasing artifact
 preparation scope.
 
-Operator request: `AUTHORIZATION_REQUIRED` before committing this exact
-artifact evidence or pushing the correction and evidence commits. A
-canonical-artifact designation, tag, upload, or release remains separately
-unauthorized.
+Operator request: `AUTHORIZATION_REQUIRED` before committing and pushing this
+final public-source and CI confirmation. A canonical-artifact designation, tag,
+upload, or release remains separately unauthorized.

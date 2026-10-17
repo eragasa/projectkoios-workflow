@@ -63,8 +63,9 @@ external owner repository imports it as a runtime dependency.
   evidence. The historical candidate exposed missing license text; exact
   committed-source correction evidence now includes the license, two identical
   builds, complete `RECORD` and source checks, isolated installation, and
-  repeated Simulations compatibility. The operator selected retaining
-  `0.1.0a1`. Public-source CI and any release remain separately gated.
+  repeated Simulations compatibility. Two public-clone rebuilds and Workflow CI
+  also passed. The operator selected retaining `0.1.0a1`; any release remains
+  separately gated.
 
 ## Exclusions
 
