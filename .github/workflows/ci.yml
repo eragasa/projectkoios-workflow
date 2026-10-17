@@ -71,11 +71,46 @@ jobs:
       - name: Build source and wheel distributions
         run: uv build --all-packages --out-dir dist
 
+      - name: Verify standalone SDK wheel license policy
+        run: |
+          .venv/bin/python - <<'PY'
+          from email.parser import BytesParser
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          wheels = tuple(
+              Path("dist").glob(
+                  "projectkoios_workflow_sdk-0.1.0a1-*.whl"
+              )
+          )
+          assert len(wheels) == 1
+          expected = Path("LICENSE").read_bytes()
+          assert Path("sdk/LICENSE").read_bytes() == expected
+          with ZipFile(wheels[0]) as wheel:
+              licenses = tuple(
+                  name
+                  for name in wheel.namelist()
+                  if name.endswith(".dist-info/licenses/LICENSE")
+              )
+              assert len(licenses) == 1
+              assert wheel.read(licenses[0]) == expected
+              metadata_name = next(
+                  name
+                  for name in wheel.namelist()
+                  if name.endswith(".dist-info/METADATA")
+              )
+              metadata = BytesParser().parsebytes(
+                  wheel.read(metadata_name)
+              )
+              assert metadata["License-Expression"] == "Apache-2.0"
+          PY
+
       - name: Verify clean wheel installation
         run: |
           uv venv /tmp/projectkoios-workflow-wheel --python 3.14 --clear
           uv pip install --python /tmp/projectkoios-workflow-wheel/bin/python dist/*.whl
-          /tmp/projectkoios-workflow-wheel/bin/python - <<'PY'
+          uv pip check --python /tmp/projectkoios-workflow-wheel/bin/python
+          /tmp/projectkoios-workflow-wheel/bin/python -I - <<'PY'
           from projectkoios.workflow.course_review import CourseReviewWorkflow
           from projectkoios.workflow.persistence import SQLiteAtomicRevisionStore
           from projectkoios.workflow.reference_review import (

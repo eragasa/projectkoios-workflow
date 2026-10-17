@@ -37,7 +37,12 @@ from runtime adoption.
 Detailed bounded evidence remains indexed by the foundations task, including
 selected-binding construction, source authority, reservation, owner invocation,
 pure CPN firing, atomic persistence, compact replay, CPN refiring, lifecycle
-replay, safety-state reconstruction, and the real QE vertical slice.
+replay, safety-state reconstruction, and the real QE vertical slice. The
+[SDK reproducible artifact candidate](sdk_alpha_reproducible_artifact_candidate.md)
+separately records non-releasing wheel, metadata, installation, and owner
+compatibility evidence. The license-package correction is implemented and the
+operator selected retaining `0.1.0a1`; exact-revision corrected artifact
+evidence and any release authorization remain outstanding.
 
 That evidence establishes one pure atomic route. It does not establish public
 Task/Workflow SDK contracts, workflow-backed child runs, effect lifecycle,

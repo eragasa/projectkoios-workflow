@@ -9,6 +9,7 @@ description = "Consumer integration SDK for the Project Koios CPN workflow platf
 readme = "README.md"
 requires-python = ">=3.14"
 license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     { name = "Eugene Ragasa", email = "eugene@projectkoios.com" },
 ]

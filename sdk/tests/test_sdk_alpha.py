@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import inspect
 import json
+import tomllib
 from dataclasses import FrozenInstanceError, replace
+from pathlib import Path
 from typing import Any
 
 import projectkoios.workflow_sdk as sdk_root
@@ -60,6 +62,20 @@ from projectkoios.workflow_sdk.serialization import (
     WorkflowIntegrationManifestJsonCodec,
     WorkflowTransitionFirerBindingJsonCodec,
 )
+
+_SDK_ROOT = Path(__file__).resolve().parents[1]
+_LICENSE_SHA256 = "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+
+
+def test_distribution_license_policy_is_exact() -> None:
+    sdk_license = (_SDK_ROOT / "LICENSE").read_bytes()
+    pyproject = tomllib.loads(
+        (_SDK_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    )
+
+    assert hashlib.sha256(sdk_license).hexdigest() == _LICENSE_SHA256
+    assert pyproject["project"]["license"] == "Apache-2.0"
+    assert pyproject["project"]["license-files"] == ["LICENSE"]
 
 
 def test_public_symbol_inventory_is_exact() -> None:

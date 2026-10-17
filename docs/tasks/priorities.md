@@ -38,6 +38,12 @@ not a replacement for calculator registration, submission, or reconciliation.
 - The QE adversarial matrix now binds exact intermediate identities, maps current
   negative coverage, and proves reopened post-replay absence of exact owner
   bytes and private owner values without adding runtime infrastructure.
+- The standalone SDK now has a two-build reproducible non-release artifact
+  candidate with exact source, `RECORD`, clean-install, and Simulations
+  compatibility evidence. Its license-package defect is corrected and locally
+  validated, and the operator selected retaining `0.1.0a1`; exact-revision
+  corrected artifact evidence is still required. The candidate is not
+  canonical and no release is authorized.
 - Compact replay, CPN refiring, lifecycle replay, and bounded safety-state
   reconstruction do not reinvoke the owner.
 
